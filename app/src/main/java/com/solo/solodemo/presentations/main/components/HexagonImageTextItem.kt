@@ -1,4 +1,4 @@
-package com.solo.solodemo.components
+package com.solo.solodemo.presentations.main.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,12 +23,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.solo.solodemo.components.HexagonShape
 import com.solo.solodemo.model.Menus
 
 @Composable
 fun HexagonImageTextItem(index: Int, modifier: Modifier = Modifier) {
     val menuList = Menus.entries.toTypedArray()
-    val myShape = HexagonShape()
     Box(
         modifier = modifier
             .size(200.dp)
@@ -39,7 +39,7 @@ fun HexagonImageTextItem(index: Int, modifier: Modifier = Modifier) {
             .fillMaxSize()
             .graphicsLayer {
                 shadowElevation = 8.dp.toPx()
-                shape = myShape
+                shape = HexagonShape()
                 clip = true
                 rotationZ = 30f
             }

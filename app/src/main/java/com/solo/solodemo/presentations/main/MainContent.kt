@@ -18,11 +18,11 @@ fun MainContent(
     navController: NavHostController
     ) {
     NavHost(navController = navController, startDestination = ScreensRoutes.Home.route){
-        homeRoute()
+        homeRoute(paddingValues = paddingValues)
         menuRoute(paddingValues = paddingValues)
-        paymentRoute()
-        cartRoute()
-        accountRoute()
+        paymentRoute(paddingValues = paddingValues)
+        cartRoute(paddingValues = paddingValues)
+        accountRoute(paddingValues = paddingValues)
     }
 
 

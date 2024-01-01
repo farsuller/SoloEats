@@ -4,6 +4,7 @@ import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
@@ -19,16 +20,22 @@ import com.solo.solodemo.model.MainBottomNavigationItem
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 internal fun MainBottomNavBar(
-
+    onTabSelected: (String) -> Unit ,
     navController: NavHostController
 ) {
     var selectedBottomNavItemIndex by rememberSaveable { mutableIntStateOf(0) }
     NavigationBar {
         MainBottomNavigationItem.entries.forEachIndexed { index, item ->
             NavigationBarItem(
-                label = { Text(text = item.title) },
+                label = {
+                    Text(
+                        text = item.title,
+                        color = if (index == selectedBottomNavItemIndex) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                },
                 selected = selectedBottomNavItemIndex == index,
                 onClick = {
+                    onTabSelected(item.title)
                     selectedBottomNavItemIndex = index
                     navController.navigate(item.route) {
                         popUpTo(navController.graph.findStartDestination().id)
@@ -48,7 +55,8 @@ internal fun MainBottomNavBar(
                         Icon(
                             imageVector = if (index == selectedBottomNavItemIndex) item.selectedIcon
                             else item.unSelectedIcon,
-                            contentDescription = item.title
+                            contentDescription = item.title,
+                            tint = if (index == selectedBottomNavItemIndex) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.onPrimaryContainer
                         )
                     }
                 })
