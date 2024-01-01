@@ -1,4 +1,4 @@
-package com.solodemo.auth.login
+package com.solodemo.auth.presenations.login
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -8,7 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.solodemo.auth.login.LoginContent
+import com.solodemo.auth.presenations.login.LoginContent
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

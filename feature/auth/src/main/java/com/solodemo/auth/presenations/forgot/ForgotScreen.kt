@@ -1,4 +1,4 @@
-package com.solodemo.auth.forgot
+package com.solodemo.auth.presenations.forgot
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background

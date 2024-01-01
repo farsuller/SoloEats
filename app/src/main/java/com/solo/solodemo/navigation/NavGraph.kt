@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.solo.util.routes.ScreensRoutes
-import com.solodemo.auth.forgot.forgotRoute
-import com.solodemo.auth.login.loginRoute
-import com.solodemo.auth.signup.signUpRoute
+import com.solodemo.auth.presenations.forgot.forgotRoute
+import com.solodemo.auth.presenations.login.loginRoute
+import com.solodemo.auth.presenations.signup.signUpRoute
 import com.solodemo.main.mainRoute
 
 

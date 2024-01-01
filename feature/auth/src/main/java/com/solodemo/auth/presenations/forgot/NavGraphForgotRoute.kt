@@ -1,4 +1,4 @@
-package com.solodemo.auth.forgot
+package com.solodemo.auth.presenations.forgot
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable

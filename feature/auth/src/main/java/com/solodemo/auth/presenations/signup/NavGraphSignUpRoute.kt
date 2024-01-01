@@ -1,4 +1,4 @@
-package com.solodemo.auth.signup
+package com.solodemo.auth.presenations.signup
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable

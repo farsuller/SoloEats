@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlinAndroid)
+    id("dagger.hilt.android.plugin")
+    kotlin("kapt")
 }
 
 android {
@@ -59,6 +61,8 @@ dependencies {
 
     implementation (libs.material.icons.extended)
     implementation(libs.coil.compose)
+
+    hilt()
 
     implementation(libs.appcompat)
     implementation(libs.material)

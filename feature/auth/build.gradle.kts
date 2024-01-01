@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlinAndroid)
+    id("dagger.hilt.android.plugin")
+    kotlin("kapt")
+    kotlin("plugin.serialization") version "1.9.21"
 }
 
 android {
@@ -63,6 +66,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    hilt()
+
+    implementation(libs.postgrest.kt)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.kotlinx.serialization.json)
 
     implementation(project(":common:components"))
     implementation(project(":core:util"))

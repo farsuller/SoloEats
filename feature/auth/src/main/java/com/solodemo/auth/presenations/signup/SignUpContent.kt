@@ -1,4 +1,4 @@
-package com.solodemo.auth.signup
+package com.solodemo.auth.presenations.signup
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
