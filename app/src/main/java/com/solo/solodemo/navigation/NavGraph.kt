@@ -3,11 +3,11 @@ package com.solo.solodemo.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.solo.solodemo.ScreensRoutes
-import com.solo.solodemo.presentations.auth.forgot.forgotRoute
-import com.solo.solodemo.presentations.auth.login.loginRoute
-import com.solo.solodemo.presentations.auth.signup.signUpRoute
-import com.solo.solodemo.presentations.main.mainRoute
+import com.solo.util.routes.ScreensRoutes
+import com.solodemo.auth.forgot.forgotRoute
+import com.solodemo.auth.login.loginRoute
+import com.solodemo.auth.signup.signUpRoute
+import com.solodemo.main.mainRoute
 
 
 @Composable
@@ -27,11 +27,9 @@ fun SetupNavGraph(
                 navHostController.navigate(ScreensRoutes.Main.route)
             },
             navigateToSignUp = {
-
                 navHostController.navigate(ScreensRoutes.SignUp.route)
             },
             navigateToForgot = {
-
                 navHostController.navigate(ScreensRoutes.Forgot.route)
             },
             onDataLoaded = onDataLoaded

@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("dagger.hilt.android.plugin")
+    kotlin("kapt")
 }
 
 android {
@@ -77,4 +79,10 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
+    hilt()
+
+    implementation(project(":feature:auth"))
+    implementation(project(":feature:main"))
+    implementation(project(":common:components"))
+    implementation(project(":core:util"))
 }

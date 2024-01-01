@@ -16,6 +16,7 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import com.solo.solodemo.navigation.SetupNavGraph
 import com.solo.solodemo.theme.SoloDemoTheme
+import com.solo.util.routes.ScreensRoutes
 
 
 class MainActivity : ComponentActivity() {

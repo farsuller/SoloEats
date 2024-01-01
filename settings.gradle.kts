@@ -15,3 +15,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "SoloDemo"
 include(":app")
+include(":core:util")
+include(":feature:auth")
+include(":common:components")
+include(":feature:main")
+include(":core:ui")
