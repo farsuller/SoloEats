@@ -12,7 +12,7 @@ import com.solo.solodemo.ScreensRoutes
 fun NavGraphBuilder.menuRoute(paddingValues: PaddingValues) {
     composable(route = ScreensRoutes.Menu.route) {
 
-        MenuSelectionScreen(modifier = Modifier
+        MenusScreen(modifier = Modifier
             .padding(start = 40.dp)
             .fillMaxSize()
             .padding(top = paddingValues.calculateTopPadding())

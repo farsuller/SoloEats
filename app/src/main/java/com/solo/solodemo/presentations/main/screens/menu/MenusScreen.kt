@@ -18,7 +18,7 @@ import com.solo.solodemo.presentations.main.components.HexagonBackGroundItem
 import com.solo.solodemo.utils.clickableWithoutRipple
 
 @Composable
-fun MenuSelectionScreen(modifier: Modifier = Modifier) {
+fun MenusScreen(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val menuList = Menus.entries.toTypedArray()
 
