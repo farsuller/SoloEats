@@ -1,5 +1,6 @@
 package com.solodemo.auth.login
 
+import androidx.activity.viewModels
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -14,7 +15,7 @@ fun NavGraphBuilder.loginRoute(
     onDataLoaded: () -> Unit
 ) {
     composable(route = ScreensRoutes.Auth.route) {
-
+        private val viewModel by viewModels<MainViewModel>()
         LaunchedEffect(key1 = Unit) {
             onDataLoaded()
         }
