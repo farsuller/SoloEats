@@ -11,10 +11,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.solodemo.main.components.MainBottomNavBar
 import com.solodemo.main.components.MainTopBar
+import com.solodemo.supabase.repository.Menus
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-internal fun MainScreen(navController: NavHostController = rememberNavController()) {
+internal fun MainScreen(
+    menus: Menus,
+    navController: NavHostController = rememberNavController()) {
 
     var selectedTab by remember { mutableStateOf("Home") }
     Scaffold(
@@ -25,7 +28,7 @@ internal fun MainScreen(navController: NavHostController = rememberNavController
             MainBottomNavBar(navController = navController, onTabSelected = {tab -> selectedTab = tab })
         }
     ){
-        MainContent(paddingValues = it, navController = navController)
+        MainContent(paddingValues = it, navController = navController, menus = menus)
     }
 }
 

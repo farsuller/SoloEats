@@ -34,7 +34,7 @@ fun SetupNavGraph(
             },
             onDataLoaded = onDataLoaded
         )
-        mainRoute()
+        mainRoute(onDataLoaded = onDataLoaded)
         signUpRoute(onButtonClicked = { navHostController.popBackStack() })
         forgotRoute(onButtonClicked = { navHostController.popBackStack() })
 

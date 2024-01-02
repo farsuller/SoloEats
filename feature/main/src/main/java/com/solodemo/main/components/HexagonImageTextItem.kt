@@ -24,10 +24,10 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.solodemo.main.model.Menus
+import com.solodemo.supabase.model.Menu
 
 @Composable
-fun HexagonImageTextItem(index: Int, modifier: Modifier = Modifier) {
-    val menuList = Menus.entries.toTypedArray()
+fun HexagonImageTextItem(index: Int, modifier: Modifier = Modifier, menus: List<Menu>) {
     Box(
         modifier = modifier
             .size(200.dp)
@@ -52,7 +52,7 @@ fun HexagonImageTextItem(index: Int, modifier: Modifier = Modifier) {
                     .offset(x = (-5).dp)
                     .height(100.dp),
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(menuList[index].menuImage)
+                    .data(menus[index].menuImage)
                     .crossfade(true).build(),
                 contentDescription = "Logo",
                 contentScale = ContentScale.Fit
@@ -63,7 +63,7 @@ fun HexagonImageTextItem(index: Int, modifier: Modifier = Modifier) {
                     .padding(top = 10.dp)
                     .rotate(-30f)
                     .offset(x = 25.dp),
-                text = menuList[index].text,
+                text = menus[index].menuName ?: "Default",
                 fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
                 fontWeight = FontWeight.SemiBold,
                 fontSize = MaterialTheme.typography.titleMedium.fontSize,

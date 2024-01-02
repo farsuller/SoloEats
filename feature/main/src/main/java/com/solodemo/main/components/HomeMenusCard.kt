@@ -19,11 +19,11 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.solo.ui.Elevation
 import com.solo.util.clickableWithoutRipple
-import com.solodemo.main.model.Menus
+import com.solodemo.supabase.model.Menu
 
 
 @Composable
-fun HomeMenusCard(menus: Menus) {
+fun HomeMenusCard(index : Int, menus: List<Menu>, onClick :()-> Unit) {
 
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level4),
@@ -32,43 +32,37 @@ fun HomeMenusCard(menus: Menus) {
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
     ) {
 
-        HomeMenusCardItem(menus = menus, onClick = {})
-
-    }
-
-
-}
-
-@Composable
-fun HomeMenusCardItem(menus: Menus, onClick: () -> Unit) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(all = 20.dp)
-            .clickableWithoutRipple(
-                interactionSource = MutableInteractionSource(),
-                onClick = { onClick() }
-            )
-    )
-    {
-        AsyncImage(
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
-                .size(100.dp),
-            model = menus.menuImage,
-            contentScale = ContentScale.Fit,
-            contentDescription = menus.text,
-            alignment = Alignment.TopCenter
+                .padding(all = 20.dp)
+                .clickableWithoutRipple(
+                    interactionSource = MutableInteractionSource(),
+                    onClick = { onClick() }
+                )
         )
+        {
+            AsyncImage(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .size(100.dp),
+                model = menus[index].menuImage,
+                contentScale = ContentScale.Fit,
+                contentDescription = menus[index].menuName,
+                alignment = Alignment.TopCenter
+            )
 
-        Text(
-            text = menus.text,
-            textAlign = TextAlign.Center,
-            fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
-            fontSize = MaterialTheme.typography.titleMedium.fontSize,
-            color = MaterialTheme.colorScheme.onSurface,
-        )
+            Text(
+                text = menus[index].menuName ?: "Default",
+                textAlign = TextAlign.Center,
+                fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
+                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        }
 
     }
+
+
 }
