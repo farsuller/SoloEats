@@ -18,7 +18,10 @@ import com.solodemo.supabase.domain.repository.Menus
 @Composable
 internal fun MainScreen(
     menus: Menus,
-    navController: NavHostController = rememberNavController()) {
+    navController: NavHostController = rememberNavController(),
+    viewModel: MainViewModel,
+    navigateToAuth: () -> Unit
+) {
 
     var selectedTab by remember { mutableStateOf("Home") }
     Scaffold(
@@ -26,10 +29,18 @@ internal fun MainScreen(
             MainTopBar(selectedTab = selectedTab)
         },
         bottomBar = {
-            MainBottomNavBar(navController = navController, onTabSelected = {tab -> selectedTab = tab })
+            MainBottomNavBar(
+                navController = navController,
+                onTabSelected = { tab -> selectedTab = tab })
         }
-    ){
-        MainContent(paddingValues = it, navController = navController, menus = menus)
+    ) {
+        MainContent(
+            paddingValues = it,
+            navController = navController,
+            menus = menus,
+            viewModel = viewModel,
+            navigateToAuth = navigateToAuth
+        )
     }
 }
 

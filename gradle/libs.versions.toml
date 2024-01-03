@@ -3,6 +3,7 @@ activity-compose = "1.8.2"
 androidx-junit = "1.1.5"
 coil-compose = "2.5.0"
 core-ktx = "1.12.0"
+datastore-preferences = "1.0.0-alpha06"
 espresso-core = "3.5.1"
 junit = "4.13.2"
 kotlinx-serialization-json = "1.6.2"
@@ -19,6 +20,7 @@ postgrest-kt = "2.0.3"
 splash = "1.0.1"
 navigation-compose = "2.7.6"
 material-icons-extended = "1.5.4"
+datastore-preferences-core = "1.0.0"
 
 [libraries]
 androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
@@ -29,6 +31,7 @@ androidx-compose-material3 = { module = "androidx.compose.material3:material3"}
 androidx-compose-ui-test = { module = "androidx.compose.ui:ui-test-junit4"}
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling"}
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest"}
+datastore-preferences = { module = "com.squareup.datastore:datastore-preferences", version.ref = "datastore-preferences" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor-client-cio" }
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
@@ -46,6 +49,7 @@ orbital = { module = "com.github.skydoves:orbital", version.ref = "orbital" }
 postgrest-kt = { module = "io.github.jan-tennert.supabase:postgrest-kt", version.ref = "postgrest-kt" }
 splash-api = { module = "androidx.core:core-splashscreen", version.ref = "splash"}
 material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "material-icons-extended" }
+androidx-datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "datastore-preferences-core" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

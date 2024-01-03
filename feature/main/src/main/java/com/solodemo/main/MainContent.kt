@@ -18,13 +18,20 @@ fun MainContent(
     paddingValues: PaddingValues,
     navController: NavHostController,
     menus: Menus,
+    viewModel : MainViewModel,
+    navigateToAuth: () -> Unit
     ) {
     NavHost(navController = navController, startDestination = ScreensRoutes.Home.route){
-        homeRoute(paddingValues = paddingValues, menus = menus)
-        menuRoute(paddingValues = paddingValues, menus = menus)
+        homeRoute(paddingValues = paddingValues,
+            menus = menus)
+        menuRoute(paddingValues = paddingValues,
+            menus = menus)
         paymentRoute(paddingValues = paddingValues)
         cartRoute(paddingValues = paddingValues)
-        accountRoute(paddingValues = paddingValues)
+        accountRoute(
+            paddingValues = paddingValues ,
+            viewModel = viewModel,
+            navigateToAuth = navigateToAuth)
     }
 
 

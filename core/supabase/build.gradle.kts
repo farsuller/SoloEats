@@ -52,10 +52,11 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
 
+
     implementation(libs.postgrest.kt)
     implementation(libs.ktor.client.cio)
     implementation(libs.kotlinx.serialization.json)
-
+    implementation("io.github.jan-tennert.supabase:gotrue-kt:2.0.3")
     hilt()
 
     testImplementation(libs.junit)

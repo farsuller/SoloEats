@@ -75,4 +75,6 @@ dependencies {
 
     implementation(project(":common:components"))
     implementation(project(":core:util"))
+    implementation(project(":core:ui"))
+    implementation(project(":core:supabase"))
 }

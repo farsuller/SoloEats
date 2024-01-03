@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import com.solo.util.routes.ScreensRoutes
 import com.solo.components.state.RequestState
 
-fun NavGraphBuilder.mainRoute(onDataLoaded: () -> Unit,) {
+fun NavGraphBuilder.mainRoute(onDataLoaded: () -> Unit, navigateToAuth: () -> Unit) {
     composable(route = ScreensRoutes.Main.route) {
 
         val viewModel = hiltViewModel<MainViewModel>()
@@ -20,6 +20,6 @@ fun NavGraphBuilder.mainRoute(onDataLoaded: () -> Unit,) {
             }
         }
 
-        MainScreen(menus = menusList)
+        MainScreen(menus = menusList, viewModel = viewModel, navigateToAuth = navigateToAuth)
     }
 }

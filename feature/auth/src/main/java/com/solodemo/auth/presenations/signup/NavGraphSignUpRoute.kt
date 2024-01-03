@@ -4,10 +4,12 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.solo.util.routes.ScreensRoutes
 
-fun NavGraphBuilder.signUpRoute(onButtonClicked: () -> Unit,) {
+fun NavGraphBuilder.signUpRoute(onBackPressClicked: () -> Unit) {
     composable(route = ScreensRoutes.SignUp.route) {
-        SignUpScreen(onButtonClicked = {
-            onButtonClicked()
-        })
+
+        SignUpScreen(
+            onBackPressClicked = onBackPressClicked,
+            onSubmitButtonClicked = {}
+        )
     }
 }

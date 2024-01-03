@@ -34,8 +34,12 @@ fun SetupNavGraph(
             },
             onDataLoaded = onDataLoaded
         )
-        mainRoute(onDataLoaded = onDataLoaded)
-        signUpRoute(onButtonClicked = { navHostController.popBackStack() })
+        mainRoute(onDataLoaded = onDataLoaded,
+            navigateToAuth = {
+            navHostController.popBackStack()
+            navHostController.navigate(ScreensRoutes.Auth.route)
+        })
+        signUpRoute(onBackPressClicked = { navHostController.popBackStack() })
         forgotRoute(onButtonClicked = { navHostController.popBackStack() })
 
     }

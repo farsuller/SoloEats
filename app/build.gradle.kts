@@ -68,7 +68,6 @@ dependencies {
 
     implementation (libs.splash.api)
 
-
     implementation(libs.postgrest.kt)
     implementation(libs.ktor.client.cio)
     implementation(libs.kotlinx.serialization.json)

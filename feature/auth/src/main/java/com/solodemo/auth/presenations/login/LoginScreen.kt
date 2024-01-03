@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.solodemo.auth.presenations.AuthViewModel
 import com.solodemo.auth.presenations.login.LoginContent
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -15,7 +16,8 @@ import com.solodemo.auth.presenations.login.LoginContent
 internal fun LoginScreen(
     onGoogleButtonClicked : () -> Unit,
     onForgotButtonClicked: () -> Unit,
-    onSignUpButtonClicked: () -> Unit){
+    onSignUpButtonClicked: () -> Unit,
+    authViewModel : AuthViewModel){
     Scaffold(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.surface)
@@ -25,8 +27,8 @@ internal fun LoginScreen(
            LoginContent(
                onGoogleButtonClicked = onGoogleButtonClicked,
                onForgotButtonClicked = onForgotButtonClicked,
-               onSignUpButtonClicked = onSignUpButtonClicked
-           )
+               onSignUpButtonClicked = onSignUpButtonClicked,
+               authViewModel = authViewModel)
        }
     )
 

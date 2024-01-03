@@ -14,18 +14,19 @@ import com.solo.components.topbar.GenericBackTopBar
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 internal fun SignUpScreen(
-    onButtonClicked : () -> Unit){
+    onBackPressClicked : () -> Unit,
+    onSubmitButtonClicked: () -> Unit){
     Scaffold(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.surface)
             .statusBarsPadding()
             .navigationBarsPadding(),
         topBar = {
-            GenericBackTopBar(onBackButton = { onButtonClicked() })
+            GenericBackTopBar(onBackButton = { onBackPressClicked() })
         },
        content = {
            SignUpContent(
-               onButtonClicked = onButtonClicked
+               onSubmitButtonClicked = onSubmitButtonClicked
            )
        }
     )

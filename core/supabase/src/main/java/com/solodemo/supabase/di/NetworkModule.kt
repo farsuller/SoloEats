@@ -1,14 +1,15 @@
 package com.solodemo.supabase.di
 
 import com.solodemo.supabase.di.data.SupabaseDataSource
-import com.solodemo.supabase.di.repository.MenusRepositoryImpl
-import com.solodemo.supabase.domain.repository.MenusRepository
+import com.solodemo.supabase.di.repository.SupabaseRepositoryImpl
+import com.solodemo.supabase.domain.repository.SupabaseRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
+import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.postgrest.Postgrest
 import javax.inject.Singleton
 
@@ -25,6 +26,7 @@ object NetworkModule {
             supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndhbnZrZWd3aG93eHdraGllamduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDQwNzg4ODAsImV4cCI6MjAxOTY1NDg4MH0.4kaP8VB2iccjoDxb0K3rBrTW2XxdYQBhmO9KC5nK6fg")
         {
             install(Postgrest)
+            install(Auth)
         }
     }
 
@@ -36,8 +38,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMenusRepository(supabaseDataSource: SupabaseDataSource) : MenusRepository {
-        return MenusRepositoryImpl(supabaseDataSource = supabaseDataSource)
+    fun provideMenusRepository(supabaseDataSource: SupabaseDataSource) : SupabaseRepository {
+        return SupabaseRepositoryImpl(supabaseDataSource = supabaseDataSource)
     }
 
 }

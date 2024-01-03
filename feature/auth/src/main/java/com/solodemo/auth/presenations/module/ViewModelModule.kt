@@ -1,8 +1,7 @@
-package com.solodemo.main.module
+package com.solodemo.auth.presenations.module
 
 import android.app.Application
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.solodemo.main.MainViewModel
+import com.solodemo.auth.presenations.AuthViewModel
 import com.solodemo.supabase.di.repository.SupabaseRepositoryImpl
 import dagger.Module
 import dagger.Provides
@@ -14,7 +13,7 @@ import dagger.hilt.android.components.ViewModelComponent
 object ViewModelModule {
 
     @Provides
-    fun provideMainViewModule(supaBaseRepository: SupabaseRepositoryImpl, application: Application) : MainViewModel {
-        return MainViewModel(supaBaseRepository, application)
+    fun provideAuthViewModule(supaBaseRepository: SupabaseRepositoryImpl, application: Application) : AuthViewModel {
+        return AuthViewModel(supaBaseRepository, application)
     }
 }

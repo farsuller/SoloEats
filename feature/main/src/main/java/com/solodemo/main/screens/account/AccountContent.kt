@@ -2,6 +2,7 @@ package com.solodemo.main.screens.account
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -15,13 +16,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.solodemo.main.MainViewModel
 
 
 @Composable
 internal fun AccountContent(
-    onButtonClicked: () -> Unit
-) {
+    onButtonClicked: () -> Unit,
+    paddingValues : PaddingValues) {
     Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = paddingValues.calculateTopPadding())
+            .padding(bottom = paddingValues.calculateBottomPadding()),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -59,9 +65,9 @@ internal fun AccountContent(
                 verticalArrangement = Arrangement.Bottom,
             ) {
                 Button(
-                    onClick = onButtonClicked
+                    onClick = { onButtonClicked() }
                 ){
-                    Text(text = "Next")
+                    Text(text = "Sign out")
                 }
             }
         }
