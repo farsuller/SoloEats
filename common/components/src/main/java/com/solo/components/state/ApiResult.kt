@@ -1,4 +1,4 @@
-package com.solodemo.supabase.model
+package com.solo.components.state
 
 sealed class ApiResult<out R> {
 

@@ -1,8 +1,8 @@
 package com.solodemo.supabase.di
 
-import com.solodemo.supabase.data.MenusDataSource
-import com.solodemo.supabase.repository.DefaultMenusRepository
-import com.solodemo.supabase.repository.MenusRepository
+import com.solodemo.supabase.di.data.SupabaseDataSource
+import com.solodemo.supabase.di.repository.MenusRepositoryImpl
+import com.solodemo.supabase.domain.repository.MenusRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,14 +30,14 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideUserDataSource(client: SupabaseClient): MenusDataSource {
-        return MenusDataSource(client)
+    fun provideSupabaseDataSource(client: SupabaseClient): SupabaseDataSource {
+        return SupabaseDataSource(supaBaseClient = client)
     }
 
     @Provides
     @Singleton
-    fun provideMenusRepository(menusDataSource: MenusDataSource) : MenusRepository {
-        return DefaultMenusRepository(menusDataSource)
+    fun provideMenusRepository(supabaseDataSource: SupabaseDataSource) : MenusRepository {
+        return MenusRepositoryImpl(supabaseDataSource = supabaseDataSource)
     }
 
 }

@@ -13,11 +13,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.solo.components.CircularLoadingIndicator
-import com.solo.components.EmptyPage
+import com.solo.components.loading.CircularLoadingIndicator
 import com.solodemo.main.components.HomeMenusCard
-import com.solodemo.supabase.model.RequestState
-import com.solodemo.supabase.repository.Menus
+import com.solo.components.state.RequestState
+import com.solodemo.supabase.domain.repository.Menus
 
 
 @Composable

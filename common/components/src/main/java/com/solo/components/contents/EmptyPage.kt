@@ -1,4 +1,4 @@
-package com.solo.components
+package com.solo.components.contents
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun EmptyPage(
+fun EmptyContent(
     title: String = "Something went Wrong",
     subtitle: String = "Try Again Later."
 ) {

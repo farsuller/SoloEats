@@ -11,7 +11,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.solodemo.main.components.MainBottomNavBar
 import com.solodemo.main.components.MainTopBar
-import com.solodemo.supabase.repository.Menus
+import com.solodemo.supabase.domain.repository.Menus
+
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

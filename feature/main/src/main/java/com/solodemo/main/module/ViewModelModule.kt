@@ -1,18 +1,19 @@
 package com.solodemo.main.module
 
 import com.solodemo.main.MainViewModel
-import com.solodemo.supabase.repository.DefaultMenusRepository
+import com.solodemo.supabase.di.repository.MenusRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.components.ViewModelComponent
 
 @Module
-@InstallIn(ActivityComponent::class)
+@InstallIn(ViewModelComponent::class)
 object ViewModelModule {
 
     @Provides
-    fun provideMainViewModule(userRepository: DefaultMenusRepository) : MainViewModel {
+    fun provideMainViewModule(userRepository: MenusRepositoryImpl) : MainViewModel {
         return MainViewModel(userRepository)
     }
 

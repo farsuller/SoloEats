@@ -6,12 +6,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.solo.util.routes.ScreensRoutes
-import com.solodemo.supabase.model.RequestState
+import com.solo.components.state.RequestState
 
 fun NavGraphBuilder.mainRoute(onDataLoaded: () -> Unit,) {
     composable(route = ScreensRoutes.Main.route) {
 
-        val viewModel: MainViewModel = hiltViewModel()
+        val viewModel = hiltViewModel<MainViewModel>()
         val menusList by viewModel.menus
 
         LaunchedEffect(key1 = menusList) {

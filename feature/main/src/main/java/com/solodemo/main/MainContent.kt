@@ -10,7 +10,7 @@ import com.solodemo.main.screens.cart.cartRoute
 import com.solodemo.main.screens.home.homeRoute
 import com.solodemo.main.screens.menu.menuRoute
 import com.solodemo.main.screens.payment.paymentRoute
-import com.solodemo.supabase.repository.Menus
+import com.solodemo.supabase.domain.repository.Menus
 
 
 @Composable

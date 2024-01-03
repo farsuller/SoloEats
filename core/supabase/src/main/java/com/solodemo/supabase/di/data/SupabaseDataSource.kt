@@ -1,14 +1,15 @@
-package com.solodemo.supabase.data
+package com.solodemo.supabase.di.data
 
+import com.solo.components.state.RequestState
 import com.solodemo.supabase.model.Menu
-import com.solodemo.supabase.model.RequestState
+
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.postgrest
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class MenusDataSource @Inject constructor(private val supaBaseClient: SupabaseClient) {
+class SupabaseDataSource @Inject constructor(private val supaBaseClient: SupabaseClient) {
 
     fun getMenus(): Flow<RequestState<List<Menu>>> {
         return flow {

@@ -1,4 +1,4 @@
-package com.solo.components
+package com.solo.components.loading
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
