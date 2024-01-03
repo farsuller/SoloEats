@@ -5,7 +5,7 @@ import com.solo.components.state.RequestState
 import kotlinx.coroutines.flow.Flow
 
 
-typealias Menus = com.solo.components.state.RequestState<List<Menu>>
+typealias Menus = RequestState<List<Menu>>
 
 interface MenusRepository {
     fun getMenus(): Flow<Menus>
