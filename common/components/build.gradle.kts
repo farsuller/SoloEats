@@ -58,6 +58,8 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
+    implementation(libs.coil.compose)
+
     implementation(libs.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)

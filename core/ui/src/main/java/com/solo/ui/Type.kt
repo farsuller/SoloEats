@@ -1,4 +1,4 @@
-package com.solo.ui.theme
+package com.solo.ui
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

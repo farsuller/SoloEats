@@ -1,9 +1,9 @@
-package com.solo.ui.theme
+package com.solo.ui
 
 import androidx.compose.ui.graphics.Color
 
-val md_theme_light_primary = Color(0xFFFFDB15)
-val md_theme_light_onPrimary = Color(0xFFFFFFFF)
+val md_theme_light_primary = Color(0xFFE79a10)
+val md_theme_light_onPrimary = Color(0xFFFFF9F6)
 val md_theme_light_primaryContainer = Color(0xFFD2E4FF)
 val md_theme_light_onPrimaryContainer = Color(0xFF001C37)
 val md_theme_light_secondary = Color(0xFFBF0016)

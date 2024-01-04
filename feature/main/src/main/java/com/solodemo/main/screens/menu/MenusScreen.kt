@@ -8,18 +8,16 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.solodemo.main.components.HexagonBackGroundItem
 
 import com.solodemo.supabase.model.Menu
-import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import com.solo.util.clickableWithoutRipple
-import com.solodemo.main.components.HexagonImageTextItem
+import com.solodemo.main.components.MenuHexagonItem
 
 @Composable
 fun MenusScreen(modifier: Modifier = Modifier, menus: List<Menu>) {
@@ -41,7 +39,7 @@ fun MenusScreen(modifier: Modifier = Modifier, menus: List<Menu>) {
                 val topPadding = if (index % 2 == 1) 90.dp else 0.dp
                 val startOffsetX = if (index % 2 == 1) (-40).dp else 0.dp
 
-                HexagonImageTextItem(
+                MenuHexagonItem(
                     index = index,
                     menus = filteredMenus,
                     modifier = Modifier

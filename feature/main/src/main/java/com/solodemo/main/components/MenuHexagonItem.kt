@@ -23,11 +23,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.solodemo.main.model.Menus
 import com.solodemo.supabase.model.Menu
 
 @Composable
-fun HexagonImageTextItem(index: Int, modifier: Modifier = Modifier, menus: List<Menu>) {
+fun MenuHexagonItem(index: Int, modifier: Modifier = Modifier, menus: List<Menu>) {
     Box(
         modifier = modifier
             .size(200.dp)
@@ -55,22 +54,29 @@ fun HexagonImageTextItem(index: Int, modifier: Modifier = Modifier, menus: List<
                     .data(menus[index].menuImage)
                     .crossfade(true).build(),
                 contentDescription = "Logo",
-                contentScale = ContentScale.Fit
-            )
+                contentScale = ContentScale.Fit)
 
-            Text(
-                modifier = Modifier
-                    .padding(top = 10.dp)
-                    .rotate(-30f)
-                    .offset(x = 25.dp),
-                text = menus[index].menuName ?: "Default",
-                fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                color = MaterialTheme.colorScheme.onSurface,
-                textAlign = TextAlign.Center,
-            )
+            TextItem(text = menus[index].menuName)
         }
 
     }
+}
+
+@Composable
+internal fun TextItem(text: String? = null) {
+
+    if (text != null) {
+        Text(modifier = Modifier
+                .padding(top = 10.dp)
+                .rotate(-30f)
+                .offset(x = 25.dp),
+            text = text,
+            fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = MaterialTheme.typography.titleMedium.fontSize,
+            color = MaterialTheme.colorScheme.onSurface,
+            textAlign = TextAlign.Center,
+        )
+    }
+
 }
