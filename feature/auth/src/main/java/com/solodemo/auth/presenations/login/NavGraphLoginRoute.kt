@@ -26,18 +26,11 @@ fun NavGraphBuilder.loginRoute(
 
             authViewModel.uiState.collectLatest { data->
                 when(data){
-                    RequestState.Loading -> {
-                        Log.d("MainActivity", "Loading")
-                    }
+                    RequestState.Loading -> {}
                     is RequestState.Success -> {
-                        val users = data.data
-
-                        Log.d("MainActivity", "${users} login success")
                         navigateToMain()
                     }
-                    is RequestState.Error -> {
-                        Log.d("MainActivity", "${data.error.message}")
-                    }
+                    is RequestState.Error -> {}
                     else ->{}
                 }
             }

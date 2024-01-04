@@ -1,6 +1,7 @@
 package com.solo.solodemo.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.solo.util.routes.ScreensRoutes
