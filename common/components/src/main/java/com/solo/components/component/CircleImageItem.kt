@@ -1,10 +1,18 @@
 package com.solo.components.component
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
@@ -21,37 +29,25 @@ import com.solo.components.shapes.HexagonShape
 import com.solo.components.shapes.drawCustomHexagonPath
 
 @Composable
-fun HexagonImageItem(
+fun CircleImageItem(
     modifier: Modifier = Modifier,
-    hexagonSize : Dp = 200.dp,
+    shapeSize : Dp = 200.dp,
     imageFile :String,
     borderColor: Color) {
 
-    Box(modifier = modifier
-        .rotate(30f)
-        .drawWithContent {
-            drawContent()
-            drawPath(
-                path = drawCustomHexagonPath(size),
-                color = borderColor,
-                style = Stroke(
-                    width = 7.dp.toPx(),
-                    pathEffect = PathEffect.cornerPathEffect(40f)
-                )
-            )
-        }
-        .wrapContentSize()
+    Box(
+        modifier = Modifier
+            .size(300.dp)
+            .border(width = 7.dp, color = borderColor, shape = CircleShape)
+            .padding(1.dp)
+            .clip(CircleShape),
+        contentAlignment = Alignment.Center
     ){
-        Box(modifier = Modifier
-            .size(hexagonSize)
-            .graphicsLayer {
-                shape = HexagonShape()
-                clip = true
-            }
-        ) {
 
-            AsyncImage(modifier = Modifier
-                .rotate(-30f),
+            AsyncImage(
+                modifier = Modifier
+                    .size(300.dp)
+                    .clip(shape = CircleShape),
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(imageFile)
                     .crossfade(true).build(),
@@ -60,5 +56,5 @@ fun HexagonImageItem(
 
 
         }
-    }
+
 }

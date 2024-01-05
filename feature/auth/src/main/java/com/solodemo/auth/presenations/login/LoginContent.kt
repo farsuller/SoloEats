@@ -18,7 +18,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -44,23 +43,21 @@ import com.solo.components.buttons.GoogleButton
 import com.solo.ui.WaterBrush
 import com.solo.util.clickableWithoutRipple
 import com.solodemo.auth.presenations.AuthViewModel
-import com.solodemo.auth.presenations.login.components.ClickableBottomText
+import com.solo.components.component.ClickableBottomText
+import com.solo.util.isValidEmail
 import com.solodemo.auth.presenations.login.components.LoginBackground
 import com.solodemo.auth.presenations.login.components.LoginHeader
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun LoginContent(
     onGoogleButtonClicked: () -> Unit,
     onForgotButtonClicked: () -> Unit,
     onSignUpButtonClicked: () -> Unit,
-    authViewModel: AuthViewModel
-
-) {
+    authViewModel: AuthViewModel) {
     val focusManager = LocalFocusManager.current
-    var username by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var isUsernameValid by remember { mutableStateOf(true) }
+    var isEmailValid by remember { mutableStateOf(true) }
     var isPasswordValid by remember { mutableStateOf(true) }
 
     Box(modifier = Modifier
@@ -106,16 +103,16 @@ internal fun LoginContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 8.dp),
-                    value = username,
+                    value = email,
                     onValueChange = {
-                        username = it
-                        isUsernameValid = it.isNotEmpty()
+                        email = it
+                        isEmailValid = isValidEmail(it)
                     },
                     label = { Text("Email") },
                     colors = OutlinedTextFieldDefaults.colors(
                         unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
                     ),
-                    isError = !isUsernameValid,
+                    isError = !isEmailValid,
                     singleLine = true,
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Email,
@@ -170,8 +167,8 @@ internal fun LoginContent(
 
 
                 Button(
-                    onClick = { authViewModel.signInEmail(email = username, password = password) },
-                    enabled = isUsernameValid && isPasswordValid,
+                    onClick = { authViewModel.signInEmail(email = email, password = password) },
+                    enabled = isEmailValid && isPasswordValid,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 10.dp),
@@ -198,7 +195,10 @@ internal fun LoginContent(
                 onClick = onGoogleButtonClicked
             )
 
-            ClickableBottomText(onClick = { onSignUpButtonClicked() })
+            ClickableBottomText(
+                onClick = { onSignUpButtonClicked() },
+                appendText = "Haven't Account? then ",
+                appendHighlightText = "Register Now")
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.solodemo.auth.presenations.login.components
+package com.solo.components.component
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.padding
@@ -12,17 +12,17 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.solo.util.clickableWithoutRipple
 
+
 @Composable
-fun ClickableBottomText(onClick: () -> Unit) {
+fun ClickableBottomText(onClick: () -> Unit, appendText:String = "", appendHighlightText :String = "") {
     val text = buildAnnotatedString {
-        append("Haven't Account? then ")
+        append(appendText)
         withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.secondary,
             fontFamily = MaterialTheme.typography.titleMedium.fontFamily,)
         ) {
-            append("Register Now")
+            append(appendHighlightText)
         }
     }
-
 
     Text(
         text = text,

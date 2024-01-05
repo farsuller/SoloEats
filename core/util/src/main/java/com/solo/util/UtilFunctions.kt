@@ -45,3 +45,8 @@ val provider = GoogleFont.Provider(
     providerPackage = "com.google.android.gms",
     certificates = R.array.com_google_android_gms_fonts_certs
 )
+
+fun isValidEmail(email: String): Boolean {
+    val emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\$"
+    return email.matches(emailRegex.toRegex())
+}

@@ -1,7 +1,9 @@
 package com.solodemo.auth.presenations.login
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -18,7 +20,7 @@ fun NavGraphBuilder.loginRoute(
     onDataLoaded: () -> Unit
 ) {
     composable(route = ScreensRoutes.Auth.route) {
-
+        val context = LocalContext.current
         val authViewModel = hiltViewModel<AuthViewModel>()
 
         LaunchedEffect(key1 = Unit) {
@@ -30,7 +32,9 @@ fun NavGraphBuilder.loginRoute(
                     is RequestState.Success -> {
                         navigateToMain()
                     }
-                    is RequestState.Error -> {}
+                    is RequestState.Error -> {
+                        Toast.makeText(context, "Invalid Login", Toast.LENGTH_SHORT).show()
+                    }
                     else ->{}
                 }
             }
