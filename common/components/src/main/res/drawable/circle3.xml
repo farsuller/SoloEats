@@ -1,0 +1,25 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="130.0"
+    android:viewportHeight="130.0">
+
+  <!-- Outer oval with padding and stroke -->
+  <path
+      android:fillColor="#00000000"
+      android:strokeWidth="3"
+      android:strokeColor="#E79a10"
+      android:pathData="M65,15
+                        a50,50 0 1,1 0,100
+                        a50,50 0 1,1 0,-100" />
+
+  <!-- Middle oval with padding and stroke -->
+  <path
+      android:fillColor="#00000000"
+      android:strokeWidth="2"
+      android:strokeColor="#832727"
+      android:pathData="M65,15
+                        a35,35 0 1,1 0,70
+                        a35,35 0 1,1 0,-70" />
+
+</vector>

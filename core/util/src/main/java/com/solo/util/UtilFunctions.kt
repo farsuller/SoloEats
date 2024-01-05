@@ -8,6 +8,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.core.content.pm.PackageInfoCompat
 
 @SuppressLint("UnnecessaryComposedModifier")
@@ -38,3 +39,9 @@ fun getAppVersion(context: Context): String {
         "version N/A"
     }
 }
+
+val provider = GoogleFont.Provider(
+    providerAuthority = "com.google.android.gms.fonts",
+    providerPackage = "com.google.android.gms",
+    certificates = R.array.com_google_android_gms_fonts_certs
+)

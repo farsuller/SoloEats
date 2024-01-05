@@ -39,7 +39,9 @@ class MainActivity : ComponentActivity() {
         installSplashScreen().setKeepOnScreenCondition { keepSplashOpened }
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            SoloDemoTheme(dynamicColor = false) {
+            SoloDemoTheme(
+                darkTheme = false,
+                dynamicColor = false) {
                 val navController = rememberNavController()
                 var getStartDestination by remember { mutableStateOf<String?>(null) }
 

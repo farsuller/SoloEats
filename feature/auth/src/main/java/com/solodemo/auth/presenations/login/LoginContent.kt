@@ -1,127 +1,122 @@
 package com.solodemo.auth.presenations.login
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DeveloperMode
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.solo.components.Constants
+import androidx.compose.ui.unit.sp
+import com.solo.components.R
 import com.solo.components.buttons.GoogleButton
-import com.solo.components.component.HexagonImageItem
-import com.solo.util.getAppVersion
-import com.solo.util.routes.ScreensRoutes
+import com.solo.ui.WaterBrush
+import com.solo.util.clickableWithoutRipple
 import com.solodemo.auth.presenations.AuthViewModel
+import com.solodemo.auth.presenations.login.components.ClickableBottomText
+import com.solodemo.auth.presenations.login.components.LoginBackground
+import com.solodemo.auth.presenations.login.components.LoginHeader
 
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun LoginContent(
     onGoogleButtonClicked: () -> Unit,
     onForgotButtonClicked: () -> Unit,
     onSignUpButtonClicked: () -> Unit,
-    authViewModel : AuthViewModel
+    authViewModel: AuthViewModel
 
 ) {
     val focusManager = LocalFocusManager.current
-    val appVersion = getAppVersion(LocalContext.current)
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isUsernameValid by remember { mutableStateOf(true) }
     var isPasswordValid by remember { mutableStateOf(true) }
 
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .background(color = MaterialTheme.colorScheme.onPrimary),
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(color = MaterialTheme.colorScheme.onPrimary)
+    ) {
+
+        LoginBackground()
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .padding(start = 40.dp, end = 40.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy((-90).dp),) {
-
-                HexagonImageItem(
-                    imageFile = Constants.LoginImages.spaghetti,
-                    borderColor = MaterialTheme.colorScheme.primary,
-                    hexagonSize = 160.dp,
-                    modifier = Modifier.offset(x = 75.dp))
-
-
-                    HexagonImageItem(
-                        imageFile = Constants.LoginImages.burger,
-                        borderColor = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.offset(x = (-65).dp)
-                    )
-
-
-
-                HexagonImageItem(
-                    imageFile = Constants.LoginImages.pizza,
-                    borderColor = MaterialTheme.colorScheme.primary,
-                    hexagonSize = 140.dp,
-                    modifier = Modifier.offset(x = 70.dp))
-            }
-
+            LoginHeader()
 
             Column(
-                modifier = Modifier
-                    .padding(start = 40.dp, end = 40.dp),
+                modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                Text(
-                    text = "App Name",
-                    color = MaterialTheme.colorScheme.onSurface,
-                    style = TextStyle(fontSize = MaterialTheme.typography.titleLarge.fontSize, fontWeight = FontWeight.Bold)
+                Row (modifier = Modifier.fillMaxWidth().height(50.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center) {
+                    Image(
+                        modifier = Modifier.size(40.dp),
+                        painter = painterResource(id = R.drawable.soloeats_logo),
+                        contentDescription = "App Logo")
 
-                )
+                    Text(modifier = Modifier.padding(horizontal = 10.dp),
+                        text = "SoloEats",
+                        fontFamily = WaterBrush,
+                        fontSize = 40.sp,
+                        color = MaterialTheme.colorScheme.secondary,
+                    )
+                }
                 OutlinedTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp),
                     value = username,
                     onValueChange = {
                         username = it
                         isUsernameValid = it.isNotEmpty()
                     },
-                    label = { Text("Username or Email") },
-                    leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
+                    label = { Text("Email") },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+                    ),
                     isError = !isUsernameValid,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 8.dp),
+                    singleLine = true,
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Email,
                         imeAction = ImeAction.Next
@@ -134,51 +129,77 @@ internal fun LoginContent(
                 )
 
                 OutlinedTextField(
+                    modifier = Modifier.fillMaxWidth(),
                     value = password,
                     onValueChange = {
                         password = it
                         isPasswordValid = it.isNotEmpty()
                     },
                     label = { Text("Password") },
-                    leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+                    ),
                     isError = !isPasswordValid,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp),
+                    singleLine = true,
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Password,
                         imeAction = ImeAction.Done
                     ),
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            // Handle login button click or perform any other action
-                            focusManager.clearFocus()
-                        }
-                    )
+                    keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
                 )
+
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp, bottom = 10.dp),
+                    contentAlignment = Alignment.CenterEnd
+                ) {
+                    Text(modifier = Modifier
+                            .clickableWithoutRipple(
+                                interactionSource = MutableInteractionSource(),
+                                onClick = { onForgotButtonClicked() }),
+                        text = "Forgot Password?",
+                        fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
+                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        textAlign = TextAlign.End
+                    )
+                }
+
+
                 Button(
                     onClick = { authViewModel.signInEmail(email = username, password = password) },
                     enabled = isUsernameValid && isPasswordValid,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Login")
-                }
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 10.dp),
+                    shape = RoundedCornerShape(5.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
 
-                GoogleButton(
-                    onClick = onGoogleButtonClicked
-                )
-                Button(
-                    onClick = onSignUpButtonClicked
-                ){
-                    Text(text = "Sign Up", color = MaterialTheme.colorScheme.onSurface)
-                }
-                Button(
-                    onClick = onForgotButtonClicked
-                ){
-                    Text(text = "Forgot Password", color = MaterialTheme.colorScheme.onSurface)
+                ) {
+                    Text(
+                        text = "Login",
+                        fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                        color = MaterialTheme.colorScheme.surface
+                    )
                 }
             }
+            Text(text = "OR",
+                fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                color = MaterialTheme.colorScheme.onSurface
+            )
 
+            GoogleButton(
+                modifier = Modifier.padding(top = 10.dp),
+                onClick = onGoogleButtonClicked
+            )
+
+            ClickableBottomText(onClick = { onSignUpButtonClicked() })
         }
+    }
 }
+

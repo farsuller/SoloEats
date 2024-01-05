@@ -3,15 +3,15 @@ package com.solo.ui
 import androidx.compose.ui.graphics.Color
 
 val md_theme_light_primary = Color(0xFFE79a10)
-val md_theme_light_onPrimary = Color(0xFFFFF9F6)
+val md_theme_light_onPrimary = Color(0xFFFAF6F4)
 val md_theme_light_primaryContainer = Color(0xFFD2E4FF)
 val md_theme_light_onPrimaryContainer = Color(0xFF001C37)
-val md_theme_light_secondary = Color(0xFFBF0016)
+val md_theme_light_secondary = Color(0xFF832727)
 val md_theme_light_onSecondary = Color(0xFFFFFFFF)
 val md_theme_light_secondaryContainer = Color(0xFFD6E3FF)
 val md_theme_light_onSecondaryContainer = Color(0xFF001B3D)
 val md_theme_light_tertiary = Color(0xFF6049C5)
-val md_theme_light_onTertiary = Color(0xFFFFFFFF)
+val md_theme_light_onTertiary = Color(0xFFF8DDCA)
 val md_theme_light_tertiaryContainer = Color(0xFFE6DEFF)
 val md_theme_light_onTertiaryContainer = Color(0xFF1C0062)
 val md_theme_light_error = Color(0xFFBA1A1A)
