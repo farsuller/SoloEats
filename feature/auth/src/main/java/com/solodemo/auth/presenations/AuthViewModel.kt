@@ -1,6 +1,7 @@
 package com.solodemo.auth.presenations
 
 import android.app.Application
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.solo.components.state.RequestState
@@ -26,6 +27,12 @@ class AuthViewModel @Inject constructor(
     val uiState: StateFlow<RequestState<*>>
         get() = _uiState
 
+    var loadingState  = mutableStateOf(false)
+        private set
+
+    fun setLoading(loading: Boolean){
+        loadingState.value = loading
+    }
 
     private val sharedPref = SharedPreferenceHelper(application)
 
@@ -33,8 +40,45 @@ class AuthViewModel @Inject constructor(
         viewModelScope.launch {
             repository.signInEmail(authEmail = email, authPassword = password)
                 .collectLatest { data ->
-                    _uiState.update { data }
-                    saveToken()
+                    when (data) {
+                        RequestState.Loading -> {
+                            _uiState.value = RequestState.Loading
+                        }
+
+                        is RequestState.Success -> {
+                            _uiState.value = RequestState.Success(data.data)
+                            saveToken()
+                        }
+
+                        is RequestState.Error -> {
+                            _uiState.value = RequestState.Error(data.error)
+                        }
+
+                        else -> {}
+                    }
+                }
+        }
+    }
+
+    fun signUpEmail(email: String, password: String) {
+        viewModelScope.launch {
+            repository.signUpEmail(authEmail = email, authPassword = password)
+                .collectLatest { data ->
+                    when (data) {
+                        RequestState.Loading -> {
+                            _uiState.value = RequestState.Loading
+                        }
+
+                        is RequestState.Success -> {
+                            _uiState.value = RequestState.Success(data)
+                        }
+
+                        is RequestState.Error -> {
+                            _uiState.value = RequestState.Error(data.error)
+                        }
+
+                        else -> {}
+                    }
                 }
         }
     }

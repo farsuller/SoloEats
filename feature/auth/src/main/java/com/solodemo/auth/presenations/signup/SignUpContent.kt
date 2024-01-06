@@ -2,6 +2,7 @@ package com.solodemo.auth.presenations.signup
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,18 +20,22 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
@@ -43,23 +48,32 @@ import com.solo.components.R
 import com.solo.ui.WaterBrush
 import com.solo.components.component.ClickableBottomText
 import com.solo.util.isValidEmail
+import com.solodemo.auth.presenations.AuthViewModel
 import com.solodemo.auth.presenations.login.components.LoginBackground
 import com.solodemo.auth.presenations.login.components.LoginHeader
 import com.solodemo.auth.presenations.signup.components.SignUpBackground
 import com.solodemo.auth.presenations.signup.components.SignUpHeader
 
-
 @Composable
-internal fun SignUpContent(onSubmitButtonClicked: () -> Unit, onHighlightTextClicked: () -> Unit) {
+internal fun SignUpContent(
+    onHighlightTextClicked: () -> Unit,
+    authViewModel: AuthViewModel
+) {
     val focusManager = LocalFocusManager.current
-    var fullName by remember { mutableStateOf("") }
+
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
-    var isFullNameValid by remember { mutableStateOf(true) }
-    var isEmailValid by remember { mutableStateOf(true) }
-    var isPasswordValid by remember { mutableStateOf(true) }
-    var isConfirmPasswordValid by remember { mutableStateOf(true) }
+
+    var isEmailValid by remember { mutableStateOf(false) }
+    var isPasswordValid by remember { mutableStateOf(false) }
+    var isConfirmPasswordValid by remember { mutableStateOf(false) }
+
+    val isNotMatching = remember {
+        derivedStateOf {
+            password != confirmPassword
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -69,10 +83,12 @@ internal fun SignUpContent(onSubmitButtonClicked: () -> Unit, onHighlightTextCli
 
         SignUpBackground()
 
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .offset(x = 90.dp, y = (0).dp)) {
-            SignUpHeader(imageFile = Constants.StaticImages.food,)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .offset(x = 90.dp, y = (0).dp)
+        ) {
+            SignUpHeader(imageFile = Constants.StaticImages.food)
         }
 
         Column(
@@ -84,11 +100,7 @@ internal fun SignUpContent(onSubmitButtonClicked: () -> Unit, onHighlightTextCli
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-
-            Box(
-                modifier = Modifier
-                    .weight(0.4F)
-            )
+            Box(modifier = Modifier.weight(0.4F))
 
             Column(
                 modifier = Modifier
@@ -98,13 +110,15 @@ internal fun SignUpContent(onSubmitButtonClicked: () -> Unit, onHighlightTextCli
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                Row (modifier = Modifier.fillMaxWidth()) {
+                Row(modifier = Modifier.fillMaxWidth()) {
                     Image(
                         modifier = Modifier.size(30.dp),
                         painter = painterResource(id = R.drawable.soloeats_logo),
-                        contentDescription = "App Logo")
+                        contentDescription = "App Logo"
+                    )
 
-                    Text(modifier = Modifier.padding(horizontal = 10.dp),
+                    Text(
+                        modifier = Modifier.padding(horizontal = 10.dp),
                         text = "Sign Up",
                         fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
                         fontSize = MaterialTheme.typography.titleLarge.fontSize,
@@ -116,41 +130,16 @@ internal fun SignUpContent(onSubmitButtonClicked: () -> Unit, onHighlightTextCli
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 8.dp),
-                    value = fullName,
-                    onValueChange = {
-                        fullName = it
-                        isFullNameValid = it.isNotEmpty()
-                    },
-                    label = { Text("Full Name") },
-                    colors = OutlinedTextFieldDefaults.colors(
-                        unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
-                    ),
-                    isError = !isFullNameValid,
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions.Default.copy(
-                        keyboardType = KeyboardType.Text,
-                        imeAction = ImeAction.Next
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onNext = {
-                            focusManager.moveFocus(FocusDirection.Down)
-                        }
-                    )
-                )
-
-                OutlinedTextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 8.dp),
                     value = email,
                     onValueChange = {
                         email = it
                         isEmailValid = isValidEmail(it)
-
                     },
                     label = { Text("Email") },
                     colors = OutlinedTextFieldDefaults.colors(
                         unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+                        errorBorderColor = MaterialTheme.colorScheme.secondary,
+                        errorLabelColor = MaterialTheme.colorScheme.onSurface
                     ),
                     isError = !isEmailValid,
                     singleLine = true,
@@ -162,7 +151,7 @@ internal fun SignUpContent(onSubmitButtonClicked: () -> Unit, onHighlightTextCli
                         onNext = {
                             focusManager.moveFocus(FocusDirection.Down)
                         }
-                    )
+                    ),
                 )
 
                 OutlinedTextField(
@@ -170,11 +159,13 @@ internal fun SignUpContent(onSubmitButtonClicked: () -> Unit, onHighlightTextCli
                     value = password,
                     onValueChange = {
                         password = it
-                        isPasswordValid = it == confirmPassword
+                        isPasswordValid = it.isNotEmpty()
                     },
                     label = { Text("Password") },
                     colors = OutlinedTextFieldDefaults.colors(
-                        unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.primary,
+                        errorBorderColor = MaterialTheme.colorScheme.secondary,
+                        errorLabelColor = MaterialTheme.colorScheme.onSurface
                     ),
                     isError = !isPasswordValid,
                     singleLine = true,
@@ -195,11 +186,13 @@ internal fun SignUpContent(onSubmitButtonClicked: () -> Unit, onHighlightTextCli
                     value = confirmPassword,
                     onValueChange = {
                         confirmPassword = it
-                        isConfirmPasswordValid = it == password
+                        isConfirmPasswordValid = it.isNotEmpty()
                     },
                     label = { Text("Confirm Password") },
                     colors = OutlinedTextFieldDefaults.colors(
                         unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+                        errorBorderColor = MaterialTheme.colorScheme.secondary,
+                        errorLabelColor = MaterialTheme.colorScheme.onSurface
                     ),
                     isError = !isConfirmPasswordValid,
                     singleLine = true,
@@ -213,8 +206,11 @@ internal fun SignUpContent(onSubmitButtonClicked: () -> Unit, onHighlightTextCli
 
 
                 Button(
-                    onClick = { onSubmitButtonClicked() },
-                    enabled = isEmailValid && isPasswordValid && isFullNameValid && isConfirmPasswordValid,
+                    onClick = {
+                        authViewModel.setLoading(true)
+                        authViewModel.signUpEmail(email = email, password = password,)
+                    },
+                    enabled = isEmailValid && isPasswordValid && isConfirmPasswordValid && !isNotMatching.value,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 10.dp)
@@ -223,12 +219,20 @@ internal fun SignUpContent(onSubmitButtonClicked: () -> Unit, onHighlightTextCli
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
 
                 ) {
-                    Text(
-                        text = "Submit",
-                        fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
-                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                        color = MaterialTheme.colorScheme.surface
-                    )
+                    if(authViewModel.loadingState.value) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(20.dp),
+                            color = MaterialTheme.colorScheme.surface
+                        )
+                    }
+                    else{
+                        Text(
+                            text = "Submit",
+                            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                            color = MaterialTheme.colorScheme.surface
+                        )
+                    }
                 }
 
                 ClickableBottomText(
@@ -239,13 +243,19 @@ internal fun SignUpContent(onSubmitButtonClicked: () -> Unit, onHighlightTextCli
             }
 
         }
-        Box(modifier = Modifier
-            .size(210.dp)
-            .offset(x = (-30).dp, y = 700.dp)) {
+        Box(
+            modifier = Modifier
+                .size(210.dp)
+                .offset(x = (-30).dp, y = 700.dp)
+        ) {
             SignUpHeader(
                 borderColor = MaterialTheme.colorScheme.secondary,
                 imageFile = Constants.StaticImages.fries,
-                alignment = Alignment.Start)
+                alignment = Alignment.Start
+            )
         }
     }
+
+
+
 }

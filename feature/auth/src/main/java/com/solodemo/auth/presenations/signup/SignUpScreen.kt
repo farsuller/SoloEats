@@ -29,7 +29,7 @@ internal fun SignUpScreen(
         },
        content = {
            SignUpContent(
-               onSubmitButtonClicked = onSubmitButtonClicked,
+               authViewModel = authViewModel,
                onHighlightTextClicked = onBackPressClicked
            )
        }

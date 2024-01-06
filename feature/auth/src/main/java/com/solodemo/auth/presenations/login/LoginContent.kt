@@ -18,11 +18,13 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -53,16 +55,19 @@ internal fun LoginContent(
     onGoogleButtonClicked: () -> Unit,
     onForgotButtonClicked: () -> Unit,
     onSignUpButtonClicked: () -> Unit,
-    authViewModel: AuthViewModel) {
+    authViewModel: AuthViewModel,
+) {
     val focusManager = LocalFocusManager.current
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isEmailValid by remember { mutableStateOf(true) }
     var isPasswordValid by remember { mutableStateOf(true) }
 
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(color = MaterialTheme.colorScheme.onPrimary)
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colorScheme.onPrimary)
     ) {
 
         LoginBackground()
@@ -84,15 +89,21 @@ internal fun LoginContent(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                Row (modifier = Modifier.fillMaxWidth().height(50.dp),
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center) {
+                    horizontalArrangement = Arrangement.Center
+                ) {
                     Image(
                         modifier = Modifier.size(40.dp),
                         painter = painterResource(id = R.drawable.soloeats_logo),
-                        contentDescription = "App Logo")
+                        contentDescription = "App Logo"
+                    )
 
-                    Text(modifier = Modifier.padding(horizontal = 10.dp),
+                    Text(
+                        modifier = Modifier.padding(horizontal = 10.dp),
                         text = "SoloEats",
                         fontFamily = WaterBrush,
                         fontSize = 40.sp,
@@ -153,7 +164,8 @@ internal fun LoginContent(
                         .padding(top = 10.dp, bottom = 10.dp),
                     contentAlignment = Alignment.CenterEnd
                 ) {
-                    Text(modifier = Modifier
+                    Text(
+                        modifier = Modifier
                             .clickableWithoutRipple(
                                 interactionSource = MutableInteractionSource(),
                                 onClick = { onForgotButtonClicked() }),
@@ -167,24 +179,35 @@ internal fun LoginContent(
 
 
                 Button(
-                    onClick = { authViewModel.signInEmail(email = email, password = password) },
+                    onClick = {
+                        authViewModel.setLoading(true)
+                        authViewModel.signInEmail(email = email, password = password)
+                    },
                     enabled = isEmailValid && isPasswordValid,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 10.dp),
                     shape = RoundedCornerShape(5.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
-
-                ) {
-                    Text(
-                        text = "Login",
-                        fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
-                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                        color = MaterialTheme.colorScheme.surface
-                    )
+                )
+                {
+                    if(authViewModel.loadingState.value) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(20.dp),
+                            color = MaterialTheme.colorScheme.surface
+                        )
+                    }else{
+                        Text(
+                            text = "Login",
+                            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                            color = MaterialTheme.colorScheme.surface
+                        )
+                    }
                 }
             }
-            Text(text = "OR",
+            Text(
+                text = "OR",
                 fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 color = MaterialTheme.colorScheme.onSurface
@@ -198,7 +221,8 @@ internal fun LoginContent(
             ClickableBottomText(
                 onClick = { onSignUpButtonClicked() },
                 appendText = "Haven't Account? then ",
-                appendHighlightText = "Register Now")
+                appendHighlightText = "Register Now"
+            )
         }
     }
 }

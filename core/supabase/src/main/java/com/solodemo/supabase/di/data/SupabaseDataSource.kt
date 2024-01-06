@@ -22,7 +22,21 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
                 emit(RequestState.Success(menus))
 
             } catch (e: Exception) {
-                RequestState.Error(e)
+                emit(RequestState.Error(e))
+            }
+        }
+    }
+    fun signUpEmail(authEmail:String, authPassword:String): Flow<RequestState<Unit>>{
+        return flow {
+            emit(RequestState.Loading)
+            try {
+                supaBaseClient.auth.signUpWith(Email){
+                    email = authEmail
+                    password = authPassword
+                }
+                emit(RequestState.Success(Unit))
+            }catch (e:Exception){
+                emit(RequestState.Error(e))
             }
         }
     }
@@ -37,7 +51,7 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
                 }
                 emit(RequestState.Success(Unit))
             }catch (e:Exception){
-                RequestState.Error(e)
+                emit(RequestState.Error(e))
             }
         }
     }
@@ -52,7 +66,7 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
                     emit(RequestState.Error(Exception("Access token is null")))
                 }
             }catch (e: Exception){
-                RequestState.Error(e)
+                emit(RequestState.Error(e))
             }
         }
     }
@@ -64,7 +78,7 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
                 supaBaseClient.auth.refreshCurrentSession()
                 emit(RequestState.Success(Unit))
             }catch (e: Exception){
-                RequestState.Error(e)
+                emit(RequestState.Error(e))
             }
         }
     }
@@ -76,7 +90,7 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
                 supaBaseClient.auth.signOut()
                emit(RequestState.Success(Unit))
             }catch (e:Exception){
-                RequestState.Error(e)
+                emit(RequestState.Error(e))
             }
         }
     }

@@ -18,6 +18,10 @@ class SupabaseRepositoryImpl @Inject constructor(
         return supabaseDataSource.authEmail(authEmail = authEmail,authPassword = authPassword)
     }
 
+    override fun signUpEmail(authEmail: String, authPassword: String): Flow<RequestState<Unit>> {
+        return supabaseDataSource.signUpEmail(authEmail = authEmail,authPassword = authPassword)
+    }
+
     override fun getCurrentAccessToken(): Flow<RequestState<String>> {
         return supabaseDataSource.getCurrentAccessToken()
     }
