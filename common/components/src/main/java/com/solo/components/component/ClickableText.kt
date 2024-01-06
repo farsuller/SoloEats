@@ -14,7 +14,7 @@ import com.solo.util.clickableWithoutRipple
 
 
 @Composable
-fun ClickableBottomText(onClick: () -> Unit, appendText:String = "", appendHighlightText :String = "") {
+fun ClickableBottomText(modifier: Modifier = Modifier,onClick: () -> Unit, appendText:String = "", appendHighlightText :String = "") {
     val text = buildAnnotatedString {
         append(appendText)
         withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.secondary,
@@ -26,7 +26,7 @@ fun ClickableBottomText(onClick: () -> Unit, appendText:String = "", appendHighl
 
     Text(
         text = text,
-        modifier = Modifier
+        modifier = modifier
             .padding(top = 10.dp)
             .clickableWithoutRipple(
                 interactionSource = MutableInteractionSource(),

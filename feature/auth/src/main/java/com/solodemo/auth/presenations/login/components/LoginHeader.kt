@@ -21,7 +21,7 @@ fun LoginHeader(){
     ) {
 
         HexagonImageItem(
-            imageFile = Constants.LoginImages.spaghetti,
+            imageFile = Constants.StaticImages.spaghetti,
             borderColor = MaterialTheme.colorScheme.primary,
             hexagonSize = 160.dp,
             modifier = Modifier.offset(x = 75.dp)
@@ -29,7 +29,7 @@ fun LoginHeader(){
 
 
         HexagonImageItem(
-            imageFile = Constants.LoginImages.burger,
+            imageFile = Constants.StaticImages.burger,
             borderColor = MaterialTheme.colorScheme.primary,
             modifier = Modifier.offset(x = (-65).dp)
         )
@@ -37,7 +37,7 @@ fun LoginHeader(){
 
 
         HexagonImageItem(
-            imageFile = Constants.LoginImages.pizza,
+            imageFile = Constants.StaticImages.pizza,
             borderColor = MaterialTheme.colorScheme.primary,
             hexagonSize = 140.dp,
             modifier = Modifier.offset(x = 70.dp)

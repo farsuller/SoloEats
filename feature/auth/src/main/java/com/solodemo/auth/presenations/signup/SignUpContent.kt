@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -37,6 +38,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.solo.components.Constants
 import com.solo.components.R
 import com.solo.ui.WaterBrush
 import com.solo.components.component.ClickableBottomText
@@ -54,19 +56,25 @@ internal fun SignUpContent(onSubmitButtonClicked: () -> Unit, onHighlightTextCli
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
-    var isFullNameValid by remember { mutableStateOf(false) }
-    var isEmailValid by remember { mutableStateOf(false) }
-    var isPasswordValid by remember { mutableStateOf(false) }
-    var isConfirmPasswordValid by remember { mutableStateOf(false) }
+    var isFullNameValid by remember { mutableStateOf(true) }
+    var isEmailValid by remember { mutableStateOf(true) }
+    var isPasswordValid by remember { mutableStateOf(true) }
+    var isConfirmPasswordValid by remember { mutableStateOf(true) }
 
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(color = MaterialTheme.colorScheme.onPrimary)
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colorScheme.onPrimary)
     ) {
 
         SignUpBackground()
 
-        SignUpHeader()
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .offset(x = 90.dp, y = (0).dp)) {
+            SignUpHeader(imageFile = Constants.StaticImages.food,)
+        }
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -77,13 +85,32 @@ internal fun SignUpContent(onSubmitButtonClicked: () -> Unit, onHighlightTextCli
         ) {
 
 
+            Box(
+                modifier = Modifier
+                    .weight(0.4F)
+            )
 
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .weight(2.5F)
+                    .fillMaxWidth(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
+                Row (modifier = Modifier.fillMaxWidth()) {
+                    Image(
+                        modifier = Modifier.size(30.dp),
+                        painter = painterResource(id = R.drawable.soloeats_logo),
+                        contentDescription = "App Logo")
+
+                    Text(modifier = Modifier.padding(horizontal = 10.dp),
+                        text = "Sign Up",
+                        fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
+                        fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                        color = MaterialTheme.colorScheme.secondary,
+                    )
+                }
 
                 OutlinedTextField(
                     modifier = Modifier
@@ -156,7 +183,11 @@ internal fun SignUpContent(onSubmitButtonClicked: () -> Unit, onHighlightTextCli
                         keyboardType = KeyboardType.Password,
                         imeAction = ImeAction.Done
                     ),
-                    keyboardActions = KeyboardActions(onDone = { focusManager.moveFocus(FocusDirection.Down) })
+                    keyboardActions = KeyboardActions(onDone = {
+                        focusManager.moveFocus(
+                            FocusDirection.Down
+                        )
+                    })
                 )
 
                 OutlinedTextField(
@@ -199,13 +230,22 @@ internal fun SignUpContent(onSubmitButtonClicked: () -> Unit, onHighlightTextCli
                         color = MaterialTheme.colorScheme.surface
                     )
                 }
+
+                ClickableBottomText(
+                    onClick = { onHighlightTextClicked() },
+                    appendText = "Already have Account? ",
+                    appendHighlightText = "Login"
+                )
             }
 
-
-            ClickableBottomText(
-                onClick = { onHighlightTextClicked() },
-                appendText = "Already have Account? ",
-                appendHighlightText = "Login")
+        }
+        Box(modifier = Modifier
+            .size(210.dp)
+            .offset(x = (-30).dp, y = 700.dp)) {
+            SignUpHeader(
+                borderColor = MaterialTheme.colorScheme.secondary,
+                imageFile = Constants.StaticImages.fries,
+                alignment = Alignment.Start)
         }
     }
 }

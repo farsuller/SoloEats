@@ -24,7 +24,8 @@ internal fun ForgotScreen(
         },
        content = {
            ForgotContent(
-               onButtonClicked = onButtonClicked
+               onSubmitClicked = onButtonClicked,
+               paddingValues = it
            )
        }
     )
