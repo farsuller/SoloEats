@@ -24,13 +24,8 @@ fun NavGraphBuilder.menuRoute(paddingValues: PaddingValues, menus: Menus) {
 
             is RequestState.Success -> {
                 MenusScreen(
-                    modifier = Modifier
-                        .padding(start = 40.dp)
-                        .fillMaxSize()
-                        .padding(top = paddingValues.calculateTopPadding())
-                        .padding(bottom = paddingValues.calculateBottomPadding()),
-                    menus = menus.data
-                )
+                    paddingValues = paddingValues,
+                    menus = menus.data)
             }
 
             is RequestState.Error -> {

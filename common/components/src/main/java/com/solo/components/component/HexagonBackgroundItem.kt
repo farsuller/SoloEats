@@ -1,4 +1,4 @@
-package com.solodemo.main.components
+package com.solo.components.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

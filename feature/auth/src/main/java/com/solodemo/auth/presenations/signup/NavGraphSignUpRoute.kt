@@ -1,6 +1,5 @@
 package com.solodemo.auth.presenations.signup
 
-import android.widget.Toast
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
