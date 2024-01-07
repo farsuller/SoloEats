@@ -28,32 +28,41 @@ fun NavGraphBuilder.loginRoute(
         val context = LocalContext.current
         val authViewModel = hiltViewModel<AuthViewModel>()
 
+
         var openErrorDialog by remember {
+            mutableStateOf(false)
+        }
+
+        var openAuthErrorDialog by remember {
             mutableStateOf(false)
         }
 
         LaunchedEffect(key1 = authViewModel.uiState) {
             onDataLoaded()
 
-            authViewModel.uiState.collectLatest { data->
-                when(data){
+            authViewModel.uiState.collectLatest { data ->
+                when (data) {
                     RequestState.Loading -> {}
                     is RequestState.Success -> {
                         navigateToMain()
                         authViewModel.setLoading(false)
+                        authViewModel.setComposeAuthLoading(false)
                     }
+
                     is RequestState.Error -> {
                         authViewModel.setLoading(false)
-                        openErrorDialog = true
+                        authViewModel.setComposeAuthLoading(false)
+                        if (authViewModel.loginButtonClicked.value) openErrorDialog = true
+                        if (authViewModel.googleButtonClicked.value) openAuthErrorDialog = true
                     }
-                    else ->{
+
+                    else -> {
 
                     }
                 }
             }
         }
         LoginScreen(
-            onGoogleButtonClicked = { navigateToMain() },
             onForgotButtonClicked = { navigateToForgot() },
             onSignUpButtonClicked = { navigateToSignUp() },
             authViewModel = authViewModel
@@ -64,8 +73,30 @@ fun NavGraphBuilder.loginRoute(
             title = "Invalid Login",
             message = "Oops! Invalid login credentials. Make sure your email and password are correct.",
             dialogOpened = openErrorDialog,
-            onCloseDialog = { openErrorDialog = false },
-            onYesClicked = {},
+            onCloseDialog = {
+                authViewModel.setLoginClicked(false)
+                openErrorDialog = false
+            },
+            onYesClicked = {
+                authViewModel.setLoginClicked(false)
+                openErrorDialog = false
+            },
+            positiveText = "Okay",
+            showNegativeButton = false
+        )
+
+        DisplayAlertDialog(
+            title = "Uh-oh!",
+            message = "Something went wrong. Retry later or verify if you're already logged into your account in the settings.",
+            dialogOpened = openAuthErrorDialog,
+            onCloseDialog = {
+                authViewModel.setGoogleClicked(false)
+                openAuthErrorDialog = false
+            },
+            onYesClicked = {
+                authViewModel.setGoogleClicked(false)
+                openAuthErrorDialog = false
+            },
             positiveText = "Okay",
             showNegativeButton = false
         )

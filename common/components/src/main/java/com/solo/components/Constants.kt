@@ -2,6 +2,8 @@ package com.solo.components
 
 object Constants {
 
+    const val CLIENT_ID = "415444554521-90t82ild47643bkj3ql1sbm2nselkkt0.apps.googleusercontent.com"
+
     object StaticImages {
         const val burger = "file:///android_asset/images/burger.jpg"
         const val spaghetti = "file:///android_asset/images/spaghetti.jpg"

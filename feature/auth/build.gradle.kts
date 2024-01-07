@@ -70,7 +70,8 @@ dependencies {
 
     hilt()
 
-    implementation(libs.postgrest.kt)
+    implementation(libs.supabase.compose.auth)
+    implementation(libs.supabase.postgrest.kt)
     implementation(libs.ktor.client.cio)
     implementation(libs.kotlinx.serialization.json)
 

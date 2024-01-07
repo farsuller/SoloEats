@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
     kotlin("kapt")
-    kotlin("plugin.serialization") version "1.9.21"
+
 }
 
 android {
@@ -67,10 +67,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
 
     implementation (libs.splash.api)
-
-    implementation(libs.postgrest.kt)
-    implementation(libs.ktor.client.cio)
-    implementation(libs.kotlinx.serialization.json)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

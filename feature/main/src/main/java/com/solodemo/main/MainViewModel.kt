@@ -44,7 +44,7 @@ class MainViewModel @Inject constructor(
 
     fun signOut() {
         viewModelScope.launch {
-            repository.singOut().collectLatest { data ->
+            repository.signOut().collectLatest { data ->
                 _uiState.update { data }
                 sharedPref.clearPreferences()
             }

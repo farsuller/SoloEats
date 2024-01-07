@@ -1,5 +1,6 @@
 package com.solodemo.supabase.di
 
+import com.solo.components.Constants
 import com.solodemo.supabase.di.data.SupabaseDataSource
 import com.solodemo.supabase.di.repository.SupabaseRepositoryImpl
 import com.solodemo.supabase.domain.repository.SupabaseRepository
@@ -8,6 +9,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.github.jan.supabase.SupabaseClient
+import io.github.jan.supabase.compose.auth.ComposeAuth
+import io.github.jan.supabase.compose.auth.googleNativeLogin
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.postgrest.Postgrest
@@ -27,6 +30,9 @@ object NetworkModule {
         {
             install(Postgrest)
             install(Auth)
+            install(ComposeAuth){
+                googleNativeLogin(serverClientId = Constants.CLIENT_ID)
+            }
         }
     }
 

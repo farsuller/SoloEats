@@ -16,13 +16,16 @@ kotlin = "1.9.0"
 appcompat = "1.6.1"
 material = "1.11.0"
 orbital = "0.3.3"
-postgrest-kt = "2.0.3"
+
 splash = "1.0.1"
 navigation-compose = "2.7.6"
 material-icons-extended = "1.5.4"
 datastore-preferences-core = "1.0.0"
 ui-text-google-fonts = "1.5.4"
 ui-tooling = "1.5.4"
+compose-auth = "2.0.3"
+gotrue-kt = "2.0.3"
+postgrest-kt = "2.0.3"
 
 [libraries]
 androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
@@ -49,7 +52,9 @@ junit = { module = "junit:junit", version.ref = "junit" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 orbital = { module = "com.github.skydoves:orbital", version.ref = "orbital" }
-postgrest-kt = { module = "io.github.jan-tennert.supabase:postgrest-kt", version.ref = "postgrest-kt" }
+supabase-postgrest-kt = { module = "io.github.jan-tennert.supabase:postgrest-kt", version.ref = "postgrest-kt" }
+supabase-compose-auth = { module = "io.github.jan-tennert.supabase:compose-auth", version.ref = "compose-auth" }
+supabase-gotrue-kt = { module = "io.github.jan-tennert.supabase:gotrue-kt", version.ref = "gotrue-kt" }
 splash-api = { module = "androidx.core:core-splashscreen", version.ref = "splash"}
 material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "material-icons-extended" }
 androidx-datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "datastore-preferences-core" }

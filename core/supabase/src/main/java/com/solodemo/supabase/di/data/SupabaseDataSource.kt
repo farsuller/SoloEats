@@ -5,7 +5,6 @@ import com.solodemo.supabase.model.Menu
 
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.gotrue.auth
-import io.github.jan.supabase.gotrue.providers.Google
 import io.github.jan.supabase.gotrue.providers.builtin.Email
 import io.github.jan.supabase.postgrest.postgrest
 import kotlinx.coroutines.flow.Flow
@@ -14,6 +13,9 @@ import javax.inject.Inject
 
 class SupabaseDataSource @Inject constructor(private val supaBaseClient: SupabaseClient) {
 
+    fun supaBaseClient():SupabaseClient{
+        return supaBaseClient
+    }
     fun getMenus(): Flow<RequestState<List<Menu>>> {
         return flow {
             emit(RequestState.Loading)
@@ -84,7 +86,7 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
         }
     }
 
-    fun singOut(): Flow<RequestState<Unit>>{
+    fun signOut(): Flow<RequestState<Unit>>{
         return flow {
             emit(RequestState.Loading)
             try {

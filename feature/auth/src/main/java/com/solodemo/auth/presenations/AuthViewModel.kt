@@ -9,6 +9,9 @@ import com.solo.util.Constants.ACCESS_TOKEN
 import com.solo.util.SharedPreferenceHelper
 import com.solodemo.supabase.domain.repository.SupabaseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.jan.supabase.compose.auth.composable.NativeSignInResult
+import io.github.jan.supabase.compose.auth.composable.rememberSignInWithGoogle
+import io.github.jan.supabase.compose.auth.composeAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -22,16 +25,35 @@ class AuthViewModel @Inject constructor(
     application: Application
 ) : ViewModel() {
 
+    val composeAuth = repository.supaBaseClient().composeAuth
 
     private val _uiState = MutableStateFlow<RequestState<*>>(RequestState.Loading)
     val uiState: StateFlow<RequestState<*>>
         get() = _uiState
 
+    var loginButtonClicked  = mutableStateOf(false)
+        private set
+
+    var googleButtonClicked  = mutableStateOf(false)
+        private set
     var loadingState  = mutableStateOf(false)
         private set
 
+    var composeAuthState  = mutableStateOf(false)
+        private set
+
+    fun setLoginClicked(loading: Boolean){
+        loginButtonClicked.value = loading
+    }
+    fun setGoogleClicked(loading: Boolean){
+        googleButtonClicked.value = loading
+    }
     fun setLoading(loading: Boolean){
         loadingState.value = loading
+    }
+
+    fun setComposeAuthLoading(loading: Boolean){
+        composeAuthState.value = loading
     }
 
     private val sharedPref = SharedPreferenceHelper(application)
@@ -144,6 +166,26 @@ class AuthViewModel @Inject constructor(
                 }
             }
 
+        }
+    }
+
+    fun checkGoogleLoginStatus(result: NativeSignInResult) {
+        _uiState.value = RequestState.Loading
+        when (result) {
+            is NativeSignInResult.Success -> {
+                saveToken()
+                _uiState.value = RequestState.Success(result)
+            }
+            is NativeSignInResult.ClosedByUser -> {}
+            is NativeSignInResult.Error -> {
+                val message = result.message
+                _uiState.value = RequestState.Error(Exception(message))
+
+            }
+            is NativeSignInResult.NetworkError -> {
+                val message = result.message
+                _uiState.value = RequestState.Error(Exception(message))
+            }
         }
     }
 }

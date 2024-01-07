@@ -14,7 +14,6 @@ import com.solodemo.auth.presenations.login.LoginContent
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 internal fun LoginScreen(
-    onGoogleButtonClicked : () -> Unit,
     onForgotButtonClicked: () -> Unit,
     onSignUpButtonClicked: () -> Unit,
     authViewModel : AuthViewModel){
@@ -25,7 +24,6 @@ internal fun LoginScreen(
             .navigationBarsPadding(),
        content = {
            LoginContent(
-               onGoogleButtonClicked = onGoogleButtonClicked,
                onForgotButtonClicked = onForgotButtonClicked,
                onSignUpButtonClicked = onSignUpButtonClicked,
                authViewModel = authViewModel)

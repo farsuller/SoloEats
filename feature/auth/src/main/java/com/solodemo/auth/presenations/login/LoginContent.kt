@@ -49,10 +49,11 @@ import com.solo.components.component.ClickableBottomText
 import com.solo.util.isValidEmail
 import com.solodemo.auth.presenations.login.components.LoginBackground
 import com.solodemo.auth.presenations.login.components.LoginHeader
+import io.github.jan.supabase.compose.auth.composable.rememberSignInWithGoogle
+import io.github.jan.supabase.compose.auth.composeAuth
 
 @Composable
 internal fun LoginContent(
-    onGoogleButtonClicked: () -> Unit,
     onForgotButtonClicked: () -> Unit,
     onSignUpButtonClicked: () -> Unit,
     authViewModel: AuthViewModel,
@@ -64,6 +65,10 @@ internal fun LoginContent(
     var isPasswordValid by remember { mutableStateOf(true) }
 
 
+    val googleSignIn = authViewModel.composeAuth.rememberSignInWithGoogle(
+        onResult = { result -> authViewModel.checkGoogleLoginStatus(result) },
+        fallback = {}
+    )
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -180,6 +185,7 @@ internal fun LoginContent(
 
                 Button(
                     onClick = {
+                        authViewModel.setLoginClicked(true)
                         authViewModel.setLoading(true)
                         authViewModel.signInEmail(email = email, password = password)
                     },
@@ -215,7 +221,12 @@ internal fun LoginContent(
 
             GoogleButton(
                 modifier = Modifier.padding(top = 10.dp),
-                onClick = onGoogleButtonClicked
+                loadingState = authViewModel.composeAuthState.value,
+                onClick = {
+                    authViewModel.setGoogleClicked(true)
+                    authViewModel.setComposeAuthLoading(true)
+                    googleSignIn.startFlow()
+                }
             )
 
             ClickableBottomText(
