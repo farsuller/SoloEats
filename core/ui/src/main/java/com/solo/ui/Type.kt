@@ -47,7 +47,7 @@ val WaterBrush = FontFamily(
 val Typography = Typography(
     titleLarge = TextStyle(
         fontFamily = fontFamilyRobotoExtraBold,
-        fontSize = 22.sp,
+        fontSize = 21.sp,
         lineHeight = 28.sp,
         letterSpacing = 0.sp
     ),

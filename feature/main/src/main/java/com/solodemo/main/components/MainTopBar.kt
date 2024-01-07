@@ -23,22 +23,22 @@ internal fun MainTopBar(selectedTab: String) {
 
     TopAppBar(
         navigationIcon = {
-            Icon(
-                imageVector = Icons.Default.Menu,
-                contentDescription = "Home Icon",
-                tint = if(selectedTab == "Home")MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.onSurface
-            )
+//            Icon(
+//                imageVector = Icons.Default.Menu,
+//                contentDescription = "Home Icon",
+//                tint = if(selectedTab == "Home")MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.onSurface
+//            )
         },
         title = {
 
         },
         actions = {
-            Icon(
-                imageVector = Icons.Default.MoreVert,
-                contentDescription = "More Icon",
-                tint = if(selectedTab == "Home")MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.onSurface
-            )
+//            Icon(
+//                imageVector = Icons.Default.MoreVert,
+//                contentDescription = "More Icon",
+//                tint = if(selectedTab == "Home")MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.onSurface
+//            )
         },
-        colors = topAppBarColors(containerColor = if(selectedTab == "Home") MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.surface)
+        colors = topAppBarColors(containerColor = if(selectedTab == "Home" || selectedTab == "Account") MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.surface)
     )
 }

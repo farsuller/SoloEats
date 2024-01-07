@@ -24,7 +24,9 @@ internal fun MainBottomNavBar(
     navController: NavHostController
 ) {
     var selectedBottomNavItemIndex by rememberSaveable { mutableIntStateOf(0) }
-    NavigationBar {
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.onPrimary
+    ) {
         MainBottomNavItem.entries.forEachIndexed { index, item ->
             NavigationBarItem(
                 label = {
@@ -56,7 +58,7 @@ internal fun MainBottomNavBar(
                             imageVector = if (index == selectedBottomNavItemIndex) item.selectedIcon
                             else item.unSelectedIcon,
                             contentDescription = item.title,
-                            tint = if (index == selectedBottomNavItemIndex) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.onPrimaryContainer
+                            tint = MaterialTheme.colorScheme.secondary
                         )
                     }
                 })

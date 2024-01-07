@@ -8,7 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.solo.components.topbar.GenericBackTopBar
+import com.solo.components.component.GenericBackTopBar
 import com.solodemo.auth.presenations.AuthViewModel
 
 

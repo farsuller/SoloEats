@@ -2,6 +2,7 @@ package com.solodemo.supabase.di.data
 
 import com.solo.components.state.RequestState
 import com.solodemo.supabase.model.Menu
+import com.solodemo.supabase.model.Reel
 
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.gotrue.auth
@@ -15,6 +16,20 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
 
     fun supaBaseClient():SupabaseClient{
         return supaBaseClient
+    }
+
+    fun getReels(): Flow<RequestState<List<Reel>>> {
+        return flow {
+            emit(RequestState.Loading)
+            try {
+                val result = supaBaseClient.postgrest["reels"].select()
+                val reels = result.decodeList<Reel>()
+                emit(RequestState.Success(reels))
+
+            } catch (e: Exception) {
+                emit(RequestState.Error(e))
+            }
+        }
     }
     fun getMenus(): Flow<RequestState<List<Menu>>> {
         return flow {

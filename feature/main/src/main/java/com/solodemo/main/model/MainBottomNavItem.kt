@@ -1,14 +1,17 @@
 package com.solodemo.main.model
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBalanceWallet
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Wallet
+import androidx.compose.material.icons.outlined.AccountBalanceWallet
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Payment
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material.icons.outlined.Wallet
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -31,9 +34,9 @@ enum class MainBottomNavItem(
         title = "Menus",
         hasUpdate = false,
         route = "menu_screen",),
-    Payment(unSelectedIcon = Icons.Outlined.Wallet,
-        selectedIcon = Icons.Filled.Wallet,
-        title = "Payment",
+    Wallet(unSelectedIcon = Icons.Outlined.AccountBalanceWallet,
+        selectedIcon = Icons.Filled.AccountBalanceWallet,
+        title = "Wallet",
         hasUpdate = true,
         route = "payment_screen",),
     Cart(unSelectedIcon = Icons.Outlined.ShoppingCart,

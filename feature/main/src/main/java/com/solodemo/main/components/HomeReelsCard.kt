@@ -35,23 +35,24 @@ import com.solo.components.shapes.drawCustomHexagonPath
 import com.solo.ui.Elevation
 import com.solo.util.clickableWithoutRipple
 import com.solodemo.supabase.model.Menu
+import com.solodemo.supabase.model.Reel
 
 
 @Composable
-fun HomeMenusCard(index : Int,
-                  menus: List<Menu>,
+fun HomeReelsCard(index : Int,
+                  reels: List<Reel>,
                   onClick :()-> Unit) {
 
     ElevatedCard(
         modifier = Modifier
             .padding(horizontal = 5.dp)
-            .size(100.dp)
+            .size(height = 200.dp, width = 120.dp)
             .clickableWithoutRipple(
             interactionSource = MutableInteractionSource(),
             onClick = { onClick() }
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level4),
-        shape = CircleShape,
+        elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level5),
+        shape = RoundedCornerShape(10.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
     ) {
 
@@ -59,20 +60,20 @@ fun HomeMenusCard(index : Int,
         {
             AsyncImage(
                 modifier = Modifier.fillMaxWidth(),
-                model = menus[index].menuImage,
-                contentScale = ContentScale.Crop,
-                contentDescription = menus[index].menuName,
+                model = reels[index].foodImage,
+                contentScale = ContentScale.FillBounds,
+                contentDescription = reels[index].foodImage,
                 alignment = Alignment.TopCenter
             )
 
             Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Bottom,
+                horizontalAlignment = Alignment.Start,
                 modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Black.copy(alpha = 0.3f)) ){
+                .padding(start = 10.dp, bottom = 10.dp) ){
                 Text(
-                    text = "${menus[index].menuName}",
+                    text = "${reels[index].name}",
                     fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
                     fontSize = MaterialTheme.typography.titleMedium.fontSize,
                     color = MaterialTheme.colorScheme.surface,

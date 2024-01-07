@@ -7,7 +7,7 @@ import com.solodemo.supabase.model.Menu
 @Composable
 fun MenusScreen(paddingValues: PaddingValues, menus: List<Menu>) {
 
-    val filteredMenus = menus.filter { it.isAvailable == true }
+    val filteredMenus = menus.filter { it.isAvailable }
 
     MenuContent(filteredMenus = filteredMenus, paddingValues = paddingValues)
 }

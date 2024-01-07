@@ -1,4 +1,4 @@
-package com.solo.components.topbar
+package com.solo.components.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.CircleShape
