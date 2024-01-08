@@ -39,6 +39,6 @@ internal fun MainTopBar(selectedTab: String) {
 //                tint = if(selectedTab == "Home")MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.onSurface
 //            )
         },
-        colors = topAppBarColors(containerColor = if(selectedTab == "Home" || selectedTab == "Account") MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.surface)
+        colors = topAppBarColors(containerColor = if(selectedTab == "Account") MaterialTheme.colorScheme.secondary else Color.Transparent)
     )
 }

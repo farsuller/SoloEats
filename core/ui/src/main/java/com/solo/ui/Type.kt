@@ -73,4 +73,11 @@ val Typography = Typography(
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
+    bodySmall = TextStyle(
+        fontFamily = fontFamilyRoboto,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+        lineHeight = 5.sp,
+        letterSpacing = 0.5.sp
+    ),
 )

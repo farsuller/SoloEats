@@ -5,30 +5,53 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.dp
 
 import com.solodemo.supabase.model.Menu
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import com.solo.components.Constants
 import com.solo.util.clickableWithoutRipple
+import com.solodemo.main.components.HomeHeaderCard
 import com.solodemo.main.components.MenuHexagonItem
 
 @Composable
 fun MenuContent(filteredMenus: List<Menu>, paddingValues: PaddingValues){
     val context = LocalContext.current
+    val density = LocalDensity.current
+
+    var cardHeight by remember { mutableStateOf(0.dp) }
+
+    HomeHeaderCard(
+        modifier = Modifier.fillMaxWidth().height(height = 160.dp)
+            .onGloballyPositioned { coordinates ->
+            cardHeight = with(density) { coordinates.size.height.toDp() }
+        },
+        title ="Burgers & Fries Extravaganza",
+        description = "Discover a world of taste with our extraordinary burgers and fries.",
+        color = MaterialTheme.colorScheme.primary,
+        imagePath= Constants.StaticImages.bannerBurgerFries)
 
     if (filteredMenus.isNotEmpty()) {
         LazyVerticalGrid(
             modifier = Modifier
                 .padding(start = 40.dp)
                 .fillMaxSize()
-                .padding(top = paddingValues.calculateTopPadding())
+                .padding(top = cardHeight)
                 .padding(bottom = paddingValues.calculateBottomPadding()),
             columns = GridCells.Fixed(2),
             verticalArrangement = Arrangement.spacedBy((-120).dp),

@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
@@ -25,7 +25,7 @@ import coil.compose.AsyncImage
 import com.solo.ui.Elevation
 
 @Composable
-fun HomeBannerCard(
+fun HomeHeaderCard(
     modifier: Modifier = Modifier,
     title: String,
     description: String = "",
@@ -33,34 +33,24 @@ fun HomeBannerCard(
     imagePath: String
 ) {
     ElevatedCard(
-        modifier = modifier.size(width = 280.dp, height = 160.dp),
-        shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level5),
+        modifier = modifier,
+        shape = RoundedCornerShape(0.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level0),
         colors = CardDefaults.cardColors(containerColor = color)
     ) {
 
-        Row(
-            modifier = Modifier
+        Row(modifier = Modifier
                 .fillMaxSize()
-                .padding(10.dp),
+                .padding(start = 10.dp , end = 10.dp, top = 20.dp, bottom = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
-            AsyncImage(
-                modifier = Modifier
-                    .weight(0.5F)
-                    .fillMaxSize(),
-                model = imagePath,
-                contentDescription = "Banner Image",
-                contentScale = ContentScale.Crop,
-                alignment = Alignment.Center
-            )
+
 
             Column(
                 modifier = Modifier
                     .weight(0.5F)
-                    .fillMaxSize()
-                    .padding(10.dp),
+                    .fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.End
             ) {
@@ -70,19 +60,29 @@ fun HomeBannerCard(
                     text = title,
                     fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
                     fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                    textAlign = TextAlign.End,
+                    lineHeight = 19.sp,
+                    textAlign = TextAlign.Start,
                 )
-
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = description,
                     fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                     fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                    lineHeight = 14.sp,
-                    textAlign = TextAlign.End,
+                    lineHeight = 19.sp,
+                    textAlign = TextAlign.Start,
                 )
 
             }
+
+            AsyncImage(
+                modifier = Modifier
+                    .weight(0.4F)
+                    .fillMaxSize(),
+                model = imagePath,
+                contentDescription = "Banner Image",
+                contentScale = ContentScale.Crop,
+                alignment = Alignment.Center
+            )
 
         }
     }
@@ -90,8 +90,8 @@ fun HomeBannerCard(
 
 @Preview(showBackground = true)
 @Composable
-internal fun HomeBannerCardPreview() {
-    HomeBannerCard(
+internal fun HomeHeaderCardPreview() {
+    HomeHeaderCard(
         title = "Title",
         description = "Indulge in the perfect harmony of flavors with our artisanal pizzas.",
         color = MaterialTheme.colorScheme.primary,

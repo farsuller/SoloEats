@@ -1,6 +1,9 @@
 package com.solodemo.main
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -20,20 +23,29 @@ fun MainContent(
     navController: NavHostController,
     menus: Menus,
     reels: Reels,
-    viewModel : MainViewModel,
-    navigateToAuth: () -> Unit
-    ) {
-    NavHost(navController = navController, startDestination = ScreensRoutes.Home.route){
-        homeRoute(paddingValues = paddingValues,
-            menus = menus, reels = reels)
-        menuRoute(paddingValues = paddingValues,
-            menus = menus)
+    viewModel: MainViewModel,
+    navigateToAuth: () -> Unit,
+    homeLazyListState: LazyListState,
+) {
+    NavHost(navController = navController,
+        startDestination = ScreensRoutes.Home.route,
+        ) {
+        homeRoute(
+            paddingValues = paddingValues,
+            menus = menus, reels = reels,
+            homeLazyListState = homeLazyListState
+        )
+        menuRoute(
+            paddingValues = paddingValues,
+            menus = menus
+        )
         paymentRoute(paddingValues = paddingValues)
         cartRoute(paddingValues = paddingValues)
         accountRoute(
-            paddingValues = paddingValues ,
+            paddingValues = paddingValues,
             viewModel = viewModel,
-            navigateToAuth = navigateToAuth)
+            navigateToAuth = navigateToAuth
+        )
     }
 
 
