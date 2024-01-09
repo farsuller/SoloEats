@@ -30,11 +30,17 @@ fun HomeBannerCard(
     title: String,
     description: String = "",
     color: Color,
-    imagePath: String
+    imagePath: String,
+    isInverted: Boolean = false
 ) {
     ElevatedCard(
-        modifier = modifier.size(width = 280.dp, height = 160.dp),
-        shape = RoundedCornerShape(12.dp),
+        modifier = modifier.size(width = 300.dp, height = 160.dp),
+        shape = RoundedCornerShape(
+            topStart = 42.dp,
+            topEnd = 6.dp,
+            bottomStart = 6.dp,
+            bottomEnd = 42.dp
+        ),
         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level5),
         colors = CardDefaults.cardColors(containerColor = color)
     ) {
@@ -46,45 +52,87 @@ fun HomeBannerCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
-            AsyncImage(
-                modifier = Modifier
-                    .weight(0.5F)
-                    .fillMaxSize(),
-                model = imagePath,
-                contentDescription = "Banner Image",
-                contentScale = ContentScale.Crop,
-                alignment = Alignment.Center
-            )
 
-            Column(
-                modifier = Modifier
-                    .weight(0.5F)
-                    .fillMaxSize()
-                    .padding(10.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.End
-            ) {
+            if (isInverted) {
+                BannerImage(
+                    modifier = Modifier
+                        .weight(0.5F)
+                        .fillMaxSize(),
+                    imagePath = imagePath
+                )
+                BannerText(
+                    modifier = Modifier
+                        .weight(0.5F)
+                        .fillMaxSize()
+                        .padding(10.dp),
+                    title = title,
+                    description = description
+                )
+            } else {
 
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = title,
-                    fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
-                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                    textAlign = TextAlign.End,
+                BannerText(
+                    modifier = Modifier
+                        .weight(0.5F)
+                        .fillMaxSize()
+                        .padding(10.dp),
+                    title = title,
+                    description = description,
+                    alignment = Alignment.Start,
+                    textAlign = TextAlign.Start
                 )
 
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = description,
-                    fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
-                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                    lineHeight = 14.sp,
-                    textAlign = TextAlign.End,
+                BannerImage(
+                    modifier = Modifier
+                        .weight(0.5F)
+                        .fillMaxSize(),
+                    imagePath = imagePath
                 )
-
             }
 
+
         }
+    }
+}
+
+@Composable
+fun BannerImage(modifier: Modifier, imagePath: String) {
+    AsyncImage(
+        modifier = modifier,
+        model = imagePath,
+        contentDescription = "Banner Image",
+        contentScale = ContentScale.Crop,
+        alignment = Alignment.Center
+    )
+}
+
+@Composable
+fun BannerText(modifier: Modifier,
+               title: String,
+               description: String,
+               alignment: Alignment.Horizontal = Alignment.End,
+               textAlign: TextAlign = TextAlign.End) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = alignment
+    ) {
+
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = title,
+            fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
+            fontSize = MaterialTheme.typography.titleLarge.fontSize,
+            textAlign = textAlign,
+        )
+
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = description,
+            fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
+            fontSize = MaterialTheme.typography.bodySmall.fontSize,
+            lineHeight = 14.sp,
+            textAlign = textAlign,
+        )
     }
 }
 

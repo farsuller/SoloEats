@@ -21,5 +21,8 @@ object Constants {
         const val bannerPizza = "file:///android_asset/images/banner_pizza.png"
         const val bannerBurgerFries = "file:///android_asset/images/banner_burgerfries.png"
 
+        const val CheesyHavenDeluxe = "file:///android_asset/images/burger/CheesyHavenDeluxe.png"
+        const val TropicalHawaiianPizza = "file:///android_asset/images/pizza/TropicalHawaiianPizza.png"
+        const val FilipinoSpaghetti = "file:///android_asset/images/pasta/FilipinoSpaghetti.png"
     }
 }

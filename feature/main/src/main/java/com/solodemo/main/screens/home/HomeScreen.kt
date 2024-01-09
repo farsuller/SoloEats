@@ -21,7 +21,7 @@ internal fun HomeScreen(
     homeLazyListState: LazyListState,
 ) {
 
-    MainBackground()
+   // MainBackground()
 
     HomeContent(
         paddingValues = paddingValues,

@@ -32,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
@@ -49,6 +50,7 @@ import com.solo.components.component.ClickableBottomText
 import com.solo.util.isValidEmail
 import com.solodemo.auth.presenations.login.components.LoginBackground
 import com.solodemo.auth.presenations.login.components.LoginHeader
+import io.github.jan.supabase.compose.auth.composable.NativeSignInState
 import io.github.jan.supabase.compose.auth.composable.rememberSignInWithGoogle
 import io.github.jan.supabase.compose.auth.composeAuth
 
@@ -88,153 +90,198 @@ internal fun LoginContent(
 
             LoginHeader()
 
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Image(
-                        modifier = Modifier.size(40.dp),
-                        painter = painterResource(id = R.drawable.soloeats_logo),
-                        contentDescription = "App Logo"
-                    )
-
-                    Text(
-                        modifier = Modifier.padding(horizontal = 10.dp),
-                        text = "SoloEats",
-                        fontFamily = WaterBrush,
-                        fontSize = 40.sp,
-                        color = MaterialTheme.colorScheme.secondary,
-                    )
-                }
-                OutlinedTextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 8.dp),
-                    value = email,
-                    onValueChange = {
-                        email = it
-                        isEmailValid = isValidEmail(it)
-                    },
-                    label = { Text("Email") },
-                    colors = OutlinedTextFieldDefaults.colors(
-                        unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
-                    ),
-                    isError = !isEmailValid,
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions.Default.copy(
-                        keyboardType = KeyboardType.Email,
-                        imeAction = ImeAction.Next
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onNext = {
-                            focusManager.moveFocus(FocusDirection.Down)
-                        }
-                    )
-                )
-
-                OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = password,
-                    onValueChange = {
-                        password = it
-                        isPasswordValid = it.isNotEmpty()
-                    },
-                    label = { Text("Password") },
-                    colors = OutlinedTextFieldDefaults.colors(
-                        unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
-                    ),
-                    isError = !isPasswordValid,
-                    singleLine = true,
-                    visualTransformation = PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions.Default.copy(
-                        keyboardType = KeyboardType.Password,
-                        imeAction = ImeAction.Done
-                    ),
-                    keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
-                )
-
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 10.dp, bottom = 10.dp),
-                    contentAlignment = Alignment.CenterEnd
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .clickableWithoutRipple(
-                                interactionSource = MutableInteractionSource(),
-                                onClick = { onForgotButtonClicked() }),
-                        text = "Forgot Password?",
-                        fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
-                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        textAlign = TextAlign.End
-                    )
-                }
-
-
-                Button(
-                    onClick = {
-                        authViewModel.setLoginClicked(true)
-                        authViewModel.setLoading(true)
-                        authViewModel.signInEmail(email = email, password = password)
-                    },
-                    enabled = isEmailValid && isPasswordValid,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 10.dp),
-                    shape = RoundedCornerShape(5.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
-                )
-                {
-                    if(authViewModel.loadingState.value) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(20.dp),
-                            color = MaterialTheme.colorScheme.surface
-                        )
-                    }else{
-                        Text(
-                            text = "Login",
-                            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
-                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                            color = MaterialTheme.colorScheme.surface
-                        )
-                    }
-                }
-            }
-            Text(
-                text = "OR",
-                fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                color = MaterialTheme.colorScheme.onSurface
+            LoginTextFields(
+                email = email,
+                isEmailValid = isEmailValid,
+                focusManager = focusManager,
+                password = password,
+                isPasswordValid = isPasswordValid,
+                onForgotButtonClicked = onForgotButtonClicked,
+                authViewModel = authViewModel
             )
-
-            GoogleButton(
-                modifier = Modifier.padding(top = 10.dp),
-                loadingState = authViewModel.composeAuthState.value,
-                onClick = {
-                    authViewModel.setGoogleClicked(true)
-                    authViewModel.setComposeAuthLoading(true)
-                    googleSignIn.startFlow()
-                }
-            )
-
-            ClickableBottomText(
-                onClick = { onSignUpButtonClicked() },
-                appendText = "Haven't Account? then ",
-                appendHighlightText = "Register Now"
+            LoginBottomItems(
+                authViewModel = authViewModel,
+                googleSignIn = googleSignIn,
+                onSignUpButtonClicked = onSignUpButtonClicked
             )
         }
     }
 }
 
+
+@Composable
+private fun AppIconAndName() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Image(
+            modifier = Modifier.size(40.dp),
+            painter = painterResource(id = R.drawable.soloeats_logo),
+            contentDescription = "App Logo"
+        )
+
+        Text(
+            modifier = Modifier.padding(horizontal = 10.dp),
+            text = "SoloEats",
+            fontFamily = WaterBrush,
+            fontSize = 40.sp,
+            color = MaterialTheme.colorScheme.secondary,
+        )
+    }
+}
+
+@Composable
+private fun LoginTextFields(
+    email: String,
+    isEmailValid: Boolean,
+    focusManager: FocusManager,
+    password: String,
+    isPasswordValid: Boolean,
+    onForgotButtonClicked: () -> Unit,
+    authViewModel: AuthViewModel
+) {
+    var email1 = email
+    var isEmailValid1 = isEmailValid
+    var password1 = password
+    var isPasswordValid1 = isPasswordValid
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        AppIconAndName()
+
+        OutlinedTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
+            value = email1,
+            onValueChange = {
+                email1 = it
+                isEmailValid1 = isValidEmail(it)
+            },
+            label = { Text("Email") },
+            colors = OutlinedTextFieldDefaults.colors(
+                unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+            ),
+            isError = !isEmailValid1,
+            singleLine = true,
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Next
+            ),
+            keyboardActions = KeyboardActions(
+                onNext = {
+                    focusManager.moveFocus(FocusDirection.Down)
+                }
+            )
+        )
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = password1,
+            onValueChange = {
+                password1 = it
+                isPasswordValid1 = it.isNotEmpty()
+            },
+            label = { Text("Password") },
+            colors = OutlinedTextFieldDefaults.colors(
+                unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+            ),
+            isError = !isPasswordValid1,
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
+        )
+
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 10.dp, bottom = 10.dp),
+            contentAlignment = Alignment.CenterEnd
+        ) {
+            Text(
+                modifier = Modifier
+                    .clickableWithoutRipple(
+                        interactionSource = MutableInteractionSource(),
+                        onClick = { onForgotButtonClicked() }),
+                text = "Forgot Password?",
+                fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
+                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                color = MaterialTheme.colorScheme.onSurface,
+                textAlign = TextAlign.End
+            )
+        }
+
+
+        Button(
+            onClick = {
+                authViewModel.setLoginClicked(true)
+                authViewModel.setLoading(true)
+                authViewModel.signInEmail(email = email1, password = password1)
+            },
+            enabled = isEmailValid1 && isPasswordValid1,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 10.dp),
+            shape = RoundedCornerShape(5.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+        )
+        {
+            if (authViewModel.loadingState.value) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(20.dp),
+                    color = MaterialTheme.colorScheme.surface
+                )
+            } else {
+                Text(
+                    text = "Login",
+                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    color = MaterialTheme.colorScheme.surface
+                )
+            }
+        }
+    }
+}
+
+
+@Composable
+private fun LoginBottomItems(
+    authViewModel: AuthViewModel,
+    googleSignIn: NativeSignInState,
+    onSignUpButtonClicked: () -> Unit
+) {
+    Text(
+        text = "OR",
+        fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+        color = MaterialTheme.colorScheme.onSurface
+    )
+
+    GoogleButton(
+        modifier = Modifier.padding(top = 10.dp),
+        loadingState = authViewModel.composeAuthState.value,
+        onClick = {
+            authViewModel.setGoogleClicked(true)
+            authViewModel.setComposeAuthLoading(true)
+            googleSignIn.startFlow()
+        }
+    )
+
+    ClickableBottomText(
+        onClick = { onSignUpButtonClicked() },
+        appendText = "Haven't Account? then ",
+        appendHighlightText = "Register Now"
+    )
+}

@@ -7,13 +7,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
@@ -32,15 +35,21 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.solo.components.Constants
 import com.solo.components.loading.CircularLoadingIndicator
 import com.solo.components.state.RequestState
 import com.solo.ui.Elevation
+import com.solo.ui.md_theme_light_onPrimary
+import com.solo.ui.md_theme_light_surface
+import com.solodemo.main.components.CardProduct
 import com.solodemo.main.components.HomeBannerCard
 import com.solodemo.main.components.HomeHeaderCard
 import com.solodemo.main.components.HomeMenusCard
 import com.solodemo.main.components.HomeReelsCard
 import com.solodemo.main.components.MainBackground
+import com.solodemo.main.model.Featured
+import com.solodemo.main.model.HomeBanners
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reels
 
@@ -58,7 +67,7 @@ internal fun HomeContent(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-          //  .padding(top = paddingValues.calculateTopPadding())
+            //  .padding(top = paddingValues.calculateTopPadding())
             .padding(bottom = paddingValues.calculateBottomPadding()),
         horizontalAlignment = Alignment.CenterHorizontally,
         state = homeLazyListState
@@ -66,43 +75,75 @@ internal fun HomeContent(
 
         item {
             HomeHeaderCard(
-                modifier = Modifier.fillMaxWidth().height(height = 160.dp),
-                title ="Brewing Moments\nof Joy",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(height = 160.dp),
+                title = "Brewing Moments\nof Joy",
                 description = "Join us for a delightful experience that goes beyond the ordinary.",
                 color = MaterialTheme.colorScheme.secondary,
-                imagePath=Constants.StaticImages.bannerSplashCoffee)
+                imagePath = Constants.StaticImages.bannerSplashCoffee
+            )
 
-            HomeReelsContent(reels, context)
+            // HomeReelsContent(reels, context)
+
+
+            LazyRow(modifier = Modifier.padding(top = 10.dp)) {
+                this.items(HomeBanners.entries.toTypedArray()) { entries ->
+                    HomeBannerCard(
+                        Modifier.padding(horizontal = 5.dp),
+                        title = entries.title,
+                        color = entries.color,
+                        imagePath = entries.imagePath,
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.size(10.dp))
 
             HomeMenusContent(menus, context)
 
+            Spacer(modifier = Modifier.size(10.dp))
 
-            LazyRow(modifier = Modifier.padding(top = 10.dp)){
-                item {
-                    HomeBannerCard(
-                        Modifier.padding(horizontal = 5.dp),
-                        title ="Bite into Boldness",
-                        color = MaterialTheme.colorScheme.primary,
-                        imagePath=Constants.StaticImages.bannerBurger)
-                    HomeBannerCard(
-                        Modifier.padding(horizontal = 5.dp),
-                        title ="Slice into Perfection",
-                        color = MaterialTheme.colorScheme.onTertiary,
-                        imagePath=Constants.StaticImages.bannerPizza)
+            HomePopularContent(context)
 
-                    HomeBannerCard(
-                        Modifier.padding(horizontal = 5.dp),
-                        title ="Awaken Your Senses",
-                        color = MaterialTheme.colorScheme.secondary,
-                        imagePath=Constants.StaticImages.bannerCoffee)
-
-                }
-
-            }
         }
 
     }
 
+}
+
+@Composable
+private fun HomePopularContent(context: Context) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 15.dp)
+    ) {
+        Text(
+            modifier = Modifier.padding(start = 10.dp),
+            text = "Popular",
+            fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
+            fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+        LazyRow(modifier = Modifier.padding(top = 10.dp)) {
+            this.items(Featured.entries.toTypedArray()) { entries ->
+                CardProduct(
+                    Modifier.padding(horizontal = 5.dp),
+                    title = entries.title,
+                    price = entries.price,
+                    imagePath = entries.imagePath,
+                    onAddButtonClicked = {
+                        Toast.makeText(
+                            context,
+                            "Added ${entries.title}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                )
+            }
+        }
+    }
 }
 
 @Composable
@@ -113,26 +154,28 @@ private fun HomeMenusContent(
     when (menus) {
         is RequestState.Loading -> CircularLoadingIndicator()
         is RequestState.Success -> {
-            Column(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 15.dp)
+            ) {
                 Text(
-                    modifier = Modifier.padding(10.dp),
+                    modifier = Modifier.padding(start = 10.dp),
                     text = "Menu",
                     fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontSize = 20.sp,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
                 Box(modifier = Modifier.fillMaxWidth()) {
-                    val filteredMenus = menus.data.filter { it.isAvailable == true }
+                    val filteredMenus = menus.data.filter { it.isAvailable }
                     LazyRow {
                         items(filteredMenus.size) { index ->
                             HomeMenusCard(index, menus = filteredMenus, onClick = {
-                                Toast
-                                    .makeText(
-                                        context,
-                                        "Selected ${filteredMenus[index].menuName}",
-                                        Toast.LENGTH_SHORT
-                                    )
-                                    .show()
+                                Toast.makeText(
+                                    context,
+                                    "Selected ${filteredMenus[index].menuName}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             })
                         }
                     }
@@ -169,9 +212,11 @@ private fun HomeReelsContent(
                     elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level5),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
                 ) {
-                    Box(modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(5.dp)) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(5.dp)
+                    ) {
                         val filteredReels = reels.data.filter { it.isReviewed == true }
                         LazyRow {
                             items(filteredReels.size) { index ->
