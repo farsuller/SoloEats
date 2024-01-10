@@ -2,13 +2,18 @@ package com.solodemo.main
 
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.solo.components.state.RequestState
 import com.solo.util.SharedPreferenceHelper
+import com.solo.util.getJsonDataFromAsset
+import com.solodemo.main.model.FoodCategory
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reels
 import com.solodemo.supabase.domain.repository.SupabaseRepository
@@ -36,6 +41,11 @@ class MainViewModel @Inject constructor(
     init {
         getReels()
         getMenus()
+    }
+    fun getProductList(context: Context): List<FoodCategory> {
+        val jsonFileString = getJsonDataFromAsset(context, "foodProducts.json")
+        val type = object : TypeToken<List<FoodCategory>>() {}.type
+        return Gson().fromJson(jsonFileString, type)
     }
 
     private fun getReels(){

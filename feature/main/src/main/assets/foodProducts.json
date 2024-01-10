@@ -1,0 +1,88 @@
+
+ [
+    {
+      "categoryId": 1,
+      "categoryName": "Burgers",
+      "foods": [
+        {
+          "foodId": 101,
+          "foodName": "Cheesy Haven Deluxe",
+          "foodDescription": "Immerse yourself in the ultimate cheesy delight atop a juicy patty.",
+          "foodImage": "file:///android_asset/images/burger/CheesyHavenDeluxe.png",
+          "price": "₱340.00",
+          "starReview": 4
+        },
+        {
+          "foodId": 102,
+          "foodName": "Garden Gastronomy Burger",
+          "foodDescription": "Delight in a vegetarian masterpiece with a fresh garden vegetable patty.",
+          "foodImage": "file:///android_asset/images/burger/GardenGastronomyBurger.png",
+          "price": "₱360.00",
+          "starReview": 4
+        },
+        {
+          "foodId": 103,
+          "foodName": "Maple Bacon Marvel Burger",
+          "foodDescription": "Experience a harmonious blend of sweet maple syrup and crispy bacon.",
+          "foodImage": "file:///android_asset/images/burger/MapleBaconMarvelBurger.png",
+          "price": "₱340.00",
+          "starReview": 3
+        },
+        {
+          "foodId": 104,
+          "foodName": "Mediterranean Mingle Burger",
+          "foodDescription": "Transport your taste buds with an herb-infused patty and regional toppings.",
+          "foodImage": "file:///android_asset/images/burger/MediterraneanMingleBurger.png",
+          "price": "₱290.00",
+          "starReview": 3
+        },
+        {
+          "foodId": 105,
+          "foodName": "Smoking Summit Burger",
+          "foodDescription": "Enjoy a smoky twist with doubled meaty char-grilled patty topped.",
+          "foodImage": "file:///android_asset/images/burger/SmokinSummitBurger.png",
+          "price": "₱490.00",
+          "starReview": 5
+        },
+        {
+          "foodId": 106,
+          "foodName": "Southwest Sizzle Supreme",
+          "foodDescription": "Take a journey to the Southwest with a sizzling, spice-infused burger.",
+          "foodImage": "file:///android_asset/images/burger/SouthwestSizzleSupreme.png",
+          "price": "₱290.00",
+          "starReview": 3
+        },
+        {
+          "foodId": 107,
+          "foodName": "Spicy Bacon Fusion Fiesta Burger",
+          "foodDescription": "Embark on a fiery adventure with a boldly spiced patty and exciting toppings.",
+          "foodImage": "file:///android_asset/images/burger/SpicyBaconFusionFiestaBurger.png",
+          "price": "₱320.00",
+          "starReview": 5
+        },
+        {
+          "foodId": 108,
+          "foodName": "Zesty Zing Burger",
+          "foodDescription": "Experience a punch of zesty and tangy flavors in every bite.",
+          "foodImage": "file:///android_asset/images/burger/ZestyZingBurger.png",
+          "price": "₱280.00",
+          "starReview": 5
+        }
+      ]
+    },
+    {
+      "categoryId": 2,
+      "categoryName": "Pasta",
+      "foods": [
+        {
+          "foodId": 201,
+          "foodName": "Filipino Spaghetti",
+          "foodDescription": "Distinguished by its unique sauce made with banana ketchup and brown sugar.",
+          "foodImage": "file:///android_asset/images/pasta/FilipinoSpaghetti.png",
+          "price": "₱170.00",
+          "starReview": 5
+        }
+
+      ]
+    }
+  ]

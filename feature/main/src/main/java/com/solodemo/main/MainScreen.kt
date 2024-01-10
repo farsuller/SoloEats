@@ -18,6 +18,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.solodemo.main.components.MainBottomNavBar
 import com.solodemo.main.components.MainTopBar
+import com.solodemo.main.model.FoodCategory
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reels
 
@@ -27,6 +28,7 @@ import com.solodemo.supabase.domain.repository.Reels
 internal fun MainScreen(
     reels: Reels,
     menus: Menus,
+    foodList : List<FoodCategory>,
     navController: NavHostController = rememberNavController(),
     viewModel: MainViewModel,
     navigateToAuth: () -> Unit
@@ -49,8 +51,9 @@ internal fun MainScreen(
 
 
     when (selectedTab) {
-        "Wallet", "Cart" -> window.statusBarColor = MaterialTheme.colorScheme.surface.toArgb()
+        "Payment", "Cart" -> window.statusBarColor = MaterialTheme.colorScheme.surface.toArgb()
         "Menus" -> window.statusBarColor = MaterialTheme.colorScheme.primary.toArgb()
+        "Account" -> window.statusBarColor = MaterialTheme.colorScheme.secondary.toArgb()
         else -> window.statusBarColor = statusBarColor.toArgb()
     }
 
@@ -71,7 +74,9 @@ internal fun MainScreen(
             reels = reels,
             viewModel = viewModel,
             navigateToAuth = navigateToAuth,
-            homeLazyListState = homeLazyListState
+            homeLazyListState = homeLazyListState,
+            foodList = foodList
+
         )
     }
 }

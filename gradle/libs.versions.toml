@@ -5,7 +5,9 @@ coil-compose = "2.5.0"
 core-ktx = "1.12.0"
 datastore-preferences = "1.0.0-alpha06"
 espresso-core = "3.5.1"
+gson = "2.10"
 junit = "4.13.2"
+kotlin-reflect = "1.9.21"
 kotlinx-serialization-json = "1.6.2"
 ktor-client-cio = "2.3.3"
 lifecycle-runtime-ktx = "2.6.2"
@@ -38,6 +40,8 @@ androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling"}
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest"}
 androidx-ui-text-google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version.ref = "ui-text-google-fonts" }
 datastore-preferences = { module = "com.squareup.datastore:datastore-preferences", version.ref = "datastore-preferences" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin-reflect" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor-client-cio" }
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }

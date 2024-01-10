@@ -8,7 +8,9 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
+import androidx.navigation.NavHostController
 import com.solodemo.main.components.MainBackground
+import com.solodemo.main.model.FoodCategory
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reels
 
@@ -19,15 +21,16 @@ internal fun HomeScreen(
     menus: Menus,
     reels: Reels,
     homeLazyListState: LazyListState,
+    navController: NavHostController
 ) {
 
-   // MainBackground()
+    MainBackground()
 
     HomeContent(
         paddingValues = paddingValues,
         menus = menus,
         reels = reels,
-        homeLazyListState = homeLazyListState
-    )
+        homeLazyListState = homeLazyListState,
+        navController = navController)
 
 }

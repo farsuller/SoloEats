@@ -10,7 +10,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.core.content.pm.PackageInfoCompat
+import java.io.IOException
 
+
+fun getJsonDataFromAsset(
+    context: Context,
+    fileName: String
+): String? {
+    val jsonString: String
+    try {
+        jsonString = context.assets.open(fileName).bufferedReader().use {
+            it.readText()
+        }
+    } catch (exp: IOException) {
+        exp.printStackTrace()
+        return null
+    }
+
+    return jsonString
+}
 @SuppressLint("UnnecessaryComposedModifier")
 fun Modifier.clickableWithoutRipple(
     interactionSource: MutableInteractionSource,

@@ -20,13 +20,13 @@ enum class HomeBanners(
         title = "Bite into Boldness"
     ),
     Pizza(
-        imagePath = Constants.StaticImages.bannerBurger,
+        imagePath = Constants.StaticImages.bannerPizza,
         color = md_theme_light_onTertiary,
         title = "Slice into Perfection",
         isInverted = true
     ),
     Coffee(
-        imagePath = Constants.StaticImages.bannerBurger,
+        imagePath = Constants.StaticImages.bannerCoffee,
         color = md_theme_light_secondary,
         title = "Awaken Your Senses"
     )

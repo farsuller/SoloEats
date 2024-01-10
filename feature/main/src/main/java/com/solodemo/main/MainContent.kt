@@ -1,18 +1,18 @@
 package com.solodemo.main
 
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.solo.util.routes.ScreensRoutes
+import com.solodemo.main.model.FoodCategory
 import com.solodemo.main.screens.account.accountRoute
 import com.solodemo.main.screens.cart.cartRoute
 import com.solodemo.main.screens.home.homeRoute
 import com.solodemo.main.screens.menu.menuRoute
 import com.solodemo.main.screens.payment.paymentRoute
+import com.solodemo.main.screens.product.productSelectionRoute
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reels
 
@@ -26,14 +26,17 @@ fun MainContent(
     viewModel: MainViewModel,
     navigateToAuth: () -> Unit,
     homeLazyListState: LazyListState,
+    foodList : List<FoodCategory>,
 ) {
     NavHost(navController = navController,
         startDestination = ScreensRoutes.Home.route,
         ) {
         homeRoute(
             paddingValues = paddingValues,
-            menus = menus, reels = reels,
-            homeLazyListState = homeLazyListState
+            menus = menus,
+            reels = reels,
+            homeLazyListState = homeLazyListState,
+            navController = navController
         )
         menuRoute(
             paddingValues = paddingValues,
@@ -46,6 +49,8 @@ fun MainContent(
             viewModel = viewModel,
             navigateToAuth = navigateToAuth
         )
+        productSelectionRoute(paddingValues = paddingValues,
+            foodList = foodList)
     }
 
 

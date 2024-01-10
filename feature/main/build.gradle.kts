@@ -61,7 +61,11 @@ dependencies {
 
     implementation (libs.material.icons.extended)
     implementation(libs.coil.compose)
+    implementation(libs.orbital)
 
+    implementation (libs.gson)
+    implementation (libs.kotlin.reflect)
+    
     debugImplementation(libs.androidx.ui.tooling)
 
     hilt()

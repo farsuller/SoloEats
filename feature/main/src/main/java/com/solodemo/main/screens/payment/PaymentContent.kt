@@ -1,14 +1,30 @@
 package com.solodemo.main.screens.payment
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Forward
+import androidx.compose.material.icons.filled.Security
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Wallet
+import androidx.compose.material.icons.outlined.KeyboardArrowRight
+import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.Shield
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -16,56 +32,117 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.solodemo.main.components.PaymentWalletCard
 
 
 @Composable
 internal fun PaymentContent(
-    onButtonClicked: () -> Unit
+    onWalletClicked: () -> Unit,
+    paddingValues: PaddingValues
 ) {
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = paddingValues.calculateTopPadding() / 2)
+            .padding(bottom = paddingValues.calculateBottomPadding())
     ) {
         Column(
-            modifier = Modifier
-                .weight(9f)
-                .fillMaxWidth()
-                .padding(all = 40.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.padding(10.dp),
+            horizontalAlignment = Alignment.Start
         ) {
-            Column(
-                modifier = Modifier.weight(weight = 10f),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(
-                    modifier = Modifier.size(180.dp),
-                    imageVector = Icons.Default.Wallet,
-                    contentDescription = "SoloScape Logo"
-                )
-
                 Text(
                     text = "Payment",
-                    fontSize = MaterialTheme.typography.titleLarge.fontSize
+                    fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
+                    fontSize = 28.sp
                 )
-                Text(
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
-                    text = "Content",
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize
-                )
+
+                Icon(imageVector = Icons.Outlined.Settings, contentDescription = null)
             }
-            Column(
-                modifier = Modifier.weight(weight = 2f),
-                verticalArrangement = Arrangement.Bottom,
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp),
+
+                verticalAlignment = Alignment.Bottom
             ) {
-                Button(
-                    onClick = onButtonClicked
-                ){
-                    Text(text = "Next")
-                }
+                Text(
+                    text = "Our multi-layered\nsecurity keeps you safe",
+                    maxLines = 2,
+                    fontFamily = MaterialTheme.typography.titleSmall.fontFamily,
+                    fontSize = 14.sp,
+                    lineHeight = 18.sp
+                )
+                Icon(
+                    modifier = Modifier.size(20.dp),
+                    imageVector = Icons.Outlined.Shield,
+                    contentDescription = null
+                )
             }
+
+
+            Spacer(modifier = Modifier.size(15.dp))
+
+            PaymentWalletCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(250.dp)
+                    .padding(10.dp),
+                title = "SoloEats Wallet",
+                amount = "₱ 0.00",
+                onWalletClicked = onWalletClicked
+            )
+
+            Spacer(modifier = Modifier.size(15.dp))
+
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Recent Transactions",
+                    fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
+                    fontSize = 18.sp
+                )
+
+                Box(
+                    modifier = Modifier.background(
+                        color = MaterialTheme.colorScheme.secondary,
+                        shape = CircleShape
+                    )
+                ) {
+                    Icon(
+                        modifier = Modifier.padding(3.dp),
+                        imageVector = Icons.Outlined.KeyboardArrowRight,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.surface
+                    )
+                }
+
+            }
+
         }
     }
+
+}
+
+@Preview(showBackground = true)
+@Composable
+internal fun PaymentWalletCardPreview() {
+    PaymentContent(
+        onWalletClicked = {},
+        paddingValues = PaddingValues()
+
+    )
 }

@@ -36,7 +36,7 @@ enum class MainBottomNavItem(
         route = "menu_screen",),
     Wallet(unSelectedIcon = Icons.Outlined.AccountBalanceWallet,
         selectedIcon = Icons.Filled.AccountBalanceWallet,
-        title = "Wallet",
+        title = "Payment",
         hasUpdate = true,
         route = "payment_screen",),
     Cart(unSelectedIcon = Icons.Outlined.ShoppingCart,

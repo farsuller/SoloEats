@@ -16,4 +16,6 @@ sealed class ScreensRoutes(val route: String) {
     data object Cart : ScreensRoutes(route = "cart_screen")
     data object Account : ScreensRoutes(route = "account_screen")
 
+    data object Product : ScreensRoutes(route = "product_screen")
+
 }
