@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,23 +19,37 @@ import androidx.compose.ui.graphics.Color
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GenericBackTopBar(onBackButton:()-> Unit, ) {
+fun GenericBackTopBar(onBackButton:()-> Unit, showBackButtonLeft:Boolean = true) {
 
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
         navigationIcon = {
-            IconButton(
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.secondary),
-                onClick = { onBackButton() }) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.surface)
+            if(showBackButtonLeft) {
+                IconButton(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.secondary),
+                    onClick = { onBackButton() }) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.surface
+                    )
+                }
             }
         },
         title = {},
-        actions = {}
+        actions = {
+            if(!showBackButtonLeft){
+                IconButton(
+                    modifier = Modifier,
+                    onClick = { onBackButton() }) {
+                    Icon(
+                        imageVector = Icons.Filled.Close,
+                        contentDescription = null,
+                        tint = Color.Black)
+                }
+            }
+        }
     )
 }

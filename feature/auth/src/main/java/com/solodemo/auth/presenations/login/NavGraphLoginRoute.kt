@@ -13,7 +13,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.solo.components.dialogs.DisplayAlertDialog
 import com.solo.components.state.RequestState
-import com.solo.util.routes.ScreensRoutes
+import com.solo.components.routes.ScreensRoutes
 import com.solodemo.auth.presenations.AuthViewModel
 import kotlinx.coroutines.flow.collectLatest
 

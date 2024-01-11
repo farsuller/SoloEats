@@ -1,8 +1,7 @@
 package com.solodemo.main.module
 
 import android.app.Application
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.solodemo.main.MainViewModel
+import com.solodemo.main.presentations.MainViewModel
 import com.solodemo.supabase.di.repository.SupabaseRepositoryImpl
 import dagger.Module
 import dagger.Provides

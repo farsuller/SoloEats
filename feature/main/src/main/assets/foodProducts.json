@@ -1,88 +1,464 @@
-
- [
-    {
-      "categoryId": 1,
-      "categoryName": "Burgers",
-      "foods": [
-        {
-          "foodId": 101,
-          "foodName": "Cheesy Haven Deluxe",
-          "foodDescription": "Immerse yourself in the ultimate cheesy delight atop a juicy patty.",
-          "foodImage": "file:///android_asset/images/burger/CheesyHavenDeluxe.png",
-          "price": "₱340.00",
-          "starReview": 4
-        },
-        {
-          "foodId": 102,
-          "foodName": "Garden Gastronomy Burger",
-          "foodDescription": "Delight in a vegetarian masterpiece with a fresh garden vegetable patty.",
-          "foodImage": "file:///android_asset/images/burger/GardenGastronomyBurger.png",
-          "price": "₱360.00",
-          "starReview": 4
-        },
-        {
-          "foodId": 103,
-          "foodName": "Maple Bacon Marvel Burger",
-          "foodDescription": "Experience a harmonious blend of sweet maple syrup and crispy bacon.",
-          "foodImage": "file:///android_asset/images/burger/MapleBaconMarvelBurger.png",
-          "price": "₱340.00",
-          "starReview": 3
-        },
-        {
-          "foodId": 104,
-          "foodName": "Mediterranean Mingle Burger",
-          "foodDescription": "Transport your taste buds with an herb-infused patty and regional toppings.",
-          "foodImage": "file:///android_asset/images/burger/MediterraneanMingleBurger.png",
-          "price": "₱290.00",
-          "starReview": 3
-        },
-        {
-          "foodId": 105,
-          "foodName": "Smoking Summit Burger",
-          "foodDescription": "Enjoy a smoky twist with doubled meaty char-grilled patty topped.",
-          "foodImage": "file:///android_asset/images/burger/SmokinSummitBurger.png",
-          "price": "₱490.00",
-          "starReview": 5
-        },
-        {
-          "foodId": 106,
-          "foodName": "Southwest Sizzle Supreme",
-          "foodDescription": "Take a journey to the Southwest with a sizzling, spice-infused burger.",
-          "foodImage": "file:///android_asset/images/burger/SouthwestSizzleSupreme.png",
-          "price": "₱290.00",
-          "starReview": 3
-        },
-        {
-          "foodId": 107,
-          "foodName": "Spicy Bacon Fusion Fiesta Burger",
-          "foodDescription": "Embark on a fiery adventure with a boldly spiced patty and exciting toppings.",
-          "foodImage": "file:///android_asset/images/burger/SpicyBaconFusionFiestaBurger.png",
-          "price": "₱320.00",
-          "starReview": 5
-        },
-        {
-          "foodId": 108,
-          "foodName": "Zesty Zing Burger",
-          "foodDescription": "Experience a punch of zesty and tangy flavors in every bite.",
-          "foodImage": "file:///android_asset/images/burger/ZestyZingBurger.png",
-          "price": "₱280.00",
-          "starReview": 5
-        }
-      ]
-    },
-    {
-      "categoryId": 2,
-      "categoryName": "Pasta",
-      "foods": [
-        {
-          "foodId": 201,
-          "foodName": "Filipino Spaghetti",
-          "foodDescription": "Distinguished by its unique sauce made with banana ketchup and brown sugar.",
-          "foodImage": "file:///android_asset/images/pasta/FilipinoSpaghetti.png",
-          "price": "₱170.00",
-          "starReview": 5
-        }
-
-      ]
-    }
-  ]
+[
+  {
+    "categoryId": 1,
+    "categoryName": "Burgers",
+    "categoryDescription": "Savor the symphony of flavors in our gourmet burgers, where premium ingredients and artisanal craftsmanship unite to redefine your burger experience.",
+    "foods": [
+      {
+        "foodId": 101,
+        "foodName": "Cheesy Haven Deluxe",
+        "foodDescription": "Immerse yourself in the ultimate cheesy delight atop a juicy patty.",
+        "foodImage": "file:///android_asset/images/burger/CheesyHavenDeluxe.png",
+        "price": "₱340.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 102,
+        "foodName": "Garden Gastronomy Burger",
+        "foodDescription": "Delight in a vegetarian masterpiece with a fresh garden vegetable patty.",
+        "foodImage": "file:///android_asset/images/burger/GardenGastronomyBurger.png",
+        "price": "₱360.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 103,
+        "foodName": "Maple Bacon Marvel Burger",
+        "foodDescription": "Experience a harmonious blend of sweet maple syrup and crispy bacon.",
+        "foodImage": "file:///android_asset/images/burger/MapleBaconMarvelBurger.png",
+        "price": "₱340.00",
+        "starReview": 3
+      },
+      {
+        "foodId": 104,
+        "foodName": "Mediterranean Mingle Burger",
+        "foodDescription": "Transport your taste buds with an herb-infused patty and regional toppings.",
+        "foodImage": "file:///android_asset/images/burger/MediterraneanMingleBurger.png",
+        "price": "₱290.00",
+        "starReview": 3
+      },
+      {
+        "foodId": 105,
+        "foodName": "Smoking Summit Burger",
+        "foodDescription": "Enjoy a smoky twist with doubled meaty char-grilled patty topped.",
+        "foodImage": "file:///android_asset/images/burger/SmokinSummitBurger.png",
+        "price": "₱490.00",
+        "starReview": 5
+      },
+      {
+        "foodId": 106,
+        "foodName": "Southwest Sizzle Supreme",
+        "foodDescription": "Take a journey to the Southwest with a sizzling, spice-infused burger.",
+        "foodImage": "file:///android_asset/images/burger/SouthwestSizzleSupreme.png",
+        "price": "₱290.00",
+        "starReview": 3
+      },
+      {
+        "foodId": 107,
+        "foodName": "Spicy Bacon Fusion Fiesta Burger",
+        "foodDescription": "Embark on a fiery adventure with a boldly spiced patty and exciting toppings.",
+        "foodImage": "file:///android_asset/images/burger/SpicyBaconFusionFiestaBurger.png",
+        "price": "₱320.00",
+        "starReview": 5
+      },
+      {
+        "foodId": 108,
+        "foodName": "Zesty Zing Burger",
+        "foodDescription": "Experience a punch of zesty and tangy flavors in every bite.",
+        "foodImage": "file:///android_asset/images/burger/ZestyZingBurger.png",
+        "price": "₱280.00",
+        "starReview": 5
+      }
+    ]
+  },
+  {
+    "categoryId": 2,
+    "categoryName": "Pasta",
+    "categoryDescription": "Indulge in the artistry of Italian cuisine with our exquisite pasta dishes, where every strand is a masterpiece of texture and taste, bringing the essence of Italy to your table.",
+    "foods": [
+      {
+        "foodId": 201,
+        "foodName": "Filipino Spaghetti",
+        "foodDescription": "Distinguished by its unique sauce made with banana ketchup and brown sugar.",
+        "foodImage": "file:///android_asset/images/pasta/FilipinoSpaghetti.png",
+        "price": "₱170.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 202,
+        "foodName": "Sicilian Sausage Sensation Pasta",
+        "foodDescription": "Delight in the bold flavors of Sicilian sausage, roasted peppers, and a hearty Bolognese sauce, creating a sensational pasta experience.",
+        "foodImage": "file:///android_asset/images/pasta/SicilianSausageSensationPasta.png",
+        "price": "₱210.00",
+        "starReview": 3
+      },
+      {
+        "foodId": 203,
+        "foodName": "Truffle Tango Bolognese Linguine",
+        "foodDescription": "Engage your taste buds in a dance of flavors with a Bolognese sauce enriched with truffle essence, elegantly twirled with linguine for a luxurious and indulgent tango.",
+        "foodImage": "file:///android_asset/images/pasta/TruffleTangoBologneseLinguine.png",
+        "price": "₱220.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 204,
+        "foodName": "Rosy Tomato Burst Macaroni",
+        "foodDescription": "Indulge in the vibrant flavors of a tomato-rich sauce coating every macaroni, creating a rosy burst of deliciousness in every bite.",
+        "foodImage": "file:///android_asset/images/pasta/RosyTomatoBurstMacaroni.png",
+        "price": "₱220.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 205,
+        "foodName": "Hearty Herb-Infused Bolognese Harmony",
+        "foodDescription": "Savor the rich and savory blend of slow-cooked Bolognese sauce, infused with a medley of aromatic herbs, perfectly paired with al dente pasta for flavorful harmony.",
+        "foodImage": "file:///android_asset/images/pasta/HeartyHerbBolognese.png",
+        "price": "₱260.00",
+        "starReview": 4
+      }
+    ]
+  },
+  {
+    "categoryId": 3,
+    "categoryName": "Pizza",
+    "categoryDescription": "Elevate your pizza cravings with our handcrafted masterpieces, featuring a perfect marriage of crispy crusts, premium toppings, and mouthwatering sauces that transport you to the heart of pizzerias in Italy.",
+    "foods": [
+      {
+        "foodId": 301,
+        "foodName": "Tropical Cheese Paradise Hawaiian Pizza",
+        "foodDescription": "Experience the best of both worlds with a Hawaiian twist—ham, pineapple, and a duo of cheeses for a delightful tropical and cheesy fusion.",
+        "foodImage": "file:///android_asset/images/pizza/TropicalHawaiianPizza.png",
+        "price": "₱490.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 302,
+        "foodName": "Four-Cheese Fiesta Pizza",
+        "foodDescription": "Dive into a flavor celebration with a blend of four cheeses, creating a rich and savory symphony on your favorite pizza dough.",
+        "foodImage": "file:///android_asset/images/pizza/Four-CheeseFiestaPizza.png",
+        "price": "₱550.00",
+        "starReview": 5
+      },
+      {
+        "foodId": 303,
+        "foodName": "Double Cheese Delight Pizza",
+        "foodDescription": "A cheesy sensation featuring two types of melted cheeses over a classic crust for an indulgent and gooey experience.",
+        "foodImage": "file:///android_asset/images/pizza/DoubleCheeseDelightPizza.png",
+        "price": "₱530.00",
+        "starReview": 5
+      }
+    ]
+  },
+  {
+    "categoryId": 4,
+    "categoryName": "Wings",
+    "categoryDescription": "Experience a burst of flavors with our wings collection, where each bite is a journey through zesty marinades, unique spice blends, and the perfect balance of crispy and tender textures.",
+    "foods": [
+      {
+        "foodId": 401,
+        "foodName": "Taco Wings",
+        "foodDescription": "Indulge in the vibrant fusion of flavors with our Taco wings.",
+        "foodImage": "file:///android_asset/images/wings/Taco.png",
+        "price": "₱290.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 402,
+        "foodName": "Sweet And Spicy Wings",
+        "foodDescription": "Experience the perfect balance of sweetness and heat in our Sweet And Spicy wings",
+        "foodImage": "file:///android_asset/images/wings/SweetAndSpicy.png",
+        "price": "₱290.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 403,
+        "foodName": "Spicy Honey Wings",
+        "foodDescription": "Savor the unique blend of spices with our Spicy Honey wings, each crafted to elevate your culinary experience.",
+        "foodImage": "file:///android_asset/images/wings/SpicyHoney.png",
+        "price": "₱290.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 404,
+        "foodName": "Salted Egg Wings",
+        "foodDescription": "Embark on a savory journey with our Salted Egg wings.",
+        "foodImage": "file:///android_asset/images/wings/SaltedEgg.png",
+        "price": "₱290.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 405,
+        "foodName": "Lemon Pepper Wings",
+        "foodDescription": "Embrace the citrusy zest of our Lemon Pepper wings",
+        "foodImage": "file:///android_asset/images/wings/LemonPepper.png",
+        "price": "₱290.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 406,
+        "foodName": "Korean Snowing Cheese Wings",
+        "foodDescription": "Enjoy the creamy goodness of Korean Snowing Cheese wings.",
+        "foodImage": "file:///android_asset/images/wings/KoreanSnowingCheese.png",
+        "price": "₱290.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 407,
+        "foodName": "Honey Garlic Wings",
+        "foodDescription": "Delight in the savory-sweet harmony of our Honey Garlic wings.",
+        "foodImage": "file:///android_asset/images/wings/HoneyGarlic.png",
+        "price": "₱290.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 408,
+        "foodName": "Honey Chipotle Wings",
+        "foodDescription": "Experience the smoky and sweet heat of our Honey Chipotle wings.",
+        "foodImage": "file:///android_asset/images/wings/HoneyChipotle.png",
+        "price": "₱290.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 409,
+        "foodName": "Garlic Parmesan Wings",
+        "foodDescription": "Savor the rich and cheesy goodness of our Garlic Parmesan wings",
+        "foodImage": "file:///android_asset/images/wings/GarlicParmesan.png",
+        "price": "₱290.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 410,
+        "foodName": "Buffalo Extra Hot Wings",
+        "foodDescription": "Dare to conquer the intense heat of Buffalo Extra Hot wings.",
+        "foodImage": "file:///android_asset/images/wings/BuffaloExtra-Hot.png",
+        "price": "₱290.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 411,
+        "foodName": "Buffalo Wings",
+        "foodDescription": "Relish the classic spiciness of our Buffalo wings.",
+        "foodImage": "file:///android_asset/images/wings/Buffalo.png",
+        "price": "₱290.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 412,
+        "foodName": "BBQ Wings",
+        "foodDescription": "Savor the smoky richness of our BBQ wings, ensuring an unforgettable feast for your senses.",
+        "foodImage": "file:///android_asset/images/wings/BBQ.png",
+        "price": "₱290.00",
+        "starReview": 4
+      }
+    ]
+  },
+  {
+    "categoryId": 5,
+    "categoryName": "Salad",
+    "categoryDescription": "Revitalize your senses with our vibrant salad creations, where freshness meets innovation, and each bite is a celebration of colors, textures, and wholesome goodness.",
+    "foods": [
+      {
+        "foodId": 501,
+        "foodName": "Garden Salad",
+        "foodDescription": "Immerse yourself in the freshness of our Garden Salad, a colorful symphony of crisp greens, vibrant vegetables, and a medley of flavors that promise a refreshing and nutritious escape in every bite.",
+        "foodImage": "file:///android_asset/images/salad/GardenSalad.png",
+        "price": "₱390.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 502,
+        "foodName": "Garden Salad Grilled Chicken Breast",
+        "foodDescription": "Savor the healthful abundance of our Garden Salad with Grilled Chicken Breast, where an array of fresh, crisp vegetables meets the succulent goodness of grilled chicken, creating a wholesome and satisfying salad experience.",
+        "foodImage": "file:///android_asset/images/salad/GardenSaladGrilledChickenBreast.png",
+        "price": "₱420.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 503,
+        "foodName": "Grilled Steak Salad Dressing",
+        "foodDescription": "Elevate your salad game with our Grilled Steak Salad Dressing, featuring tender slices of grilled steak atop a bed of fresh greens, drizzled with a delectable dressing that perfectly complements the robust flavors of the steak.",
+        "foodImage": "file:///android_asset/images/salad/GrilledSteakSaladDressing.png",
+        "price": "₱450.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 504,
+        "foodName": "House Caesar Salad",
+        "foodDescription": "Indulge in the classic sophistication of our House Caesar Salad, where crisp romaine lettuce is tossed with Parmesan cheese, croutons, and our signature Caesar dressing, delivering a timeless and satisfying salad experience.",
+        "foodImage": "file:///android_asset/images/salad/HouseCaesarSalad.png",
+        "price": "₱490.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 505,
+        "foodName": "Kani Mango Salad",
+        "foodDescription": "Embark on a journey of vibrant flavors with our Kani Mango Salad, where succulent crab sticks meet the sweet allure of ripe mango, creating a refreshing and delightful medley that captures the essence of tropical indulgence.",
+        "foodImage": "file:///android_asset/images/salad/KaniMangoSalad.png",
+        "price": "₱390.00",
+        "starReview": 4
+      }
+    ]
+  },
+  {
+    "categoryId": 6,
+    "categoryName": "Steaks",
+    "categoryDescription": "Unleash your carnivorous cravings with our perfectly grilled steaks, where prime cuts meet expert seasoning, delivering a steakhouse experience that's nothing short of exceptional.",
+    "foods": [
+      {
+        "foodId": 601,
+        "foodName": "Flat Iron Steak",
+        "foodDescription": "Experience the culinary finesse of our Flat Iron Steak, where a meticulously selected cut is grilled to perfection, offering a delightful tenderness and robust flavor that is both satisfying and unforgettable.",
+        "foodImage": "file:///android_asset/images/steak/FlatIronSteak.png",
+        "price": "₱495.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 602,
+        "foodName": "Porter Steak House",
+        "foodDescription": "Step into a realm of steakhouse elegance with our Porter Steak House creation, featuring a perfectly grilled porterhouse cut, charred to perfection, and exuding a symphony of savory notes that elevate the steakhouse experience.",
+        "foodImage": "file:///android_asset/images/steak/PorterSteakHouse.png",
+        "price": "₱465.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 603,
+        "foodName": "T-Bone Steak",
+        "foodDescription": "Savor the epitome of steak excellence with our T-Bone Steak, a culinary masterpiece where the rich flavors of tenderloin and strip loin converge, creating a steak experience that is both bold and succulent.",
+        "foodImage": "file:///android_asset/images/steak/TBoneSteak.png",
+        "price": "₱435.00",
+        "starReview": 4
+      }
+    ]
+  },
+  {
+    "categoryId": 7,
+    "categoryName": "Fries",
+    "categoryDescription": "Delight in the golden perfection of our fries, expertly crafted to crispy perfection, inviting you to experience the ultimate sidekick to your favorite meals.",
+    "foods": [
+      {
+        "foodId": 701,
+        "foodName": "Cheese Fries with MeatChunks",
+        "foodDescription": "Indulge in the ultimate comfort food with our Cheese Fries adorned with savory meat chunks, where each fry is smothered in a layer of gooey melted cheese and topped with succulent meat bites, creating a hearty and satisfying flavor fusion.",
+        "foodImage": "file:///android_asset/images/fries/CheeseFrieswithMeatChunks.png",
+        "price": "₱340.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 702,
+        "foodName": "Fries",
+        "foodDescription": "Savor the golden goodness of our classic Fries, expertly crafted to achieve the ideal balance of crispiness and tenderness, providing the perfect accompaniment to any meal or a delightful snack on their own.",
+        "foodImage": "file:///android_asset/images/fries/Fries.png",
+        "price": "₱90.00",
+        "starReview": 3
+      },
+      {
+        "foodId": 703,
+        "foodName": "Onion Rings",
+        "foodDescription": "Delight in the crispy perfection of our Onion Rings, where thinly sliced onions are coated in a golden batter and fried to a delightful crunch, offering a savory experience that's both crispy and flavorful.",
+        "foodImage": "file:///android_asset/images/fries/OnionRings.png",
+        "price": "₱90.00",
+        "starReview": 3
+      }
+    ]
+  },
+  {
+    "categoryId": 8,
+    "categoryName": "Desserts",
+    "categoryDescription": "Satisfy your sweet tooth with our decadent desserts, where indulgence takes center stage, and each dessert is a sublime combination of heavenly flavors and irresistible sweetness.",
+    "foods": [
+      {
+        "foodId": 801,
+        "foodName": "Choco Cupcake",
+        "foodDescription": "Satisfy your sweet cravings with our Choco Cupcake, a miniature delight bursting with rich chocolate flavor, crowned with a velvety swirl of chocolate frosting, promising a delightful escape into the world of cocoa-infused joy.",
+        "foodImage": "file:///android_asset/images/dessert/ChocoCupcake.png",
+        "price": "₱110.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 802,
+        "foodName": "Choco Donut",
+        "foodDescription": "Experience a heavenly treat with our Choco Donut, where the soft and pillowy donut meets a glossy layer of chocolate glaze, creating a delightful harmony of sweetness and indulgence in every bite.",
+        "foodImage": "file:///android_asset/images/dessert/ChocoDonut.png",
+        "price": "₱110.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 803,
+        "foodName": "Chocolate Cake",
+        "foodDescription": "Indulge in the divine richness of our Chocolate Cake, a decadent creation that melts in your mouth with layers of moist chocolate perfection, leaving your taste buds in a state of pure bliss.",
+        "foodImage": "file:///android_asset/images/dessert/ChocolateCake.png",
+        "price": "₱110.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 804,
+        "foodName": "Choco Velvet Slice Delight",
+        "foodDescription": "It's a delectable slice of chocolate powdered cake that promises a rich, velvety indulgence in every bite.",
+        "foodImage": "file:///android_asset/images/dessert/ChocoVelvetSliceDelight.png",
+        "price": "₱110.00",
+        "starReview": 4
+      }
+    ]
+  },
+  {
+    "categoryId": 9,
+    "categoryName": "Drinks",
+    "categoryDescription": "Quench your thirst with our refreshing beverage selection, crafted with care to complement every dish on our menu, providing the perfect sip for every mood.",
+    "foods": [
+      {
+        "foodId": 901,
+        "foodName": "Choco Cookie Cream",
+        "foodDescription": "Delight in the heavenly fusion of chocolate bliss and cookie crunch with our Choco Cookie Cream, a luscious concoction that marries the richness of chocolate with the delightful texture of creamy cookies, promising a taste of pure indulgence.",
+        "foodImage": "file:///android_asset/images/drinks/ChocoCookieCream.png",
+        "price": "₱190.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 902,
+        "foodName": "Dark Caramel Frappe",
+        "foodDescription": "Experience the velvety allure of our Dark Caramel Frappe, a decadent fusion of intense dark caramel and smooth blended ice, crafting a rich and indulgent treat that is as luxurious as it is refreshing.",
+        "foodImage": "file:///android_asset/images/drinks/DarkCaramelFrappe.png",
+        "price": "₱190.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 903,
+        "foodName": "Strawberry Frappe",
+        "foodDescription": "Dive into the refreshing embrace of our Strawberry Frappe, where luscious strawberries come together with creamy indulgence, creating a delightful and chilled symphony of sweetness.",
+        "foodImage": "file:///android_asset/images/drinks/StrawberryFrappe.png",
+        "price": "₱190.00",
+        "starReview": 4
+      }
+    ]
+  },
+  {
+    "categoryId": 10,
+    "categoryName": "Coffee",
+    "categoryDescription": "Awaken your senses with the rich aroma and bold flavors of our premium coffee blends, expertly brewed to perfection, offering a delightful caffeine kick for the coffee connoisseur in you.",
+    "foods": [
+      {
+        "foodId": 1001,
+        "foodName": "Black Coffee",
+        "foodDescription": "Savor the pure essence of coffee in its most unadulterated form with our black coffee, a soul-stirring brew that highlights the intricate flavors and aromatic richness of the finest coffee beans.",
+        "foodImage": "file:///android_asset/images/coffee/blackcoffee.png",
+        "price": "₱90.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 1002,
+        "foodName": "Espresso",
+        "foodDescription": "Experience the bold and robust character of our carefully crafted espresso, a concentrated essence of premium coffee beans that promises a powerful yet nuanced coffee journey.",
+        "foodImage": "file:///android_asset/images/coffee/espresso.png",
+        "price": "₱90.00",
+        "starReview": 4
+      },
+      {
+        "foodId": 1002,
+        "foodName": "Caramel Machiatto",
+        "foodDescription": "Indulge in the harmonious dance of rich espresso and velvety steamed milk, beautifully adorned with ribbons of luscious caramel—a decadent symphony for your senses.",
+        "foodImage": "file:///android_asset/images/coffee/caramelmachiatto.png",
+        "price": "₱140.00",
+        "starReview": 4
+      }
+    ]
+  }
+]

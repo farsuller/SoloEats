@@ -15,6 +15,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.solodemo.main.model.MainBottomNavItem
 
 @Composable
@@ -40,8 +41,11 @@ internal fun MainBottomNavBar(
                     onTabSelected(item.title)
                     selectedBottomNavItemIndex = index
                     navController.navigate(item.route) {
-                        popUpTo(navController.graph.findStartDestination().id)
+                        popUpTo(navController.graph.findStartDestination().id){
+                            saveState = true
+                        }
                         launchSingleTop = true
+                        restoreState = true
                     }
 
                 }, icon = {

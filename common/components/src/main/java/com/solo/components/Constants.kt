@@ -4,6 +4,8 @@ object Constants {
 
     const val ACCESS_TOKEN = "ACCESS_TOKEN"
     const val CLIENT_ID = "415444554521-90t82ild47643bkj3ql1sbm2nselkkt0.apps.googleusercontent.com"
+    const val CATEGORY_NAME_ARG_KEY = "categoryName"
+    const val DEFAULT_CATEGORY_NAME = "Burgers"
 
     object StaticImages {
         //Intro
