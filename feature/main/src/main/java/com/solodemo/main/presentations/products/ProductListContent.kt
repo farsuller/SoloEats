@@ -24,8 +24,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.skydoves.orbital.Orbital
-import com.solodemo.main.presentations.products.components.ProductsCardItems
 import com.solodemo.main.model.FoodCategory
+import com.solodemo.main.presentations.products.components.ProductsCardItems
 
 @Composable
 fun ProductListContent(

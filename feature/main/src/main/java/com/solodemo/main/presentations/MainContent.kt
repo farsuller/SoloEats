@@ -12,7 +12,6 @@ import com.solodemo.main.presentations.screens.home.homeRoute
 import com.solodemo.main.presentations.screens.menu.menuRoute
 import com.solodemo.main.presentations.screens.payment.paymentRoute
 import com.solodemo.supabase.domain.repository.Menus
-import com.solodemo.supabase.domain.repository.Reels
 
 
 @Composable
@@ -20,7 +19,6 @@ fun MainContent(
     paddingValues: PaddingValues,
     navController: NavHostController,
     menus: Menus,
-    reels: Reels,
     viewModel: MainViewModel,
     navigateToAuth: () -> Unit,
     homeLazyListState: LazyListState,
@@ -33,8 +31,8 @@ fun MainContent(
         homeRoute(
             paddingValues = paddingValues,
             menus = menus,
-            reels = reels,
             homeLazyListState = homeLazyListState,
+            viewModel = viewModel,
             navigateToProductList = navigateToProductList
         )
         menuRoute(

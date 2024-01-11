@@ -17,16 +17,13 @@ fun NavGraphBuilder.mainRoute(
 
         val viewModel = hiltViewModel<MainViewModel>()
         val menusList by viewModel.menus
-        val reelsList by viewModel.reels
 
-        LaunchedEffect(key1 = menusList) {
-            if (menusList !is RequestState.Loading) {
-                onDataLoaded()
-            }
+
+        LaunchedEffect(key1 = true) {
+            onDataLoaded()
         }
 
         MainScreen(
-            reels = reelsList,
             menus = menusList,
             viewModel = viewModel,
             navigateToAuth = navigateToAuth,

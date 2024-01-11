@@ -11,19 +11,21 @@ import com.solodemo.main.model.FoodCategory
 
 @Composable
 fun ProductListScreen(
-    foodList: List<FoodCategory>, onBackPressClicked: () -> Unit, categoryNameSelected: String
+    foodList: List<FoodCategory>,
+    onBackPressClicked: () -> Unit,
+    categoryNameSelected: String
 ) {
 
     Scaffold(modifier = Modifier
         .background(MaterialTheme.colorScheme.surface)
         .statusBarsPadding()
         .navigationBarsPadding(), topBar = {}, content = { paddingValues ->
+
         ProductListContent(
             foodList = foodList,
             paddingValues = paddingValues,
-            categoryNameSelected,
-            onBackPressClicked = onBackPressClicked
-        )
+            categoryNameSelected = categoryNameSelected,
+            onBackPressClicked = onBackPressClicked)
 
     })
 

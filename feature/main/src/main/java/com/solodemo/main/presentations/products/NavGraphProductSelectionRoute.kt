@@ -40,8 +40,7 @@ fun NavGraphBuilder.productSelectionRoute(onBackPressClicked: () -> Unit) {
         ProductListScreen(
             onBackPressClicked = onBackPressClicked,
             foodList = foodList,
-            categoryNameSelected = selectedCategory
-        )
+            categoryNameSelected = selectedCategory)
 
     }
 }

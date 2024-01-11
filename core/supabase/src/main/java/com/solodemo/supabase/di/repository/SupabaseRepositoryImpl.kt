@@ -4,7 +4,7 @@ import com.solodemo.supabase.di.data.SupabaseDataSource
 import com.solodemo.supabase.domain.repository.SupabaseRepository
 import com.solodemo.supabase.model.Menu
 import com.solo.components.state.RequestState
-import com.solodemo.supabase.model.Reel
+import com.solodemo.supabase.model.Review
 import io.github.jan.supabase.SupabaseClient
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -12,8 +12,8 @@ import javax.inject.Inject
 class SupabaseRepositoryImpl @Inject constructor(
     private val supabaseDataSource: SupabaseDataSource
 ): SupabaseRepository {
-    override fun getReels(): Flow<RequestState<List<Reel>>> {
-        return supabaseDataSource.getReels()
+    override fun getReviews(): Flow<RequestState<List<Review>>> {
+        return supabaseDataSource.getReviews()
     }
 
 

@@ -4,9 +4,10 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Reel(
+data class Review(
     val id: Int,
     @SerialName("name") val name: String? = null,
-    @SerialName("food_image") val foodImage: String? = null,
-    @SerialName("is_reviewed") val isReviewed: Boolean? = null,
+    @SerialName("profile_image") val profileImage: String? = null,
+    @SerialName("review_text") val reviewText: String? = null,
+    @SerialName("review_star") val reviewStar: Int,
 )

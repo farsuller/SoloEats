@@ -1,8 +1,9 @@
 package com.solodemo.supabase.di.data
 
+import android.util.Log
 import com.solo.components.state.RequestState
 import com.solodemo.supabase.model.Menu
-import com.solodemo.supabase.model.Reel
+import com.solodemo.supabase.model.Review
 
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.gotrue.auth
@@ -18,13 +19,13 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
         return supaBaseClient
     }
 
-    fun getReels(): Flow<RequestState<List<Reel>>> {
+    fun getReviews(): Flow<RequestState<List<Review>>> {
         return flow {
             emit(RequestState.Loading)
             try {
-                val result = supaBaseClient.postgrest["reels"].select()
-                val reels = result.decodeList<Reel>()
-                emit(RequestState.Success(reels))
+                val result = supaBaseClient.postgrest["review"].select()
+                val reviews = result.decodeList<Review>()
+                emit(RequestState.Success(reviews))
 
             } catch (e: Exception) {
                 emit(RequestState.Error(e))

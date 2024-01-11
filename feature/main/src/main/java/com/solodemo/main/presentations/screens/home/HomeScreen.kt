@@ -6,14 +6,13 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import com.solodemo.main.components.MainBackground
 import com.solodemo.supabase.domain.repository.Menus
-import com.solodemo.supabase.domain.repository.Reels
+import com.solodemo.supabase.domain.repository.Reviews
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 internal fun HomeScreen(
     paddingValues: PaddingValues,
     menus: Menus,
-    reels: Reels,
+    reviews: Reviews,
     homeLazyListState: LazyListState,
     navigateToProductList: (String) -> Unit
 ) {
@@ -23,9 +22,9 @@ internal fun HomeScreen(
     HomeContent(
         paddingValues = paddingValues,
         menus = menus,
-        reels = reels,
         homeLazyListState = homeLazyListState,
-        navigateToProductList = navigateToProductList
+        navigateToProductList = navigateToProductList,
+        reviews = reviews
     )
 
 }

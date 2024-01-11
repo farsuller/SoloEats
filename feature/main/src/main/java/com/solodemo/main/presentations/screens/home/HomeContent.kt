@@ -18,9 +18,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,24 +29,22 @@ import androidx.compose.ui.unit.sp
 import com.solo.components.Constants
 import com.solo.components.loading.CircularLoadingIndicator
 import com.solo.components.state.RequestState
-import com.solo.ui.Elevation
-
-import com.solodemo.main.presentations.screens.home.components.HomeBannerCard
 import com.solodemo.main.components.MainHeaderCard
-import com.solodemo.main.presentations.screens.home.components.HomeMenusCard
-import com.solodemo.main.presentations.screens.home.components.HomeReelsCard
 import com.solodemo.main.model.Featured
 import com.solodemo.main.model.HomeBanners
+import com.solodemo.main.presentations.screens.home.components.HomeBannerCard
+import com.solodemo.main.presentations.screens.home.components.HomeMenusCard
 import com.solodemo.main.presentations.screens.home.components.HomePopularCard
+import com.solodemo.main.presentations.screens.home.components.ReviewCards
 import com.solodemo.supabase.domain.repository.Menus
-import com.solodemo.supabase.domain.repository.Reels
+import com.solodemo.supabase.domain.repository.Reviews
 
 
 @Composable
 internal fun HomeContent(
     paddingValues: PaddingValues,
     menus: Menus,
-    reels: Reels,
+    reviews: Reviews,
     homeLazyListState: LazyListState,
     navigateToProductList: (String) -> Unit
 ) {
@@ -75,19 +70,7 @@ internal fun HomeContent(
                 imagePath = Constants.StaticImages.bannerSplashCoffee
             )
 
-            // HomeReelsContent(reels, context)
-
-
-            LazyRow(modifier = Modifier.padding(top = 10.dp)) {
-                this.items(HomeBanners.entries.toTypedArray()) { entries ->
-                    HomeBannerCard(
-                        Modifier.padding(horizontal = 5.dp),
-                        title = entries.title,
-                        color = entries.color,
-                        imagePath = entries.imagePath,
-                    )
-                }
-            }
+            HomeBannersContent()
 
             Spacer(modifier = Modifier.size(10.dp))
 
@@ -97,6 +80,21 @@ internal fun HomeContent(
 
             HomePopularContent(context)
 
+            ReviewsContent(reviews = reviews)
+        }
+    }
+}
+
+@Composable
+private fun HomeBannersContent() {
+    LazyRow(modifier = Modifier.padding(top = 10.dp)) {
+        this.items(HomeBanners.entries.toTypedArray()) { entries ->
+            HomeBannerCard(
+                Modifier.padding(horizontal = 5.dp),
+                title = entries.title,
+                color = entries.color,
+                imagePath = entries.imagePath,
+            )
         }
     }
 }
@@ -165,7 +163,11 @@ private fun HomeMenusContent(
                     fontSize = 20.sp,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
-                Box(modifier = Modifier.fillMaxWidth()) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp)
+                ) {
                     val filteredMenus = menus.data.filter { it.isAvailable }
                     LazyRow {
                         items(filteredMenus.size) { index ->
@@ -184,53 +186,41 @@ private fun HomeMenusContent(
     }
 }
 
+
 @Composable
-private fun HomeReelsContent(
-    reels: Reels,
-    context: Context
-) {
-    when (reels) {
+private fun ReviewsContent(reviews: Reviews) {
+    when (reviews) {
         RequestState.Loading -> CircularLoadingIndicator()
         is RequestState.Success -> {
-            Column(modifier = Modifier.fillMaxWidth()) {
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 15.dp)
+            ) {
                 Text(
-                    modifier = Modifier.padding(10.dp),
-                    text = "Reels",
+                    modifier = Modifier.padding(start = 10.dp),
+                    text = "Reviews",
                     fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontSize = 20.sp,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
 
-                ElevatedCard(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(0.dp),
-                    elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level5),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp)
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(5.dp)
-                    ) {
-                        val filteredReels = reels.data.filter { it.isReviewed == true }
-                        LazyRow {
-                            items(filteredReels.size) { index ->
-                                HomeReelsCard(index, reels = filteredReels, onClick = {
-                                    Toast
-                                        .makeText(
-                                            context,
-                                            "Selected ${filteredReels[index].name}",
-                                            Toast.LENGTH_SHORT
-                                        )
-                                        .show()
-                                })
-                            }
+                    val reviewsList = reviews.data
+                    LazyRow {
+                        items(reviewsList) { reviewsItem ->
+                            ReviewCards(reviewsItem)
                         }
-
                     }
-                }
 
+                }
             }
+
         }
 
         is RequestState.Error -> {}

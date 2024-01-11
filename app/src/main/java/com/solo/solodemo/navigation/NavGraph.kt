@@ -43,8 +43,9 @@ fun SetupNavGraph(
             navigateToProductList = { category ->
                 navHostController.navigate(ScreensRoutes.Product.passCategoryName(categoryName = category))
             })
-        productSelectionRoute(
-            onBackPressClicked = { navHostController.popBackStack() },)
+
+        productSelectionRoute(onBackPressClicked = { navHostController.popBackStack() })
+
         signUpRoute(onBackPressClicked = { navHostController.popBackStack() })
 
         forgotRoute(onButtonClicked = { navHostController.popBackStack() })
