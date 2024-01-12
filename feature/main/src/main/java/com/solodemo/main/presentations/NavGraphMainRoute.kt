@@ -6,7 +6,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.solo.components.routes.ScreensRoutes
-import com.solo.components.state.RequestState
 
 fun NavGraphBuilder.mainRoute(
     onDataLoaded: () -> Unit,
@@ -17,7 +16,7 @@ fun NavGraphBuilder.mainRoute(
 
         val viewModel = hiltViewModel<MainViewModel>()
         val menusList by viewModel.menus
-
+        val user by viewModel.user
 
         LaunchedEffect(key1 = true) {
             onDataLoaded()
@@ -25,6 +24,7 @@ fun NavGraphBuilder.mainRoute(
 
         MainScreen(
             menus = menusList,
+            users = user,
             viewModel = viewModel,
             navigateToAuth = navigateToAuth,
             navigateToProductList = navigateToProductList

@@ -19,13 +19,14 @@ import androidx.navigation.compose.rememberNavController
 import com.solodemo.main.components.MainBottomNavBar
 import com.solodemo.main.components.MainTopBar
 import com.solodemo.supabase.domain.repository.Menus
-import com.solodemo.supabase.domain.repository.Reviews
+import com.solodemo.supabase.domain.repository.Users
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 internal fun MainScreen(
     menus: Menus,
+    users: Users,
     navController: NavHostController = rememberNavController(),
     viewModel: MainViewModel,
     navigateToAuth: () -> Unit,
@@ -69,12 +70,14 @@ internal fun MainScreen(
             paddingValues = it,
             navController = navController,
             menus = menus,
-
+            users = users,
             viewModel = viewModel,
             navigateToAuth = navigateToAuth,
             navigateToProductList = navigateToProductList,
             homeLazyListState = homeLazyListState,
         )
+
+
     }
 }
 

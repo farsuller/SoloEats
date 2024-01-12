@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     id("dagger.hilt.android.plugin")
     kotlin("kapt")
+    kotlin("plugin.serialization") version "1.9.21"
 }
 
 android {
@@ -65,6 +66,7 @@ dependencies {
 
     implementation (libs.gson)
     implementation (libs.kotlin.reflect)
+    implementation(libs.kotlinx.serialization.json)
     
     debugImplementation(libs.androidx.ui.tooling)
 

@@ -1,10 +1,10 @@
 package com.solodemo.supabase.di.data
 
-import android.util.Log
 import com.solo.components.state.RequestState
 import com.solodemo.supabase.model.Menu
 import com.solodemo.supabase.model.Review
-
+import com.solodemo.supabase.model.UserDetails
+import com.solodemo.supabase.util.toUserDetails
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.gotrue.auth
 import io.github.jan.supabase.gotrue.providers.builtin.Email
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class SupabaseDataSource @Inject constructor(private val supaBaseClient: SupabaseClient) {
 
-    fun supaBaseClient():SupabaseClient{
+    fun supaBaseClient(): SupabaseClient {
         return supaBaseClient
     }
 
@@ -32,6 +32,7 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
             }
         }
     }
+
     fun getMenus(): Flow<RequestState<List<Menu>>> {
         return flow {
             emit(RequestState.Loading)
@@ -45,70 +46,89 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
             }
         }
     }
-    fun signUpEmail(authEmail:String, authPassword:String): Flow<RequestState<Unit>>{
+
+    fun signUpEmail(authEmail: String, authPassword: String): Flow<RequestState<Unit>> {
         return flow {
             emit(RequestState.Loading)
             try {
-                supaBaseClient.auth.signUpWith(Email){
+                supaBaseClient.auth.signUpWith(Email) {
                     email = authEmail
                     password = authPassword
                 }
                 emit(RequestState.Success(Unit))
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 emit(RequestState.Error(e))
             }
         }
     }
 
-    fun authEmail(authEmail:String, authPassword:String): Flow<RequestState<Unit>>{
+    fun authEmail(authEmail: String, authPassword: String): Flow<RequestState<Unit>> {
         return flow {
             emit(RequestState.Loading)
             try {
-                supaBaseClient.auth.signInWith(Email){
+                supaBaseClient.auth.signInWith(Email) {
                     email = authEmail
                     password = authPassword
                 }
                 emit(RequestState.Success(Unit))
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 emit(RequestState.Error(e))
             }
         }
     }
-    fun getCurrentAccessToken(): Flow<RequestState<String>>{
+
+    fun getCurrentAccessToken(): Flow<RequestState<String>> {
         return flow {
             emit(RequestState.Loading)
-            try{
+            try {
                 val accessToken = supaBaseClient.auth.currentAccessTokenOrNull()
                 if (accessToken != null) {
                     emit(RequestState.Success(accessToken))
                 } else {
                     emit(RequestState.Error(Exception("Access token is null")))
                 }
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 emit(RequestState.Error(e))
             }
         }
     }
-    fun refreshAccessToken(token : String): Flow<RequestState<Unit>>{
+
+    fun refreshAccessToken(token: String): Flow<RequestState<Unit>> {
         return flow {
             emit(RequestState.Loading)
             try {
                 supaBaseClient.auth.retrieveUser(jwt = token)
                 supaBaseClient.auth.refreshCurrentSession()
                 emit(RequestState.Success(Unit))
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 emit(RequestState.Error(e))
             }
         }
     }
 
-    fun signOut(): Flow<RequestState<Unit>>{
+    fun getUserInfo(token: String): Flow<RequestState<UserDetails>> {
+        return flow {
+            emit(RequestState.Loading)
+            try {
+                val userData = supaBaseClient.auth.retrieveUser(jwt = token).userMetadata
+                val userDetails: UserDetails? = userData?.toUserDetails()
+
+                if (userDetails != null) {
+                    emit(RequestState.Success(userDetails))
+                }
+            } catch (e: Exception) {
+                emit(RequestState.Error(e))
+            }
+        }
+    }
+
+    fun signOut(): Flow<RequestState<Unit>> {
         return flow {
             emit(RequestState.Loading)
             try {
                 supaBaseClient.auth.signOut()
-               emit(RequestState.Success(Unit))
-            }catch (e:Exception){
+                emit(RequestState.Success(Unit))
+            } catch (e: Exception) {
                 emit(RequestState.Error(e))
             }
         }

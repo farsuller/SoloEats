@@ -52,7 +52,7 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
 
-
+    implementation (libs.gson)
     implementation(libs.supabase.compose.auth)
     implementation(libs.supabase.gotrue.kt)
     implementation(libs.supabase.postgrest.kt)

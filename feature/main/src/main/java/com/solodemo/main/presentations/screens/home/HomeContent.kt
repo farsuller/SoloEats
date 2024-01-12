@@ -1,7 +1,5 @@
 package com.solodemo.main.presentations.screens.home
 
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,7 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.solo.components.Constants
@@ -48,9 +45,6 @@ internal fun HomeContent(
     homeLazyListState: LazyListState,
     navigateToProductList: (String) -> Unit
 ) {
-
-    val context = LocalContext.current
-
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -71,15 +65,10 @@ internal fun HomeContent(
             )
 
             HomeBannersContent()
-
             Spacer(modifier = Modifier.size(10.dp))
-
             HomeMenusContent(menus = menus, navigateToProductList = navigateToProductList)
-
             Spacer(modifier = Modifier.size(10.dp))
-
-            HomePopularContent(context)
-
+            HomePopularContent()
             ReviewsContent(reviews = reviews)
         }
     }
@@ -100,7 +89,7 @@ private fun HomeBannersContent() {
 }
 
 @Composable
-private fun HomePopularContent(context: Context) {
+private fun HomePopularContent() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -128,13 +117,7 @@ private fun HomePopularContent(context: Context) {
                         title = entries.title,
                         price = entries.price,
                         imagePath = entries.imagePath,
-                        onAddButtonClicked = {
-                            Toast.makeText(
-                                context,
-                                "Added ${entries.title}",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+                        onAddButtonClicked = {}
                     )
                 }
             }
@@ -192,7 +175,6 @@ private fun ReviewsContent(reviews: Reviews) {
     when (reviews) {
         RequestState.Loading -> CircularLoadingIndicator()
         is RequestState.Success -> {
-
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
