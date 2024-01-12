@@ -29,28 +29,30 @@ class AuthViewModel @Inject constructor(
     val uiState: StateFlow<RequestState<*>>
         get() = _uiState
 
-    var loginButtonClicked  = mutableStateOf(false)
+    var loginButtonClicked = mutableStateOf(false)
         private set
 
-    var googleButtonClicked  = mutableStateOf(false)
+    var googleButtonClicked = mutableStateOf(false)
         private set
-    var loadingState  = mutableStateOf(false)
-        private set
-
-    var composeAuthState  = mutableStateOf(false)
+    var loadingState = mutableStateOf(false)
         private set
 
-    fun setLoginClicked(loading: Boolean){
+    var composeAuthState = mutableStateOf(false)
+        private set
+
+    fun setLoginClicked(loading: Boolean) {
         loginButtonClicked.value = loading
     }
-    fun setGoogleClicked(loading: Boolean){
+
+    fun setGoogleClicked(loading: Boolean) {
         googleButtonClicked.value = loading
     }
-    fun setLoading(loading: Boolean){
+
+    fun setLoading(loading: Boolean) {
         loadingState.value = loading
     }
 
-    fun setComposeAuthLoading(loading: Boolean){
+    fun setComposeAuthLoading(loading: Boolean) {
         composeAuthState.value = loading
     }
 
@@ -132,34 +134,21 @@ class AuthViewModel @Inject constructor(
         return sharedPref.getStringData(ACCESS_TOKEN)
     }
 
-    fun isUserLoggedIn(callback: (Boolean) -> Unit) {
+    fun isUserLoggedIn() {
         viewModelScope.launch {
 
             val token = getToken()
-            if (token.isNullOrEmpty()) {
-                _uiState.value = RequestState.Success("User not logged in!")
-                callback(false)
-            } else {
+            if (token.isNullOrEmpty()) _uiState.value = RequestState.Error(Exception("User not logged In"))
+            else {
                 repository.refreshAccessToken(token).collectLatest { session ->
                     when (session) {
-                        RequestState.Loading -> {
-                            _uiState.value = RequestState.Loading
-                        }
-
+                        RequestState.Loading -> _uiState.value = RequestState.Loading
                         is RequestState.Success -> {
                             _uiState.value = RequestState.Success(token)
                             saveToken()
-                            callback(true)
                         }
-
-                        is RequestState.Error -> {
-                            _uiState.value = RequestState.Error(session.error)
-                            callback(false)
-                        }
-
-                        else -> {
-                            callback(false)
-                        }
+                        is RequestState.Error -> _uiState.value = RequestState.Error(session.error)
+                        else -> {}
                     }
                 }
             }
@@ -174,12 +163,14 @@ class AuthViewModel @Inject constructor(
                 saveToken()
                 _uiState.value = RequestState.Success(result)
             }
+
             is NativeSignInResult.ClosedByUser -> {}
             is NativeSignInResult.Error -> {
                 val message = result.message
                 _uiState.value = RequestState.Error(Exception(message))
 
             }
+
             is NativeSignInResult.NetworkError -> {
                 val message = result.message
                 _uiState.value = RequestState.Error(Exception(message))

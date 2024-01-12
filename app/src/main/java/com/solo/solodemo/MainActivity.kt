@@ -19,8 +19,10 @@ import androidx.navigation.compose.rememberNavController
 import com.solo.solodemo.navigation.SetupNavGraph
 import com.solo.ui.theme.SoloDemoTheme
 import com.solo.components.routes.ScreensRoutes
+import com.solo.components.state.RequestState
 import com.solodemo.auth.presenations.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
 
 @AndroidEntryPoint
@@ -44,10 +46,17 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     LaunchedEffect(key1 = authViewModel){
-                        authViewModel.isUserLoggedIn { isAuthenticated ->
-                            getStartDestination = if (isAuthenticated) ScreensRoutes.Main.route
-                            else ScreensRoutes.Auth.route
+                        authViewModel.isUserLoggedIn()
+
+                        authViewModel.uiState.collectLatest { data ->
+                            when (data) {
+                                RequestState.Loading -> {}
+                                is RequestState.Success -> getStartDestination = ScreensRoutes.Main.route
+                                is RequestState.Error -> getStartDestination = ScreensRoutes.Auth.route
+                                else -> {}
+                            }
                         }
+
                     }
                     getStartDestination?.let { startDestination ->
                         SetupNavGraph(

@@ -121,7 +121,7 @@ internal fun AccountContent(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(5.dp),
                     onClick = { onButtonClicked() },
-                    border = BorderStroke(width = 2.dp, color = MaterialTheme.colorScheme.secondary)
+                    border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.secondary)
                 ) {
 
                     Text(

@@ -60,12 +60,6 @@ internal fun LoginContent(
     onSignUpButtonClicked: () -> Unit,
     authViewModel: AuthViewModel,
 ) {
-    val focusManager = LocalFocusManager.current
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var isEmailValid by remember { mutableStateOf(true) }
-    var isPasswordValid by remember { mutableStateOf(true) }
-
 
     val googleSignIn = authViewModel.composeAuth.rememberSignInWithGoogle(
         onResult = { result -> authViewModel.checkGoogleLoginStatus(result) },
@@ -91,14 +85,9 @@ internal fun LoginContent(
             LoginHeader()
 
             LoginTextFields(
-                email = email,
-                isEmailValid = isEmailValid,
-                focusManager = focusManager,
-                password = password,
-                isPasswordValid = isPasswordValid,
-                onForgotButtonClicked = onForgotButtonClicked,
-                authViewModel = authViewModel
-            )
+                onForgotButtonClicked = { onForgotButtonClicked() },
+                authViewModel = authViewModel)
+
             LoginBottomItems(
                 authViewModel = authViewModel,
                 googleSignIn = googleSignIn,
@@ -136,18 +125,15 @@ private fun AppIconAndName() {
 
 @Composable
 private fun LoginTextFields(
-    email: String,
-    isEmailValid: Boolean,
-    focusManager: FocusManager,
-    password: String,
-    isPasswordValid: Boolean,
     onForgotButtonClicked: () -> Unit,
     authViewModel: AuthViewModel
 ) {
-    var email1 = email
-    var isEmailValid1 = isEmailValid
-    var password1 = password
-    var isPasswordValid1 = isPasswordValid
+    val focusManager = LocalFocusManager.current
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var isEmailValid by remember { mutableStateOf(true) }
+    var isPasswordValid by remember { mutableStateOf(true) }
+
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.Center,
@@ -160,16 +146,16 @@ private fun LoginTextFields(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 8.dp),
-            value = email1,
+            value = email,
             onValueChange = {
-                email1 = it
-                isEmailValid1 = isValidEmail(it)
+                email = it
+                isEmailValid = isValidEmail(it)
             },
             label = { Text("Email") },
             colors = OutlinedTextFieldDefaults.colors(
                 unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
             ),
-            isError = !isEmailValid1,
+            isError = !isEmailValid,
             singleLine = true,
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Email,
@@ -184,16 +170,16 @@ private fun LoginTextFields(
 
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
-            value = password1,
+            value = password,
             onValueChange = {
-                password1 = it
-                isPasswordValid1 = it.isNotEmpty()
+                password = it
+                isPasswordValid = it.isNotEmpty()
             },
             label = { Text("Password") },
             colors = OutlinedTextFieldDefaults.colors(
                 unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
             ),
-            isError = !isPasswordValid1,
+            isError = !isPasswordValid,
             singleLine = true,
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions.Default.copy(
@@ -228,9 +214,9 @@ private fun LoginTextFields(
             onClick = {
                 authViewModel.setLoginClicked(true)
                 authViewModel.setLoading(true)
-                authViewModel.signInEmail(email = email1, password = password1)
+                authViewModel.signInEmail(email = email, password = password)
             },
-            enabled = isEmailValid1 && isPasswordValid1,
+            enabled = isEmailValid && isPasswordValid,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 10.dp),
