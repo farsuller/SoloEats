@@ -54,7 +54,6 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
                 repository.getReviews().collectLatest { data ->
                     reviews.value = data
-                    Log.d("MainViewModel","getReviews are $data")
                 }
         }
     }

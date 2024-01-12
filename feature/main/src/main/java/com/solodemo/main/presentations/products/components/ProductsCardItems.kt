@@ -1,5 +1,6 @@
 package com.solodemo.main.presentations.products.components
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.tween
@@ -7,6 +8,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,7 +20,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Remove
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
@@ -29,8 +33,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -52,6 +58,10 @@ import com.solodemo.main.model.Food
 
 @Composable
 fun ProductsCardItems(foodList: Food) {
+
+    var isFavourite by remember { mutableStateOf(false) }
+    val updatedIsFavourite = rememberUpdatedState(isFavourite)
+
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = Elevation.level4
@@ -141,23 +151,41 @@ fun ProductsCardItems(foodList: Food) {
                     }
 
                     val showProductImage = rememberMovableContentOf {
-                        AsyncImage(
-                            modifier = Modifier
-                                .padding(all = 10.dp)
-                                .animateBounds(
-                                    modifier = if (expanded) {
-                                        Modifier
-                                            .fillMaxWidth()
-                                            .height(300.dp)
-                                    } else Modifier.size(
-                                        100.dp
-                                    )
-                                ),
-                            model = ImageRequest.Builder(LocalContext.current)
-                                .data(foodList.foodImage)
-                                .crossfade(true).build(),
-                            contentDescription = "Food Image"
-                        )
+
+                        Column(horizontalAlignment = Alignment.End) {
+                            AsyncImage(
+                                modifier = Modifier
+                                    .animateBounds(
+                                        modifier = if (expanded) {
+                                            Modifier.fillMaxWidth()
+                                                .height(300.dp)
+                                        } else Modifier.size(
+                                            100.dp
+                                        )
+                                    ),
+                                model = ImageRequest.Builder(LocalContext.current)
+                                    .data(foodList.foodImage)
+                                    .crossfade(true).build(),
+                                contentDescription = "Food Image"
+                            )
+                            IconButton(
+                                modifier = Modifier,
+                                onClick = {
+                                    isFavourite = !isFavourite
+                                }) {
+                                if(updatedIsFavourite.value){
+                                    Icon(
+                                        imageVector = Icons.Filled.Favorite,
+                                        contentDescription = "Favorite Icon")
+                                }
+                                else{
+                                    Icon(
+                                        imageVector = Icons.Outlined.FavoriteBorder,
+                                        contentDescription = "Favorite Icon")
+                                }
+                            }
+                        }
+
                     }
 
                     if (expanded) {
@@ -169,7 +197,7 @@ fun ProductsCardItems(foodList: Food) {
 
                             showProductImage()
                             showProductDetails()
-                            QuantityAddCartButtons()
+                            QuantityAddCartButtons(foodList = foodList)
                         }
                     } else {
                         Column {
@@ -177,7 +205,7 @@ fun ProductsCardItems(foodList: Food) {
                                 showProductImage()
                                 showProductDetails()
                             }
-                            QuantityAddCartButtons()
+                            QuantityAddCartButtons(foodList = foodList)
                         }
 
                     }
@@ -189,7 +217,10 @@ fun ProductsCardItems(foodList: Food) {
 }
 
 @Composable
-fun QuantityAddCartButtons() {
+fun QuantityAddCartButtons(foodList: Food) {
+
+    var quantity by remember { mutableIntStateOf(1) }
+
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         Row(
             modifier = Modifier
@@ -204,7 +235,7 @@ fun QuantityAddCartButtons() {
                     .background(color = Color(0xFFF44336))
             ) {
                 IconButton(
-                    onClick = { },
+                    onClick = { quantity++ },
                     modifier = Modifier
 
                 ) {
@@ -218,7 +249,7 @@ fun QuantityAddCartButtons() {
 
             Text(
                 modifier = Modifier.padding(start = 25.dp, end = 25.dp),
-                text = "1",
+                text = "$quantity",
                 fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
                 color = MaterialTheme.colorScheme.onSurface
@@ -231,7 +262,9 @@ fun QuantityAddCartButtons() {
                     .background(color = Color(0xFFF44336))
             ) {
                 IconButton(
-                    onClick = { },
+                    onClick = {
+                        if (quantity > 1) quantity--
+                     },
                     modifier = Modifier
 
                 ) {
@@ -245,7 +278,7 @@ fun QuantityAddCartButtons() {
         }
 
         Button(
-            onClick = { },
+            onClick = {},
             modifier = Modifier
                 .weight(0.35F)
                 .fillMaxWidth(),
@@ -268,5 +301,5 @@ fun QuantityAddCartButtons() {
 @Preview(showBackground = true)
 @Composable
 internal fun ProductCardItemsPreview() {
-    QuantityAddCartButtons()
+    QuantityAddCartButtons(foodList = Food())
 }
