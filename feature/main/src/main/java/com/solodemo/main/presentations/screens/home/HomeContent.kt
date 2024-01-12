@@ -19,6 +19,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -35,6 +40,7 @@ import com.solodemo.main.presentations.screens.home.components.HomePopularCard
 import com.solodemo.main.presentations.screens.home.components.ReviewCards
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reviews
+import com.solodemo.supabase.model.Menu
 
 
 @Composable
@@ -131,42 +137,50 @@ private fun HomeMenusContent(
     menus: Menus,
     navigateToProductList: (String) -> Unit
 ) {
-    when (menus) {
-        is RequestState.Loading -> CircularLoadingIndicator()
-        is RequestState.Success -> {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 15.dp)
-            ) {
-                Text(
-                    modifier = Modifier.padding(start = 10.dp),
-                    text = "Menu",
-                    fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
-                    fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.onSurface,
-                )
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 10.dp)
-                ) {
-                    val filteredMenus = menus.data.filter { it.isAvailable }
-                    LazyRow {
-                        items(filteredMenus.size) { index ->
-                            HomeMenusCard(index, menus = filteredMenus, onClick = {
-                                navigateToProductList(filteredMenus[index].menuName!!)
-                            })
-                        }
-                    }
+    var menuList by remember { mutableStateOf(emptyList<Menu>()) }
+    val filteredMenu = rememberSaveable(menuList) {
+        menuList.filter { it.isAvailable }
+    }
 
-                }
-            }
+    when (menus) {
+        is RequestState.Loading -> {}
+        is RequestState.Success -> {
+            menuList = menus.data
         }
 
         is RequestState.Error -> {}
         else -> {}
     }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 15.dp)
+    ) {
+        Text(
+            modifier = Modifier.padding(start = 10.dp),
+            text = "Menu",
+            fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
+            fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 10.dp)
+        ) {
+
+            LazyRow {
+                items(filteredMenu.size) { index ->
+                    HomeMenusCard(index, menus = filteredMenu, onClick = {
+                        navigateToProductList(filteredMenu[index].menuName!!)
+                    })
+                }
+            }
+
+        }
+    }
+
 }
 
 

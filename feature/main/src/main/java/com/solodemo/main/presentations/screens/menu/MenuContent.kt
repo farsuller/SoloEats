@@ -15,27 +15,44 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.solo.components.Constants
+import com.solo.components.loading.CircularLoadingIndicator
+import com.solo.components.state.RequestState
 import com.solo.util.clickableWithoutRipple
 import com.solodemo.main.components.MainHeaderCard
 import com.solodemo.main.presentations.screens.menu.components.MenuHexagonItem
+import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.model.Menu
 
 @Composable
 fun MenuContent(
-    filteredMenus: List<Menu>,
+    menus: Menus,
     paddingValues: PaddingValues,
     navigateToProductList: (String) -> Unit
 ) {
     val density = LocalDensity.current
 
     var cardHeight by remember { mutableStateOf(0.dp) }
+
+    var menuList by remember { mutableStateOf(emptyList<Menu>()) }
+    val filteredMenu = rememberSaveable(menuList) {
+        menuList.filter { it.isAvailable }
+    }
+
+    when (menus) {
+        is RequestState.Loading -> CircularLoadingIndicator()
+        is RequestState.Success -> {
+            menuList = menus.data
+        }
+        is RequestState.Error -> {}
+        else -> {}
+    }
 
     MainHeaderCard(
         modifier = Modifier
@@ -50,36 +67,35 @@ fun MenuContent(
         imagePath = Constants.StaticImages.bannerBurgerFries
     )
 
-    if (filteredMenus.isNotEmpty()) {
-        LazyVerticalGrid(
-            modifier = Modifier
-                .padding(start = 40.dp)
-                .fillMaxSize()
-                .padding(top = cardHeight)
-                .padding(bottom = paddingValues.calculateBottomPadding()),
-            columns = GridCells.Fixed(2),
-            verticalArrangement = Arrangement.spacedBy((-120).dp),
-        ) {
+    LazyVerticalGrid(
+        modifier = Modifier
+            .padding(start = 40.dp)
+            .fillMaxSize()
+            .padding(top = cardHeight)
+            .padding(bottom = paddingValues.calculateBottomPadding()),
+        columns = GridCells.Fixed(2),
+        verticalArrangement = Arrangement.spacedBy((-120).dp),
+    ) {
 
-            items(filteredMenus.size) { index ->
-                val topPadding = if (index % 2 == 1) 90.dp else 0.dp
-                val startOffsetX = if (index % 2 == 1) (-30).dp else 0.dp
+        items(filteredMenu.size) { index ->
+            val topPadding = if (index % 2 == 1) 90.dp else 0.dp
+            val startOffsetX = if (index % 2 == 1) (-30).dp else 0.dp
 
-                MenuHexagonItem(
-                    index = index,
-                    menus = filteredMenus,
-                    borderColor = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier
-                        .padding(top = topPadding)
-                        .offset(x = startOffsetX)
-                        .clickableWithoutRipple(
-                            interactionSource = MutableInteractionSource(),
-                            onClick = {
-                                navigateToProductList(filteredMenus[index].menuName!!)
-                            }
-                        ),
-                )
-            }
+            MenuHexagonItem(
+                index = index,
+                menus = filteredMenu,
+                borderColor = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .padding(top = topPadding)
+                    .offset(x = startOffsetX)
+                    .clickableWithoutRipple(
+                        interactionSource = MutableInteractionSource(),
+                        onClick = {
+                            navigateToProductList(filteredMenu[index].menuName!!)
+                        }
+                    ),
+            )
         }
     }
+
 }

@@ -18,6 +18,11 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,6 +39,15 @@ fun ProductListContent(
     categoryNameSelected: String,
     onBackPressClicked: () -> Unit,
 ) {
+
+    var productList by remember { mutableStateOf(emptyList<FoodCategory>()) }
+    val filteredProducts = remember(productList){
+        productList.filter { it.categoryName == categoryNameSelected }
+    }
+    LaunchedEffect(key1 = true){
+        productList = foodList
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -45,10 +59,12 @@ fun ProductListContent(
             verticalArrangement = Arrangement.Top
         ) {
 
-            items(foodList.filter { it.categoryName == categoryNameSelected })
+            items(filteredProducts)
             { productList ->
 
-                Column(modifier = Modifier.fillMaxWidth().padding(top = 15.dp, bottom = 15.dp, start = 15.dp)) {
+                Column(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 15.dp, bottom = 15.dp, start = 15.dp)) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
