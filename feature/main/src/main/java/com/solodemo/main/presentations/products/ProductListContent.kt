@@ -40,12 +40,8 @@ fun ProductListContent(
     onBackPressClicked: () -> Unit,
 ) {
 
-    var productList by remember { mutableStateOf(emptyList<FoodCategory>()) }
-    val filteredProducts = remember(productList){
-        productList.filter { it.categoryName == categoryNameSelected }
-    }
-    LaunchedEffect(key1 = true){
-        productList = foodList
+    val filteredProducts = remember(foodList){
+        foodList.filter { it.categoryName == categoryNameSelected }
     }
 
     Box(

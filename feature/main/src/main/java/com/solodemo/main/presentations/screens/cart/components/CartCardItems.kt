@@ -47,11 +47,13 @@ import com.skydoves.orbital.Orbital
 import com.skydoves.orbital.animateBounds
 import com.skydoves.orbital.rememberMovableContentOf
 import com.solo.util.clickableWithoutRipple
+import com.solo.util.formatToCurrency
 import com.solodemo.main.model.Burger
 import com.solodemo.main.model.Featured
+import com.solodemo.supabase.model.Cart
 
 @Composable
-fun CartCardItems(burger: Featured) {
+fun CartCardItems(cartItems: Cart) {
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -78,14 +80,18 @@ fun CartCardItems(burger: Featured) {
 
                         Row(modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween) {
-                            Text(
-                                modifier = Modifier.weight(1F),
-                                text = burger.title,
-                                fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
-                                fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                                color = MaterialTheme.colorScheme.onSurface,
-                                textAlign = TextAlign.Start
-                            )
+
+                            cartItems.productName?.let { pName->
+                                Text(
+                                    modifier = Modifier.weight(1F),
+                                    text = pName,
+                                    fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
+                                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    textAlign = TextAlign.Start
+                                )
+                            }
+
 
                             if (!expanded){
                                 Text(
@@ -104,19 +110,24 @@ fun CartCardItems(burger: Featured) {
                         }
 
 
-                        Text(
-                            text = burger.price,
-                            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
-                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
+                        cartItems.productPrice?.let {pPrice->
+                            Text(
+                                text = formatToCurrency(pPrice.toDouble()),
+                                fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
 
-                        Text(
-                            text = "x1",
-                            fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
-                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
+                        cartItems.productQuantity?.let {pQuantity->
+                            Text(
+                                text = "x$pQuantity",
+                                fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
+                                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+
                     }
                 }
 
@@ -129,7 +140,7 @@ fun CartCardItems(burger: Featured) {
                                 } else Modifier.size(50.dp)
                             ),
                         model = ImageRequest.Builder(LocalContext.current)
-                            .data(burger.imagePath)
+                            .data(cartItems.productImage)
                             .crossfade(true).build(),
                         contentDescription = "Food Image"
                     )
@@ -142,7 +153,7 @@ fun CartCardItems(burger: Featured) {
                             showProductDetails()
                         }
                         QuantityAddCartButtons(
-                            burger = burger,
+                            cartItems = cartItems,
                             onClickUpdate = {
                                 expanded = !expanded
                             })
@@ -162,9 +173,9 @@ fun CartCardItems(burger: Featured) {
 }
 
 @Composable
-fun QuantityAddCartButtons(burger: Featured, onClickUpdate: () -> Unit) {
+fun QuantityAddCartButtons(cartItems: Cart, onClickUpdate: () -> Unit) {
 
-    var quantity by remember { mutableIntStateOf(1) }
+    var quantity by remember { mutableIntStateOf(cartItems.productQuantity ?: 1) }
 
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         Row(
@@ -246,5 +257,5 @@ fun QuantityAddCartButtons(burger: Featured, onClickUpdate: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 internal fun ProductCardItemsPreview() {
-    QuantityAddCartButtons(burger = Featured.CheesyHavenDeluxe, onClickUpdate = {})
+    QuantityAddCartButtons(cartItems = Cart(1), onClickUpdate = {})
 }

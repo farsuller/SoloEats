@@ -1,13 +1,16 @@
 package com.solodemo.main.presentations.screens.cart
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.solo.components.routes.ScreensRoutes
+import com.solodemo.main.presentations.MainViewModel
 
-fun NavGraphBuilder.cartRoute(paddingValues: PaddingValues) {
+fun NavGraphBuilder.cartRoute(paddingValues: PaddingValues, viewModel: MainViewModel) {
     composable(route = ScreensRoutes.Cart.route) {
 
-        CartScreen(paddingValues = paddingValues)
+        val carts by viewModel.carts
+        CartScreen(paddingValues = paddingValues , carts = carts)
     }
 }

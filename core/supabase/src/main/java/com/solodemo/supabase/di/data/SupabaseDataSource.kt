@@ -1,6 +1,7 @@
 package com.solodemo.supabase.di.data
 
 import com.solo.components.state.RequestState
+import com.solodemo.supabase.model.Cart
 import com.solodemo.supabase.model.Menu
 import com.solodemo.supabase.model.Review
 import com.solodemo.supabase.model.UserDetails
@@ -19,6 +20,19 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
         return supaBaseClient
     }
 
+    fun getCartList(): Flow<RequestState<List<Cart>>> {
+        return flow {
+            emit(RequestState.Loading)
+            try {
+                val result = supaBaseClient.postgrest["cart"].select()
+                val carts = result.decodeList<Cart>()
+                emit(RequestState.Success(carts))
+
+            } catch (e: Exception) {
+                emit(RequestState.Error(e))
+            }
+        }
+    }
     fun getReviews(): Flow<RequestState<List<Review>>> {
         return flow {
             emit(RequestState.Loading)

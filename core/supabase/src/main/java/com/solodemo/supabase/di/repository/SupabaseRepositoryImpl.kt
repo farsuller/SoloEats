@@ -3,6 +3,7 @@ package com.solodemo.supabase.di.repository
 import com.solo.components.state.RequestState
 import com.solodemo.supabase.di.data.SupabaseDataSource
 import com.solodemo.supabase.domain.repository.SupabaseRepository
+import com.solodemo.supabase.model.Cart
 import com.solodemo.supabase.model.Menu
 import com.solodemo.supabase.model.Review
 import com.solodemo.supabase.model.UserDetails
@@ -13,6 +14,10 @@ import javax.inject.Inject
 class SupabaseRepositoryImpl @Inject constructor(
     private val supabaseDataSource: SupabaseDataSource
 ) : SupabaseRepository {
+    override fun getCartList(): Flow<RequestState<List<Cart>>> {
+        return supabaseDataSource.getCartList()
+    }
+
     override fun getReviews(): Flow<RequestState<List<Review>>> {
         return supabaseDataSource.getReviews()
     }

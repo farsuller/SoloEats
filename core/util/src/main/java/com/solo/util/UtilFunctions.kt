@@ -11,6 +11,8 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.core.content.pm.PackageInfoCompat
 import java.io.IOException
+import java.text.NumberFormat
+import java.util.Locale
 
 
 fun getJsonDataFromAsset(
@@ -67,4 +69,9 @@ val provider = GoogleFont.Provider(
 fun isValidEmail(email: String): Boolean {
     val emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\$"
     return email.matches(emailRegex.toRegex())
+}
+
+fun formatToCurrency(value: Double): String {
+    val currencyFormat = NumberFormat.getCurrencyInstance(Locale("en", "PH"))
+    return currencyFormat.format(value)
 }

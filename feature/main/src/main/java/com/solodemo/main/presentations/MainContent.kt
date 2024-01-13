@@ -43,7 +43,10 @@ fun MainContent(
             navigateToProductList = navigateToProductList
         )
         paymentRoute(paddingValues = paddingValues)
-        cartRoute(paddingValues = paddingValues)
+        cartRoute(
+            paddingValues = paddingValues,
+            viewModel = viewModel
+        )
         accountRoute(
             users = users,
             paddingValues = paddingValues,

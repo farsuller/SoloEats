@@ -4,6 +4,7 @@ package com.solodemo.main.presentations
 import android.app.Application
 import android.content.Context
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,9 +15,11 @@ import com.solo.components.state.RequestState
 import com.solo.util.SharedPreferenceHelper
 import com.solo.util.getJsonDataFromAsset
 import com.solodemo.main.model.FoodCategory
+import com.solodemo.supabase.domain.repository.Carts
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reviews
 import com.solodemo.supabase.domain.repository.SupabaseRepository
+import com.solodemo.supabase.model.Cart
 import com.solodemo.supabase.model.UserDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -38,6 +41,7 @@ class MainViewModel @Inject constructor(
 
     var menus: MutableState<Menus> = mutableStateOf(RequestState.Idle)
     var reviews: MutableState<Reviews> = mutableStateOf(RequestState.Idle)
+    var carts: MutableState<Carts> = mutableStateOf(RequestState.Idle)
     var user: MutableState<RequestState<UserDetails>> = mutableStateOf(RequestState.Idle)
 
     private val sharedPref = SharedPreferenceHelper(application.applicationContext)
@@ -46,6 +50,7 @@ class MainViewModel @Inject constructor(
         getReviews()
         getMenus()
         getUserInfo()
+        getCartList()
     }
 
     fun getProductList(context: Context): List<FoodCategory> {
@@ -65,6 +70,14 @@ class MainViewModel @Inject constructor(
                 repository.getUserInfo(token = token).collectLatest { data ->
                     user.value = data
                 }
+            }
+        }
+    }
+
+    private fun getCartList() {
+        viewModelScope.launch {
+            repository.getCartList().collectLatest { data ->
+                carts.value = data
             }
         }
     }
