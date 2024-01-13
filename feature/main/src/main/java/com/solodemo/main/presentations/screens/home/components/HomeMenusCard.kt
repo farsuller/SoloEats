@@ -27,10 +27,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.solo.components.shapes.drawCustomHexagonPath
 import com.solo.ui.Elevation
 import com.solo.util.clickableWithoutRipple
@@ -59,7 +61,9 @@ fun HomeMenusCard(index : Int,
         {
             AsyncImage(
                 modifier = Modifier.fillMaxWidth(),
-                model = menus[index].menuImage,
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(menus[index].menuImage)
+                    .crossfade(true).build(),
                 contentScale = ContentScale.Crop,
                 contentDescription = menus[index].menuName,
                 alignment = Alignment.TopCenter

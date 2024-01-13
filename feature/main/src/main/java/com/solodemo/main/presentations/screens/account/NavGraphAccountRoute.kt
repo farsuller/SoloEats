@@ -2,11 +2,14 @@ package com.solodemo.main.presentations.screens.account
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.solo.components.routes.ScreensRoutes
 import com.solo.components.state.RequestState
 import com.solodemo.main.presentations.MainViewModel
+import com.solodemo.main.presentations.screens.account.components.sendEmail
 import com.solodemo.supabase.domain.repository.Users
 import kotlinx.coroutines.flow.collectLatest
 
@@ -17,6 +20,9 @@ fun NavGraphBuilder.accountRoute(
     users: Users
 ) {
     composable(route = ScreensRoutes.Account.route) {
+
+
+        val uriHandler = LocalUriHandler.current
 
         LaunchedEffect(key1 = Unit) {
             viewModel.uiState.collectLatest { data ->
@@ -35,9 +41,12 @@ fun NavGraphBuilder.accountRoute(
         AccountScreen(
             users = users,
             paddingValues = paddingValues,
-            onButtonClicked = {
+            onSignOutButtonClicked = {
                 viewModel.signOut()
-            }
+            },
+            onPrivacyPolicyClicked = {
+                uriHandler.openUri("https://www.google.com/")
+            },
         )
     }
 }

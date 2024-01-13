@@ -19,9 +19,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.solo.ui.Elevation
 import com.solodemo.main.presentations.products.components.RatingBar
 import com.solodemo.supabase.model.Review
@@ -44,10 +46,13 @@ fun ReviewCards(reviewsItem: Review) {
             ) {
                 AsyncImage(
                     modifier = Modifier.fillMaxSize(),
-                    model = reviewsItem.profileImage,
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(reviewsItem.profileImage)
+                        .crossfade(true).build(),
                     contentDescription = reviewsItem.name,
                     contentScale = ContentScale.Crop,
                 )
+
             }
 
             Column(

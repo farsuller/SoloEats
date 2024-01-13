@@ -8,6 +8,6 @@ import com.solo.components.routes.ScreensRoutes
 fun NavGraphBuilder.cartRoute(paddingValues: PaddingValues) {
     composable(route = ScreensRoutes.Cart.route) {
 
-        CartScreen(onButtonClicked = {})
+        CartScreen(paddingValues = paddingValues)
     }
 }

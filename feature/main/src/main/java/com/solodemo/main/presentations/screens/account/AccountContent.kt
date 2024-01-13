@@ -1,11 +1,15 @@
 package com.solodemo.main.presentations.screens.account
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,6 +18,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.PersonPin
+import androidx.compose.material.icons.outlined.PersonPin
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -25,24 +31,31 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.solo.components.state.RequestState
+import com.solo.util.clickableWithoutRipple
+import com.solodemo.main.presentations.screens.account.components.sendEmail
 import com.solodemo.supabase.domain.repository.Users
 
 
 @Composable
 internal fun AccountContent(
-    onButtonClicked: () -> Unit,
+    onSignOutButtonClicked: () -> Unit,
     paddingValues: PaddingValues,
-    users: Users
+    users: Users,
+    onPrivacyPolicyClicked: () -> Unit,
 ) {
-
-    val userName = remember { mutableStateOf("") }
-    val userEmail = remember { mutableStateOf("") }
+    val context = LocalContext.current
+    val userName = remember { mutableStateOf("Empty Name") }
+    val userEmail = remember { mutableStateOf("Empty Email") }
     val isEmailVerified = remember { mutableStateOf(false) }
     val userProfile = remember { mutableStateOf("") }
+
     LaunchedEffect(key1 = users) {
         when (users) {
             RequestState.Loading -> {}
@@ -70,16 +83,28 @@ internal fun AccountContent(
 
         Box(
             modifier = Modifier
-                .clip(CircleShape)
                 .size(150.dp)
                 .padding(10.dp)
+                .clip(CircleShape)
         ) {
-            AsyncImage(
-                modifier = Modifier.fillMaxSize(),
-                model = userProfile.value,
-                contentDescription = userName.value,
-                contentScale = ContentScale.Crop,
-            )
+            if(userProfile.value.isNotEmpty()){
+                AsyncImage(
+                    modifier = Modifier.fillMaxSize(),
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(userProfile.value)
+                        .crossfade(true).build(),
+                    contentDescription = userName.value,
+                    contentScale = ContentScale.Crop,
+                )
+            }
+            else{
+                Image(
+                    modifier = Modifier.fillMaxSize(),
+                   imageVector = Icons.Default.PersonPin,
+                    contentDescription = userName.value,
+                    contentScale = ContentScale.Crop,
+                )
+            }
         }
 
         Text(
@@ -143,6 +168,8 @@ internal fun AccountContent(
                     fontSize = MaterialTheme.typography.bodySmall.fontSize,
                     color = MaterialTheme.colorScheme.onSurface
                 )
+                
+                Spacer(modifier = Modifier.size(20.dp))
 
                 Text(
                     modifier = Modifier.padding(bottom = 10.dp),
@@ -152,13 +179,21 @@ internal fun AccountContent(
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = "Help Centre",
+                    modifier = Modifier.clickableWithoutRipple(
+                        interactionSource = MutableInteractionSource(),
+                        onClick = { onPrivacyPolicyClicked() }
+                    ),
+                    text = "Privacy Policy",
                     fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                     fontSize = MaterialTheme.typography.bodySmall.fontSize,
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    modifier = Modifier.padding(top = 10.dp),
+                    modifier = Modifier.padding(top = 10.dp)
+                        .clickableWithoutRipple(
+                            interactionSource = MutableInteractionSource(),
+                            onClick = {  sendEmail("florence.suller@gmail.com", "SoloEats Feedback", "Hi Florence", context) }
+                        ),
                     text = "Share Feedback",
                     fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                     fontSize = MaterialTheme.typography.bodySmall.fontSize,
@@ -177,7 +212,7 @@ internal fun AccountContent(
             OutlinedButton(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(5.dp),
-                onClick = { onButtonClicked() },
+                onClick = { onSignOutButtonClicked() },
                 border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.secondary)
             ) {
 

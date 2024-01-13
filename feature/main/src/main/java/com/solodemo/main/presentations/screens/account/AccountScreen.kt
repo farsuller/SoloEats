@@ -8,14 +8,16 @@ import com.solodemo.supabase.domain.repository.Users
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 internal fun AccountScreen(
-    onButtonClicked: () -> Unit,
+    onSignOutButtonClicked: () -> Unit,
     paddingValues: PaddingValues,
-    users: Users
+    users: Users,
+    onPrivacyPolicyClicked: () -> Unit,
 ) {
     AccountContent(
         paddingValues = paddingValues,
-        onButtonClicked = onButtonClicked,
-        users = users
+        onSignOutButtonClicked = onSignOutButtonClicked,
+        users = users,
+        onPrivacyPolicyClicked = onPrivacyPolicyClicked,
     )
 
 }

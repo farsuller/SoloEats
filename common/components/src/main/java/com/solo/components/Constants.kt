@@ -21,7 +21,6 @@ object Constants {
         const val bannerSplashCoffee =
             "file:///android_asset/images/banner/banner_coffee_splash.png"
         const val bannerCoffee = "file:///android_asset/images/banner/banner_coffee.png"
-        const val bannerPasta = "file:///android_asset/images/banner/banner_pasta.png"
         const val bannerBurger = "file:///android_asset/images/banner/banner_burger.png"
         const val bannerPizza = "file:///android_asset/images/banner/banner_pizza.png"
         const val bannerBurgerFries = "file:///android_asset/images/banner/banner_burgerfries.png"
@@ -30,8 +29,7 @@ object Constants {
         const val CheesyHavenDeluxe = "file:///android_asset/images/burger/CheesyHavenDeluxe.png"
 
         //Pizza
-        const val TropicalHawaiianPizza =
-            "file:///android_asset/images/pizza/TropicalHawaiianPizza.png"
+        const val TropicalHawaiianPizza = "file:///android_asset/images/pizza/TropicalHawaiianPizza.png"
 
         //Pasta
         const val FilipinoSpaghetti = "file:///android_asset/images/pasta/FilipinoSpaghetti.png"

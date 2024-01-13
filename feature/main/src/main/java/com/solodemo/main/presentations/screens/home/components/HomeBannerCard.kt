@@ -17,11 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.solo.ui.Elevation
 
 @Composable
@@ -98,7 +100,9 @@ fun HomeBannerCard(
 fun BannerImage(modifier: Modifier, imagePath: String) {
     AsyncImage(
         modifier = modifier,
-        model = imagePath,
+        model = ImageRequest.Builder(LocalContext.current)
+            .data(imagePath)
+            .crossfade(true).build(),
         contentDescription = "Banner Image",
         contentScale = ContentScale.Crop,
         alignment = Alignment.Center
