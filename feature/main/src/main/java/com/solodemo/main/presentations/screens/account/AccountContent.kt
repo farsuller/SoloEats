@@ -2,7 +2,6 @@ package com.solodemo.main.presentations.screens.account
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,12 +13,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.PersonPin
-import androidx.compose.material.icons.outlined.PersonPin
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -31,12 +31,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.solo.components.Constants
 import com.solo.components.state.RequestState
 import com.solo.util.clickableWithoutRipple
 import com.solodemo.main.presentations.screens.account.components.sendEmail
@@ -78,7 +78,7 @@ internal fun AccountContent(
             .padding(top = paddingValues.calculateTopPadding())
             .padding(bottom = paddingValues.calculateBottomPadding()),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
         Box(
@@ -87,7 +87,7 @@ internal fun AccountContent(
                 .padding(10.dp)
                 .clip(CircleShape)
         ) {
-            if(userProfile.value.isNotEmpty()){
+            if (userProfile.value.isNotEmpty()) {
                 AsyncImage(
                     modifier = Modifier.fillMaxSize(),
                     model = ImageRequest.Builder(LocalContext.current)
@@ -96,11 +96,10 @@ internal fun AccountContent(
                     contentDescription = userName.value,
                     contentScale = ContentScale.Crop,
                 )
-            }
-            else{
+            } else {
                 Image(
                     modifier = Modifier.fillMaxSize(),
-                   imageVector = Icons.Default.PersonPin,
+                    imageVector = Icons.Default.PersonPin,
                     contentDescription = userName.value,
                     contentScale = ContentScale.Crop,
                 )
@@ -147,7 +146,8 @@ internal fun AccountContent(
             modifier = Modifier
                 .weight(weight = 2f)
                 .fillMaxWidth()
-                .padding(20.dp),
+                .padding(20.dp)
+                .verticalScroll(state = rememberScrollState()),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
@@ -168,7 +168,7 @@ internal fun AccountContent(
                     fontSize = MaterialTheme.typography.bodySmall.fontSize,
                     color = MaterialTheme.colorScheme.onSurface
                 )
-                
+
                 Spacer(modifier = Modifier.size(20.dp))
 
                 Text(
@@ -189,10 +189,18 @@ internal fun AccountContent(
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    modifier = Modifier.padding(top = 10.dp)
+                    modifier = Modifier
+                        .padding(top = 10.dp)
                         .clickableWithoutRipple(
                             interactionSource = MutableInteractionSource(),
-                            onClick = {  sendEmail("florence.suller@gmail.com", "SoloEats Feedback", "Hi Florence", context) }
+                            onClick = {
+                                sendEmail(
+                                    Constants.DEVELOPER_EMAIL,
+                                    Constants.EMAIL_SUBJECT,
+                                    Constants.EMAIL_MESSAGE,
+                                    context
+                                )
+                            }
                         ),
                     text = "Share Feedback",
                     fontFamily = MaterialTheme.typography.bodySmall.fontFamily,

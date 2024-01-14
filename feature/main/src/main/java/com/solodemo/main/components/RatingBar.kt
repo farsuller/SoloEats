@@ -1,4 +1,4 @@
-package com.solodemo.main.presentations.products.components
+package com.solodemo.main.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding

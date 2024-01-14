@@ -6,6 +6,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.solo.components.Constants
 import com.solo.components.routes.ScreensRoutes
 import com.solo.components.state.RequestState
 import com.solodemo.main.presentations.MainViewModel
@@ -45,7 +46,7 @@ fun NavGraphBuilder.accountRoute(
                 viewModel.signOut()
             },
             onPrivacyPolicyClicked = {
-                uriHandler.openUri("https://www.google.com/")
+                uriHandler.openUri(Constants.PRIVACY_POLICY_LINK)
             },
         )
     }

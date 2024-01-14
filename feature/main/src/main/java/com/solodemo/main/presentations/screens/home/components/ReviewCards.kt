@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.solo.ui.Elevation
-import com.solodemo.main.presentations.products.components.RatingBar
+import com.solodemo.main.components.RatingBar
 import com.solodemo.supabase.model.Review
 
 @Composable

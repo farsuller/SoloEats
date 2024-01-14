@@ -6,6 +6,10 @@ object Constants {
     const val CLIENT_ID = "415444554521-90t82ild47643bkj3ql1sbm2nselkkt0.apps.googleusercontent.com"
     const val CATEGORY_NAME_ARG_KEY = "categoryName"
     const val DEFAULT_CATEGORY_NAME = "Burgers"
+    const val PRIVACY_POLICY_LINK = "https://docs.google.com/document/d/19BNfp_LqXAA6TZQjx2FzmLeDuCj05DihnDDn0mtSJDA/edit?usp=sharing"
+    const val DEVELOPER_EMAIL = "florence.suller@gmail.com"
+    const val EMAIL_SUBJECT = "SoloEats Feedback"
+    const val EMAIL_MESSAGE = "Hi Florence"
 
     object StaticImages {
         //Intro
@@ -29,7 +33,8 @@ object Constants {
         const val CheesyHavenDeluxe = "file:///android_asset/images/burger/CheesyHavenDeluxe.png"
 
         //Pizza
-        const val TropicalHawaiianPizza = "file:///android_asset/images/pizza/TropicalHawaiianPizza.png"
+        const val TropicalHawaiianPizza =
+            "file:///android_asset/images/pizza/TropicalHawaiianPizza.png"
 
         //Pasta
         const val FilipinoSpaghetti = "file:///android_asset/images/pasta/FilipinoSpaghetti.png"

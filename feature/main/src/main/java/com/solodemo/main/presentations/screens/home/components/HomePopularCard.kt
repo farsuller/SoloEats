@@ -25,14 +25,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.solo.ui.Elevation
 import com.solodemo.main.model.Featured
+import com.solodemo.main.components.RatingBar
 
 @Composable
 fun HomePopularCard(
@@ -43,64 +46,60 @@ fun HomePopularCard(
     onAddButtonClicked: () -> Unit
 ) {
     ElevatedCard(
-        modifier = modifier.size(width = 270.dp, height = 140.dp),
+        modifier = modifier.size(width = 270.dp, height = 200.dp),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level5),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
     ) {
 
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(10.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
-        ) {
-
-            AsyncImage(
-                modifier = Modifier.weight(0.3F),
-                model = imagePath,
-                contentDescription = "Banner Image",
-                contentScale = ContentScale.Fit,
-                alignment = Alignment.Center
-            )
-
-            Column(
-                modifier = Modifier
-                    .weight(0.5F)
-                    .padding(start = 5.dp)
-                    .fillMaxHeight(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.End
+        Column(modifier = Modifier.fillMaxSize().padding(10.dp),
+            verticalArrangement = Arrangement.Top) {
+            Row(
+                modifier = Modifier.weight(2F).fillMaxSize(),
+                verticalAlignment = Alignment.Top,
+                horizontalArrangement = Arrangement.Start
             ) {
 
-                Column(
-                    modifier = Modifier
-                        .weight(0.1F)
-                        .fillMaxWidth()
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 10.dp),
-                        text = title,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                        fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
-                        fontSize = 16.sp,
-                        textAlign = TextAlign.Start,
-                    )
+                AsyncImage(
+                    modifier = Modifier.weight(1F),
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(imagePath)
+                        .crossfade(true).build(),
+                    contentDescription = "Banner Image",
+                    contentScale = ContentScale.Fit,
+                    alignment = Alignment.Center
+                )
 
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        text = price,
-                        fontFamily = MaterialTheme.typography.titleSmall.fontFamily,
-                        fontSize = 13.sp,
-                        lineHeight = 14.sp,
-                        textAlign = TextAlign.Start,
-                    )
-                }
+                    Column(modifier = Modifier.weight(1.5F).fillMaxSize(),
+                        verticalArrangement = Arrangement.Center) {
+                        Text(
+                            modifier = Modifier,
+                            text = title,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                            fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
+                            fontSize = 16.sp,
+                            lineHeight = 16.sp,
+                            textAlign = TextAlign.Start,
+                        )
+
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = price,
+                            fontFamily = MaterialTheme.typography.titleSmall.fontFamily,
+                            fontSize = 13.sp,
+                            lineHeight = 14.sp,
+                            textAlign = TextAlign.Start,
+                        )
+                    }
+
+
+            }
+
+            Row (modifier= Modifier.weight(1F).fillMaxSize(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically){
+                RatingBar()
 
                 Box(
                     modifier = Modifier
@@ -121,7 +120,9 @@ fun HomePopularCard(
                     }
                 }
             }
+
         }
+
     }
 }
 
