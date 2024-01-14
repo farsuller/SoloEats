@@ -3,6 +3,7 @@ package com.solodemo.main.presentations
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -50,13 +51,6 @@ class MainViewModel @Inject constructor(
 
     private val sharedPref = SharedPreferenceHelper(application.applicationContext)
 
-    init {
-        getReviews()
-        getMenus()
-        getUserInfo()
-        getCartList()
-    }
-
     fun insertCart(cart: Cart){
         viewModelScope.launch {
             repository.insertCart(cart = cart).collectLatest { data ->
@@ -75,7 +69,7 @@ class MainViewModel @Inject constructor(
         return sharedPref.getStringData(Constants.ACCESS_TOKEN)
     }
 
-    private fun getUserInfo() {
+    fun getUserInfo() {
         viewModelScope.launch {
             val token = getToken()
             if (token != null) {
@@ -90,11 +84,12 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             repository.getCartList().collectLatest { data ->
                 carts.value = data
+                Log.d("MainViewModel","getCartList $data")
             }
         }
     }
 
-    private fun getReviews() {
+    fun getReviews() {
         viewModelScope.launch {
             repository.getReviews().collectLatest { data ->
                 reviews.value = data
@@ -102,7 +97,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun getMenus() {
+    fun getMenus() {
         viewModelScope.launch {
             repository.getMenus().collectLatest { data ->
                 menus.value = data

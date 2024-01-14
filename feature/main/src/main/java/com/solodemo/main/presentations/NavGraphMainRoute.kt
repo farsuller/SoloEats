@@ -25,8 +25,12 @@ fun NavGraphBuilder.mainRoute(
         val user by viewModel.user
         val carts by viewModel.carts
 
-        LaunchedEffect(key1 = true) {
+        LaunchedEffect(key1 = viewModel.cartState) {
             onDataLoaded()
+            viewModel.getReviews()
+            viewModel.getMenus()
+            viewModel.getUserInfo()
+            viewModel.getCartList()
 
             viewModel.cartState.collectLatest { data ->
                 when (data) {

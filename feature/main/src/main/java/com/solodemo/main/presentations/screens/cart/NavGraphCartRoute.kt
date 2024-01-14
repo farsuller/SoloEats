@@ -14,9 +14,6 @@ fun NavGraphBuilder.cartRoute(paddingValues: PaddingValues, viewModel: MainViewM
         val carts by viewModel.carts
         val user by viewModel.user
 
-        LaunchedEffect(key1 = true) {
-            viewModel.getCartList()
-        }
         CartScreen(paddingValues = paddingValues, carts = carts, users = user)
     }
 }
