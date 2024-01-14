@@ -14,6 +14,10 @@ import javax.inject.Inject
 class SupabaseRepositoryImpl @Inject constructor(
     private val supabaseDataSource: SupabaseDataSource
 ) : SupabaseRepository {
+    override fun insertCart(cart: Cart): Flow<RequestState<Unit>> {
+        return supabaseDataSource.insertCart(cart = cart)
+    }
+
     override fun getCartList(): Flow<RequestState<List<Cart>>> {
         return supabaseDataSource.getCartList()
     }

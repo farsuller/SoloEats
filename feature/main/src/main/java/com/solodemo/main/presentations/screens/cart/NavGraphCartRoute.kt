@@ -1,6 +1,7 @@
 package com.solodemo.main.presentations.screens.cart
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -11,6 +12,11 @@ fun NavGraphBuilder.cartRoute(paddingValues: PaddingValues, viewModel: MainViewM
     composable(route = ScreensRoutes.Cart.route) {
 
         val carts by viewModel.carts
-        CartScreen(paddingValues = paddingValues , carts = carts)
+        val user by viewModel.user
+
+        LaunchedEffect(key1 = true) {
+            viewModel.getCartList()
+        }
+        CartScreen(paddingValues = paddingValues, carts = carts, users = user)
     }
 }

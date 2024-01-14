@@ -87,7 +87,7 @@ fun PaymentWalletCard(
 internal fun PaymentWalletCardPreview() {
     PaymentWalletCard(
         title = "SoloEats Wallet",
-        amount = "₱ 0.00",
+        amount = "  0.00",
         onWalletClicked = {}
 
     )

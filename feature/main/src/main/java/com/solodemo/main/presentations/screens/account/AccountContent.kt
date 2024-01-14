@@ -56,21 +56,18 @@ internal fun AccountContent(
     val isEmailVerified = remember { mutableStateOf(false) }
     val userProfile = remember { mutableStateOf("") }
 
-    LaunchedEffect(key1 = users) {
-        when (users) {
-            RequestState.Loading -> {}
-            is RequestState.Success -> {
-                userName.value = users.data.name
-                userEmail.value = users.data.email
-                isEmailVerified.value = users.data.emailVerified
-                userProfile.value = users.data.picture
-            }
-
-            is RequestState.Error -> {}
-            else -> {}
+    when (users) {
+        RequestState.Loading -> {}
+        is RequestState.Success -> {
+            userName.value = users.data.name
+            userEmail.value = users.data.email
+            isEmailVerified.value = users.data.emailVerified
+            userProfile.value = users.data.picture
         }
-    }
 
+        is RequestState.Error -> {}
+        else -> {}
+    }
 
     Column(
         modifier = Modifier

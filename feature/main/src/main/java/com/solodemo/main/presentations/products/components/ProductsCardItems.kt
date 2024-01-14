@@ -43,11 +43,14 @@ import com.skydoves.orbital.animateBounds
 import com.skydoves.orbital.rememberMovableContentOf
 import com.solo.ui.Elevation
 import com.solo.util.clickableWithoutRipple
+import com.solo.util.formatToCurrency
 import com.solodemo.main.components.RatingBar
 import com.solodemo.main.model.Food
+import com.solodemo.main.presentations.MainViewModel
+import com.solodemo.supabase.model.Cart
 
 @Composable
-fun ProductsCardItems(foodList: Food) {
+fun ProductsCardItems(foodList: Food, mainViewModel: MainViewModel) {
 
     var isFavourite by remember { mutableStateOf(false) }
     val updatedIsFavourite = rememberUpdatedState(isFavourite)
@@ -104,7 +107,7 @@ fun ProductsCardItems(foodList: Food) {
                             )
 
                             Text(
-                                text = foodList.price,
+                                text = formatToCurrency(foodList.price.toDouble()),
                                 fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                                 color = MaterialTheme.colorScheme.onSurface
@@ -189,7 +192,11 @@ fun ProductsCardItems(foodList: Food) {
 
                             showProductImage()
                             showProductDetails()
-                            QuantityAddCartButtons(foodList = foodList)
+                            QuantityAddCartButtons(
+                                foodList = foodList,
+                                addToCartClicked = { cart: Cart ->
+                                    mainViewModel.insertCart(cart)
+                                })
                         }
                     } else {
                         Column {
@@ -197,7 +204,11 @@ fun ProductsCardItems(foodList: Food) {
                                 showProductImage()
                                 showProductDetails()
                             }
-                            QuantityAddCartButtons(foodList = foodList)
+                            QuantityAddCartButtons(
+                                foodList = foodList,
+                                addToCartClicked = { cart: Cart ->
+                                    mainViewModel.insertCart(cart)
+                                })
                         }
 
                     }

@@ -8,12 +8,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.solodemo.main.model.FoodCategory
+import com.solodemo.main.presentations.MainViewModel
 
 @Composable
 fun ProductListScreen(
     foodList: List<FoodCategory>,
     onBackPressClicked: () -> Unit,
-    categoryNameSelected: String
+    categoryNameSelected: String,
+    mainViewModel: MainViewModel
 ) {
 
     Scaffold(modifier = Modifier
@@ -25,7 +27,8 @@ fun ProductListScreen(
             foodList = foodList,
             paddingValues = paddingValues,
             categoryNameSelected = categoryNameSelected,
-            onBackPressClicked = onBackPressClicked)
+            onBackPressClicked = onBackPressClicked,
+            mainViewModel = mainViewModel)
 
     })
 

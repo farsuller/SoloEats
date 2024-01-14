@@ -33,13 +33,16 @@ import com.solo.components.loading.CircularLoadingIndicator
 import com.solo.components.state.RequestState
 import com.solodemo.main.components.MainHeaderCard
 import com.solodemo.main.model.Featured
+import com.solodemo.main.model.FoodCategory
 import com.solodemo.main.model.HomeBanners
+import com.solodemo.main.presentations.MainViewModel
 import com.solodemo.main.presentations.screens.home.components.HomeBannerCard
 import com.solodemo.main.presentations.screens.home.components.HomeMenusCard
 import com.solodemo.main.presentations.screens.home.components.HomePopularCard
 import com.solodemo.main.presentations.screens.home.components.ReviewCards
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reviews
+import com.solodemo.supabase.model.Cart
 import com.solodemo.supabase.model.Menu
 
 
@@ -48,8 +51,10 @@ internal fun HomeContent(
     paddingValues: PaddingValues,
     menus: Menus,
     reviews: Reviews,
+    foodList: List<FoodCategory>,
     homeLazyListState: LazyListState,
-    navigateToProductList: (String) -> Unit
+    navigateToProductList: (String) -> Unit,
+    viewModel: MainViewModel
 ) {
     LazyColumn(
         modifier = Modifier
@@ -74,7 +79,7 @@ internal fun HomeContent(
             Spacer(modifier = Modifier.size(10.dp))
             HomeMenusContent(menus = menus, navigateToProductList = navigateToProductList)
             Spacer(modifier = Modifier.size(10.dp))
-            HomePopularContent()
+            HomePopularContent(foodList = foodList, viewModel = viewModel)
             ReviewsContent(reviews = reviews)
         }
     }
@@ -95,7 +100,7 @@ private fun HomeBannersContent() {
 }
 
 @Composable
-private fun HomePopularContent() {
+private fun HomePopularContent(foodList: List<FoodCategory>, viewModel: MainViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -117,13 +122,18 @@ private fun HomePopularContent() {
                 rows = GridCells.Fixed(3),
                 modifier = Modifier.padding(top = 10.dp)
             ) {
-                items(Featured.entries.toTypedArray()) { entries ->
+                items(foodList) { category ->
+
+                    val firstFood = category.foods.first()
                     HomePopularCard(
                         Modifier.padding(5.dp),
-                        title = entries.title,
-                        price = entries.price,
-                        imagePath = entries.imagePath,
-                        onAddButtonClicked = {}
+                        foodId = firstFood.foodId,
+                        foodName = firstFood.foodName,
+                        foodPrice = firstFood.price,
+                        foodImage = firstFood.foodImage,
+                        onAddButtonClicked = {cart: Cart ->
+                            viewModel.insertCart(cart)
+                        }
                     )
                 }
             }

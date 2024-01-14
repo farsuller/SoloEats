@@ -28,9 +28,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.solodemo.main.model.Food
+import com.solodemo.supabase.model.Cart
 
 @Composable
-fun QuantityAddCartButtons(foodList: Food) {
+fun QuantityAddCartButtons(foodList: Food, addToCartClicked: (Cart) -> Unit) {
 
     var quantity by remember { mutableIntStateOf(1) }
 
@@ -91,7 +92,17 @@ fun QuantityAddCartButtons(foodList: Food) {
         }
 
         Button(
-            onClick = {},
+            onClick = {
+                addToCartClicked(
+                    Cart(
+                        id = foodList.foodId,
+                        productName = foodList.foodName,
+                        productImage = foodList.foodImage,
+                        productPrice = foodList.price,
+                        productQuantity = quantity
+                    )
+                )
+            },
             modifier = Modifier
                 .weight(0.35F)
                 .fillMaxWidth(),
@@ -114,5 +125,5 @@ fun QuantityAddCartButtons(foodList: Food) {
 @Preview(showBackground = true)
 @Composable
 internal fun ProductCardItemsPreview() {
-    QuantityAddCartButtons(foodList = Food())
+    QuantityAddCartButtons(foodList = Food(), addToCartClicked = {})
 }

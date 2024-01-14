@@ -89,7 +89,7 @@ internal fun PaymentContent(
                     .height(250.dp)
                     .padding(10.dp),
                 title = "SoloEats Wallet",
-                amount = "₱ 0.00",
+                amount = " 0.00",
                 onWalletClicked = onWalletClicked
             )
 

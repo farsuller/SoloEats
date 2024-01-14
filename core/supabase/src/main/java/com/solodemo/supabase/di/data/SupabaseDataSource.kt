@@ -20,6 +20,19 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
         return supaBaseClient
     }
 
+    fun insertCart(cart: Cart): Flow<RequestState<Unit>>  {
+        return flow {
+            emit(RequestState.Loading)
+            try {
+                supaBaseClient.postgrest["cart"].insert(cart)
+                emit(RequestState.Success(Unit))
+
+            } catch (e: Exception) {
+                emit(RequestState.Error(e))
+            }
+        }
+    }
+
     fun getCartList(): Flow<RequestState<List<Cart>>> {
         return flow {
             emit(RequestState.Loading)

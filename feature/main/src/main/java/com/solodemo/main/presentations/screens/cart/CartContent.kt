@@ -37,19 +37,21 @@ import com.solo.ui.Elevation
 import com.solo.util.formatToCurrency
 import com.solodemo.main.presentations.screens.cart.components.CartCardItems
 import com.solodemo.supabase.domain.repository.Carts
+import com.solodemo.supabase.domain.repository.Users
 import com.solodemo.supabase.model.Cart
 
 
 @Composable
 internal fun CartContent(
     paddingValues: PaddingValues,
-    carts: Carts
+    carts: Carts,
+    users: Users
 ) {
 
 
     val deliveryFee by remember { mutableDoubleStateOf(59.00) }
     var cartList by remember { mutableStateOf(emptyList<Cart>()) }
-
+    val userName = remember { mutableStateOf("Empty Name") }
     val subTotalPrice by remember(cartList) {
         derivedStateOf {
             // Filter out items with null productPrice, then sum the non-null values
@@ -68,6 +70,15 @@ internal fun CartContent(
         is RequestState.Loading -> {}
         is RequestState.Success -> {
             cartList = carts.data
+        }
+        is RequestState.Error -> {}
+        else -> {}
+    }
+
+    when (users) {
+        RequestState.Loading -> {}
+        is RequestState.Success -> {
+            userName.value = users.data.name
         }
 
         is RequestState.Error -> {}
@@ -130,26 +141,24 @@ internal fun CartContent(
 
                         Text(
                             modifier = Modifier.padding(5.dp),
-                            text = "My Name",
+                            text = "Name: ${userName.value}",
                             fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                             fontSize = 15.sp,
                         )
 
                         Text(
                             modifier = Modifier.padding(5.dp),
-                            text = "My Address",
+                            text = "Address: ",
                             fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                             fontSize = 15.sp,
                         )
 
                         Text(
                             modifier = Modifier.padding(5.dp),
-                            text = "My Mobile Number",
+                            text = "Mobile Number: ",
                             fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                             fontSize = 15.sp,
                         )
-
-
                     }
                 }
 

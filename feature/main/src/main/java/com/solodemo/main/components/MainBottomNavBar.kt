@@ -22,7 +22,8 @@ import com.solodemo.main.model.MainBottomNavItem
 @OptIn(ExperimentalMaterial3Api::class)
 internal fun MainBottomNavBar(
     onTabSelected: (String) -> Unit ,
-    navController: NavHostController
+    navController: NavHostController,
+    cartCount : Int? = null
 ) {
     var selectedBottomNavItemIndex by rememberSaveable { mutableIntStateOf(0) }
     NavigationBar(
@@ -50,9 +51,9 @@ internal fun MainBottomNavBar(
 
                 }, icon = {
                     BadgedBox(badge = {
-                        if (item.badgeCount != null) {
+                        if (cartCount != null && item.title == "Cart") {
                             Badge {
-                                Text(text = "${item.badgeCount}")
+                                Text(text = "$cartCount")
                             }
                         } else if (item.hasUpdate) {
                             Badge()

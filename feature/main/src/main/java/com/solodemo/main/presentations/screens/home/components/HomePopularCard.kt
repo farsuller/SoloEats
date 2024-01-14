@@ -34,16 +34,19 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.solo.ui.Elevation
+import com.solo.util.formatToCurrency
 import com.solodemo.main.model.Featured
 import com.solodemo.main.components.RatingBar
+import com.solodemo.supabase.model.Cart
 
 @Composable
 fun HomePopularCard(
     modifier: Modifier = Modifier,
-    title: String = "",
-    price: String = "",
-    imagePath: String = "",
-    onAddButtonClicked: () -> Unit
+    foodId: Int,
+    foodName: String = "",
+    foodPrice: String = "",
+    foodImage: String = "",
+    onAddButtonClicked: (Cart) -> Unit
 ) {
     ElevatedCard(
         modifier = modifier.size(width = 270.dp, height = 200.dp),
@@ -52,10 +55,16 @@ fun HomePopularCard(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
     ) {
 
-        Column(modifier = Modifier.fillMaxSize().padding(10.dp),
-            verticalArrangement = Arrangement.Top) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(10.dp),
+            verticalArrangement = Arrangement.Top
+        ) {
             Row(
-                modifier = Modifier.weight(2F).fillMaxSize(),
+                modifier = Modifier
+                    .weight(2F)
+                    .fillMaxSize(),
                 verticalAlignment = Alignment.Top,
                 horizontalArrangement = Arrangement.Start
             ) {
@@ -63,42 +72,50 @@ fun HomePopularCard(
                 AsyncImage(
                     modifier = Modifier.weight(1F),
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(imagePath)
+                        .data(foodImage)
                         .crossfade(true).build(),
                     contentDescription = "Banner Image",
                     contentScale = ContentScale.Fit,
                     alignment = Alignment.Center
                 )
 
-                    Column(modifier = Modifier.weight(1.5F).fillMaxSize(),
-                        verticalArrangement = Arrangement.Center) {
-                        Text(
-                            modifier = Modifier,
-                            text = title,
-                            maxLines = 2,
-                            overflow = TextOverflow.Ellipsis,
-                            fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
-                            fontSize = 16.sp,
-                            lineHeight = 16.sp,
-                            textAlign = TextAlign.Start,
-                        )
+                Column(
+                    modifier = Modifier
+                        .weight(1.5F)
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        modifier = Modifier,
+                        text = foodName,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                        fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
+                        fontSize = 16.sp,
+                        lineHeight = 16.sp,
+                        textAlign = TextAlign.Start,
+                    )
 
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = price,
-                            fontFamily = MaterialTheme.typography.titleSmall.fontFamily,
-                            fontSize = 13.sp,
-                            lineHeight = 14.sp,
-                            textAlign = TextAlign.Start,
-                        )
-                    }
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = formatToCurrency(foodPrice.toDouble()),
+                        fontFamily = MaterialTheme.typography.titleSmall.fontFamily,
+                        fontSize = 13.sp,
+                        lineHeight = 14.sp,
+                        textAlign = TextAlign.Start,
+                    )
+                }
 
 
             }
 
-            Row (modifier= Modifier.weight(1F).fillMaxSize(),
+            Row(
+                modifier = Modifier
+                    .weight(1F)
+                    .fillMaxSize(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically){
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 RatingBar()
 
                 Box(
@@ -108,7 +125,17 @@ fun HomePopularCard(
                         .background(color = Color(0xFFF44336))
                 ) {
                     IconButton(
-                        onClick = { onAddButtonClicked() },
+                        onClick = {
+                            onAddButtonClicked(
+                                Cart(
+                                    id = foodId,
+                                    productName = foodName,
+                                    productImage = foodImage,
+                                    productPrice = foodPrice,
+                                    productQuantity = 1
+                                )
+                            )
+                        },
                         modifier = Modifier
 
                     ) {
@@ -131,9 +158,10 @@ fun HomePopularCard(
 @Composable
 internal fun CardProductPreview() {
     HomePopularCard(
-        imagePath = Featured.CheesyHavenDeluxe.imagePath,
-        title = Featured.CheesyHavenDeluxe.title,
-        price = Featured.CheesyHavenDeluxe.price,
+        foodId = 0,
+        foodImage = Featured.CheesyHavenDeluxe.imagePath,
+        foodName = Featured.CheesyHavenDeluxe.title,
+        foodPrice = Featured.CheesyHavenDeluxe.price,
         onAddButtonClicked = {}
 
     )

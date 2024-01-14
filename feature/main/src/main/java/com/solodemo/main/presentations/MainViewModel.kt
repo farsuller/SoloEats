@@ -39,6 +39,10 @@ class MainViewModel @Inject constructor(
     val uiState: StateFlow<RequestState<*>>
         get() = _uiState
 
+    private val _cartState = MutableStateFlow<RequestState<*>>(RequestState.Loading)
+    val cartState: StateFlow<RequestState<*>>
+        get() = _cartState
+
     var menus: MutableState<Menus> = mutableStateOf(RequestState.Idle)
     var reviews: MutableState<Reviews> = mutableStateOf(RequestState.Idle)
     var carts: MutableState<Carts> = mutableStateOf(RequestState.Idle)
@@ -51,6 +55,14 @@ class MainViewModel @Inject constructor(
         getMenus()
         getUserInfo()
         getCartList()
+    }
+
+    fun insertCart(cart: Cart){
+        viewModelScope.launch {
+            repository.insertCart(cart = cart).collectLatest { data ->
+                _cartState.update { data }
+            }
+        }
     }
 
     fun getProductList(context: Context): List<FoodCategory> {
@@ -74,7 +86,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun getCartList() {
+    fun getCartList() {
         viewModelScope.launch {
             repository.getCartList().collectLatest { data ->
                 carts.value = data

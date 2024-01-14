@@ -16,10 +16,13 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.solo.components.state.RequestState
 import com.solodemo.main.components.MainBottomNavBar
 import com.solodemo.main.components.MainTopBar
+import com.solodemo.supabase.domain.repository.Carts
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Users
+import com.solodemo.supabase.model.Cart
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -27,6 +30,7 @@ import com.solodemo.supabase.domain.repository.Users
 internal fun MainScreen(
     menus: Menus,
     users: Users,
+    carts: Carts,
     navController: NavHostController = rememberNavController(),
     viewModel: MainViewModel,
     navigateToAuth: () -> Unit,
@@ -48,7 +52,6 @@ internal fun MainScreen(
         else MaterialTheme.colorScheme.secondary, label = "Animate Status Bar"
     )
 
-
     when (selectedTab) {
         "Payment", "Cart" -> window.statusBarColor = MaterialTheme.colorScheme.surface.toArgb()
         "Menus" -> window.statusBarColor = MaterialTheme.colorScheme.primary.toArgb()
@@ -56,6 +59,19 @@ internal fun MainScreen(
         else -> window.statusBarColor = statusBarColor.toArgb()
     }
 
+
+
+    var cartList by remember { mutableStateOf(emptyList<Cart>()) }
+
+    when (carts) {
+        is RequestState.Loading -> {}
+        is RequestState.Success -> {
+            cartList = carts.data
+        }
+
+        is RequestState.Error -> {}
+        else -> {}
+    }
     Scaffold(
         topBar = {
             MainTopBar(selectedTab = selectedTab)
@@ -63,7 +79,8 @@ internal fun MainScreen(
         bottomBar = {
             MainBottomNavBar(
                 navController = navController,
-                onTabSelected = { tab -> selectedTab = tab })
+                onTabSelected = { tab -> selectedTab = tab },
+                cartCount = cartList.size)
         }
     ) {
         MainContent(

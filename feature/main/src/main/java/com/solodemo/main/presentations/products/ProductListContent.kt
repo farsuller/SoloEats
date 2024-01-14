@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.skydoves.orbital.Orbital
 import com.solodemo.main.model.FoodCategory
+import com.solodemo.main.presentations.MainViewModel
 import com.solodemo.main.presentations.products.components.ProductsCardItems
 
 @Composable
@@ -38,6 +39,7 @@ fun ProductListContent(
     paddingValues: PaddingValues,
     categoryNameSelected: String,
     onBackPressClicked: () -> Unit,
+    mainViewModel: MainViewModel
 ) {
 
     val filteredProducts = remember(foodList){
@@ -95,7 +97,8 @@ fun ProductListContent(
 
                     Column {
                         productList.foods.forEach { foodItems ->
-                            ProductsCardItems(foodList = foodItems)
+                            ProductsCardItems(foodList = foodItems,
+                                mainViewModel = mainViewModel)
                         }
 
                     }
