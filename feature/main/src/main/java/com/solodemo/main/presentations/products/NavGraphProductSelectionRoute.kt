@@ -42,7 +42,7 @@ fun NavGraphBuilder.productSelectionRoute(onBackPressClicked: () -> Unit) {
 
         val context = LocalContext.current
 
-        LaunchedEffect(key1 = Unit) {
+        LaunchedEffect(key1 = viewModel.cartState) {
             viewModel.cartState.collectLatest { data ->
                 when (data) {
                     RequestState.Loading -> {}

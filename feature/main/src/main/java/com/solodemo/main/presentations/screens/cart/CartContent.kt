@@ -44,14 +44,12 @@ import com.solodemo.supabase.model.Cart
 @Composable
 internal fun CartContent(
     paddingValues: PaddingValues,
-    carts: Carts,
-    users: Users
+    cartList: List<Cart>,
+    userName: String
 ) {
 
-
     val deliveryFee by remember { mutableDoubleStateOf(59.00) }
-    var cartList by remember { mutableStateOf(emptyList<Cart>()) }
-    val userName = remember { mutableStateOf("Empty Name") }
+
     val subTotalPrice by remember(cartList) {
         derivedStateOf {
             // Filter out items with null productPrice, then sum the non-null values
@@ -66,24 +64,7 @@ internal fun CartContent(
             subTotalPrice + deliveryFee
         }
     }
-    when (carts) {
-        is RequestState.Loading -> {}
-        is RequestState.Success -> {
-            cartList = carts.data
-        }
-        is RequestState.Error -> {}
-        else -> {}
-    }
 
-    when (users) {
-        RequestState.Loading -> {}
-        is RequestState.Success -> {
-            userName.value = users.data.name
-        }
-
-        is RequestState.Error -> {}
-        else -> {}
-    }
 
     Box(
         modifier = Modifier
@@ -141,7 +122,7 @@ internal fun CartContent(
 
                         Text(
                             modifier = Modifier.padding(5.dp),
-                            text = "Name: ${userName.value}",
+                            text = "Name: $userName",
                             fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                             fontSize = 15.sp,
                         )

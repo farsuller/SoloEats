@@ -32,7 +32,6 @@ import com.solo.components.Constants
 import com.solo.components.loading.CircularLoadingIndicator
 import com.solo.components.state.RequestState
 import com.solodemo.main.components.MainHeaderCard
-import com.solodemo.main.model.Featured
 import com.solodemo.main.model.FoodCategory
 import com.solodemo.main.model.HomeBanners
 import com.solodemo.main.presentations.MainViewModel
@@ -131,8 +130,9 @@ private fun HomePopularContent(foodList: List<FoodCategory>, viewModel: MainView
                         foodName = firstFood.foodName,
                         foodPrice = firstFood.price,
                         foodImage = firstFood.foodImage,
-                        onAddButtonClicked = {cart: Cart ->
+                        onAddButtonClicked = { cart: Cart ->
                             viewModel.insertCart(cart)
+                            viewModel.setAddToCartClicked(true)
                         }
                     )
                 }

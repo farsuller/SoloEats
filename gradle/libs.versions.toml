@@ -18,7 +18,7 @@ kotlin = "1.9.0"
 appcompat = "1.6.1"
 material = "1.11.0"
 orbital = "0.3.3"
-
+message-bar-compose = "1.0.8"
 splash = "1.0.1"
 navigation-compose = "2.7.6"
 material-icons-extended = "1.5.4"
@@ -63,7 +63,7 @@ splash-api = { module = "androidx.core:core-splashscreen", version.ref = "splash
 material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "material-icons-extended" }
 androidx-datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "datastore-preferences-core" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "ui-tooling" }
-
+message-bar-compose = { module = "com.github.stevdza-san:MessageBarCompose", version.ref = "message-bar-compose"}
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }

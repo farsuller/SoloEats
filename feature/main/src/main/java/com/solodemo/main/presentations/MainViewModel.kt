@@ -3,9 +3,7 @@ package com.solodemo.main.presentations
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -40,7 +38,7 @@ class MainViewModel @Inject constructor(
     val uiState: StateFlow<RequestState<*>>
         get() = _uiState
 
-    private val _cartState = MutableStateFlow<RequestState<*>>(RequestState.Loading)
+    private val _cartState = MutableStateFlow<RequestState<*>>(RequestState.Idle)
     val cartState: StateFlow<RequestState<*>>
         get() = _cartState
 
@@ -49,9 +47,16 @@ class MainViewModel @Inject constructor(
     var carts: MutableState<Carts> = mutableStateOf(RequestState.Idle)
     var user: MutableState<RequestState<UserDetails>> = mutableStateOf(RequestState.Idle)
 
-    private val sharedPref = SharedPreferenceHelper(application.applicationContext)
 
-    fun insertCart(cart: Cart){
+    var isAddToCartClicked = mutableStateOf(false)
+        private set
+
+    private val sharedPref = SharedPreferenceHelper(application.applicationContext)
+    fun setAddToCartClicked(addToCartClicked: Boolean) {
+        isAddToCartClicked.value = addToCartClicked
+    }
+
+    fun insertCart(cart: Cart) {
         viewModelScope.launch {
             repository.insertCart(cart = cart).collectLatest { data ->
                 _cartState.update { data }
@@ -84,7 +89,6 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             repository.getCartList().collectLatest { data ->
                 carts.value = data
-                Log.d("MainViewModel","getCartList $data")
             }
         }
     }

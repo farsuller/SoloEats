@@ -15,15 +15,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.solodemo.main.model.MainBottomNavItem
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 internal fun MainBottomNavBar(
-    onTabSelected: (String) -> Unit ,
+    onTabSelected: (String) -> Unit,
     navController: NavHostController,
-    cartCount : Int? = null
+    cartCount: Int? = null
 ) {
     var selectedBottomNavItemIndex by rememberSaveable { mutableIntStateOf(0) }
     NavigationBar(
@@ -42,7 +41,7 @@ internal fun MainBottomNavBar(
                     onTabSelected(item.title)
                     selectedBottomNavItemIndex = index
                     navController.navigate(item.route) {
-                        popUpTo(navController.graph.findStartDestination().id){
+                        popUpTo(navController.graph.findStartDestination().id) {
                             saveState = true
                         }
                         launchSingleTop = true
@@ -51,12 +50,10 @@ internal fun MainBottomNavBar(
 
                 }, icon = {
                     BadgedBox(badge = {
-                        if (cartCount != null && item.title == "Cart") {
+                        if ((cartCount != null) && (cartCount != 0) && (item.title == "Cart")) {
                             Badge {
                                 Text(text = "$cartCount")
                             }
-                        } else if (item.hasUpdate) {
-                            Badge()
                         }
                     }) {
                         Icon(
