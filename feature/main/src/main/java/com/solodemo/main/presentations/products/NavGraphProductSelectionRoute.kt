@@ -1,6 +1,5 @@
 package com.solodemo.main.presentations.products
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
