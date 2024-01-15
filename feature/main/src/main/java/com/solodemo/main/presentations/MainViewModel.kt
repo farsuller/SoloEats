@@ -35,17 +35,18 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<RequestState<*>>(RequestState.Loading)
+    private val _cartState = MutableStateFlow<RequestState<*>>(RequestState.Idle)
+
     val uiState: StateFlow<RequestState<*>>
         get() = _uiState
 
-    private val _cartState = MutableStateFlow<RequestState<*>>(RequestState.Idle)
     val cartState: StateFlow<RequestState<*>>
         get() = _cartState
 
-    var menus: MutableState<Menus> = mutableStateOf(RequestState.Idle)
-    var reviews: MutableState<Reviews> = mutableStateOf(RequestState.Idle)
-    var carts: MutableState<Carts> = mutableStateOf(RequestState.Idle)
-    var user: MutableState<RequestState<UserDetails>> = mutableStateOf(RequestState.Idle)
+    val menus: MutableState<Menus> = mutableStateOf(RequestState.Idle)
+    val reviews: MutableState<Reviews> = mutableStateOf(RequestState.Idle)
+    val carts: MutableState<Carts> = mutableStateOf(RequestState.Idle)
+    val user: MutableState<RequestState<UserDetails>> = mutableStateOf(RequestState.Idle)
 
 
     var isAddToCartClicked = mutableStateOf(false)

@@ -10,21 +10,25 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.solo.components.routes.ScreensRoutes
 import com.solo.components.state.RequestState
+import com.solodemo.main.model.FoodCategory
 import com.solodemo.main.presentations.MainViewModel
 import com.solodemo.supabase.domain.repository.Menus
+import com.solodemo.supabase.domain.repository.Reviews
+import com.solodemo.supabase.model.Cart
 import kotlinx.coroutines.flow.collectLatest
 
 fun NavGraphBuilder.homeRoute(
     paddingValues: PaddingValues,
     menus: Menus,
+    reviews: Reviews,
+    foodList: List<FoodCategory>,
     homeLazyListState: LazyListState,
     navigateToProductList: (String) -> Unit,
     viewModel: MainViewModel,
 ) {
     composable(route = ScreensRoutes.Home.route) {
         val context = LocalContext.current
-        val reviewsList by viewModel.reviews
-        val foodList = viewModel.getProductList(LocalContext.current)
+
 
         LaunchedEffect(key1 = viewModel.cartState) {
             viewModel.cartState.collectLatest { data ->
@@ -61,11 +65,14 @@ fun NavGraphBuilder.homeRoute(
         HomeScreen(
             paddingValues = paddingValues,
             menus = menus,
-            reviews = reviewsList,
+            reviews = reviews,
             foodList = foodList,
             homeLazyListState = homeLazyListState,
             navigateToProductList = navigateToProductList,
-            viewModel = viewModel
+            popularAddToCartClicked = { cart: Cart ->
+                viewModel.insertCart(cart)
+                viewModel.setAddToCartClicked(true)
+            }
         )
     }
 }

@@ -22,7 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,7 +33,6 @@ import com.solo.components.state.RequestState
 import com.solodemo.main.components.MainHeaderCard
 import com.solodemo.main.model.FoodCategory
 import com.solodemo.main.model.HomeBanners
-import com.solodemo.main.presentations.MainViewModel
 import com.solodemo.main.presentations.screens.home.components.HomeBannerCard
 import com.solodemo.main.presentations.screens.home.components.HomeMenusCard
 import com.solodemo.main.presentations.screens.home.components.HomePopularCard
@@ -53,7 +51,7 @@ internal fun HomeContent(
     foodList: List<FoodCategory>,
     homeLazyListState: LazyListState,
     navigateToProductList: (String) -> Unit,
-    viewModel: MainViewModel
+    popularAddToCartClicked: (Cart) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
@@ -78,7 +76,10 @@ internal fun HomeContent(
             Spacer(modifier = Modifier.size(10.dp))
             HomeMenusContent(menus = menus, navigateToProductList = navigateToProductList)
             Spacer(modifier = Modifier.size(10.dp))
-            HomePopularContent(foodList = foodList, viewModel = viewModel)
+            HomePopularContent(
+                foodList = foodList,
+                popularAddToCartClicked = popularAddToCartClicked
+            )
             ReviewsContent(reviews = reviews)
         }
     }
@@ -99,7 +100,10 @@ private fun HomeBannersContent() {
 }
 
 @Composable
-private fun HomePopularContent(foodList: List<FoodCategory>, viewModel: MainViewModel) {
+private fun HomePopularContent(
+    foodList: List<FoodCategory>,
+    popularAddToCartClicked: (Cart) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -131,8 +135,7 @@ private fun HomePopularContent(foodList: List<FoodCategory>, viewModel: MainView
                         foodPrice = firstFood.price,
                         foodImage = firstFood.foodImage,
                         onAddButtonClicked = { cart: Cart ->
-                            viewModel.insertCart(cart)
-                            viewModel.setAddToCartClicked(true)
+                            popularAddToCartClicked(cart)
                         }
                     )
                 }
@@ -148,48 +151,45 @@ private fun HomeMenusContent(
     navigateToProductList: (String) -> Unit
 ) {
     var menuList by remember { mutableStateOf(emptyList<Menu>()) }
-    val filteredMenu = rememberSaveable(menuList) {
-        menuList.filter { it.isAvailable }
-    }
 
     when (menus) {
         is RequestState.Loading -> {}
         is RequestState.Success -> {
-            menuList = menus.data
+            menuList = menus.data.filter { it.isAvailable }
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 15.dp)
+            ) {
+                Text(
+                    modifier = Modifier.padding(start = 10.dp),
+                    text = "Menu",
+                    fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
+                    fontSize = 20.sp,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp)
+                ) {
+
+                    LazyRow {
+                        items(menuList.size) { index ->
+                            HomeMenusCard(index, menus = menuList, onClick = {
+                                navigateToProductList(menuList[index].menuName!!)
+                            })
+                        }
+                    }
+
+                }
+            }
         }
 
         is RequestState.Error -> {}
         else -> {}
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 15.dp)
-    ) {
-        Text(
-            modifier = Modifier.padding(start = 10.dp),
-            text = "Menu",
-            fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
-            fontSize = 20.sp,
-            color = MaterialTheme.colorScheme.onSurface,
-        )
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 10.dp)
-        ) {
-
-            LazyRow {
-                items(filteredMenu.size) { index ->
-                    HomeMenusCard(index, menus = filteredMenu, onClick = {
-                        navigateToProductList(filteredMenu[index].menuName!!)
-                    })
-                }
-            }
-
-        }
-    }
 
 }
 

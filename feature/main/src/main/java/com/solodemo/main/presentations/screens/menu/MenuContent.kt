@@ -15,11 +15,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.solo.components.Constants
 import com.solo.components.loading.CircularLoadingIndicator
@@ -37,22 +37,8 @@ fun MenuContent(
     navigateToProductList: (String) -> Unit
 ) {
     val density = LocalDensity.current
-
     var cardHeight by remember { mutableStateOf(0.dp) }
-
     var menuList by remember { mutableStateOf(emptyList<Menu>()) }
-    val filteredMenu = rememberSaveable(menuList) {
-        menuList.filter { it.isAvailable }
-    }
-
-    when (menus) {
-        is RequestState.Loading -> CircularLoadingIndicator()
-        is RequestState.Success -> {
-            menuList = menus.data
-        }
-        is RequestState.Error -> {}
-        else -> {}
-    }
 
     MainHeaderCard(
         modifier = Modifier
@@ -67,6 +53,30 @@ fun MenuContent(
         imagePath = Constants.StaticImages.bannerBurgerFries
     )
 
+    when (menus) {
+        is RequestState.Loading -> CircularLoadingIndicator()
+        is RequestState.Success -> {
+            menuList = menus.data.filter { it.isAvailable }
+            ShowMenuCards(
+                cardHeight = cardHeight,
+                filteredMenu = menuList,
+                paddingValues = paddingValues,
+                navigateToProductList = navigateToProductList
+            )
+        }
+
+        is RequestState.Error -> {}
+        else -> {}
+    }
+}
+
+@Composable
+fun ShowMenuCards(
+    cardHeight: Dp,
+    filteredMenu: List<Menu>,
+    paddingValues: PaddingValues,
+    navigateToProductList: (String) -> Unit
+) {
     LazyVerticalGrid(
         modifier = Modifier
             .padding(start = 40.dp)
@@ -97,5 +107,4 @@ fun MenuContent(
             )
         }
     }
-
 }

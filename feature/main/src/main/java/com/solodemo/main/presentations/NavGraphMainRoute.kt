@@ -2,6 +2,7 @@ package com.solodemo.main.presentations
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -18,6 +19,8 @@ fun NavGraphBuilder.mainRoute(
         val menusList by viewModel.menus
         val user by viewModel.user
         val carts by viewModel.carts
+        val reviews by viewModel.reviews
+        val foodList = viewModel.getProductList(LocalContext.current)
 
         LaunchedEffect(key1 = viewModel.cartState) {
             onDataLoaded()
@@ -31,6 +34,8 @@ fun NavGraphBuilder.mainRoute(
             menus = menusList,
             users = user,
             carts = carts,
+            reviews = reviews,
+            foodList = foodList,
             viewModel = viewModel,
             navigateToAuth = navigateToAuth,
             navigateToProductList = navigateToProductList

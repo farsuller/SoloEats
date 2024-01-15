@@ -2,8 +2,10 @@ package com.solo.util
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.ui.Modifier
@@ -13,7 +15,6 @@ import androidx.core.content.pm.PackageInfoCompat
 import java.io.IOException
 import java.text.NumberFormat
 import java.util.Locale
-
 
 fun getJsonDataFromAsset(
     context: Context,
@@ -74,4 +75,27 @@ fun isValidEmail(email: String): Boolean {
 fun formatToCurrency(value: Double): String {
     val currencyFormat = NumberFormat.getCurrencyInstance(Locale("en", "PH"))
     return currencyFormat.format(value)
+}
+
+
+fun sendEmail(
+    toEmail: String,
+    subject: String,
+    message: String,
+    context: Context
+) {
+    val intent = Intent(Intent.ACTION_SENDTO).apply {
+        data = Uri.parse("mailto:$toEmail")
+        putExtra(Intent.EXTRA_SUBJECT, subject)
+        putExtra(Intent.EXTRA_TEXT, message)
+    }
+
+    if (intent.resolveActivity(context.packageManager) != null) {
+        context.startActivity(intent)
+    } else {
+        // Handle the case where the user doesn't have an email app installed.
+        // You can display a message or prompt the user to install an email app.
+        // For simplicity, we'll just log a message.
+        println("No email app installed on the device.")
+    }
 }

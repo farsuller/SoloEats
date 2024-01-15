@@ -9,6 +9,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -19,8 +20,10 @@ import androidx.navigation.compose.rememberNavController
 import com.solo.components.state.RequestState
 import com.solodemo.main.components.MainBottomNavBar
 import com.solodemo.main.components.MainTopBar
+import com.solodemo.main.model.FoodCategory
 import com.solodemo.supabase.domain.repository.Carts
 import com.solodemo.supabase.domain.repository.Menus
+import com.solodemo.supabase.domain.repository.Reviews
 import com.solodemo.supabase.domain.repository.Users
 import com.solodemo.supabase.model.Cart
 
@@ -31,6 +34,8 @@ internal fun MainScreen(
     menus: Menus,
     users: Users,
     carts: Carts,
+    reviews: Reviews,
+    foodList: List<FoodCategory>,
     navController: NavHostController = rememberNavController(),
     viewModel: MainViewModel,
     navigateToAuth: () -> Unit,
@@ -61,12 +66,12 @@ internal fun MainScreen(
 
 
 
-    var cartList by remember { mutableStateOf(emptyList<Cart>()) }
+    var cartItemsCount by remember { mutableIntStateOf(0) }
 
     when (carts) {
         is RequestState.Loading -> {}
         is RequestState.Success -> {
-            cartList = carts.data
+            cartItemsCount = carts.data.size
         }
 
         is RequestState.Error -> {}
@@ -80,7 +85,7 @@ internal fun MainScreen(
             MainBottomNavBar(
                 navController = navController,
                 onTabSelected = { tab -> selectedTab = tab },
-                cartCount = cartList.size)
+                cartCount = cartItemsCount)
         }
     ) {
         MainContent(
@@ -88,6 +93,8 @@ internal fun MainScreen(
             navController = navController,
             menus = menus,
             users = users,
+            reviews = reviews,
+            foodList = foodList,
             viewModel = viewModel,
             navigateToAuth = navigateToAuth,
             navigateToProductList = navigateToProductList,

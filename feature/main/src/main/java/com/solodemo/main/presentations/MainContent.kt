@@ -6,12 +6,14 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.solo.components.routes.ScreensRoutes
+import com.solodemo.main.model.FoodCategory
 import com.solodemo.main.presentations.screens.account.accountRoute
 import com.solodemo.main.presentations.screens.cart.cartRoute
 import com.solodemo.main.presentations.screens.home.homeRoute
 import com.solodemo.main.presentations.screens.menu.menuRoute
 import com.solodemo.main.presentations.screens.payment.paymentRoute
 import com.solodemo.supabase.domain.repository.Menus
+import com.solodemo.supabase.domain.repository.Reviews
 import com.solodemo.supabase.domain.repository.Users
 
 
@@ -21,6 +23,8 @@ fun MainContent(
     navController: NavHostController,
     menus: Menus,
     users: Users,
+    reviews: Reviews,
+    foodList: List<FoodCategory>,
     viewModel: MainViewModel,
     navigateToAuth: () -> Unit,
     homeLazyListState: LazyListState,
@@ -33,6 +37,8 @@ fun MainContent(
         homeRoute(
             paddingValues = paddingValues,
             menus = menus,
+            reviews = reviews,
+            foodList = foodList,
             homeLazyListState = homeLazyListState,
             viewModel = viewModel,
             navigateToProductList = navigateToProductList

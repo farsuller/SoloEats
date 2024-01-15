@@ -25,7 +25,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -39,7 +38,7 @@ import coil.request.ImageRequest
 import com.solo.components.Constants
 import com.solo.components.state.RequestState
 import com.solo.util.clickableWithoutRipple
-import com.solodemo.main.presentations.screens.account.components.sendEmail
+import com.solo.util.sendEmail
 import com.solodemo.supabase.domain.repository.Users
 
 

@@ -9,6 +9,7 @@ import com.solodemo.main.model.FoodCategory
 import com.solodemo.main.presentations.MainViewModel
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reviews
+import com.solodemo.supabase.model.Cart
 
 @Composable
 internal fun HomeScreen(
@@ -18,7 +19,7 @@ internal fun HomeScreen(
     foodList: List<FoodCategory>,
     homeLazyListState: LazyListState,
     navigateToProductList: (String) -> Unit,
-    viewModel: MainViewModel
+    popularAddToCartClicked:(Cart)->Unit
 ) {
 
     MainBackground()
@@ -30,7 +31,7 @@ internal fun HomeScreen(
         homeLazyListState = homeLazyListState,
         navigateToProductList = navigateToProductList,
         reviews = reviews,
-        viewModel = viewModel
+        popularAddToCartClicked = popularAddToCartClicked
     )
 
 }

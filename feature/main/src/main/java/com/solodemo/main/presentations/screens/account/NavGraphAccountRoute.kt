@@ -2,7 +2,6 @@ package com.solodemo.main.presentations.screens.account
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -10,7 +9,6 @@ import com.solo.components.Constants
 import com.solo.components.routes.ScreensRoutes
 import com.solo.components.state.RequestState
 import com.solodemo.main.presentations.MainViewModel
-import com.solodemo.main.presentations.screens.account.components.sendEmail
 import com.solodemo.supabase.domain.repository.Users
 import kotlinx.coroutines.flow.collectLatest
 
