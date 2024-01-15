@@ -1,5 +1,6 @@
 package com.solodemo.main.presentations.products.components
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.tween
@@ -50,7 +51,10 @@ import com.solodemo.main.presentations.MainViewModel
 import com.solodemo.supabase.model.Cart
 
 @Composable
-fun ProductsCardItems(foodList: Food, mainViewModel: MainViewModel) {
+fun ProductsCardItems(foodList: Food,
+                      mainViewModel: MainViewModel,
+                      onSuccess: () -> Unit,
+                      onError: (String) -> Unit) {
 
     var isFavourite by remember { mutableStateOf(false) }
     val updatedIsFavourite = rememberUpdatedState(isFavourite)
@@ -195,7 +199,7 @@ fun ProductsCardItems(foodList: Food, mainViewModel: MainViewModel) {
                             QuantityAddCartButtons(
                                 foodList = foodList,
                                 addToCartClicked = { cart: Cart ->
-                                    mainViewModel.insertCart(cart)
+                                    mainViewModel.insertCart(cart = cart, onSuccess = onSuccess, onError = onError)
                                 })
                         }
                     } else {
@@ -207,7 +211,7 @@ fun ProductsCardItems(foodList: Food, mainViewModel: MainViewModel) {
                             QuantityAddCartButtons(
                                 foodList = foodList,
                                 addToCartClicked = { cart: Cart ->
-                                    mainViewModel.insertCart(cart)
+                                    mainViewModel.insertCart(cart = cart, onSuccess = onSuccess, onError = onError)
                                 })
                         }
 

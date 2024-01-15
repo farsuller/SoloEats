@@ -39,7 +39,9 @@ fun ProductListContent(
     paddingValues: PaddingValues,
     categoryNameSelected: String,
     onBackPressClicked: () -> Unit,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
+    onSuccess: () -> Unit,
+    onError: (String) -> Unit
 ) {
 
     val filteredProducts = remember(foodList){
@@ -98,9 +100,10 @@ fun ProductListContent(
                     Column {
                         productList.foods.forEach { foodItems ->
                             ProductsCardItems(foodList = foodItems,
-                                mainViewModel = mainViewModel)
+                                mainViewModel = mainViewModel,
+                                onSuccess = onSuccess,
+                                onError = onError)
                         }
-
                     }
                 }
             }

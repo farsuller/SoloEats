@@ -41,29 +41,19 @@ fun NavGraphBuilder.productSelectionRoute(onBackPressClicked: () -> Unit) {
 
         val context = LocalContext.current
 
-        LaunchedEffect(key1 = viewModel.cartState) {
-            viewModel.cartState.collectLatest { data ->
-                when (data) {
-                    RequestState.Loading -> {}
-                    is RequestState.Success -> {
-                        Toast.makeText(context,"Success! Your item has been added to the cart",
-                            Toast.LENGTH_SHORT).show()
-                    }
-
-                    is RequestState.Error -> {
-                        Toast.makeText(context,"Failed! Your item has been existing to the cart",
-                            Toast.LENGTH_SHORT).show()
-                    }
-                    else -> {}
-                }
-            }
-        }
-
         ProductListScreen(
             onBackPressClicked = onBackPressClicked,
             foodList = foodList,
             categoryNameSelected = selectedCategory,
-            mainViewModel = viewModel)
+            mainViewModel = viewModel,
+            onSuccess = {
+                Toast.makeText(context,"Success! Your item has been added to the cart",
+                    Toast.LENGTH_SHORT).show()
+            },
+            onError = {
+                Toast.makeText(context,"Failed! Your item has been existing to the cart",
+                    Toast.LENGTH_SHORT).show()
+            })
 
     }
 }

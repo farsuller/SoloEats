@@ -24,11 +24,13 @@ import com.solodemo.supabase.domain.repository.Reviews
 import com.solodemo.supabase.domain.repository.SupabaseRepository
 import com.solodemo.supabase.model.Cart
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,13 +40,8 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<RequestState<*>>(RequestState.Loading)
-    private val _cartState = MutableStateFlow<RequestState<*>>(RequestState.Idle)
-
     val uiState: StateFlow<RequestState<*>>
         get() = _uiState
-
-    val cartState: StateFlow<RequestState<*>>
-        get() = _cartState
 
     val menus: MutableState<Menus> = mutableStateOf(RequestState.Idle)
     val reviews: MutableState<Reviews> = mutableStateOf(RequestState.Idle)
@@ -55,19 +52,26 @@ class MainViewModel @Inject constructor(
     var accountState by mutableStateOf(AccountState())
         private set
 
-    var isAddToCartClicked = mutableStateOf(false)
-        private set
-
     private val sharedPref = SharedPreferenceHelper(application.applicationContext)
-    fun setAddToCartClicked(addToCartClicked: Boolean) {
-        isAddToCartClicked.value = addToCartClicked
-    }
 
-    fun insertCart(cart: Cart) {
+
+    fun insertCart(cart: Cart,onSuccess: () -> Unit,
+                   onError: (String) -> Unit) {
         viewModelScope.launch {
-            repository.insertCart(cart = cart).collectLatest { data ->
-                _cartState.update { data }
+           repository.insertCart(cart = cart).collectLatest { data ->
+               if(data is RequestState.Success){
+                   withContext(Dispatchers.Main) {
+                       onSuccess()
+                       getCartList()
+                   }
+               }else if(data is RequestState.Error){
+                   withContext(Dispatchers.Main) {
+                       onError(data.error.message.toString())
+                   }
+               }
             }
+
+
         }
     }
 

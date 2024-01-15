@@ -15,7 +15,9 @@ fun ProductListScreen(
     foodList: List<FoodCategory>,
     onBackPressClicked: () -> Unit,
     categoryNameSelected: String,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
+    onSuccess: () -> Unit,
+    onError: (String) -> Unit
 ) {
 
     Scaffold(modifier = Modifier
@@ -28,7 +30,9 @@ fun ProductListScreen(
             paddingValues = paddingValues,
             categoryNameSelected = categoryNameSelected,
             onBackPressClicked = onBackPressClicked,
-            mainViewModel = mainViewModel)
+            mainViewModel = mainViewModel,
+            onSuccess = onSuccess,
+            onError = onError)
 
     })
 

@@ -20,7 +20,7 @@ fun NavGraphBuilder.mainRoute(
         val reviews by viewModel.reviews
         val foodList = viewModel.getProductList(LocalContext.current)
 
-        LaunchedEffect(key1 = viewModel.cartState) {
+        LaunchedEffect(key1 = viewModel) {
             onDataLoaded()
             viewModel.getReviews()
             viewModel.getMenus()
