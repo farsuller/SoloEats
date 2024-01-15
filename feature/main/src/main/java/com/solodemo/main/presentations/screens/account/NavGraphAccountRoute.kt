@@ -15,9 +15,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun NavGraphBuilder.accountRoute(
     paddingValues: PaddingValues,
     viewModel: MainViewModel,
-    navigateToAuth: () -> Unit,
-    users: Users
-) {
+    navigateToAuth: () -> Unit) {
     composable(route = ScreensRoutes.Account.route) {
 
 
@@ -38,7 +36,7 @@ fun NavGraphBuilder.accountRoute(
         }
 
         AccountScreen(
-            users = users,
+            viewModel = viewModel,
             paddingValues = paddingValues,
             onSignOutButtonClicked = {
                 viewModel.signOut()

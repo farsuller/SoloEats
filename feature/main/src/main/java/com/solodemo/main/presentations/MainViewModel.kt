@@ -4,7 +4,11 @@ package com.solodemo.main.presentations
 import android.app.Application
 import android.content.Context
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
@@ -14,12 +18,11 @@ import com.solo.components.state.RequestState
 import com.solo.util.SharedPreferenceHelper
 import com.solo.util.getJsonDataFromAsset
 import com.solodemo.main.model.FoodCategory
-import com.solodemo.supabase.domain.repository.Carts
+import com.solodemo.main.presentations.screens.account.AccountState
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reviews
 import com.solodemo.supabase.domain.repository.SupabaseRepository
 import com.solodemo.supabase.model.Cart
-import com.solodemo.supabase.model.UserDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -45,9 +48,12 @@ class MainViewModel @Inject constructor(
 
     val menus: MutableState<Menus> = mutableStateOf(RequestState.Idle)
     val reviews: MutableState<Reviews> = mutableStateOf(RequestState.Idle)
-    val carts: MutableState<Carts> = mutableStateOf(RequestState.Idle)
-    val user: MutableState<RequestState<UserDetails>> = mutableStateOf(RequestState.Idle)
 
+    private val _cartListCount = mutableIntStateOf(0)
+    val cartListCount: State<Int> get() = _cartListCount
+
+    var accountState by mutableStateOf(AccountState())
+        private set
 
     var isAddToCartClicked = mutableStateOf(false)
         private set
@@ -80,7 +86,12 @@ class MainViewModel @Inject constructor(
             val token = getToken()
             if (token != null) {
                 repository.getUserInfo(token = token).collectLatest { data ->
-                    user.value = data
+                    if (data is RequestState.Success) {
+                        accountState = accountState.copy(name = data.data.name)
+                        accountState = accountState.copy(email = data.data.email)
+                        accountState = accountState.copy(profile = data.data.picture)
+                        accountState = accountState.copy(isEmailVerified = data.data.emailVerified)
+                    }
                 }
             }
         }
@@ -89,7 +100,10 @@ class MainViewModel @Inject constructor(
     fun getCartList() {
         viewModelScope.launch {
             repository.getCartList().collectLatest { data ->
-                carts.value = data
+                if (data is RequestState.Success) {
+                    _cartListCount.intValue = data.data.size
+                }
+
             }
         }
     }

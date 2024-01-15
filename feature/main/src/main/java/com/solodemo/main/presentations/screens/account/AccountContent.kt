@@ -25,8 +25,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,38 +34,20 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.solo.components.Constants
-import com.solo.components.state.RequestState
 import com.solo.util.clickableWithoutRipple
 import com.solo.util.sendEmail
-import com.solodemo.supabase.domain.repository.Users
+import com.solodemo.main.presentations.MainViewModel
 
 
 @Composable
 internal fun AccountContent(
     onSignOutButtonClicked: () -> Unit,
     paddingValues: PaddingValues,
-    users: Users,
+    viewModel: MainViewModel,
     onPrivacyPolicyClicked: () -> Unit,
 ) {
     val context = LocalContext.current
-    val userName = remember { mutableStateOf("Empty Name") }
-    val userEmail = remember { mutableStateOf("Empty Email") }
-    val isEmailVerified = remember { mutableStateOf(false) }
-    val userProfile = remember { mutableStateOf("") }
-
-    when (users) {
-        RequestState.Loading -> {}
-        is RequestState.Success -> {
-            userName.value = users.data.name
-            userEmail.value = users.data.email
-            isEmailVerified.value = users.data.emailVerified
-            userProfile.value = users.data.picture
-        }
-
-        is RequestState.Error -> {}
-        else -> {}
-    }
-
+    val accountState = viewModel.accountState
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -83,20 +63,20 @@ internal fun AccountContent(
                 .padding(10.dp)
                 .clip(CircleShape)
         ) {
-            if (userProfile.value.isNotEmpty()) {
+            if (accountState.profile.isNotEmpty()) {
                 AsyncImage(
                     modifier = Modifier.fillMaxSize(),
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(userProfile.value)
+                        .data(accountState.profile)
                         .crossfade(true).build(),
-                    contentDescription = userName.value,
+                    contentDescription = accountState.name,
                     contentScale = ContentScale.Crop,
                 )
             } else {
                 Image(
                     modifier = Modifier.fillMaxSize(),
                     imageVector = Icons.Default.PersonPin,
-                    contentDescription = userName.value,
+                    contentDescription = null,
                     contentScale = ContentScale.Crop,
                 )
             }
@@ -104,14 +84,14 @@ internal fun AccountContent(
 
         Text(
             modifier = Modifier.padding(bottom = 10.dp),
-            text = userName.value,
+            text = accountState.name,
             fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
             color = MaterialTheme.colorScheme.onSurface
         )
         Text(
             modifier = Modifier.padding(bottom = 10.dp),
-            text = userEmail.value,
+            text = accountState.email,
             fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
             fontSize = MaterialTheme.typography.titleMedium.fontSize,
             color = MaterialTheme.colorScheme.onSurface
@@ -119,7 +99,7 @@ internal fun AccountContent(
 
         Row(verticalAlignment = Alignment.CenterVertically) {
 
-            if (isEmailVerified.value) {
+            if (accountState.isEmailVerified) {
                 Text(
                     modifier = Modifier,
                     text = "Email Verified",

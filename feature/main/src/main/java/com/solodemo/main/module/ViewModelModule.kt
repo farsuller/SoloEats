@@ -2,6 +2,7 @@ package com.solodemo.main.module
 
 import android.app.Application
 import com.solodemo.main.presentations.MainViewModel
+import com.solodemo.main.presentations.screens.cart.CartViewModel
 import com.solodemo.supabase.di.repository.SupabaseRepositoryImpl
 import dagger.Module
 import dagger.Provides
@@ -15,5 +16,10 @@ object ViewModelModule {
     @Provides
     fun provideMainViewModule(supaBaseRepository: SupabaseRepositoryImpl, application: Application) : MainViewModel {
         return MainViewModel(supaBaseRepository, application)
+    }
+
+    @Provides
+    fun provideCartViewModule(supaBaseRepository: SupabaseRepositoryImpl, application: Application) : CartViewModel {
+        return CartViewModel(supaBaseRepository, application)
     }
 }

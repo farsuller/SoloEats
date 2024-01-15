@@ -17,8 +17,6 @@ fun NavGraphBuilder.mainRoute(
 
         val viewModel = hiltViewModel<MainViewModel>()
         val menusList by viewModel.menus
-        val user by viewModel.user
-        val carts by viewModel.carts
         val reviews by viewModel.reviews
         val foodList = viewModel.getProductList(LocalContext.current)
 
@@ -32,8 +30,6 @@ fun NavGraphBuilder.mainRoute(
 
         MainScreen(
             menus = menusList,
-            users = user,
-            carts = carts,
             reviews = reviews,
             foodList = foodList,
             viewModel = viewModel,
