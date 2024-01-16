@@ -40,6 +40,7 @@ import com.solo.ui.md_theme_light_delete_swipe
 import com.solo.util.formatToCurrency
 import com.solodemo.main.presentations.screens.cart.components.CartCardItems
 import com.solodemo.supabase.domain.repository.Carts
+import com.solodemo.supabase.model.Cart
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
 
@@ -49,13 +50,14 @@ internal fun CartContent(
     paddingValues: PaddingValues,
     carts: Carts,
     cartViewModel: CartViewModel,
-    onSuccess: () -> Unit,
+    onSuccess: (String) -> Unit,
     onError: (String) -> Unit
 ) {
     val isCartNotEmpty = remember { mutableStateOf(false) }
 
     if (carts is RequestState.Success) {
         isCartNotEmpty.value = carts.data.isNotEmpty()
+        cartViewModel.setCartList(carts.data)
     }
 
     if (isCartNotEmpty.value) {
@@ -342,7 +344,7 @@ private fun TotalAndPlaceOrderButtonHolder(cartViewModel: CartViewModel) {
 @Composable
 fun OrderSummaryContent(
     carts: Carts,
-    onSuccess: () -> Unit,
+    onSuccess: (String) -> Unit,
     onError: (String) -> Unit,
     cartViewModel: CartViewModel
 ) {
@@ -384,7 +386,14 @@ fun OrderSummaryContent(
                     swipeThreshold = 200.dp,
                     endActions = listOf(swipeDelete)
                 ) {
-                    CartCardItems(cartItems = cartItems)
+                    CartCardItems(cartItems = cartItems, onClickUpdate = { updateCart: Cart ->
+                        cartViewModel.updateCartById(
+                            id = cartItems.id,
+                            cart = updateCart,
+                            onSuccess = onSuccess,
+                            onError = onError
+                        )
+                    })
 
                 }
             }

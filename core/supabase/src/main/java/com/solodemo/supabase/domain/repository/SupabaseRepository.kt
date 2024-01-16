@@ -16,6 +16,7 @@ typealias Carts = RequestState<List<Cart>>
 
 interface SupabaseRepository {
 
+    fun updateCartItem(id: Int, cart: Cart): Flow<RequestState<Unit>>
     fun deleteCartItem(id: Int): Flow<RequestState<Unit>>
     fun insertCart(cart: Cart): Flow<RequestState<Unit>>
     fun getCartList(): Flow<Carts>

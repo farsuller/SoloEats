@@ -38,7 +38,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -48,12 +47,10 @@ import com.skydoves.orbital.animateBounds
 import com.skydoves.orbital.rememberMovableContentOf
 import com.solo.util.clickableWithoutRipple
 import com.solo.util.formatToCurrency
-import com.solodemo.main.model.Burger
-import com.solodemo.main.model.Featured
 import com.solodemo.supabase.model.Cart
 
 @Composable
-fun CartCardItems(cartItems: Cart) {
+fun CartCardItems(cartItems: Cart, onClickUpdate: (Cart) -> Unit) {
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -78,10 +75,12 @@ fun CartCardItems(cartItems: Cart) {
                             )
                     ) {
 
-                        Row(modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
 
-                            cartItems.productName?.let { pName->
+                            cartItems.productName?.let { pName ->
                                 Text(
                                     modifier = Modifier.weight(1F),
                                     text = pName,
@@ -93,12 +92,14 @@ fun CartCardItems(cartItems: Cart) {
                             }
 
 
-                            if (!expanded){
+                            if (!expanded) {
                                 Text(
-                                    modifier = Modifier.weight(0.5F).clickableWithoutRipple(
-                                        interactionSource = MutableInteractionSource(),
-                                        onClick = { expanded = !expanded }
-                                    ),
+                                    modifier = Modifier
+                                        .weight(0.5F)
+                                        .clickableWithoutRipple(
+                                            interactionSource = MutableInteractionSource(),
+                                            onClick = { expanded = !expanded }
+                                        ),
                                     text = "Edit",
                                     fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
                                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
@@ -110,16 +111,19 @@ fun CartCardItems(cartItems: Cart) {
                         }
 
 
-                        cartItems.productPrice?.let {pPrice->
+                        cartItems.productPriceOriginal?.let { pPrice ->
                             Text(
-                                text = formatToCurrency(pPrice.toDouble()),
+                                text = formatToCurrency(
+                                    (pPrice.toDouble() * (cartItems.productQuantity?.toDouble()
+                                        ?: 0.0))
+                                ),
                                 fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                                 color = MaterialTheme.colorScheme.onSurface
                             )
                         }
 
-                        cartItems.productQuantity?.let {pQuantity->
+                        cartItems.productQuantity?.let { pQuantity ->
                             Text(
                                 text = "x$pQuantity",
                                 fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
@@ -152,10 +156,11 @@ fun CartCardItems(cartItems: Cart) {
                             showProductImage()
                             showProductDetails()
                         }
-                        QuantityAddCartButtons(
+                        QuantityUpdateCartButtons(
                             cartItems = cartItems,
-                            onClickUpdate = {
+                            onClickUpdate = { updateCart: Cart ->
                                 expanded = !expanded
+                                onClickUpdate(updateCart)
                             })
                     }
                 } else {
@@ -173,7 +178,7 @@ fun CartCardItems(cartItems: Cart) {
 }
 
 @Composable
-fun QuantityAddCartButtons(cartItems: Cart, onClickUpdate: () -> Unit) {
+fun QuantityUpdateCartButtons(cartItems: Cart, onClickUpdate: (Cart) -> Unit) {
 
     var quantity by remember { mutableIntStateOf(cartItems.productQuantity ?: 1) }
 
@@ -234,7 +239,18 @@ fun QuantityAddCartButtons(cartItems: Cart, onClickUpdate: () -> Unit) {
         }
 
         Button(
-            onClick = { onClickUpdate() },
+            onClick = {
+                onClickUpdate(
+                    Cart(
+                        id = cartItems.id,
+                        productName = cartItems.productName,
+                        productImage = cartItems.productImage,
+                        productPrice = (cartItems.productPriceOriginal!!.toDouble() * quantity.toDouble()).toString(),
+                        productQuantity = quantity,
+                        productPriceOriginal = cartItems.productPriceOriginal
+                    )
+                )
+            },
             modifier = Modifier
                 .weight(0.35F)
                 .fillMaxWidth(),
@@ -257,5 +273,5 @@ fun QuantityAddCartButtons(cartItems: Cart, onClickUpdate: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 internal fun ProductCardItemsPreview() {
-    QuantityAddCartButtons(cartItems = Cart(1), onClickUpdate = {})
+    QuantityUpdateCartButtons(cartItems = Cart(1), onClickUpdate = {})
 }

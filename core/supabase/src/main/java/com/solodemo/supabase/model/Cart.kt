@@ -10,4 +10,5 @@ data class Cart(
     @SerialName("product_image") val productImage: String? = null,
     @SerialName("product_price") val productPrice: String? = null,
     @SerialName("product_quantity") val productQuantity: Int? = null,
+    @SerialName("product_price_original") val productPriceOriginal: String? = null,
 )

@@ -11,7 +11,7 @@ internal fun CartScreen(
     paddingValues: PaddingValues,
     carts: Carts,
     cartViewModel: CartViewModel,
-    onSuccess: () -> Unit,
+    onSuccess: (String) -> Unit,
     onError: (String) -> Unit
 ) {
     CartContent(

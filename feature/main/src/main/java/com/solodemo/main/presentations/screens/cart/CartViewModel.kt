@@ -1,8 +1,6 @@
 package com.solodemo.main.presentations.screens.cart
 
 import android.app.Application
-import android.util.Log
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -16,15 +14,11 @@ import com.solo.components.state.RequestState
 import com.solo.util.SharedPreferenceHelper
 import com.solo.util.generateRandomDigits
 import com.solodemo.main.presentations.screens.account.AccountState
-import com.solodemo.supabase.domain.repository.Carts
 import com.solodemo.supabase.domain.repository.SupabaseRepository
 import com.solodemo.supabase.model.Cart
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -36,7 +30,7 @@ class CartViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    private val _cartList = mutableStateOf(emptyList<Cart>())
+    private var _cartList = mutableStateOf(emptyList<Cart>())
     var accountState by mutableStateOf(AccountState())
         private set
 
@@ -65,16 +59,43 @@ class CartViewModel @Inject constructor(
         accountState = accountState.copy(address = "Metro Manila")
     }
 
+    fun setCartList(carts: List<Cart>) {
+        _cartList.value = carts
+    }
+
+    fun updateCartById(
+        id: Int,
+        cart: Cart,
+        onSuccess: (String) -> Unit,
+        onError: (String) -> Unit
+    ) {
+        viewModelScope.launch {
+            repository.updateCartItem(id = id, cart = cart).collectLatest { data ->
+                if (data is RequestState.Success) {
+                    withContext(Dispatchers.Main) {
+                        onSuccess("Success! Your item has been updated to your cart")
+                        getCartList()
+                    }
+                } else if (data is RequestState.Error) {
+                    withContext(Dispatchers.Main) {
+                        onError(data.error.message.toString())
+                    }
+                }
+            }
+
+        }
+    }
+
     fun deleteCartById(
         id: Int,
-        onSuccess: () -> Unit,
+        onSuccess: (String) -> Unit,
         onError: (String) -> Unit
     ) {
         viewModelScope.launch {
             repository.deleteCartItem(id = id).collectLatest { data ->
                 if (data is RequestState.Success) {
                     withContext(Dispatchers.Main) {
-                        onSuccess()
+                        onSuccess("Success! Your item has been deleted to your cart")
                         getCartList()
                     }
                 } else if (data is RequestState.Error) {

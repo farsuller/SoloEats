@@ -132,7 +132,8 @@ fun HomePopularCard(
                                     productName = foodName,
                                     productImage = foodImage,
                                     productPrice = foodPrice,
-                                    productQuantity = 1
+                                    productQuantity = 1,
+                                    productPriceOriginal = foodPrice
                                 )
                             )
                         },

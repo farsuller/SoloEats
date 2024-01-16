@@ -100,7 +100,8 @@ fun QuantityAddCartButtons(foodList: Food, addToCartClicked: (Cart) -> Unit) {
                         productName = foodList.foodName,
                         productImage = foodList.foodImage,
                         productPrice = (foodList.price.toDouble() * quantity.toDouble()).toString(),
-                        productQuantity = quantity
+                        productQuantity = quantity,
+                        productPriceOriginal = foodList.price
                     )
                 )
             },
