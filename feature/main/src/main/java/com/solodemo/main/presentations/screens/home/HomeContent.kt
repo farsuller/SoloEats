@@ -3,6 +3,7 @@ package com.solodemo.main.presentations.screens.home
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,18 +17,23 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.solo.components.Constants
+import com.solo.components.component.shimmerEffect
 import com.solo.components.loading.CircularLoadingIndicator
 import com.solo.components.state.RequestState
 import com.solodemo.main.components.MainHeaderCard
@@ -128,16 +134,19 @@ private fun HomePopularContent(
                 items(foodList) { category ->
 
                     val firstFood = category.foods.first()
-                    HomePopularCard(
-                        Modifier.padding(5.dp),
-                        foodId = firstFood.foodId,
-                        foodName = firstFood.foodName,
-                        foodPrice = firstFood.price,
-                        foodImage = firstFood.foodImage,
-                        onAddButtonClicked = { cart: Cart ->
-                            popularAddToCartClicked(cart)
-                        }
-                    )
+                    key(category.foods.first().foodId){
+                        HomePopularCard(
+                            Modifier.padding(5.dp),
+                            foodId = firstFood.foodId,
+                            foodName = firstFood.foodName,
+                            foodPrice = firstFood.price,
+                            foodImage = firstFood.foodImage,
+                            onAddButtonClicked = { cart: Cart ->
+                                popularAddToCartClicked(cart)
+                            }
+                        )
+                    }
+
                 }
             }
         }
@@ -151,11 +160,24 @@ private fun HomeMenusContent(
     navigateToProductList: (String) -> Unit
 ) {
     var menuList by remember { mutableStateOf(emptyList<Menu>()) }
-
+    val menuLoadCount = remember { mutableIntStateOf(5) }
     when (menus) {
-        is RequestState.Loading -> {}
+        is RequestState.Loading -> {
+            LazyRow(modifier = Modifier.fillMaxWidth()) {
+                items(menuLoadCount.intValue){
+                    Box(
+                        modifier = Modifier.padding(horizontal = 5.dp)
+                            .size(100.dp)
+                            .clip(CircleShape)
+                            .shimmerEffect()
+                    )
+                }
+            }
+        }
         is RequestState.Success -> {
             menuList = menus.data.filter { it.isAvailable }
+            menuLoadCount.intValue = menus.data.size
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -176,9 +198,12 @@ private fun HomeMenusContent(
 
                     LazyRow {
                         items(menuList.size) { index ->
-                            HomeMenusCard(index, menus = menuList, onClick = {
-                                navigateToProductList(menuList[index].menuName!!)
-                            })
+                            key(index){
+                                HomeMenusCard(index, menus = menuList, onClick = {
+                                    navigateToProductList(menuList[index].menuName!!)
+                                })
+                            }
+
                         }
                     }
 
@@ -220,7 +245,9 @@ private fun ReviewsContent(reviews: Reviews) {
                     val reviewsList = reviews.data
                     LazyRow {
                         items(reviewsList) { reviewsItem ->
-                            ReviewCards(reviewsItem)
+                            key(reviewsItem.id) {
+                                ReviewCards(reviewsItem)
+                            }
                         }
                     }
 
