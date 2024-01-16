@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.solodemo.main.model.Food
 import com.solodemo.supabase.model.Cart
+import kotlin.time.times
 
 @Composable
 fun QuantityAddCartButtons(foodList: Food, addToCartClicked: (Cart) -> Unit) {
@@ -98,7 +99,7 @@ fun QuantityAddCartButtons(foodList: Food, addToCartClicked: (Cart) -> Unit) {
                         id = foodList.foodId,
                         productName = foodList.foodName,
                         productImage = foodList.foodImage,
-                        productPrice = foodList.price,
+                        productPrice = (foodList.price.toDouble() * quantity.toDouble()).toString(),
                         productQuantity = quantity
                     )
                 )
