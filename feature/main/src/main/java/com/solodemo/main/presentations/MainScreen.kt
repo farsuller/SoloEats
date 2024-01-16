@@ -19,6 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import com.solodemo.main.components.MainBottomNavBar
 import com.solodemo.main.components.MainTopBar
 import com.solodemo.main.model.FoodCategory
+import com.solodemo.supabase.domain.repository.Carts
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reviews
 
@@ -28,6 +29,7 @@ import com.solodemo.supabase.domain.repository.Reviews
 internal fun MainScreen(
     menus: Menus,
     reviews: Reviews,
+    carts: Carts,
     foodList: List<FoodCategory>,
     navController: NavHostController = rememberNavController(),
     viewModel: MainViewModel,
@@ -75,6 +77,7 @@ internal fun MainScreen(
             menus = menus,
             reviews = reviews,
             foodList = foodList,
+            carts = carts,
             viewModel = viewModel,
             navigateToAuth = navigateToAuth,
             navigateToProductList = navigateToProductList,

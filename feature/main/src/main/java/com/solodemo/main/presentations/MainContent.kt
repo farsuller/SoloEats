@@ -12,6 +12,7 @@ import com.solodemo.main.presentations.screens.cart.cartRoute
 import com.solodemo.main.presentations.screens.home.homeRoute
 import com.solodemo.main.presentations.screens.menu.menuRoute
 import com.solodemo.main.presentations.screens.payment.paymentRoute
+import com.solodemo.supabase.domain.repository.Carts
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reviews
 
@@ -22,6 +23,7 @@ fun MainContent(
     navController: NavHostController,
     menus: Menus,
     reviews: Reviews,
+    carts: Carts,
     foodList: List<FoodCategory>,
     viewModel: MainViewModel,
     navigateToAuth: () -> Unit,
@@ -47,7 +49,10 @@ fun MainContent(
             navigateToProductList = navigateToProductList
         )
         paymentRoute(paddingValues = paddingValues)
-        cartRoute(paddingValues = paddingValues)
+        cartRoute(
+            paddingValues = paddingValues,
+            carts = carts,
+            viewModel = viewModel,)
         accountRoute(
             paddingValues = paddingValues,
             viewModel = viewModel,

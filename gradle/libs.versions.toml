@@ -23,6 +23,7 @@ splash = "1.0.1"
 navigation-compose = "2.7.6"
 material-icons-extended = "1.5.4"
 datastore-preferences-core = "1.0.0"
+swipe = "1.2.0"
 ui-text-google-fonts = "1.5.4"
 ui-tooling = "1.5.4"
 compose-auth = "2.0.3"
@@ -64,6 +65,7 @@ material-icons-extended = { module = "androidx.compose.material:material-icons-e
 androidx-datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "datastore-preferences-core" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "ui-tooling" }
 message-bar-compose = { module = "com.github.stevdza-san:MessageBarCompose", version.ref = "message-bar-compose"}
+swipe = { module = "me.saket.swipe:swipe", version.ref = "swipe" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }

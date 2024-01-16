@@ -19,6 +19,7 @@ import com.solo.util.SharedPreferenceHelper
 import com.solo.util.getJsonDataFromAsset
 import com.solodemo.main.model.FoodCategory
 import com.solodemo.main.presentations.screens.account.AccountState
+import com.solodemo.supabase.domain.repository.Carts
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reviews
 import com.solodemo.supabase.domain.repository.SupabaseRepository
@@ -45,6 +46,7 @@ class MainViewModel @Inject constructor(
 
     val menus: MutableState<Menus> = mutableStateOf(RequestState.Idle)
     val reviews: MutableState<Reviews> = mutableStateOf(RequestState.Idle)
+    var carts: MutableState<Carts> = mutableStateOf(RequestState.Idle)
 
     private val _cartListCount = mutableIntStateOf(0)
     val cartListCount: State<Int> get() = _cartListCount
@@ -55,20 +57,22 @@ class MainViewModel @Inject constructor(
     private val sharedPref = SharedPreferenceHelper(application.applicationContext)
 
 
-    fun insertCart(cart: Cart,onSuccess: () -> Unit,
-                   onError: (String) -> Unit) {
+    fun insertCart(
+        cart: Cart, onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
         viewModelScope.launch {
-           repository.insertCart(cart = cart).collectLatest { data ->
-               if(data is RequestState.Success){
-                   withContext(Dispatchers.Main) {
-                       onSuccess()
-                       getCartList()
-                   }
-               }else if(data is RequestState.Error){
-                   withContext(Dispatchers.Main) {
-                       onError(data.error.message.toString())
-                   }
-               }
+            repository.insertCart(cart = cart).collectLatest { data ->
+                if (data is RequestState.Success) {
+                    withContext(Dispatchers.Main) {
+                        onSuccess()
+                        getCartList()
+                    }
+                } else if (data is RequestState.Error) {
+                    withContext(Dispatchers.Main) {
+                        onError(data.error.message.toString())
+                    }
+                }
             }
 
 
@@ -104,6 +108,7 @@ class MainViewModel @Inject constructor(
     fun getCartList() {
         viewModelScope.launch {
             repository.getCartList().collectLatest { data ->
+                carts.value = data
                 if (data is RequestState.Success) {
                     _cartListCount.intValue = data.data.size
                 }

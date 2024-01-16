@@ -1,6 +1,8 @@
 package com.solodemo.main.presentations.screens.cart
 
 import android.app.Application
+import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -12,12 +14,19 @@ import androidx.lifecycle.viewModelScope
 import com.solo.components.Constants
 import com.solo.components.state.RequestState
 import com.solo.util.SharedPreferenceHelper
+import com.solo.util.generateRandomDigits
 import com.solodemo.main.presentations.screens.account.AccountState
+import com.solodemo.supabase.domain.repository.Carts
 import com.solodemo.supabase.domain.repository.SupabaseRepository
 import com.solodemo.supabase.model.Cart
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,8 +37,6 @@ class CartViewModel @Inject constructor(
 
 
     private val _cartList = mutableStateOf(emptyList<Cart>())
-    val cartList: State<List<Cart>> get() = _cartList
-
     var accountState by mutableStateOf(AccountState())
         private set
 
@@ -48,15 +55,48 @@ class CartViewModel @Inject constructor(
     }
     val totalPrice: State<Double> get() = _totalPrice
 
-
-
     private val sharedPref = SharedPreferenceHelper(application.applicationContext)
 
 
-    fun getCartList() {
+    init {
+        getCartList()
+        getUserInfo()
+        accountState = accountState.copy(mobileNumber = generateRandomPhoneNumber())
+        accountState = accountState.copy(address = "Metro Manila")
+    }
+
+    fun deleteCartById(
+        id: Int,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        viewModelScope.launch {
+            repository.deleteCartItem(id = id).collectLatest { data ->
+                if (data is RequestState.Success) {
+                    withContext(Dispatchers.Main) {
+                        onSuccess()
+                        getCartList()
+                    }
+                } else if (data is RequestState.Error) {
+                    withContext(Dispatchers.Main) {
+                        onError(data.error.message.toString())
+                    }
+                }
+            }
+
+        }
+    }
+
+    private fun generateRandomPhoneNumber(): String {
+        val countryCode = "+639"
+        val remainingDigits = generateRandomDigits(9)
+
+        return "$countryCode$remainingDigits"
+    }
+
+    private fun getCartList() {
         viewModelScope.launch {
             repository.getCartList().collectLatest { data ->
-
                 if (data is RequestState.Success) {
                     _cartList.value = data.data
                 }
@@ -64,7 +104,7 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    fun getUserInfo() {
+    private fun getUserInfo() {
         viewModelScope.launch {
             val token = getToken()
             if (token != null) {

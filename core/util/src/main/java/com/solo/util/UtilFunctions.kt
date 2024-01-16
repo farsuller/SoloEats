@@ -15,6 +15,7 @@ import androidx.core.content.pm.PackageInfoCompat
 import java.io.IOException
 import java.text.NumberFormat
 import java.util.Locale
+import kotlin.random.Random
 
 fun getJsonDataFromAsset(
     context: Context,
@@ -98,4 +99,16 @@ fun sendEmail(
         // For simplicity, we'll just log a message.
         println("No email app installed on the device.")
     }
+}
+
+fun generateRandomDigits(length: Int): String {
+    val random = Random(System.currentTimeMillis())
+    val stringBuilder = StringBuilder()
+
+    repeat(length) {
+        val randomDigit = random.nextInt(10) // Generate a random digit (0-9)
+        stringBuilder.append(randomDigit)
+    }
+
+    return stringBuilder.toString()
 }

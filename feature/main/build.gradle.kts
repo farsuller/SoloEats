@@ -63,7 +63,7 @@ dependencies {
     implementation (libs.material.icons.extended)
     implementation(libs.coil.compose)
     implementation(libs.orbital)
-
+    implementation (libs.swipe)
     implementation (libs.gson)
     implementation (libs.kotlin.reflect)
     implementation(libs.kotlinx.serialization.json)

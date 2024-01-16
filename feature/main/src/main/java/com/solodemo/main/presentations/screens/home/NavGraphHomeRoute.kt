@@ -29,39 +29,6 @@ fun NavGraphBuilder.homeRoute(
     composable(route = ScreensRoutes.Home.route) {
         val context = LocalContext.current
 
-
-//        LaunchedEffect(key1 = viewModel.cartState) {
-//            viewModel.cartState.collectLatest { data ->
-//                when (data) {
-//                    RequestState.Loading -> {}
-//                    is RequestState.Success -> {
-//
-//                        if (viewModel.isAddToCartClicked.value) {
-//                            Toast.makeText(
-//                                context, "Success! Your item has been added to the cart",
-//                                Toast.LENGTH_SHORT
-//                            ).show()
-//                          //  viewModel.getCartList()
-//                            viewModel.setAddToCartClicked(false)
-//                        }
-//
-//                    }
-//
-//                    is RequestState.Error -> {
-//                        if (viewModel.isAddToCartClicked.value) {
-//                            Toast.makeText(
-//                                context, "Failed! Your item has been existing to the cart",
-//                                Toast.LENGTH_SHORT
-//                            ).show()
-//                            viewModel.setAddToCartClicked(false)
-//                        }
-//
-//                    }
-//
-//                    else -> {}
-//                }
-//            }
-//        }
         HomeScreen(
             paddingValues = paddingValues,
             menus = menus,

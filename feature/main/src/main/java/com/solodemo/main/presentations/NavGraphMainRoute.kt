@@ -18,6 +18,7 @@ fun NavGraphBuilder.mainRoute(
         val viewModel = hiltViewModel<MainViewModel>()
         val menusList by viewModel.menus
         val reviews by viewModel.reviews
+        val carts by viewModel.carts
         val foodList = viewModel.getProductList(LocalContext.current)
 
         LaunchedEffect(key1 = viewModel) {
@@ -32,6 +33,7 @@ fun NavGraphBuilder.mainRoute(
             menus = menusList,
             reviews = reviews,
             foodList = foodList,
+            carts = carts,
             viewModel = viewModel,
             navigateToAuth = navigateToAuth,
             navigateToProductList = navigateToProductList
