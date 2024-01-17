@@ -17,6 +17,8 @@ sealed class ScreensRoutes(val route: String) {
     data object Cart : ScreensRoutes(route = "cart_screen")
     data object Account : ScreensRoutes(route = "account_screen")
 
+    data object PlaceOrder : ScreensRoutes(route = "placeorder_screen")
+
     data object Product : ScreensRoutes(route = "product_screen?$CATEGORY_NAME_ARG_KEY={$CATEGORY_NAME_ARG_KEY}"){
         fun passCategoryName(categoryName: String) = "product_screen?$CATEGORY_NAME_ARG_KEY=$categoryName"
     }

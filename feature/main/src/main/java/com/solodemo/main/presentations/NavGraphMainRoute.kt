@@ -11,7 +11,8 @@ import com.solo.components.routes.ScreensRoutes
 fun NavGraphBuilder.mainRoute(
     onDataLoaded: () -> Unit,
     navigateToAuth: () -> Unit,
-    navigateToProductList: (String) -> Unit
+    navigateToProductList: (String) -> Unit,
+    navigateToPlaceOrderSuccess: () -> Unit
 ) {
     composable(route = ScreensRoutes.Main.route) {
 
@@ -36,7 +37,8 @@ fun NavGraphBuilder.mainRoute(
             carts = carts,
             viewModel = viewModel,
             navigateToAuth = navigateToAuth,
-            navigateToProductList = navigateToProductList
+            navigateToProductList = navigateToProductList,
+            navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess
         )
     }
 }

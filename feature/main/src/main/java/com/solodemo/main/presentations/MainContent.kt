@@ -7,11 +7,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.solo.components.routes.ScreensRoutes
 import com.solodemo.main.model.FoodCategory
-import com.solodemo.main.presentations.screens.account.accountRoute
-import com.solodemo.main.presentations.screens.cart.cartRoute
-import com.solodemo.main.presentations.screens.home.homeRoute
-import com.solodemo.main.presentations.screens.menu.menuRoute
-import com.solodemo.main.presentations.screens.payment.paymentRoute
+import com.solodemo.main.presentations.dashboard.account.accountRoute
+import com.solodemo.main.presentations.dashboard.cart.cartRoute
+import com.solodemo.main.presentations.dashboard.home.homeRoute
+import com.solodemo.main.presentations.dashboard.menu.menuRoute
+import com.solodemo.main.presentations.dashboard.payment.paymentRoute
 import com.solodemo.supabase.domain.repository.Carts
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reviews
@@ -28,7 +28,8 @@ fun MainContent(
     viewModel: MainViewModel,
     navigateToAuth: () -> Unit,
     homeLazyListState: LazyListState,
-    navigateToProductList: (String) -> Unit
+    navigateToProductList: (String) -> Unit,
+    navigateToPlaceOrderSuccess: () -> Unit
 ) {
     NavHost(
         navController = navController,
@@ -52,7 +53,8 @@ fun MainContent(
         cartRoute(
             paddingValues = paddingValues,
             carts = carts,
-            viewModel = viewModel,)
+            viewModel = viewModel,
+            navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess)
         accountRoute(
             paddingValues = paddingValues,
             viewModel = viewModel,

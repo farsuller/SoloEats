@@ -34,7 +34,8 @@ internal fun MainScreen(
     navController: NavHostController = rememberNavController(),
     viewModel: MainViewModel,
     navigateToAuth: () -> Unit,
-    navigateToProductList: (String) -> Unit
+    navigateToProductList: (String) -> Unit,
+    navigateToPlaceOrderSuccess: () -> Unit
 ) {
     val view = LocalView.current
     val window = (view.context as Activity).window
@@ -82,6 +83,7 @@ internal fun MainScreen(
             navigateToAuth = navigateToAuth,
             navigateToProductList = navigateToProductList,
             homeLazyListState = homeLazyListState,
+            navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess
         )
 
 

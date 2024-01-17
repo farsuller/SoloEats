@@ -67,7 +67,9 @@ dependencies {
     implementation (libs.gson)
     implementation (libs.kotlin.reflect)
     implementation(libs.kotlinx.serialization.json)
-    
+
+    implementation(libs.lottie.compose)
+
     debugImplementation(libs.androidx.ui.tooling)
 
     hilt()

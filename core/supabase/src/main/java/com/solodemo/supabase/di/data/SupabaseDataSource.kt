@@ -63,6 +63,20 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
         }
     }
 
+    fun deleteAllCartItem(): Flow<RequestState<Unit>> {
+        return flow {
+            emit(RequestState.Loading)
+            try {
+                supaBaseClient.postgrest["cart"].delete{
+                    filter { neq("id",1) }
+                }
+                emit(RequestState.Success(Unit))
+            } catch (e: Exception) {
+                emit(RequestState.Error(e))
+            }
+        }
+    }
+
     fun getCartList(): Flow<RequestState<List<Cart>>> {
         return flow {
             emit(RequestState.Loading)

@@ -18,7 +18,7 @@ import com.solo.components.state.RequestState
 import com.solo.util.SharedPreferenceHelper
 import com.solo.util.getJsonDataFromAsset
 import com.solodemo.main.model.FoodCategory
-import com.solodemo.main.presentations.screens.account.AccountState
+import com.solodemo.main.presentations.dashboard.account.AccountState
 import com.solodemo.supabase.domain.repository.Carts
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reviews

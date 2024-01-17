@@ -8,6 +8,7 @@ import com.solodemo.auth.presenations.forgot.forgotRoute
 import com.solodemo.auth.presenations.login.loginRoute
 import com.solodemo.auth.presenations.signup.signUpRoute
 import com.solodemo.main.presentations.mainRoute
+import com.solodemo.main.presentations.placeorder.placeOrderRoute
 import com.solodemo.main.presentations.products.productSelectionRoute
 
 
@@ -42,9 +43,17 @@ fun SetupNavGraph(
             },
             navigateToProductList = { category ->
                 navHostController.navigate(ScreensRoutes.Product.passCategoryName(categoryName = category))
+            },
+            navigateToPlaceOrderSuccess = {
+                navHostController.navigate(ScreensRoutes.PlaceOrder.route)
             })
 
         productSelectionRoute(onBackPressClicked = { navHostController.popBackStack() })
+
+        placeOrderRoute(onNavigateToMain = {
+            navHostController.popBackStack()
+            navHostController.navigate(ScreensRoutes.Main.route)
+        })
 
         signUpRoute(onBackPressClicked = { navHostController.popBackStack() })
 
