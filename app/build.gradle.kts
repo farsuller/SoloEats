@@ -1,9 +1,25 @@
+import java.io.FileNotFoundException
+import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
     kotlin("kapt")
 
+}
+val keystoreProperties: Properties by lazy {
+    val properties = Properties()
+    val keystorePropertiesFile = rootProject.file("keystore.properties")
+
+    if (keystorePropertiesFile.exists()) {
+        properties.load(keystorePropertiesFile.inputStream())
+    } else {
+        throw FileNotFoundException("Keystore properties file not found.")
+    }
+
+    properties
 }
 
 android {
@@ -23,21 +39,41 @@ android {
         }
     }
 
+    applicationVariants.all {
+        archivesName.set("${ProjectConfig.appFileName}-${buildType.name}-$versionCode-$versionName")
+    }
+
+    signingConfigs {
+        register("release") {
+            storeFile = file("keystore/soloeats.jks")
+            storePassword = keystoreProperties["releaseStorePassword"].toString()
+            keyAlias = keystoreProperties["releaseKeyAlias"].toString()
+            keyPassword = keystoreProperties["releaseKeyPassword"].toString()
+        }
+    }
+
     buildTypes {
-        release {
+        debug {
+            applicationIdSuffix = ".debug"
+            signingConfig = signingConfigs.getByName("debug")
+            isDebuggable = true
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+        }
+
+        release {
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = true
+            isDebuggable = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
+//        freeCompilerArgs += "-Adagger.fastInit"
     }
     buildFeatures {
         compose = true

@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.solo.components.Constants
 import com.solo.components.component.CircleImageItem
 
@@ -25,9 +24,7 @@ fun SignUpHeader(
 
         CircleImageItem(
             imageFile = imageFile,
-            borderColor = borderColor,
-            shapeSize = 270.dp,
-            modifier = Modifier
+            borderColor = borderColor
         )
 
 

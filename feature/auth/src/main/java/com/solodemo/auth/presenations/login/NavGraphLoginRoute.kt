@@ -25,7 +25,6 @@ fun NavGraphBuilder.loginRoute(
     onDataLoaded: () -> Unit
 ) {
     composable(route = ScreensRoutes.Auth.route) {
-        val context = LocalContext.current
         val authViewModel = hiltViewModel<AuthViewModel>()
 
 

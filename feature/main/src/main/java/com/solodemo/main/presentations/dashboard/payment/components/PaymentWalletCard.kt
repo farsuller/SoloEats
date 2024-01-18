@@ -1,5 +1,6 @@
 package com.solodemo.main.presentations.dashboard.payment.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,7 +30,7 @@ fun PaymentWalletCard(
     onWalletClicked: () -> Unit
 ) {
     ElevatedCard(
-        modifier = modifier,
+        modifier = modifier.clickable { onWalletClicked() },
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level5),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary)

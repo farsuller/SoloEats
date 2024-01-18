@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.collectLatest
 
 fun NavGraphBuilder.signUpRoute(onBackPressClicked: () -> Unit) {
     composable(route = ScreensRoutes.SignUp.route) {
-        val context = LocalContext.current
         val authViewModel = hiltViewModel<AuthViewModel>()
 
         var openDialog by remember {
@@ -48,9 +47,7 @@ fun NavGraphBuilder.signUpRoute(onBackPressClicked: () -> Unit) {
 
         SignUpScreen(
             onBackPressClicked = onBackPressClicked,
-            onSubmitButtonClicked = {},
-            authViewModel = authViewModel
-        )
+            authViewModel = authViewModel)
 
         DisplayAlertDialog(
             title = "Sign Up Success",

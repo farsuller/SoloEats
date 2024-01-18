@@ -16,7 +16,6 @@ import com.solodemo.auth.presenations.AuthViewModel
 @Composable
 internal fun SignUpScreen(
     onBackPressClicked : () -> Unit,
-    onSubmitButtonClicked: () -> Unit,
     authViewModel : AuthViewModel
 ){
     Scaffold(
