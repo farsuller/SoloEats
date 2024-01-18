@@ -1,7 +1,9 @@
 package com.solodemo.main.presentations.dashboard.account
 
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -131,58 +134,154 @@ internal fun AccountContent(
 
             Column(modifier = Modifier.weight(0.1f)) {
                 Text(
-                    modifier = Modifier.padding(bottom = 10.dp),
+                    modifier = Modifier.padding(bottom = 5.dp),
                     text = "My Account",
                     fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
                     fontSize = MaterialTheme.typography.titleMedium.fontSize,
                     color = MaterialTheme.colorScheme.onSurface
                 )
-                Text(
-                    modifier = Modifier.padding(bottom = 10.dp),
-                    text = "Favourites",
-                    fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
-                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
+
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .clickableWithoutRipple(
+                        interactionSource = MutableInteractionSource(),
+                        onClick = { Toast.makeText(context, "Coming Soon", Toast.LENGTH_SHORT).show() }
+                    )){
+                    Column {
+                        Text(
+                            modifier = Modifier.padding(top = 10.dp, bottom = 15.dp),
+                            text = "Favourites",
+                            fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
+                            fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(1.dp)
+                                .background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.2f))
+                        )
+                    }
+                }
+
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .clickableWithoutRipple(
+                        interactionSource = MutableInteractionSource(),
+                        onClick = { Toast.makeText(context, "Coming Soon", Toast.LENGTH_SHORT).show() }
+                    )){
+                    Column {
+                        Text(
+                            modifier = Modifier.padding(top = 10.dp, bottom = 15.dp),
+                            text = "Saved Places",
+                            fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
+                            fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(1.dp)
+                                .background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.2f))
+                        )
+                    }
+                }
+
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .clickableWithoutRipple(
+                        interactionSource = MutableInteractionSource(),
+                        onClick = { Toast.makeText(context, "Coming Soon", Toast.LENGTH_SHORT).show() }
+                    )){
+                    Column {
+                        Text(
+                            modifier = Modifier.padding(top = 10.dp, bottom = 15.dp),
+                            text = "Coupons",
+                            fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
+                            fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(1.dp)
+                                .background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.2f))
+                        )
+                    }
+                }
 
                 Spacer(modifier = Modifier.size(20.dp))
 
+
                 Text(
-                    modifier = Modifier.padding(bottom = 10.dp),
+                    modifier = Modifier.padding(bottom = 5.dp),
                     text = "General",
                     fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
                     fontSize = MaterialTheme.typography.titleMedium.fontSize,
                     color = MaterialTheme.colorScheme.onSurface
                 )
-                Text(
-                    modifier = Modifier.clickableWithoutRipple(
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .clickableWithoutRipple(
                         interactionSource = MutableInteractionSource(),
                         onClick = { onPrivacyPolicyClicked() }
-                    ),
-                    text = "Privacy Policy",
-                    fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
-                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-                Text(
-                    modifier = Modifier
-                        .padding(top = 10.dp)
-                        .clickableWithoutRipple(
-                            interactionSource = MutableInteractionSource(),
-                            onClick = {
-                                sendEmail(
-                                    Constants.DEVELOPER_EMAIL,
-                                    Constants.EMAIL_SUBJECT,
-                                    Constants.EMAIL_MESSAGE,
-                                    context
-                                )
-                            }
-                        ),
-                    text = "Share Feedback",
-                    fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
-                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
+                    )){
+                    Column {
+                        Text(
+                            modifier = Modifier.padding(top = 10.dp, bottom = 15.dp),
+                            text = "Privacy Policy",
+                            fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
+                            fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(1.dp)
+                                .background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.2f))
+                        )
+                    }
+
+                }
+
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+
+                    ){
+                    Column {
+                        Text(
+                            modifier = Modifier
+                                .padding(top = 10.dp, bottom = 15.dp)
+                                .clickableWithoutRipple(
+                                    interactionSource = MutableInteractionSource(),
+                                    onClick = {
+                                        sendEmail(
+                                            Constants.DEVELOPER_EMAIL,
+                                            Constants.EMAIL_SUBJECT,
+                                            Constants.EMAIL_MESSAGE,
+                                            context
+                                        )
+                                    }
+                                ),
+                            text = "Share Feedback",
+                            fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
+                            fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(1.dp)
+                                .background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.2f))
+                        )
+                    }
+
+                }
 
             }
 
