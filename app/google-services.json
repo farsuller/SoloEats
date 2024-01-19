@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "415444554521",
+    "project_id": "soloeats",
+    "storage_bucket": "soloeats.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:415444554521:android:898be9fd301387daceeb88",
+        "android_client_info": {
+          "package_name": "com.solo.solodemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "415444554521-90t82ild47643bkj3ql1sbm2nselkkt0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBinxYrQlsX8cFybMiDC7x_a1tJHq6HF3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "415444554521-90t82ild47643bkj3ql1sbm2nselkkt0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
