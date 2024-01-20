@@ -1,6 +1,8 @@
 package com.solodemo.main.presentations.dashboard.payment.components
 
+import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,15 +20,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.solo.ui.Elevation
+import com.solo.util.clickableWithoutRipple
 import com.solodemo.main.model.Featured
 
 @Composable
-fun RecentTransactionCard(modifier: Modifier = Modifier ) {
+fun RecentTransactionCard(modifier: Modifier = Modifier) {
 
+    val context = LocalContext.current.applicationContext
     val scroll = rememberScrollState()
     ElevatedCard(
         modifier = modifier.padding(5.dp),
@@ -36,44 +41,55 @@ fun RecentTransactionCard(modifier: Modifier = Modifier ) {
     ) {
 
 
+        Column(modifier = Modifier
+            .padding(15.dp)
+            .verticalScroll(state = scroll)) {
+            val popularItems = Featured.entries.toTypedArray().take(4)
 
-            Column(modifier = Modifier.padding(15.dp).verticalScroll(state = scroll)) {
-                val popularItems = Featured.entries.toTypedArray()
+            popularItems.forEachIndexed { index, recent ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 20.dp, bottom = 20.dp)
+                        .clickableWithoutRipple(
+                            interactionSource = MutableInteractionSource(),
+                            onClick = {
+                                Toast
+                                    .makeText(context, "Coming Soon", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        ),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        modifier = Modifier.weight(0.5F),
+                        text = recent.title,
+                        fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
+                        fontSize = 16.sp,
+                        textAlign = TextAlign.Start,
+                    )
 
-                popularItems.forEachIndexed { index, recent->
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 20.dp, bottom = 20.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Text(
-                            modifier = Modifier.weight(0.5F),
-                            text = recent.title,
-                            fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
-                            fontSize = 16.sp,
-                            textAlign = TextAlign.Start,
-                        )
+                    Text(
+                        modifier = Modifier.weight(0.2F),
+                        text = recent.price,
+                        fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
+                        fontSize = 16.sp,
+                        textAlign = TextAlign.End,
+                    )
 
-                        Text(
-                            modifier = Modifier.weight(0.2F),
-                            text = recent.price,
-                            fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
-                            fontSize = 16.sp,
-                            textAlign = TextAlign.End,
-                        )
-                        
 
-                    }
-                    if(index != popularItems.size - 1) Box(modifier = Modifier
+                }
+                if (index != popularItems.size - 1) Box(
+                    modifier = Modifier
                         .fillMaxWidth()
                         .height(1.dp)
-                        .background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.2f)))
-                }
-
-
+                        .background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.2f))
+                )
             }
+
+
+        }
 
     }
 }

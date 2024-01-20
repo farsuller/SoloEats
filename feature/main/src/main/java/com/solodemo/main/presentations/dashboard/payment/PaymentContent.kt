@@ -1,6 +1,6 @@
 package com.solodemo.main.presentations.dashboard.payment
 
-import androidx.compose.foundation.background
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,17 +12,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.Shield
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,10 +31,9 @@ import com.solodemo.main.presentations.dashboard.payment.components.RecentTransa
 
 
 @Composable
-internal fun PaymentContent(
-    onWalletClicked: () -> Unit,
-    paddingValues: PaddingValues
-) {
+internal fun PaymentContent(paddingValues: PaddingValues) {
+    val context = LocalContext.current.applicationContext
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -55,15 +54,12 @@ internal fun PaymentContent(
                     fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
                     fontSize = 28.sp
                 )
-
-                Icon(imageVector = Icons.Outlined.Settings, contentDescription = null)
             }
 
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 10.dp),
-
                 verticalAlignment = Alignment.Bottom
             ) {
                 Text(
@@ -90,7 +86,9 @@ internal fun PaymentContent(
                     .padding(10.dp),
                 title = "SoloEats Wallet",
                 amount = " 0.00",
-                onWalletClicked = onWalletClicked
+                onWalletClicked = {
+                    Toast.makeText(context, "Coming Soon", Toast.LENGTH_SHORT).show()
+                }
             )
 
             Spacer(modifier = Modifier.size(15.dp))
@@ -107,18 +105,18 @@ internal fun PaymentContent(
                     fontSize = 18.sp
                 )
 
-                Box(
-                    modifier = Modifier.background(
-                        color = MaterialTheme.colorScheme.secondary,
-                        shape = CircleShape
-                    )
-                ) {
+                IconButton(
+                    onClick = {
+                        Toast.makeText(context, "Coming Soon", Toast.LENGTH_SHORT).show()
+                    },
+
+                    ) {
                     Icon(
                         modifier = Modifier.padding(3.dp),
                         imageVector = Icons.Outlined.KeyboardArrowRight,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.surface
-                    )
+
+                        )
                 }
 
             }
@@ -133,9 +131,5 @@ internal fun PaymentContent(
 @Preview(showBackground = true)
 @Composable
 internal fun PaymentWalletCardPreview() {
-    PaymentContent(
-        onWalletClicked = {},
-        paddingValues = PaddingValues()
-
-    )
+    PaymentContent(paddingValues = PaddingValues())
 }

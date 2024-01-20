@@ -24,12 +24,9 @@ fun NavGraphBuilder.placeOrderRoute(onNavigateToMain: () -> Unit) {
                 targetOffsetY = { it },
                 animationSpec = tween(400)
             ) + fadeOut(animationSpec = tween(400))
-        }) { backstackEntry ->
+        }) {
 
-
-        PlaceOrderScreen(
-            onNavigateToMain = onNavigateToMain
-        )
+        PlaceOrderScreen(onNavigateToMain = onNavigateToMain)
 
     }
 }
