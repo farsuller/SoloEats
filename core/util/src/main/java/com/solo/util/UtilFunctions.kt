@@ -56,7 +56,7 @@ fun getAppVersion(context: Context): String {
         val versionCode: Long = PackageInfoCompat.getLongVersionCode(packageInfo)
 
         val versionName: String = packageInfo.versionName
-        "v$versionName"
+        "v$versionCode.$versionName"
     } catch (e: PackageManager.NameNotFoundException) {
         "version N/A"
     }

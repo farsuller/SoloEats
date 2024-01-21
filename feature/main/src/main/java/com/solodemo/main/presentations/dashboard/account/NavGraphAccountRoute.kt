@@ -43,6 +43,9 @@ fun NavGraphBuilder.accountRoute(
             onPrivacyPolicyClicked = {
                 uriHandler.openUri(Constants.PRIVACY_POLICY_LINK)
             },
+            onSupabaseLogoClicked = {
+                uriHandler.openUri(Constants.SUPABASE_LINK)
+            }
         )
     }
 }

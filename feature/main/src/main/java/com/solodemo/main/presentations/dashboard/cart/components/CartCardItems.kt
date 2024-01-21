@@ -2,7 +2,9 @@ package com.solodemo.main.presentations.dashboard.cart.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
@@ -13,6 +15,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -55,6 +58,11 @@ fun CartCardItems(cartItems: Cart, onClickUpdate: (Cart) -> Unit) {
     Box(modifier = Modifier.fillMaxSize()) {
 
         var expanded by rememberSaveable { mutableStateOf(false) }
+
+        val transition = updateTransition(targetState = expanded, label = "transition")
+        val height by transition.animateDp(label = "height") { targetExpanded->
+            if (targetExpanded) 50.dp else 30.dp
+        }
         AnimatedVisibility(remember { MutableTransitionState(false) }.apply {
             targetState = true
         },
@@ -157,6 +165,7 @@ fun CartCardItems(cartItems: Cart, onClickUpdate: (Cart) -> Unit) {
                             showProductDetails()
                         }
                         QuantityUpdateCartButtons(
+                            modifier = Modifier.height(height),
                             cartItems = cartItems,
                             onClickUpdate = { updateCart: Cart ->
                                 expanded = !expanded
@@ -178,11 +187,11 @@ fun CartCardItems(cartItems: Cart, onClickUpdate: (Cart) -> Unit) {
 }
 
 @Composable
-fun QuantityUpdateCartButtons(cartItems: Cart, onClickUpdate: (Cart) -> Unit) {
+fun QuantityUpdateCartButtons(cartItems: Cart, onClickUpdate: (Cart) -> Unit, modifier: Modifier = Modifier) {
 
     var quantity by remember { mutableIntStateOf(cartItems.productQuantity ?: 1) }
 
-    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+    Row(modifier = modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         Row(
             modifier = Modifier
                 .weight(0.5F)
@@ -273,5 +282,5 @@ fun QuantityUpdateCartButtons(cartItems: Cart, onClickUpdate: (Cart) -> Unit) {
 @Preview(showBackground = true)
 @Composable
 internal fun ProductCardItemsPreview() {
-    QuantityUpdateCartButtons(cartItems = Cart(1), onClickUpdate = {})
+    QuantityUpdateCartButtons( modifier = Modifier.height(50.dp),cartItems = Cart(1), onClickUpdate = {})
 }
