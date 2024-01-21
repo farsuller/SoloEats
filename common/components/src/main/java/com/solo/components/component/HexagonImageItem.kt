@@ -1,6 +1,7 @@
 package com.solo.components.component
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
@@ -36,13 +37,14 @@ fun HexagonImageItem(
                 color = borderColor,
                 style = Stroke(
                     width = 7.dp.toPx(),
-                    pathEffect = PathEffect.cornerPathEffect(40f)
+                    pathEffect = PathEffect.cornerPathEffect(25f)
                 )
             )
         }
         .wrapContentSize()
     ){
         Box(modifier = Modifier
+            .padding(2.dp)
             .size(hexagonSize)
             .graphicsLayer {
                 shape = HexagonShape()
@@ -57,8 +59,6 @@ fun HexagonImageItem(
                     .crossfade(true).build(),
                 contentDescription = "Logo",
                 contentScale = ContentScale.Crop)
-
-
         }
     }
 }
