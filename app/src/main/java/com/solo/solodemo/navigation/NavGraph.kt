@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.solo.components.routes.ScreensRoutes
+import com.solo.util.canBackStack
 import com.solodemo.auth.presenations.forgot.forgotRoute
 import com.solodemo.auth.presenations.login.loginRoute
 import com.solodemo.auth.presenations.signup.signUpRoute
@@ -38,26 +39,47 @@ fun SetupNavGraph(
         )
         mainRoute(onDataLoaded = onDataLoaded,
             navigateToAuth = {
-                navHostController.popBackStack()
-                navHostController.navigate(ScreensRoutes.Auth.route)
+                if (navHostController.canBackStack) {
+                    navHostController.popBackStack()
+                    navHostController.navigate(ScreensRoutes.Auth.route)
+                }
             },
             navigateToProductList = { category ->
-                navHostController.navigate(ScreensRoutes.Product.passCategoryName(categoryName = category))
+                if (navHostController.canBackStack){
+                    navHostController.navigate(ScreensRoutes.Product.passCategoryName(categoryName = category))
+                }
+
             },
             navigateToPlaceOrderSuccess = {
-                navHostController.navigate(ScreensRoutes.PlaceOrder.route)
+                if (navHostController.canBackStack){
+                    navHostController.navigate(ScreensRoutes.PlaceOrder.route)
+                }
             })
 
-        productSelectionRoute(onBackPressClicked = { navHostController.popBackStack() })
-
-        placeOrderRoute(onNavigateToMain = {
-            navHostController.popBackStack()
-            navHostController.navigate(ScreensRoutes.Main.route)
+        productSelectionRoute(onBackPressClicked = {
+            if (navHostController.canBackStack) {
+                navHostController.popBackStack()
+            }
         })
 
-        signUpRoute(onBackPressClicked = { navHostController.popBackStack() })
+        placeOrderRoute(onNavigateToMain = {
+            if (navHostController.canBackStack) {
+                navHostController.popBackStack()
+                navHostController.navigate(ScreensRoutes.Main.route)
+            }
+        })
 
-        forgotRoute(onButtonClicked = { navHostController.popBackStack() })
+        signUpRoute(onBackPressClicked = {
+            if (navHostController.canBackStack) {
+                navHostController.popBackStack()
+            }
+        })
+
+        forgotRoute(onButtonClicked = {
+            if (navHostController.canBackStack) {
+                navHostController.popBackStack()
+            }
+        })
 
     }
 }
