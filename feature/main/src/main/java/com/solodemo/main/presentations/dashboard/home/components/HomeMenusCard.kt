@@ -1,5 +1,6 @@
 package com.solodemo.main.presentations.dashboard.home.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -29,6 +30,7 @@ import com.solo.util.clickableWithoutRipple
 import com.solodemo.supabase.model.Menu
 
 
+@SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
 fun HomeMenusCard(index : Int,
                   menus: List<Menu>,

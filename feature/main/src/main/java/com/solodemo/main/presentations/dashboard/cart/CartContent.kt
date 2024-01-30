@@ -1,7 +1,9 @@
 package com.solodemo.main.presentations.dashboard.cart
 
+import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,19 +21,26 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Text
+import androidx.compose.material3.TooltipBox
+import androidx.compose.material3.TooltipDefaults
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,16 +52,20 @@ import com.solo.components.contents.EmptyContent
 import com.solo.components.state.RequestState
 import com.solo.ui.Elevation
 import com.solo.ui.md_theme_light_delete_swipe
+import com.solo.util.clickableWithoutRipple
 import com.solo.util.formatToCurrency
 import com.solodemo.main.model.Coupons
 import com.solodemo.main.presentations.dashboard.cart.components.CartCardItems
 import com.solodemo.main.presentations.dashboard.cart.components.CouponItemCard
 import com.solodemo.supabase.domain.repository.Carts
 import com.solodemo.supabase.model.Cart
+import kotlinx.coroutines.launch
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
 
 
+@SuppressLint("UnrememberedMutableInteractionSource")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun CartContent(
     paddingValues: PaddingValues,
@@ -63,6 +76,9 @@ internal fun CartContent(
     navigateToPlaceOrderSuccess: () -> Unit
 ) {
     val isCartNotEmpty = remember { mutableStateOf(false) }
+
+    val tooltipState = rememberTooltipState()
+    val scope = rememberCoroutineScope()
 
     if (carts is RequestState.Success) {
         isCartNotEmpty.value = carts.data.isNotEmpty()
@@ -107,14 +123,41 @@ internal fun CartContent(
                                 .fillMaxWidth()
                                 .padding(15.dp)
                         ) {
-                            Text(
+
+                            Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(bottom = 15.dp),
-                                text = "Order Summary",
-                                fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
-                                fontSize = 22.sp,
-                            )
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(
+                                    modifier = Modifier,
+                                    text = "Order Summary",
+                                    fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
+                                    fontSize = 22.sp,
+                                )
+
+                                TooltipBox(
+                                    positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
+                                    tooltip = {
+                                        PlainTooltip {
+                                            Text("Swipe to Delete")
+                                        }
+                                    },
+                                    state = tooltipState
+                                ) {
+
+                                    Icon(
+                                        modifier = Modifier.clickableWithoutRipple(
+                                            interactionSource = MutableInteractionSource(),
+                                            onClick = { scope.launch { tooltipState.show() } }
+                                        ),
+                                        imageVector = Icons.Filled.Info,
+                                        contentDescription = null
+                                    )
+                                }
+                            }
 
                             OrderSummaryContent(
                                 carts = carts,
@@ -124,7 +167,6 @@ internal fun CartContent(
                             )
 
                             SubtotalDeliveryContent(cartViewModel)
-
                         }
 
                     }

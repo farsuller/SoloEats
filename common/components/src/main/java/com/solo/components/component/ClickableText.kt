@@ -1,5 +1,6 @@
 package com.solo.components.component
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -13,6 +14,8 @@ import androidx.compose.ui.unit.dp
 import com.solo.util.clickableWithoutRipple
 
 
+
+@SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
 fun ClickableBottomText(modifier: Modifier = Modifier,onClick: () -> Unit, appendText:String = "", appendHighlightText :String = "") {
     val text = buildAnnotatedString {

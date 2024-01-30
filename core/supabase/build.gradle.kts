@@ -50,7 +50,6 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.appcompat)
-    implementation(libs.material)
 
     implementation (libs.gson)
     implementation(libs.supabase.compose.auth)

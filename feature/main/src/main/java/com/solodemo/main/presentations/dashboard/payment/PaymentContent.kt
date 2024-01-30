@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.Shield
 import androidx.compose.material3.Icon
@@ -113,7 +114,7 @@ internal fun PaymentContent(paddingValues: PaddingValues) {
                     ) {
                     Icon(
                         modifier = Modifier.padding(3.dp),
-                        imageVector = Icons.Outlined.KeyboardArrowRight,
+                        imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
                         contentDescription = null,
 
                         )
