@@ -1,17 +1,34 @@
+import java.io.FileNotFoundException
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
     kotlin("plugin.serialization") version "1.9.21"
     id("dagger.hilt.android.plugin")
     kotlin("kapt")
 }
 
+val keystoreProperties: Properties by lazy {
+    val properties = Properties()
+    val keystorePropertiesFile = rootProject.file("keystore.properties")
+
+    if (keystorePropertiesFile.exists()) {
+        properties.load(keystorePropertiesFile.inputStream())
+    } else {
+        throw FileNotFoundException("Keystore properties file not found.")
+    }
+
+    properties
+}
+
 android {
     namespace = "com.solodemo.supabase"
-    compileSdk = ProjectConfig.compileSdk
+    compileSdk = ProjectConfig.COMPILE_SDK
 
     defaultConfig {
-        minSdk = ProjectConfig.minSdk
+        minSdk = ProjectConfig.MIN_SDK
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -35,9 +52,6 @@ android {
     }
     buildFeatures {
         compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = ProjectConfig.extensionVersion
     }
     packaging {
         resources {

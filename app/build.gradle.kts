@@ -1,10 +1,11 @@
 import java.io.FileNotFoundException
-import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
 import java.util.Properties
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.hilt)
     id ("com.google.gms.google-services")
     id("dagger.hilt.android.plugin")
     kotlin("kapt")
@@ -24,15 +25,15 @@ val keystoreProperties: Properties by lazy {
 }
 
 android {
-    namespace = ProjectConfig.namespace
-    compileSdk = ProjectConfig.compileSdk
+    namespace = ProjectConfig.NAMESPACE
+    compileSdk = ProjectConfig.COMPILE_SDK
 
     defaultConfig {
-        applicationId = ProjectConfig.applicationId
-        minSdk = ProjectConfig.minSdk
-        targetSdk = ProjectConfig.targetSdk
-        versionCode = ProjectConfig.versionCode
-        versionName = "${ProjectConfig.majorVersion}.${ProjectConfig.minorVersion}.${ProjectConfig.patchVersion}"
+        applicationId = ProjectConfig.APPLICATION_ID
+        minSdk = ProjectConfig.MIN_SDK
+        targetSdk = ProjectConfig.TARGET_SDK
+        versionCode = ProjectConfig.VERSION_CODE
+        versionName = "${ProjectConfig.MAJOR_VERSION}.${ProjectConfig.MINOR_VERSION}.${ProjectConfig.PATCH_VERSION}"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -41,7 +42,7 @@ android {
     }
 
     applicationVariants.all {
-        archivesName.set("${ProjectConfig.appFileName}-${buildType.name}-$versionCode-$versionName")
+        base.archivesName.set("${ProjectConfig.APP_FILENAME}-${buildType.name}-$versionCode-$versionName")
     }
 
     signingConfigs {
@@ -74,14 +75,11 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
-//        freeCompilerArgs += "-Adagger.fastInit"
     }
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = ProjectConfig.extensionVersion
-    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
