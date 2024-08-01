@@ -23,7 +23,6 @@ import com.solodemo.supabase.domain.repository.Carts
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reviews
 
-
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 internal fun MainScreen(
@@ -35,7 +34,7 @@ internal fun MainScreen(
     viewModel: MainViewModel,
     navigateToAuth: () -> Unit,
     navigateToProductList: (String) -> Unit,
-    navigateToPlaceOrderSuccess: () -> Unit
+    navigateToPlaceOrderSuccess: () -> Unit,
 ) {
     val view = LocalView.current
     val window = (view.context as Activity).window
@@ -49,8 +48,10 @@ internal fun MainScreen(
     }
     var selectedTab by remember { mutableStateOf("Home") }
     val statusBarColor by animateColorAsState(
-        if (changeStatusBar) MaterialTheme.colorScheme.surface
-        else MaterialTheme.colorScheme.secondary, label = "Animate Status Bar"
+        if (changeStatusBar) {
+            MaterialTheme.colorScheme.surface
+        } else MaterialTheme.colorScheme.secondary,
+        label = "Animate Status Bar",
     )
 
     when (selectedTab) {
@@ -68,9 +69,9 @@ internal fun MainScreen(
             MainBottomNavBar(
                 navController = navController,
                 onTabSelected = { tab -> selectedTab = tab },
-                cartCount = viewModel.cartListCount.value
+                cartCount = viewModel.cartListCount.value,
             )
-        }
+        },
     ) {
         MainContent(
             paddingValues = it,
@@ -83,18 +84,7 @@ internal fun MainScreen(
             navigateToAuth = navigateToAuth,
             navigateToProductList = navigateToProductList,
             homeLazyListState = homeLazyListState,
-            navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess
+            navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess,
         )
-
-
     }
 }
-
-
-
-
-
-
-
-
-

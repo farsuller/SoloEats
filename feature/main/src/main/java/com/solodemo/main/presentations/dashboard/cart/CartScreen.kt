@@ -13,7 +13,7 @@ internal fun CartScreen(
     cartViewModel: CartViewModel,
     onSuccess: (String) -> Unit,
     onError: (String) -> Unit,
-    navigateToPlaceOrderSuccess: () -> Unit
+    navigateToPlaceOrderSuccess: () -> Unit,
 ) {
     CartContent(
         carts = carts,
@@ -21,7 +21,6 @@ internal fun CartScreen(
         cartViewModel = cartViewModel,
         onSuccess = onSuccess,
         onError = onError,
-        navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess
+        navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess,
     )
-
 }

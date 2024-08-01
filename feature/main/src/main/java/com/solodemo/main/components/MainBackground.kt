@@ -12,7 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,14 +21,13 @@ import com.solo.components.component.BoxWithSmallCircles
 
 @Composable
 fun MainBackground() {
-
-    Box(modifier = Modifier.fillMaxSize()){
+    Box(modifier = Modifier.fillMaxSize()) {
         BoxWithSmallCircles(
             modifier = Modifier
                 .size(60.dp)
                 .offset(x = 90.dp, y = 90.dp),
             circleSize = 5.dp,
-            circleColor = MaterialTheme.colorScheme.primary
+            circleColor = MaterialTheme.colorScheme.primary,
         )
 
         BoxWithSmallCircles(
@@ -39,7 +37,7 @@ fun MainBackground() {
             circleSize = 7.dp,
             circleColor = MaterialTheme.colorScheme.primary,
             circleCount = 2,
-            circleCount2 = 3
+            circleCount2 = 3,
         )
 
         BoxWithSmallCircles(
@@ -49,7 +47,7 @@ fun MainBackground() {
             circleSize = 7.dp,
             circleColor = MaterialTheme.colorScheme.primary,
             circleCount = 1,
-            circleCount2 = 2
+            circleCount2 = 2,
         )
         BoxWithSmallCircles(
             modifier = Modifier
@@ -58,7 +56,7 @@ fun MainBackground() {
             circleSize = 9.dp,
             circleColor = MaterialTheme.colorScheme.secondary,
             circleCount = 1,
-            circleCount2 = 0
+            circleCount2 = 0,
         )
         BoxWithSmallCircles(
             modifier = Modifier
@@ -67,11 +65,10 @@ fun MainBackground() {
             circleSize = 9.dp,
             circleColor = MaterialTheme.colorScheme.secondary,
             circleCount = 2,
-            circleCount2 = 0
+            circleCount2 = 0,
         )
 
-
-        //Right Hexagon Header
+        // Right Hexagon Header
         Icon(
             modifier = Modifier
                 .size(70.dp)
@@ -79,7 +76,7 @@ fun MainBackground() {
                 .offset(x = 430.dp, y = 150.dp),
             painter = painterResource(id = R.drawable.square_maze),
             tint = MaterialTheme.colorScheme.secondary,
-            contentDescription = null
+            contentDescription = null,
         )
 
         Icon(
@@ -89,7 +86,7 @@ fun MainBackground() {
                 .offset(x = (-40).dp, y = 200.dp),
             painter = painterResource(id = R.drawable.hexagonal_maze),
             tint = MaterialTheme.colorScheme.secondary,
-            contentDescription = null
+            contentDescription = null,
         )
 
         Icon(
@@ -98,7 +95,7 @@ fun MainBackground() {
                 .offset(x = 180.dp, y = 160.dp),
             painter = painterResource(id = R.drawable.zigzag_line),
             tint = MaterialTheme.colorScheme.secondary,
-            contentDescription = null
+            contentDescription = null,
         )
 
         Icon(
@@ -107,7 +104,7 @@ fun MainBackground() {
                 .offset(x = 100.dp, y = 400.dp),
             painter = painterResource(id = R.drawable.zigzag_line),
             tint = MaterialTheme.colorScheme.secondary,
-            contentDescription = null
+            contentDescription = null,
         )
 
         Box(
@@ -116,7 +113,7 @@ fun MainBackground() {
                 .rotate(30F)
                 .offset(x = 600.dp, y = 600.dp)
                 .clip(RoundedCornerShape(15))
-                .background(MaterialTheme.colorScheme.onTertiary)
+                .background(MaterialTheme.colorScheme.onTertiary),
         )
 
         BoxWithSmallCircles(
@@ -126,7 +123,7 @@ fun MainBackground() {
             circleSize = 6.dp,
             circleColor = MaterialTheme.colorScheme.secondary,
             circleCount = 2,
-            circleCount2 = 1
+            circleCount2 = 1,
         )
 
         Icon(
@@ -135,10 +132,10 @@ fun MainBackground() {
                 .offset(x = 245.dp, y = 805.dp),
             painter = painterResource(id = R.drawable.zigzag_line),
             tint = MaterialTheme.colorScheme.primary,
-            contentDescription = null
+            contentDescription = null,
         )
 
-        //Bottom Right Corner
+        // Bottom Right Corner
         Box(modifier = Modifier.offset(x = 400.dp, y = 750.dp)) {
             Box(
                 modifier = Modifier
@@ -146,7 +143,7 @@ fun MainBackground() {
                     .rotate(30F)
                     .offset(x = (-85).dp, y = 50.dp)
                     .clip(RoundedCornerShape(15))
-                    .background(MaterialTheme.colorScheme.onTertiary)
+                    .background(MaterialTheme.colorScheme.onTertiary),
             )
 
             Box(
@@ -155,7 +152,7 @@ fun MainBackground() {
                     .rotate(15F)
                     .offset(x = (-75).dp, y = 35.dp)
                     .clip(RoundedCornerShape(15))
-                    .background(MaterialTheme.colorScheme.secondary)
+                    .background(MaterialTheme.colorScheme.secondary),
             )
 
             Box(
@@ -163,18 +160,14 @@ fun MainBackground() {
                     .size(100.dp)
                     .offset(x = (-30).dp, y = 0.dp)
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primary)
+                    .background(MaterialTheme.colorScheme.primary),
             )
-
-
         }
     }
-
-
 }
 
 @Preview(showBackground = true)
 @Composable
-fun MainBackGroundPreview(){
+fun MainBackGroundPreview() {
     MainBackground()
 }

@@ -1,6 +1,5 @@
 package com.solodemo.main.presentations.products.components
 
-import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.tween
@@ -51,47 +50,46 @@ import com.solodemo.main.presentations.MainViewModel
 import com.solodemo.supabase.model.Cart
 
 @Composable
-fun ProductsCardItems(foodList: Food,
-                      mainViewModel: MainViewModel,
-                      onSuccess: () -> Unit,
-                      onError: (String) -> Unit) {
-
+fun ProductsCardItems(
+    foodList: Food,
+    mainViewModel: MainViewModel,
+    onSuccess: () -> Unit,
+    onError: (String) -> Unit,
+) {
     var isFavourite by remember { mutableStateOf(false) }
     val updatedIsFavourite = rememberUpdatedState(isFavourite)
 
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
-            defaultElevation = Elevation.level4
+            defaultElevation = Elevation.level4,
         ),
         modifier = Modifier
             .padding(horizontal = 10.dp)
             .padding(top = 10.dp),
         shape = RoundedCornerShape(13.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
     ) {
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(all = 10.dp)
+                .padding(all = 10.dp),
         ) {
-
             var expanded by rememberSaveable { mutableStateOf(false) }
-            AnimatedVisibility(remember { MutableTransitionState(false) }.apply {
-                targetState = true
-            },
+            AnimatedVisibility(
+                remember { MutableTransitionState(false) }.apply {
+                    targetState = true
+                },
                 enter = fadeIn(tween(durationMillis = 300)),
-                exit = fadeOut(tween(durationMillis = 300))
+                exit = fadeOut(tween(durationMillis = 300)),
             ) {
-                Orbital(modifier = Modifier
-                    .fillMaxWidth()
-                    .clickableWithoutRipple(
-                        interactionSource = MutableInteractionSource(),
-                        onClick = { expanded = !expanded }
-                    )
+                Orbital(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickableWithoutRipple(
+                            interactionSource = MutableInteractionSource(),
+                            onClick = { expanded = !expanded },
+                        ),
                 ) {
-
-
                     val showProductDetails = rememberMovableContentOf {
                         Column(
                             modifier = Modifier
@@ -99,26 +97,22 @@ fun ProductsCardItems(foodList: Food,
                                 .padding(horizontal = if (expanded) 20.dp else 10.dp)
                                 .animateBounds(
                                     sizeAnimationSpec = tween(durationMillis = 300),
-                                    positionAnimationSpec = tween(durationMillis = 300)
-                                )
+                                    positionAnimationSpec = tween(durationMillis = 300),
+                                ),
                         ) {
-
                             Text(
                                 text = foodList.foodName,
                                 fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
                                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                                color = MaterialTheme.colorScheme.onSurface
+                                color = MaterialTheme.colorScheme.onSurface,
                             )
 
                             Text(
                                 text = formatToCurrency(foodList.price.toDouble()),
                                 fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                                color = MaterialTheme.colorScheme.onSurface
+                                color = MaterialTheme.colorScheme.onSurface,
                             )
-
-
-
 
                             if (expanded) {
                                 Text(
@@ -126,7 +120,7 @@ fun ProductsCardItems(foodList: Food,
                                     text = foodList.foodDescription,
                                     fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                                    color = MaterialTheme.colorScheme.onSurface
+                                    color = MaterialTheme.colorScheme.onSurface,
                                 )
                             } else {
                                 Text(
@@ -136,19 +130,18 @@ fun ProductsCardItems(foodList: Food,
                                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                                     maxLines = 2,
                                     overflow = TextOverflow.Ellipsis,
-                                    color = MaterialTheme.colorScheme.onSurface
+                                    color = MaterialTheme.colorScheme.onSurface,
                                 )
                             }
 
                             RatingBar(
                                 modifier = Modifier.padding(top = 5.dp),
-                                starsCount = foodList.starReview
+                                starsCount = foodList.starReview,
                             )
                         }
                     }
 
                     val showProductImage = rememberMovableContentOf {
-
                         Column(horizontalAlignment = Alignment.End) {
                             AsyncImage(
                                 modifier = Modifier
@@ -158,49 +151,53 @@ fun ProductsCardItems(foodList: Food,
                                                 .fillMaxWidth()
                                                 .height(300.dp)
                                         } else Modifier.size(
-                                            100.dp
-                                        )
+                                            100.dp,
+                                        ),
                                     ),
                                 model = ImageRequest.Builder(LocalContext.current)
                                     .data(foodList.foodImage)
                                     .crossfade(true).build(),
-                                contentDescription = "Food Image"
+                                contentDescription = "Food Image",
                             )
                             IconButton(
                                 modifier = Modifier,
                                 onClick = {
                                     isFavourite = !isFavourite
-                                }) {
+                                },
+                            ) {
                                 if (updatedIsFavourite.value) {
                                     Icon(
                                         imageVector = Icons.Filled.Favorite,
-                                        contentDescription = "Favorite Icon"
+                                        contentDescription = "Favorite Icon",
                                     )
                                 } else {
                                     Icon(
                                         imageVector = Icons.Outlined.FavoriteBorder,
-                                        contentDescription = "Favorite Icon"
+                                        contentDescription = "Favorite Icon",
                                     )
                                 }
                             }
                         }
-
                     }
 
                     if (expanded) {
                         Column(
                             modifier = Modifier
                                 .padding(10.dp)
-                                .clip(RoundedCornerShape(10.dp))
+                                .clip(RoundedCornerShape(10.dp)),
                         ) {
-
                             showProductImage()
                             showProductDetails()
                             QuantityAddCartButtons(
                                 foodList = foodList,
                                 addToCartClicked = { cart: Cart ->
-                                    mainViewModel.insertCart(cart = cart, onSuccess = onSuccess, onError = onError)
-                                })
+                                    mainViewModel.insertCart(
+                                        cart = cart,
+                                        onSuccess = onSuccess,
+                                        onError = onError,
+                                    )
+                                },
+                            )
                         }
                     } else {
                         Column {
@@ -211,17 +208,17 @@ fun ProductsCardItems(foodList: Food,
                             QuantityAddCartButtons(
                                 foodList = foodList,
                                 addToCartClicked = { cart: Cart ->
-                                    mainViewModel.insertCart(cart = cart, onSuccess = onSuccess, onError = onError)
-                                })
+                                    mainViewModel.insertCart(
+                                        cart = cart,
+                                        onSuccess = onSuccess,
+                                        onError = onError,
+                                    )
+                                },
+                            )
                         }
-
                     }
-
                 }
             }
         }
     }
 }
-
-
-

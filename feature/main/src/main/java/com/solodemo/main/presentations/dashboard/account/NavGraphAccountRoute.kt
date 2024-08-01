@@ -14,10 +14,9 @@ import kotlinx.coroutines.flow.collectLatest
 fun NavGraphBuilder.accountRoute(
     paddingValues: PaddingValues,
     viewModel: MainViewModel,
-    navigateToAuth: () -> Unit) {
+    navigateToAuth: () -> Unit,
+) {
     composable(route = ScreensRoutes.Account.route) {
-
-
         val uriHandler = LocalUriHandler.current
 
         LaunchedEffect(key1 = Unit) {
@@ -45,7 +44,7 @@ fun NavGraphBuilder.accountRoute(
             },
             onSupabaseLogoClicked = {
                 uriHandler.openUri(Constants.SUPABASE_LINK)
-            }
+            },
         )
     }
 }

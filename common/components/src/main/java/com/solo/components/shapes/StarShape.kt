@@ -16,10 +16,10 @@ class StarShape : Shape {
     override fun createOutline(
         size: Size,
         layoutDirection: LayoutDirection,
-        density: Density
+        density: Density,
     ): Outline {
         return Outline.Generic(
-            path = drawStarPath(size)
+            path = drawStarPath(size),
         )
     }
 }
@@ -38,7 +38,7 @@ private fun drawStarPath(size: Size): Path {
         var angle = -PI / 2f // Start angle at the top point of the star
         moveTo(
             x = (centerX + outerRadius * cos(angle)).toFloat(),
-            y = (centerY + outerRadius * sin(angle)).toFloat()
+            y = (centerY + outerRadius * sin(angle)).toFloat(),
         )
 
         // Draw the points of the star in the correct sequence
@@ -46,12 +46,12 @@ private fun drawStarPath(size: Size): Path {
             angle += angleIncrement / 2 // Move to the inner angle first
             lineTo(
                 x = (centerX + innerRadius * cos(angle)).toFloat(),
-                y = (centerY + innerRadius * sin(angle)).toFloat()
+                y = (centerY + innerRadius * sin(angle)).toFloat(),
             )
             angle += angleIncrement / 2 // Move to the outer angle
             lineTo(
                 x = (centerX + outerRadius * cos(angle)).toFloat(),
-                y = (centerY + outerRadius * sin(angle)).toFloat()
+                y = (centerY + outerRadius * sin(angle)).toFloat(),
             )
         }
 

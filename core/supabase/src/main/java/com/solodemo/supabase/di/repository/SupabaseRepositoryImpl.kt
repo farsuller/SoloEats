@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class SupabaseRepositoryImpl @Inject constructor(
-    private val supabaseDataSource: SupabaseDataSource
+    private val supabaseDataSource: SupabaseDataSource,
 ) : SupabaseRepository {
     override fun deleteAllCartItem(): Flow<RequestState<Unit>> {
         return supabaseDataSource.deleteAllCartItem()
@@ -37,7 +37,6 @@ class SupabaseRepositoryImpl @Inject constructor(
     override fun getReviews(): Flow<RequestState<List<Review>>> {
         return supabaseDataSource.getReviews()
     }
-
 
     override fun getMenus(): Flow<RequestState<List<Menu>>> {
         return supabaseDataSource.getMenus()

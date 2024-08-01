@@ -16,28 +16,28 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun EmptyContent(
     title: String = "Something went Wrong",
-    subtitle: String = "Try Again Later."
+    subtitle: String = "Try Again Later.",
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(all = 24.dp),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
             text = title,
             style = TextStyle(
                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                fontWeight = FontWeight.Medium
-            )
+                fontWeight = FontWeight.Medium,
+            ),
         )
         Text(
             text = subtitle,
             style = TextStyle(
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                fontWeight = FontWeight.Normal
-            )
+                fontWeight = FontWeight.Normal,
+            ),
         )
     }
 }

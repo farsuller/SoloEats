@@ -33,19 +33,24 @@ fun NavGraphBuilder.homeRoute(
             homeLazyListState = homeLazyListState,
             navigateToProductList = navigateToProductList,
             popularAddToCartClicked = { cart: Cart ->
-                viewModel.insertCart(cart = cart,
+                viewModel.insertCart(
+                    cart = cart,
                     onSuccess = {
                         Toast.makeText(
-                            context, "Success! Your item has been added to the cart",
-                            Toast.LENGTH_SHORT
+                            context,
+                            "Success! Your item has been added to the cart",
+                            Toast.LENGTH_SHORT,
                         ).show()
-                    }, onError = {
+                    },
+                    onError = {
                         Toast.makeText(
-                            context, "Failed! Your item has been existing to the cart",
-                            Toast.LENGTH_SHORT
+                            context,
+                            "Failed! Your item has been existing to the cart",
+                            Toast.LENGTH_SHORT,
                         ).show()
-                    })
-            }
+                    },
+                )
+            },
         )
     }
 }

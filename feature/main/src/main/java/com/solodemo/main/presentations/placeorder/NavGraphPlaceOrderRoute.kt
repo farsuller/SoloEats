@@ -10,27 +10,23 @@ import androidx.navigation.compose.composable
 import com.solo.components.routes.ScreensRoutes
 
 fun NavGraphBuilder.placeOrderRoute(onNavigateToMain: () -> Unit) {
-    composable(route = ScreensRoutes.PlaceOrder.route,
+    composable(
+        route = ScreensRoutes.PlaceOrder.route,
         enterTransition = {
             // Custom enter transition (push up)
             slideInVertically(
                 initialOffsetY = { it },
-                animationSpec = tween(400)
+                animationSpec = tween(400),
             ) + fadeIn(animationSpec = tween(400))
         },
         exitTransition = {
             // Custom exit transition (slide down)
             slideOutVertically(
                 targetOffsetY = { it },
-                animationSpec = tween(400)
+                animationSpec = tween(400),
             ) + fadeOut(animationSpec = tween(400))
-        }) {
-
+        },
+    ) {
         PlaceOrderScreen(onNavigateToMain = onNavigateToMain)
-
     }
 }
-
-
-
-

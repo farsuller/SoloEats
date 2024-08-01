@@ -13,20 +13,17 @@ import com.solo.components.component.CircleImageItem
 @Composable
 fun SignUpHeader(
     alignment: Alignment.Horizontal = Alignment.End,
-    imageFile:String = Constants.StaticImages.burger,
-    borderColor: Color = MaterialTheme.colorScheme.primary){
-
+    imageFile: String = Constants.StaticImages.burger,
+    borderColor: Color = MaterialTheme.colorScheme.primary,
+) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = alignment,
 
     ) {
-
         CircleImageItem(
             imageFile = imageFile,
-            borderColor = borderColor
+            borderColor = borderColor,
         )
-
-
     }
 }

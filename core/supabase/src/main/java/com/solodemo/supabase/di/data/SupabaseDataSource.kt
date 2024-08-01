@@ -20,13 +20,12 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
         return supaBaseClient
     }
 
-    fun insertCart(cart: Cart): Flow<RequestState<Unit>>  {
+    fun insertCart(cart: Cart): Flow<RequestState<Unit>> {
         return flow {
             emit(RequestState.Loading)
             try {
                 supaBaseClient.postgrest["cart"].insert(cart)
                 emit(RequestState.Success(Unit))
-
             } catch (e: Exception) {
                 emit(RequestState.Error(e))
             }
@@ -41,7 +40,6 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
                     filter { eq("id", id) }
                 }
                 emit(RequestState.Success(Unit))
-
             } catch (e: Exception) {
                 emit(RequestState.Error(e))
             }
@@ -56,7 +54,6 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
                     filter { eq("id", id) }
                 }
                 emit(RequestState.Success(Unit))
-
             } catch (e: Exception) {
                 emit(RequestState.Error(e))
             }
@@ -67,8 +64,8 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
         return flow {
             emit(RequestState.Loading)
             try {
-                supaBaseClient.postgrest["cart"].delete{
-                    filter { neq("id",1) }
+                supaBaseClient.postgrest["cart"].delete {
+                    filter { neq("id", 1) }
                 }
                 emit(RequestState.Success(Unit))
             } catch (e: Exception) {
@@ -84,7 +81,6 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
                 val result = supaBaseClient.postgrest["cart"].select()
                 val carts = result.decodeList<Cart>()
                 emit(RequestState.Success(carts))
-
             } catch (e: Exception) {
                 emit(RequestState.Error(e))
             }
@@ -97,7 +93,6 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
                 val result = supaBaseClient.postgrest["review"].select()
                 val reviews = result.decodeList<Review>()
                 emit(RequestState.Success(reviews))
-
             } catch (e: Exception) {
                 emit(RequestState.Error(e))
             }
@@ -111,7 +106,6 @@ class SupabaseDataSource @Inject constructor(private val supaBaseClient: Supabas
                 val result = supaBaseClient.postgrest["menu"].select()
                 val menus = result.decodeList<Menu>()
                 emit(RequestState.Success(menus))
-
             } catch (e: Exception) {
                 emit(RequestState.Error(e))
             }

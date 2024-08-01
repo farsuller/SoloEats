@@ -31,32 +31,31 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ShimmerListItem(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-
     Row(modifier = modifier) {
         Box(
             modifier = Modifier
                 .size(50.dp)
                 .clip(CircleShape)
-                .shimmerEffect()
+                .shimmerEffect(),
         )
         Spacer(modifier = Modifier.width(16.dp))
         Column(
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(20.dp)
-                    .shimmerEffect()
+                    .shimmerEffect(),
             )
             Spacer(modifier = Modifier.height(16.dp))
             Box(
                 modifier = Modifier
                     .fillMaxWidth(0.7f)
                     .height(20.dp)
-                    .shimmerEffect()
+                    .shimmerEffect(),
             )
         }
     }
@@ -71,8 +70,9 @@ fun Modifier.shimmerEffect(): Modifier = composed {
         initialValue = -2 * size.width.toFloat(),
         targetValue = 2 * size.width.toFloat(),
         animationSpec = infiniteRepeatable(
-            animation = tween(1000)
-        ), label = "startOffsetX"
+            animation = tween(1000),
+        ),
+        label = "startOffsetX",
     )
 
     background(
@@ -83,8 +83,8 @@ fun Modifier.shimmerEffect(): Modifier = composed {
                 Color(0xFFB8B5B5),
             ),
             start = Offset(startOffsetX, 0f),
-            end = Offset(startOffsetX + size.width.toFloat(), size.height.toFloat())
-        )
+            end = Offset(startOffsetX + size.width.toFloat(), size.height.toFloat()),
+        ),
     )
         .onGloballyPositioned {
             size = it.size

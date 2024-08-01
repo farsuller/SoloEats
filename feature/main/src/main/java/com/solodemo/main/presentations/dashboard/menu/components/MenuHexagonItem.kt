@@ -32,35 +32,33 @@ fun MenuHexagonItem(
     index: Int,
     modifier: Modifier = Modifier,
     menus: List<Menu>,
-    borderColor: Color
+    borderColor: Color,
 ) {
-    Box(modifier = modifier
-        .size(200.dp)
-        .rotate(30f)
-        .drawWithContent {
-            drawContent()
-            drawPath(
-                path = drawCustomHexagonPath(size),
-                color = borderColor,
-                style = Stroke(
-                    width = 7.dp.toPx(),
-                    pathEffect = PathEffect.cornerPathEffect(40f)
-                )
-            )
-        }
-        .wrapContentSize()
-    ) {
-
-
-
-        Box(modifier = Modifier
+    Box(
+        modifier = modifier
             .size(200.dp)
-            .graphicsLayer {
-                shape = HexagonShape()
-                clip = true
+            .rotate(30f)
+            .drawWithContent {
+                drawContent()
+                drawPath(
+                    path = drawCustomHexagonPath(size),
+                    color = borderColor,
+                    style = Stroke(
+                        width = 7.dp.toPx(),
+                        pathEffect = PathEffect.cornerPathEffect(40f),
+                    ),
+                )
             }
+            .wrapContentSize(),
+    ) {
+        Box(
+            modifier = Modifier
+                .size(200.dp)
+                .graphicsLayer {
+                    shape = HexagonShape()
+                    clip = true
+                },
         ) {
-
             AsyncImage(
                 modifier = Modifier
                     .rotate(-30f),
@@ -68,26 +66,27 @@ fun MenuHexagonItem(
                     .data(menus[index].menuImage)
                     .crossfade(true).build(),
                 contentDescription = "Logo",
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
             )
 
             TextItem(text = menus[index].menuName)
         }
-
     }
 }
 
 @Composable
 fun TextItem(text: String? = null) {
-
     if (text != null) {
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Black.copy(alpha = 0.3f)) ){
-            Text(modifier = Modifier
+        Box(
+            modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 80.dp, start = 50.dp)
-                .rotate(-30F),
+                .background(Color.Black.copy(alpha = 0.3f)),
+        ) {
+            Text(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 80.dp, start = 50.dp)
+                    .rotate(-30F),
                 text = text,
                 fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
                 fontWeight = FontWeight.SemiBold,
@@ -96,7 +95,5 @@ fun TextItem(text: String? = null) {
                 textAlign = TextAlign.Center,
             )
         }
-
     }
-
 }

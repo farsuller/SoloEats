@@ -29,11 +29,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.solodemo.main.model.Food
 import com.solodemo.supabase.model.Cart
-import kotlin.time.times
 
 @Composable
 fun QuantityAddCartButtons(foodList: Food, addToCartClicked: (Cart) -> Unit) {
-
     var quantity by remember { mutableIntStateOf(1) }
 
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -41,23 +39,23 @@ fun QuantityAddCartButtons(foodList: Food, addToCartClicked: (Cart) -> Unit) {
             modifier = Modifier
                 .weight(0.5F)
                 .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Box(
                 modifier = Modifier
                     .size(35.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(color = Color(0xFFF44336))
+                    .background(color = Color(0xFFF44336)),
             ) {
                 IconButton(
                     onClick = { quantity++ },
-                    modifier = Modifier
+                    modifier = Modifier,
 
                 ) {
                     Icon(
                         imageVector = Icons.Default.Add,
                         contentDescription = "Add Button",
-                        tint = Color.White
+                        tint = Color.White,
                     )
                 }
             }
@@ -67,26 +65,26 @@ fun QuantityAddCartButtons(foodList: Food, addToCartClicked: (Cart) -> Unit) {
                 text = "$quantity",
                 fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
             )
 
             Box(
                 modifier = Modifier
                     .size(35.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(color = Color(0xFFF44336))
+                    .background(color = Color(0xFFF44336)),
             ) {
                 IconButton(
                     onClick = {
                         if (quantity > 1) quantity--
                     },
-                    modifier = Modifier
+                    modifier = Modifier,
 
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Remove,
                         contentDescription = "Minus Button",
-                        tint = Color.White
+                        tint = Color.White,
                     )
                 }
             }
@@ -101,25 +99,23 @@ fun QuantityAddCartButtons(foodList: Food, addToCartClicked: (Cart) -> Unit) {
                         productImage = foodList.foodImage,
                         productPrice = (foodList.price.toDouble() * quantity.toDouble()).toString(),
                         productQuantity = quantity,
-                        productPriceOriginal = foodList.price
-                    )
+                        productPriceOriginal = foodList.price,
+                    ),
                 )
             },
             modifier = Modifier
                 .weight(0.35F)
                 .fillMaxWidth(),
             shape = RoundedCornerShape(5.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
 
         ) {
-
             Text(
                 text = "Add to Cart",
                 fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                color = MaterialTheme.colorScheme.surface
+                color = MaterialTheme.colorScheme.surface,
             )
-
         }
     }
 }

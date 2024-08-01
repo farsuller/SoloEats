@@ -18,34 +18,30 @@ import com.solo.components.shapes.HexagonShape
 
 @Composable
 fun HexagonBackGroundItem(modifier: Modifier = Modifier) {
-
-
     Box(
         modifier = modifier
             .size(200.dp)
             .rotate(30f),
     ) {
-        Column(modifier = Modifier
-            .rotate(-30f)
-            .fillMaxSize()
-            .graphicsLayer {
-                shape = HexagonShape()
-                clip = true
-                rotationZ = 30f
-            }
-            .background(color = MaterialTheme.colorScheme.primary),
+        Column(
+            modifier = Modifier
+                .rotate(-30f)
+                .fillMaxSize()
+                .graphicsLayer {
+                    shape = HexagonShape()
+                    clip = true
+                    rotationZ = 30f
+                }
+                .background(color = MaterialTheme.colorScheme.primary),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally) {
-
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
             Box(
                 modifier = Modifier
                     .rotate(-30f)
                     .height(200.dp),
 
             )
-
-
         }
-
     }
 }

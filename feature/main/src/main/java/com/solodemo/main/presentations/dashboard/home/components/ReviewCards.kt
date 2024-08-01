@@ -1,6 +1,5 @@
 package com.solodemo.main.presentations.dashboard.home.components
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,13 +35,13 @@ fun ReviewCards(reviewsItem: Review) {
             .size(height = 150.dp, width = 300.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level5),
         shape = RoundedCornerShape(10.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
     ) {
         Row(modifier = Modifier.padding(10.dp)) {
             Box(
                 modifier = Modifier
                     .clip(CircleShape)
-                    .size(50.dp)
+                    .size(50.dp),
             ) {
                 AsyncImage(
                     modifier = Modifier.fillMaxSize(),
@@ -52,7 +51,6 @@ fun ReviewCards(reviewsItem: Review) {
                     contentDescription = reviewsItem.name,
                     contentScale = ContentScale.Crop,
                 )
-
             }
 
             Column(
@@ -60,7 +58,7 @@ fun ReviewCards(reviewsItem: Review) {
                 horizontalAlignment = Alignment.Start,
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(start = 5.dp)
+                    .padding(start = 5.dp),
             ) {
                 Text(
                     text = "${reviewsItem.name}",

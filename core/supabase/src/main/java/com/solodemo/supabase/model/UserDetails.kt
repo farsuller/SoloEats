@@ -14,5 +14,5 @@ data class UserDetails(
     @SerialName("phone_verified") val phoneVerified: Boolean,
     val picture: String,
     @SerialName("provider_id") val providerId: String,
-    val sub: String
+    val sub: String,
 )

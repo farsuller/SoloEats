@@ -9,13 +9,13 @@ import com.solodemo.supabase.domain.repository.Menus
 fun NavGraphBuilder.menuRoute(
     paddingValues: PaddingValues,
     menus: Menus,
-    navigateToProductList: (String) -> Unit
+    navigateToProductList: (String) -> Unit,
 ) {
     composable(route = ScreensRoutes.Menu.route) {
         MenusScreen(
             paddingValues = paddingValues,
             menus = menus,
-            navigateToProductList = navigateToProductList
+            navigateToProductList = navigateToProductList,
         )
     }
 }

@@ -22,18 +22,18 @@ import com.solodemo.main.model.MainBottomNavItem
 internal fun MainBottomNavBar(
     onTabSelected: (String) -> Unit,
     navController: NavHostController,
-    cartCount: Int? = null
+    cartCount: Int? = null,
 ) {
     var selectedBottomNavItemIndex by rememberSaveable { mutableIntStateOf(0) }
     NavigationBar(
-        containerColor = MaterialTheme.colorScheme.onPrimary
+        containerColor = MaterialTheme.colorScheme.onPrimary,
     ) {
         MainBottomNavItem.entries.forEachIndexed { index, item ->
             NavigationBarItem(
                 label = {
                     Text(
                         text = item.title,
-                        color = if (index == selectedBottomNavItemIndex) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.onPrimaryContainer
+                        color = if (index == selectedBottomNavItemIndex) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.onPrimaryContainer,
                     )
                 },
                 selected = selectedBottomNavItemIndex == index,
@@ -47,8 +47,8 @@ internal fun MainBottomNavBar(
                         launchSingleTop = true
                         restoreState = true
                     }
-
-                }, icon = {
+                },
+                icon = {
                     BadgedBox(badge = {
                         if ((cartCount != null) && (cartCount != 0) && (item.title == "Cart")) {
                             Badge {
@@ -57,13 +57,15 @@ internal fun MainBottomNavBar(
                         }
                     }) {
                         Icon(
-                            imageVector = if (index == selectedBottomNavItemIndex) item.selectedIcon
-                            else item.unSelectedIcon,
+                            imageVector = if (index == selectedBottomNavItemIndex) {
+                                item.selectedIcon
+                            } else item.unSelectedIcon,
                             contentDescription = item.title,
-                            tint = MaterialTheme.colorScheme.secondary
+                            tint = MaterialTheme.colorScheme.secondary,
                         )
                     }
-                })
+                },
+            )
         }
     }
 }

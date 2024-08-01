@@ -16,7 +16,6 @@ import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.postgrest.Postgrest
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
@@ -26,11 +25,11 @@ object NetworkModule {
     fun provideSupabaseClient(): SupabaseClient {
         return createSupabaseClient(
             supabaseUrl = "https://wanvkegwhowxwkhiejgn.supabase.co",
-            supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndhbnZrZWd3aG93eHdraGllamduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDQwNzg4ODAsImV4cCI6MjAxOTY1NDg4MH0.4kaP8VB2iccjoDxb0K3rBrTW2XxdYQBhmO9KC5nK6fg")
-        {
+            supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndhbnZrZWd3aG93eHdraGllamduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDQwNzg4ODAsImV4cCI6MjAxOTY1NDg4MH0.4kaP8VB2iccjoDxb0K3rBrTW2XxdYQBhmO9KC5nK6fg",
+        ) {
             install(Postgrest)
             install(Auth)
-            install(ComposeAuth){
+            install(ComposeAuth) {
                 googleNativeLogin(serverClientId = Constants.CLIENT_ID)
             }
         }
@@ -44,8 +43,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMenusRepository(supabaseDataSource: SupabaseDataSource) : SupabaseRepository {
+    fun provideMenusRepository(supabaseDataSource: SupabaseDataSource): SupabaseRepository {
         return SupabaseRepositoryImpl(supabaseDataSource = supabaseDataSource)
     }
-
 }

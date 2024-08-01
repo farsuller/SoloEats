@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun HexagonColumnWithOffset(offsetX: Dp, offsetY: Dp,) {
+fun HexagonColumnWithOffset(offsetX: Dp, offsetY: Dp) {
     Column(verticalArrangement = Arrangement.spacedBy((-20).dp)) {
         repeat(5) {
             HexagonBackGroundItem(modifier = Modifier.offset(x = offsetX, y = offsetY))

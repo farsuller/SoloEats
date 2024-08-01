@@ -20,17 +20,14 @@ import com.solo.components.component.BoxWithSmallCircles
 
 @Composable
 fun SignUpBackground() {
-
-
-//Top Left Corner
+// Top Left Corner
     Box(modifier = Modifier.offset(x = (-80).dp, y = 100.dp)) {
-
         Box(
             modifier = Modifier
                 .size(170.dp)
                 .offset(x = 0.dp, y = 0.dp)
                 .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.onTertiary)
+                .background(MaterialTheme.colorScheme.onTertiary),
         )
         Box(
             modifier = Modifier
@@ -38,27 +35,27 @@ fun SignUpBackground() {
                 .rotate(15F)
                 .offset(x = 0.dp, y = 0.dp)
                 .clip(RoundedCornerShape(15))
-                .background(MaterialTheme.colorScheme.secondary)
+                .background(MaterialTheme.colorScheme.secondary),
         ) {
             Box(
                 modifier = Modifier
                     .offset(x = 25.dp, y = 25.dp)
                     .paint(painter = painterResource(id = R.drawable.zigzag_line)),
 
-                )
+            )
         }
     }
 
-    //Top Hexagon Header
+    // Top Hexagon Header
     BoxWithSmallCircles(
         modifier = Modifier
             .size(60.dp)
             .offset(x = 90.dp, y = 90.dp),
         circleSize = 5.dp,
-        circleColor = MaterialTheme.colorScheme.primary
+        circleColor = MaterialTheme.colorScheme.primary,
     )
 
-    //Left Hexagon Header
+    // Left Hexagon Header
     BoxWithSmallCircles(
         modifier = Modifier
             .size(60.dp)
@@ -66,10 +63,10 @@ fun SignUpBackground() {
         circleSize = 7.dp,
         circleColor = MaterialTheme.colorScheme.primary,
         circleCount = 2,
-        circleCount2 = 3
+        circleCount2 = 3,
     )
 
-    //Right Hexagon Header
+    // Right Hexagon Header
     Icon(
         modifier = Modifier
             .size(70.dp)
@@ -77,7 +74,7 @@ fun SignUpBackground() {
             .offset(x = 430.dp, y = 150.dp),
         painter = painterResource(id = R.drawable.square_maze),
         tint = MaterialTheme.colorScheme.secondary,
-        contentDescription = null
+        contentDescription = null,
     )
 
     Icon(
@@ -86,7 +83,7 @@ fun SignUpBackground() {
             .offset(x = 140.dp, y = 160.dp),
         painter = painterResource(id = R.drawable.zigzag_line),
         tint = MaterialTheme.colorScheme.secondary,
-        contentDescription = null
+        contentDescription = null,
     )
 
     Icon(
@@ -95,19 +92,17 @@ fun SignUpBackground() {
             .offset(x = 15.dp, y = 230.dp),
         painter = painterResource(id = R.drawable.zigzag_line),
         tint = MaterialTheme.colorScheme.secondary,
-        contentDescription = null
+        contentDescription = null,
     )
 
-
-
-    //Bottom Right Corner
+    // Bottom Right Corner
     Box(
         modifier = Modifier
             .size(200.dp)
             .rotate(30F)
             .offset(x = 600.dp, y = 600.dp)
             .clip(RoundedCornerShape(15))
-            .background(MaterialTheme.colorScheme.onTertiary)
+            .background(MaterialTheme.colorScheme.onTertiary),
     )
 
     BoxWithSmallCircles(
@@ -117,7 +112,7 @@ fun SignUpBackground() {
         circleSize = 6.dp,
         circleColor = MaterialTheme.colorScheme.secondary,
         circleCount = 2,
-        circleCount2 = 1
+        circleCount2 = 1,
     )
 
     Icon(
@@ -126,10 +121,10 @@ fun SignUpBackground() {
             .offset(x = 245.dp, y = 805.dp),
         painter = painterResource(id = R.drawable.zigzag_line),
         tint = MaterialTheme.colorScheme.primary,
-        contentDescription = null
+        contentDescription = null,
     )
 
-    //Bottom Right Corner
+    // Bottom Right Corner
     Box(modifier = Modifier.offset(x = 400.dp, y = 750.dp)) {
         Box(
             modifier = Modifier
@@ -137,7 +132,7 @@ fun SignUpBackground() {
                 .rotate(30F)
                 .offset(x = (-85).dp, y = 50.dp)
                 .clip(RoundedCornerShape(15))
-                .background(MaterialTheme.colorScheme.onTertiary)
+                .background(MaterialTheme.colorScheme.onTertiary),
         )
 
         Box(
@@ -146,7 +141,7 @@ fun SignUpBackground() {
                 .rotate(15F)
                 .offset(x = (-75).dp, y = 35.dp)
                 .clip(RoundedCornerShape(15))
-                .background(MaterialTheme.colorScheme.secondary)
+                .background(MaterialTheme.colorScheme.secondary),
         )
 
         Box(
@@ -154,10 +149,7 @@ fun SignUpBackground() {
                 .size(100.dp)
                 .offset(x = (-30).dp, y = 0.dp)
                 .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.primary)
+                .background(MaterialTheme.colorScheme.primary),
         )
-
-
     }
-
 }

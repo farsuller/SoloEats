@@ -34,7 +34,7 @@ import com.solodemo.supabase.model.Menu
 fun MenuContent(
     menus: Menus,
     paddingValues: PaddingValues,
-    navigateToProductList: (String) -> Unit
+    navigateToProductList: (String) -> Unit,
 ) {
     val density = LocalDensity.current
     var cardHeight by remember { mutableStateOf(0.dp) }
@@ -50,7 +50,7 @@ fun MenuContent(
         title = "Burgers & Fries Extravaganza",
         description = "Discover a world of taste with our extraordinary burgers and fries.",
         color = MaterialTheme.colorScheme.primary,
-        imagePath = Constants.StaticImages.bannerBurgerFries
+        imagePath = Constants.StaticImages.bannerBurgerFries,
     )
 
     when (menus) {
@@ -61,7 +61,7 @@ fun MenuContent(
                 cardHeight = cardHeight,
                 filteredMenu = menuList,
                 paddingValues = paddingValues,
-                navigateToProductList = navigateToProductList
+                navigateToProductList = navigateToProductList,
             )
         }
 
@@ -75,7 +75,7 @@ fun ShowMenuCards(
     cardHeight: Dp,
     filteredMenu: List<Menu>,
     paddingValues: PaddingValues,
-    navigateToProductList: (String) -> Unit
+    navigateToProductList: (String) -> Unit,
 ) {
     LazyVerticalGrid(
         modifier = Modifier
@@ -86,7 +86,6 @@ fun ShowMenuCards(
         columns = GridCells.Fixed(2),
         verticalArrangement = Arrangement.spacedBy((-120).dp),
     ) {
-
         items(filteredMenu.size) { index ->
             val topPadding = if (index % 2 == 1) 90.dp else 0.dp
             val startOffsetX = if (index % 2 == 1) (-30).dp else 0.dp
@@ -102,7 +101,7 @@ fun ShowMenuCards(
                         interactionSource = MutableInteractionSource(),
                         onClick = {
                             navigateToProductList(filteredMenu[index].menuName!!)
-                        }
+                        },
                     ),
             )
         }

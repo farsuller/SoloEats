@@ -6,5 +6,5 @@ data class Food(
     val foodDescription: String = "",
     val foodImage: String = "",
     val price: String = "0.00",
-    val starReview: Int = 1
+    val starReview: Int = 1,
 )

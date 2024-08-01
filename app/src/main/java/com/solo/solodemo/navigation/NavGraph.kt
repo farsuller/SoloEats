@@ -12,7 +12,6 @@ import com.solodemo.main.presentations.mainRoute
 import com.solodemo.main.presentations.placeorder.placeOrderRoute
 import com.solodemo.main.presentations.products.productSelectionRoute
 
-
 @Composable
 fun SetupNavGraph(
     startDestination: String,
@@ -21,9 +20,8 @@ fun SetupNavGraph(
 ) {
     NavHost(
         navController = navHostController,
-        startDestination = startDestination
-    )
-    {
+        startDestination = startDestination,
+    ) {
         loginRoute(
             navigateToMain = {
                 navHostController.popBackStack()
@@ -35,9 +33,10 @@ fun SetupNavGraph(
             navigateToForgot = {
                 navHostController.navigate(ScreensRoutes.Forgot.route)
             },
-            onDataLoaded = onDataLoaded
+            onDataLoaded = onDataLoaded,
         )
-        mainRoute(onDataLoaded = onDataLoaded,
+        mainRoute(
+            onDataLoaded = onDataLoaded,
             navigateToAuth = {
                 if (navHostController.canBackStack) {
                     navHostController.popBackStack()
@@ -45,16 +44,16 @@ fun SetupNavGraph(
                 }
             },
             navigateToProductList = { category ->
-                if (navHostController.canBackStack){
+                if (navHostController.canBackStack) {
                     navHostController.navigate(ScreensRoutes.Product.passCategoryName(categoryName = category))
                 }
-
             },
             navigateToPlaceOrderSuccess = {
-                if (navHostController.canBackStack){
+                if (navHostController.canBackStack) {
                     navHostController.navigate(ScreensRoutes.PlaceOrder.route)
                 }
-            })
+            },
+        )
 
         productSelectionRoute(onBackPressClicked = {
             if (navHostController.canBackStack) {
@@ -80,12 +79,5 @@ fun SetupNavGraph(
                 navHostController.popBackStack()
             }
         })
-
     }
 }
-
-
-
-
-
-

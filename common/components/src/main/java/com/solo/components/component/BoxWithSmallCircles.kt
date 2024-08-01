@@ -1,6 +1,5 @@
 package com.solo.components.component
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,38 +18,36 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BoxWithSmallCircles(modifier: Modifier = Modifier, circleSize: Dp = 5.dp, circleColor:Color, circleCount: Int = 4, circleCount2 :Int = 3) {
+fun BoxWithSmallCircles(modifier: Modifier = Modifier, circleSize: Dp = 5.dp, circleColor: Color, circleCount: Int = 4, circleCount2: Int = 3) {
     Box(modifier = modifier) {
         Column(modifier = Modifier.fillMaxSize()) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
+                horizontalArrangement = Arrangement.Center,
             ) {
-
-                repeat(circleCount){
+                repeat(circleCount) {
                     Box(
                         modifier = Modifier
                             .padding(horizontal = 5.dp)
                             .size(circleSize)
                             .clip(CircleShape)
-                            .background(color = circleColor)
+                            .background(color = circleColor),
                     )
                 }
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
+                horizontalArrangement = Arrangement.Center,
             ) {
-                repeat(circleCount2){
+                repeat(circleCount2) {
                     Box(
                         modifier = Modifier
                             .padding(horizontal = 5.dp)
                             .size(circleSize)
                             .clip(CircleShape)
-                            .background(color = circleColor)
+                            .background(color = circleColor),
                     )
                 }
-
             }
         }
     }

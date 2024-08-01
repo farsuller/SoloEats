@@ -29,28 +29,26 @@ import com.solo.ui.Elevation
 import com.solo.util.clickableWithoutRipple
 import com.solodemo.supabase.model.Menu
 
-
 @SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
-fun HomeMenusCard(index : Int,
-                  menus: List<Menu>,
-                  onClick :()-> Unit) {
-
+fun HomeMenusCard(
+    index: Int,
+    menus: List<Menu>,
+    onClick: () -> Unit,
+) {
     ElevatedCard(
         modifier = Modifier
             .padding(horizontal = 5.dp)
             .size(100.dp)
             .clickableWithoutRipple(
-            interactionSource = MutableInteractionSource(),
-            onClick = { onClick() }
-        ),
+                interactionSource = MutableInteractionSource(),
+                onClick = { onClick() },
+            ),
         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level4),
         shape = CircleShape,
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
     ) {
-
-        Box(modifier = Modifier)
-        {
+        Box(modifier = Modifier) {
             AsyncImage(
                 modifier = Modifier.fillMaxWidth(),
                 model = ImageRequest.Builder(LocalContext.current)
@@ -58,15 +56,16 @@ fun HomeMenusCard(index : Int,
                     .crossfade(true).build(),
                 contentScale = ContentScale.Crop,
                 contentDescription = menus[index].menuName,
-                alignment = Alignment.TopCenter
+                alignment = Alignment.TopCenter,
             )
 
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Black.copy(alpha = 0.3f)) ){
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.3f)),
+            ) {
                 Text(
                     text = "${menus[index].menuName}",
                     fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
@@ -76,6 +75,5 @@ fun HomeMenusCard(index : Int,
                 )
             }
         }
-
     }
 }

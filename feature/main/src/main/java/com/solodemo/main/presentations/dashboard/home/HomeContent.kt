@@ -47,7 +47,6 @@ import com.solodemo.supabase.domain.repository.Reviews
 import com.solodemo.supabase.model.Cart
 import com.solodemo.supabase.model.Menu
 
-
 @Composable
 internal fun HomeContent(
     paddingValues: PaddingValues,
@@ -56,16 +55,15 @@ internal fun HomeContent(
     foodList: List<FoodCategory>,
     homeLazyListState: LazyListState,
     navigateToProductList: (String) -> Unit,
-    popularAddToCartClicked: (Cart) -> Unit
+    popularAddToCartClicked: (Cart) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .padding(bottom = paddingValues.calculateBottomPadding()),
         horizontalAlignment = Alignment.CenterHorizontally,
-        state = homeLazyListState
+        state = homeLazyListState,
     ) {
-
         item {
             MainHeaderCard(
                 modifier = Modifier
@@ -74,7 +72,7 @@ internal fun HomeContent(
                 title = "Brewing Moments\nof Joy",
                 description = "Join us for a delightful experience that goes beyond the ordinary.",
                 color = MaterialTheme.colorScheme.secondary,
-                imagePath = Constants.StaticImages.bannerSplashCoffee
+                imagePath = Constants.StaticImages.bannerSplashCoffee,
             )
 
             HomeBannersContent()
@@ -83,7 +81,7 @@ internal fun HomeContent(
             Spacer(modifier = Modifier.size(10.dp))
             HomePopularContent(
                 foodList = foodList,
-                popularAddToCartClicked = popularAddToCartClicked
+                popularAddToCartClicked = popularAddToCartClicked,
             )
             ReviewsContent(reviews = reviews)
         }
@@ -107,12 +105,12 @@ private fun HomeBannersContent() {
 @Composable
 private fun HomePopularContent(
     foodList: List<FoodCategory>,
-    popularAddToCartClicked: (Cart) -> Unit
+    popularAddToCartClicked: (Cart) -> Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 15.dp)
+            .padding(bottom = 15.dp),
     ) {
         Text(
             modifier = Modifier.padding(start = 10.dp),
@@ -124,16 +122,16 @@ private fun HomePopularContent(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(450.dp)
+                .height(450.dp),
         ) {
             LazyHorizontalGrid(
                 rows = GridCells.Fixed(3),
-                modifier = Modifier.padding(top = 10.dp)
+                modifier = Modifier.padding(top = 10.dp),
             ) {
                 items(foodList) { category ->
 
                     val firstFood = category.foods.first()
-                    key(category.foods.first().foodId){
+                    key(category.foods.first().foodId) {
                         HomePopularCard(
                             Modifier.padding(5.dp),
                             foodId = firstFood.foodId,
@@ -142,33 +140,31 @@ private fun HomePopularContent(
                             foodImage = firstFood.foodImage,
                             onAddButtonClicked = { cart: Cart ->
                                 popularAddToCartClicked(cart)
-                            }
+                            },
                         )
                     }
-
                 }
             }
         }
-
     }
 }
 
 @Composable
 private fun HomeMenusContent(
     menus: Menus,
-    navigateToProductList: (String) -> Unit
+    navigateToProductList: (String) -> Unit,
 ) {
     var menuList by remember { mutableStateOf(emptyList<Menu>()) }
     val menuLoadCount = remember { mutableIntStateOf(5) }
     when (menus) {
         is RequestState.Loading -> {
             LazyRow(modifier = Modifier.fillMaxWidth()) {
-                items(menuLoadCount.intValue){
+                items(menuLoadCount.intValue) {
                     Box(
                         modifier = Modifier.padding(horizontal = 5.dp)
                             .size(100.dp)
                             .clip(CircleShape)
-                            .shimmerEffect()
+                            .shimmerEffect(),
                     )
                 }
             }
@@ -180,7 +176,7 @@ private fun HomeMenusContent(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 15.dp)
+                    .padding(bottom = 15.dp),
             ) {
                 Text(
                     modifier = Modifier.padding(start = 10.dp),
@@ -192,20 +188,17 @@ private fun HomeMenusContent(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 10.dp)
+                        .padding(top = 10.dp),
                 ) {
-
                     LazyRow {
                         items(menuList.size) { index ->
-                            key(index){
+                            key(index) {
                                 HomeMenusCard(index, menus = menuList, onClick = {
                                     navigateToProductList(menuList[index].menuName!!)
                                 })
                             }
-
                         }
                     }
-
                 }
             }
         }
@@ -213,10 +206,7 @@ private fun HomeMenusContent(
         is RequestState.Error -> {}
         else -> {}
     }
-
-
 }
-
 
 @Composable
 private fun ReviewsContent(reviews: Reviews) {
@@ -226,7 +216,7 @@ private fun ReviewsContent(reviews: Reviews) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 15.dp)
+                    .padding(bottom = 15.dp),
             ) {
                 Text(
                     modifier = Modifier.padding(start = 10.dp),
@@ -239,7 +229,7 @@ private fun ReviewsContent(reviews: Reviews) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 10.dp)
+                        .padding(top = 10.dp),
                 ) {
                     val reviewsList = reviews.data
                     LazyRow {
@@ -249,10 +239,8 @@ private fun ReviewsContent(reviews: Reviews) {
                             }
                         }
                     }
-
                 }
             }
-
         }
 
         is RequestState.Error -> {}

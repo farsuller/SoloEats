@@ -7,7 +7,6 @@ import com.solo.components.routes.ScreensRoutes
 
 fun NavGraphBuilder.paymentRoute(paddingValues: PaddingValues) {
     composable(route = ScreensRoutes.Payment.route) {
-
         PaymentScreen(paddingValues = paddingValues)
     }
 }

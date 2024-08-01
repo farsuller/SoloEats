@@ -12,35 +12,30 @@ import com.solo.components.Constants
 import com.solo.components.component.HexagonImageItem
 
 @Composable
-fun LoginHeader(){
-
+fun LoginHeader() {
     Column(
         modifier = Modifier.offset(y = (-20).dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy((-90).dp),
     ) {
-
         HexagonImageItem(
             imageFile = Constants.StaticImages.spaghetti,
             borderColor = MaterialTheme.colorScheme.primary,
             hexagonSize = 160.dp,
-            modifier = Modifier.offset(x = 75.dp)
+            modifier = Modifier.offset(x = 75.dp),
         )
-
 
         HexagonImageItem(
             imageFile = Constants.StaticImages.burger,
             borderColor = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.offset(x = (-65).dp)
+            modifier = Modifier.offset(x = (-65).dp),
         )
-
-
 
         HexagonImageItem(
             imageFile = Constants.StaticImages.pizza,
             borderColor = MaterialTheme.colorScheme.primary,
             hexagonSize = 140.dp,
-            modifier = Modifier.offset(x = 70.dp)
+            modifier = Modifier.offset(x = 70.dp),
         )
     }
 }

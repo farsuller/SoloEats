@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val repository: SupabaseRepository,
-    application: Application
+    application: Application,
 ) : ViewModel() {
 
     val composeAuth = repository.supaBaseClient().composeAuth
@@ -125,9 +125,7 @@ class AuthViewModel @Inject constructor(
                     else -> {}
                 }
             }
-
         }
-
     }
 
     private fun getToken(): String? {
@@ -136,10 +134,11 @@ class AuthViewModel @Inject constructor(
 
     fun isUserLoggedIn() {
         viewModelScope.launch {
-
             val token = getToken()
-            if (token.isNullOrEmpty()) _uiState.value = RequestState.Error(Exception("User not logged In"))
-            else {
+            if (token.isNullOrEmpty()) {
+                _uiState.value =
+                    RequestState.Error(Exception("User not logged In"))
+            } else {
                 repository.refreshAccessToken(token).collectLatest { session ->
                     when (session) {
                         RequestState.Loading -> _uiState.value = RequestState.Loading
@@ -147,12 +146,12 @@ class AuthViewModel @Inject constructor(
                             _uiState.value = RequestState.Success(token)
                             saveToken()
                         }
+
                         is RequestState.Error -> _uiState.value = RequestState.Error(session.error)
                         else -> {}
                     }
                 }
             }
-
         }
     }
 
@@ -168,7 +167,6 @@ class AuthViewModel @Inject constructor(
             is NativeSignInResult.Error -> {
                 val message = result.message
                 _uiState.value = RequestState.Error(Exception(message))
-
             }
 
             is NativeSignInResult.NetworkError -> {

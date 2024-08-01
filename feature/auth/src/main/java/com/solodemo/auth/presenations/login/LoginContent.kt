@@ -24,7 +24,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,7 +31,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
@@ -43,16 +41,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.solo.components.R
 import com.solo.components.buttons.GoogleButton
+import com.solo.components.component.ClickableBottomText
 import com.solo.ui.WaterBrush
 import com.solo.util.clickableWithoutRipple
-import com.solodemo.auth.presenations.AuthViewModel
-import com.solo.components.component.ClickableBottomText
 import com.solo.util.isValidEmail
+import com.solodemo.auth.presenations.AuthViewModel
 import com.solodemo.auth.presenations.login.components.LoginBackground
 import com.solodemo.auth.presenations.login.components.LoginHeader
 import io.github.jan.supabase.compose.auth.composable.NativeSignInState
 import io.github.jan.supabase.compose.auth.composable.rememberSignInWithGoogle
-import io.github.jan.supabase.compose.auth.composeAuth
 
 @Composable
 internal fun LoginContent(
@@ -60,17 +57,15 @@ internal fun LoginContent(
     onSignUpButtonClicked: () -> Unit,
     authViewModel: AuthViewModel,
 ) {
-
     val googleSignIn = authViewModel.composeAuth.rememberSignInWithGoogle(
         onResult = { result -> authViewModel.checkGoogleLoginStatus(result) },
-        fallback = {}
+        fallback = {},
     )
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.onPrimary)
+            .background(color = MaterialTheme.colorScheme.onPrimary),
     ) {
-
         LoginBackground()
 
         Column(
@@ -79,24 +74,23 @@ internal fun LoginContent(
                 .fillMaxHeight()
                 .padding(start = 40.dp, end = 40.dp),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-
             LoginHeader()
 
             LoginTextFields(
                 onForgotButtonClicked = { onForgotButtonClicked() },
-                authViewModel = authViewModel)
+                authViewModel = authViewModel,
+            )
 
             LoginBottomItems(
                 authViewModel = authViewModel,
                 googleSignIn = googleSignIn,
-                onSignUpButtonClicked = onSignUpButtonClicked
+                onSignUpButtonClicked = onSignUpButtonClicked,
             )
         }
     }
 }
-
 
 @Composable
 private fun AppIconAndName() {
@@ -105,12 +99,12 @@ private fun AppIconAndName() {
             .fillMaxWidth()
             .height(50.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.Center,
     ) {
         Image(
             modifier = Modifier.size(40.dp),
             painter = painterResource(id = R.drawable.soloeats_logo),
-            contentDescription = "App Logo"
+            contentDescription = "App Logo",
         )
 
         Text(
@@ -126,7 +120,7 @@ private fun AppIconAndName() {
 @Composable
 private fun LoginTextFields(
     onForgotButtonClicked: () -> Unit,
-    authViewModel: AuthViewModel
+    authViewModel: AuthViewModel,
 ) {
     val focusManager = LocalFocusManager.current
     var email by remember { mutableStateOf("") }
@@ -137,9 +131,8 @@ private fun LoginTextFields(
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-
         AppIconAndName()
 
         OutlinedTextField(
@@ -159,13 +152,13 @@ private fun LoginTextFields(
             singleLine = true,
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Email,
-                imeAction = ImeAction.Next
+                imeAction = ImeAction.Next,
             ),
             keyboardActions = KeyboardActions(
                 onNext = {
                     focusManager.moveFocus(FocusDirection.Down)
-                }
-            )
+                },
+            ),
         )
 
         OutlinedTextField(
@@ -184,31 +177,30 @@ private fun LoginTextFields(
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Password,
-                imeAction = ImeAction.Done
+                imeAction = ImeAction.Done,
             ),
-            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
+            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
         )
-
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 10.dp, bottom = 10.dp),
-            contentAlignment = Alignment.CenterEnd
+            contentAlignment = Alignment.CenterEnd,
         ) {
             Text(
                 modifier = Modifier
                     .clickableWithoutRipple(
                         interactionSource = MutableInteractionSource(),
-                        onClick = { onForgotButtonClicked() }),
+                        onClick = { onForgotButtonClicked() },
+                    ),
                 text = "Forgot Password?",
                 fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 color = MaterialTheme.colorScheme.onSurface,
-                textAlign = TextAlign.End
+                textAlign = TextAlign.End,
             )
         }
-
 
         Button(
             onClick = {
@@ -221,38 +213,36 @@ private fun LoginTextFields(
                 .fillMaxWidth()
                 .padding(bottom = 10.dp),
             shape = RoundedCornerShape(5.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
-        )
-        {
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
+        ) {
             if (authViewModel.loadingState.value) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(20.dp),
-                    color = MaterialTheme.colorScheme.surface
+                    color = MaterialTheme.colorScheme.surface,
                 )
             } else {
                 Text(
                     text = "Login",
                     fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                    color = MaterialTheme.colorScheme.surface
+                    color = MaterialTheme.colorScheme.surface,
                 )
             }
         }
     }
 }
 
-
 @Composable
 private fun LoginBottomItems(
     authViewModel: AuthViewModel,
     googleSignIn: NativeSignInState,
-    onSignUpButtonClicked: () -> Unit
+    onSignUpButtonClicked: () -> Unit,
 ) {
     Text(
         text = "OR",
         fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
         fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-        color = MaterialTheme.colorScheme.onSurface
+        color = MaterialTheme.colorScheme.onSurface,
     )
 
     GoogleButton(
@@ -262,12 +252,12 @@ private fun LoginBottomItems(
             authViewModel.setGoogleClicked(true)
             authViewModel.setComposeAuthLoading(true)
             googleSignIn.startFlow()
-        }
+        },
     )
 
     ClickableBottomText(
         onClick = { onSignUpButtonClicked() },
         appendText = "Haven't Account? then ",
-        appendHighlightText = "Register Now"
+        appendHighlightText = "Register Now",
     )
 }

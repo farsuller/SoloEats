@@ -14,10 +14,10 @@ class HexagonShape : Shape {
     override fun createOutline(
         size: Size,
         layoutDirection: LayoutDirection,
-        density: Density
+        density: Density,
     ): Outline {
         return Outline.Generic(
-            path = drawCustomHexagonPath(size)
+            path = drawCustomHexagonPath(size),
         )
     }
 }
@@ -26,7 +26,6 @@ fun drawCustomHexagonPath(size: Size): Path {
     return Path().apply {
         val radius = min(size.width / 2f, size.height / 2f)
         customHexagon(radius, size)
-
     }
 }
 
@@ -36,11 +35,11 @@ fun Path.customHexagon(radius: Float, size: Size) {
     val centerY = size.height / 2
 
     moveTo(centerX, centerY + radius)
-    lineTo((centerX - triangleHeight).toFloat(), centerY + radius/2)
-    lineTo((centerX - triangleHeight).toFloat(), centerY - radius/2)
+    lineTo((centerX - triangleHeight).toFloat(), centerY + radius / 2)
+    lineTo((centerX - triangleHeight).toFloat(), centerY - radius / 2)
     lineTo(centerX, centerY - radius)
-    lineTo((centerX + triangleHeight).toFloat(), centerY - radius/2)
-    lineTo((centerX + triangleHeight).toFloat(), centerY + radius/2)
+    lineTo((centerX + triangleHeight).toFloat(), centerY - radius / 2)
+    lineTo((centerX + triangleHeight).toFloat(), centerY + radius / 2)
 
     close()
 }

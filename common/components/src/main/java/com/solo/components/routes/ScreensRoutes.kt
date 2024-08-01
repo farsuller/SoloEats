@@ -2,7 +2,6 @@ package com.solo.components.routes
 
 import com.solo.components.Constants.CATEGORY_NAME_ARG_KEY
 
-
 sealed class ScreensRoutes(val route: String) {
     data object Root : ScreensRoutes(route = "root_screen")
 
@@ -19,8 +18,7 @@ sealed class ScreensRoutes(val route: String) {
 
     data object PlaceOrder : ScreensRoutes(route = "placeorder_screen")
 
-    data object Product : ScreensRoutes(route = "product_screen?$CATEGORY_NAME_ARG_KEY={$CATEGORY_NAME_ARG_KEY}"){
+    data object Product : ScreensRoutes(route = "product_screen?$CATEGORY_NAME_ARG_KEY={$CATEGORY_NAME_ARG_KEY}") {
         fun passCategoryName(categoryName: String) = "product_screen?$CATEGORY_NAME_ARG_KEY=$categoryName"
     }
-
 }

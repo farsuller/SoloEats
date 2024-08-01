@@ -13,10 +13,10 @@ class TicketShape : Shape {
     override fun createOutline(
         size: Size,
         layoutDirection: LayoutDirection,
-        density: Density
+        density: Density,
     ): Outline {
         return Outline.Generic(
-            path = drawTicketPath(size = size)
+            path = drawTicketPath(size = size),
         )
     }
 }
@@ -30,11 +30,11 @@ private fun drawTicketPath(size: Size): Path {
                 left = -cornerRadius,
                 top = -cornerRadius,
                 right = cornerRadius,
-                bottom = cornerRadius
+                bottom = cornerRadius,
             ),
             startAngleDegrees = 90.0f,
             sweepAngleDegrees = -90.0f,
-            forceMoveTo = false
+            forceMoveTo = false,
         )
         lineTo(x = size.width - cornerRadius, y = 0f)
         // Top right arc
@@ -43,11 +43,11 @@ private fun drawTicketPath(size: Size): Path {
                 left = size.width - cornerRadius,
                 top = -cornerRadius,
                 right = size.width + cornerRadius,
-                bottom = cornerRadius
+                bottom = cornerRadius,
             ),
             startAngleDegrees = 180.0f,
             sweepAngleDegrees = -90.0f,
-            forceMoveTo = false
+            forceMoveTo = false,
         )
         lineTo(x = size.width, y = size.height - cornerRadius)
         // Bottom right arc
@@ -56,11 +56,11 @@ private fun drawTicketPath(size: Size): Path {
                 left = size.width - cornerRadius,
                 top = size.height - cornerRadius,
                 right = size.width + cornerRadius,
-                bottom = size.height + cornerRadius
+                bottom = size.height + cornerRadius,
             ),
             startAngleDegrees = 270.0f,
             sweepAngleDegrees = -90.0f,
-            forceMoveTo = false
+            forceMoveTo = false,
         )
         lineTo(x = cornerRadius, y = size.height)
         // Bottom left arc
@@ -69,11 +69,11 @@ private fun drawTicketPath(size: Size): Path {
                 left = -cornerRadius,
                 top = size.height - cornerRadius,
                 right = cornerRadius,
-                bottom = size.height + cornerRadius
+                bottom = size.height + cornerRadius,
             ),
             startAngleDegrees = 0.0f,
             sweepAngleDegrees = -90.0f,
-            forceMoveTo = false
+            forceMoveTo = false,
         )
         lineTo(x = 0f, y = cornerRadius)
 

@@ -14,11 +14,9 @@ fun NavGraphBuilder.cartRoute(
     paddingValues: PaddingValues,
     carts: Carts,
     viewModel: MainViewModel,
-    navigateToPlaceOrderSuccess: () -> Unit
+    navigateToPlaceOrderSuccess: () -> Unit,
 ) {
     composable(route = ScreensRoutes.Cart.route) {
-
-
         val cartViewModel = hiltViewModel<CartViewModel>()
         val context = LocalContext.current.applicationContext
 
@@ -33,6 +31,7 @@ fun NavGraphBuilder.cartRoute(
             onError = { message ->
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             },
-            navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess)
+            navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess,
+        )
     }
 }

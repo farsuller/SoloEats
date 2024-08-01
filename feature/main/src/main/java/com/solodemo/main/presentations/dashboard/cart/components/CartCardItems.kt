@@ -54,24 +54,21 @@ import com.solodemo.supabase.model.Cart
 
 @Composable
 fun CartCardItems(cartItems: Cart, onClickUpdate: (Cart) -> Unit) {
-
     Box(modifier = Modifier.fillMaxSize()) {
-
         var expanded by rememberSaveable { mutableStateOf(false) }
 
         val transition = updateTransition(targetState = expanded, label = "transition")
-        val height by transition.animateDp(label = "height") { targetExpanded->
+        val height by transition.animateDp(label = "height") { targetExpanded ->
             if (targetExpanded) 50.dp else 30.dp
         }
-        AnimatedVisibility(remember { MutableTransitionState(false) }.apply {
-            targetState = true
-        },
+        AnimatedVisibility(
+            remember { MutableTransitionState(false) }.apply {
+                targetState = true
+            },
             enter = fadeIn(tween(durationMillis = 300)),
-            exit = fadeOut(tween(durationMillis = 300))
+            exit = fadeOut(tween(durationMillis = 300)),
         ) {
             Orbital(modifier = Modifier.fillMaxWidth()) {
-
-
                 val showProductDetails = rememberMovableContentOf {
                     Column(
                         modifier = Modifier
@@ -79,15 +76,13 @@ fun CartCardItems(cartItems: Cart, onClickUpdate: (Cart) -> Unit) {
                             .padding(horizontal = if (expanded) 20.dp else 10.dp)
                             .animateBounds(
                                 sizeAnimationSpec = tween(durationMillis = 300),
-                                positionAnimationSpec = tween(durationMillis = 300)
-                            )
+                                positionAnimationSpec = tween(durationMillis = 300),
+                            ),
                     ) {
-
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
+                            horizontalArrangement = Arrangement.SpaceBetween,
                         ) {
-
                             cartItems.productName?.let { pName ->
                                 Text(
                                     modifier = Modifier.weight(1F),
@@ -95,10 +90,9 @@ fun CartCardItems(cartItems: Cart, onClickUpdate: (Cart) -> Unit) {
                                     fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
                                     fontSize = MaterialTheme.typography.titleMedium.fontSize,
                                     color = MaterialTheme.colorScheme.onSurface,
-                                    textAlign = TextAlign.Start
+                                    textAlign = TextAlign.Start,
                                 )
                             }
-
 
                             if (!expanded) {
                                 Text(
@@ -106,28 +100,30 @@ fun CartCardItems(cartItems: Cart, onClickUpdate: (Cart) -> Unit) {
                                         .weight(0.5F)
                                         .clickableWithoutRipple(
                                             interactionSource = MutableInteractionSource(),
-                                            onClick = { expanded = !expanded }
+                                            onClick = { expanded = !expanded },
                                         ),
                                     text = "Edit",
                                     fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
                                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                                     color = MaterialTheme.colorScheme.onSurface,
-                                    textAlign = TextAlign.End
+                                    textAlign = TextAlign.End,
                                 )
                             }
-
                         }
-
 
                         cartItems.productPriceOriginal?.let { pPrice ->
                             Text(
                                 text = formatToCurrency(
-                                    (pPrice.toDouble() * (cartItems.productQuantity?.toDouble()
-                                        ?: 0.0))
+                                    (
+                                        pPrice.toDouble() * (
+                                            cartItems.productQuantity?.toDouble()
+                                                ?: 0.0
+                                            )
+                                        ),
                                 ),
                                 fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                                color = MaterialTheme.colorScheme.onSurface
+                                color = MaterialTheme.colorScheme.onSurface,
                             )
                         }
 
@@ -136,10 +132,9 @@ fun CartCardItems(cartItems: Cart, onClickUpdate: (Cart) -> Unit) {
                                 text = "x$pQuantity",
                                 fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
                                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                                color = MaterialTheme.colorScheme.onSurface
+                                color = MaterialTheme.colorScheme.onSurface,
                             )
                         }
-
                     }
                 }
 
@@ -149,12 +144,12 @@ fun CartCardItems(cartItems: Cart, onClickUpdate: (Cart) -> Unit) {
                             .animateBounds(
                                 modifier = if (expanded) {
                                     Modifier.size(100.dp)
-                                } else Modifier.size(50.dp)
+                                } else Modifier.size(50.dp),
                             ),
                         model = ImageRequest.Builder(LocalContext.current)
                             .data(cartItems.productImage)
                             .crossfade(true).build(),
-                        contentDescription = "Food Image"
+                        contentDescription = "Food Image",
                     )
                 }
 
@@ -170,7 +165,8 @@ fun CartCardItems(cartItems: Cart, onClickUpdate: (Cart) -> Unit) {
                             onClickUpdate = { updateCart: Cart ->
                                 expanded = !expanded
                                 onClickUpdate(updateCart)
-                            })
+                            },
+                        )
                     }
                 } else {
                     Column {
@@ -182,13 +178,11 @@ fun CartCardItems(cartItems: Cart, onClickUpdate: (Cart) -> Unit) {
                 }
             }
         }
-
     }
 }
 
 @Composable
 fun QuantityUpdateCartButtons(cartItems: Cart, onClickUpdate: (Cart) -> Unit, modifier: Modifier = Modifier) {
-
     var quantity by remember { mutableIntStateOf(cartItems.productQuantity ?: 1) }
 
     Row(modifier = modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -196,23 +190,23 @@ fun QuantityUpdateCartButtons(cartItems: Cart, onClickUpdate: (Cart) -> Unit, mo
             modifier = Modifier
                 .weight(0.5F)
                 .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Box(
                 modifier = Modifier
                     .size(35.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(color = Color(0xFFF44336))
+                    .background(color = Color(0xFFF44336)),
             ) {
                 IconButton(
                     onClick = { quantity++ },
-                    modifier = Modifier
+                    modifier = Modifier,
 
                 ) {
                     Icon(
                         imageVector = Icons.Default.Add,
                         contentDescription = "Add Button",
-                        tint = Color.White
+                        tint = Color.White,
                     )
                 }
             }
@@ -222,26 +216,26 @@ fun QuantityUpdateCartButtons(cartItems: Cart, onClickUpdate: (Cart) -> Unit, mo
                 text = "$quantity",
                 fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
             )
 
             Box(
                 modifier = Modifier
                     .size(35.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(color = Color(0xFFF44336))
+                    .background(color = Color(0xFFF44336)),
             ) {
                 IconButton(
                     onClick = {
                         if (quantity > 1) quantity--
                     },
-                    modifier = Modifier
+                    modifier = Modifier,
 
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Remove,
                         contentDescription = "Minus Button",
-                        tint = Color.White
+                        tint = Color.White,
                     )
                 }
             }
@@ -256,25 +250,23 @@ fun QuantityUpdateCartButtons(cartItems: Cart, onClickUpdate: (Cart) -> Unit, mo
                         productImage = cartItems.productImage,
                         productPrice = (cartItems.productPriceOriginal!!.toDouble() * quantity.toDouble()).toString(),
                         productQuantity = quantity,
-                        productPriceOriginal = cartItems.productPriceOriginal
-                    )
+                        productPriceOriginal = cartItems.productPriceOriginal,
+                    ),
                 )
             },
             modifier = Modifier
                 .weight(0.35F)
                 .fillMaxWidth(),
             shape = RoundedCornerShape(5.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
 
         ) {
-
             Text(
                 text = "Update",
                 fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                color = MaterialTheme.colorScheme.surface
+                color = MaterialTheme.colorScheme.surface,
             )
-
         }
     }
 }
@@ -282,5 +274,5 @@ fun QuantityUpdateCartButtons(cartItems: Cart, onClickUpdate: (Cart) -> Unit, mo
 @Preview(showBackground = true)
 @Composable
 internal fun ProductCardItemsPreview() {
-    QuantityUpdateCartButtons( modifier = Modifier.height(50.dp),cartItems = Cart(1), onClickUpdate = {})
+    QuantityUpdateCartButtons(modifier = Modifier.height(50.dp), cartItems = Cart(1), onClickUpdate = {})
 }

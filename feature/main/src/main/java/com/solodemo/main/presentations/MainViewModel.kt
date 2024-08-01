@@ -1,6 +1,5 @@
 package com.solodemo.main.presentations
 
-
 import android.app.Application
 import android.content.Context
 import androidx.compose.runtime.MutableState
@@ -37,7 +36,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val repository: SupabaseRepository,
-    application: Application
+    application: Application,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<RequestState<*>>(RequestState.Loading)
@@ -56,10 +55,10 @@ class MainViewModel @Inject constructor(
 
     private val sharedPref = SharedPreferenceHelper(application.applicationContext)
 
-
     fun insertCart(
-        cart: Cart, onSuccess: () -> Unit,
-        onError: (String) -> Unit
+        cart: Cart,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit,
     ) {
         viewModelScope.launch {
             repository.insertCart(cart = cart).collectLatest { data ->
@@ -74,8 +73,6 @@ class MainViewModel @Inject constructor(
                     }
                 }
             }
-
-
         }
     }
 
@@ -112,7 +109,6 @@ class MainViewModel @Inject constructor(
                 if (data is RequestState.Success) {
                     _cartListCount.intValue = data.data.size
                 }
-
             }
         }
     }

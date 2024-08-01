@@ -144,7 +144,7 @@ fun SoloDemoTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
@@ -165,24 +165,28 @@ fun SoloDemoTheme(
     }
 
     SideEffect {
-        val window = (view.context as Activity).window
+        val context = view.context
+        if (context is Activity) {
+            val window = context.window
+            window.statusBarColor = Color.Transparent.toArgb()
+            window.navigationBarColor = Color.Transparent.toArgb()
 
-        window.statusBarColor = Color.Transparent.toArgb()
-        window.navigationBarColor = Color.Transparent.toArgb()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                window.isNavigationBarContrastEnforced = false
+            }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            window.isNavigationBarContrastEnforced = false
+            val windowsInsetsController = WindowCompat.getInsetsController(window, view)
+
+            windowsInsetsController.let {
+                it.isAppearanceLightStatusBars = !darkTheme
+                it.isAppearanceLightNavigationBars = !darkTheme
+            }
         }
-
-        val windowsInsetsController = WindowCompat.getInsetsController(window, view)
-
-        windowsInsetsController.isAppearanceLightStatusBars = !darkTheme
-        windowsInsetsController.isAppearanceLightNavigationBars = !darkTheme
     }
 
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
-        content = content
+        content = content,
     )
 }

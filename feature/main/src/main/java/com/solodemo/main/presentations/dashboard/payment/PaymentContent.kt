@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.sp
 import com.solodemo.main.presentations.dashboard.payment.components.PaymentWalletCard
 import com.solodemo.main.presentations.dashboard.payment.components.RecentTransactionCard
 
-
 @Composable
 internal fun PaymentContent(paddingValues: PaddingValues) {
     val context = LocalContext.current.applicationContext
@@ -38,21 +37,21 @@ internal fun PaymentContent(paddingValues: PaddingValues) {
         modifier = Modifier
             .fillMaxSize()
             .padding(top = paddingValues.calculateTopPadding() / 2)
-            .padding(bottom = paddingValues.calculateBottomPadding())
+            .padding(bottom = paddingValues.calculateBottomPadding()),
     ) {
         Column(
             modifier = Modifier.padding(10.dp),
-            horizontalAlignment = Alignment.Start
+            horizontalAlignment = Alignment.Start,
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     text = "Payment",
                     fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
-                    fontSize = 28.sp
+                    fontSize = 28.sp,
                 )
             }
 
@@ -60,22 +59,21 @@ internal fun PaymentContent(paddingValues: PaddingValues) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 10.dp),
-                verticalAlignment = Alignment.Bottom
+                verticalAlignment = Alignment.Bottom,
             ) {
                 Text(
                     text = "Our multi-layered\nsecurity keeps you safe",
                     maxLines = 2,
                     fontFamily = MaterialTheme.typography.titleSmall.fontFamily,
                     fontSize = 14.sp,
-                    lineHeight = 18.sp
+                    lineHeight = 18.sp,
                 )
                 Icon(
                     modifier = Modifier.size(20.dp),
                     imageVector = Icons.Outlined.Shield,
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
-
 
             Spacer(modifier = Modifier.size(15.dp))
 
@@ -88,21 +86,20 @@ internal fun PaymentContent(paddingValues: PaddingValues) {
                 amount = " 0.00",
                 onWalletClicked = {
                     Toast.makeText(context, "Coming Soon", Toast.LENGTH_SHORT).show()
-                }
+                },
             )
 
             Spacer(modifier = Modifier.size(15.dp))
 
-
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     text = "Recent Transactions",
                     fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
-                    fontSize = 18.sp
+                    fontSize = 18.sp,
                 )
 
                 IconButton(
@@ -110,21 +107,18 @@ internal fun PaymentContent(paddingValues: PaddingValues) {
                         Toast.makeText(context, "Coming Soon", Toast.LENGTH_SHORT).show()
                     },
 
-                    ) {
+                ) {
                     Icon(
                         modifier = Modifier.padding(3.dp),
                         imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowRight,
                         contentDescription = null,
-                        )
+                    )
                 }
-
             }
             Spacer(modifier = Modifier.size(15.dp))
             RecentTransactionCard()
-
         }
     }
-
 }
 
 @Preview(showBackground = true)

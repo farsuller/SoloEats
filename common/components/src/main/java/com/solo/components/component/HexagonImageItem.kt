@@ -24,41 +24,44 @@ import com.solo.components.shapes.drawCustomHexagonPath
 @Composable
 fun HexagonImageItem(
     modifier: Modifier = Modifier,
-    hexagonSize : Dp = 200.dp,
-    imageFile :String,
-    borderColor: Color) {
-
-    Box(modifier = modifier
-        .rotate(30f)
-        .drawWithContent {
-            drawContent()
-            drawPath(
-                path = drawCustomHexagonPath(size),
-                color = borderColor,
-                style = Stroke(
-                    width = 7.dp.toPx(),
-                    pathEffect = PathEffect.cornerPathEffect(25f)
+    hexagonSize: Dp = 200.dp,
+    imageFile: String,
+    borderColor: Color,
+) {
+    Box(
+        modifier = modifier
+            .rotate(30f)
+            .drawWithContent {
+                drawContent()
+                drawPath(
+                    path = drawCustomHexagonPath(size),
+                    color = borderColor,
+                    style = Stroke(
+                        width = 7.dp.toPx(),
+                        pathEffect = PathEffect.cornerPathEffect(25f),
+                    ),
                 )
-            )
-        }
-        .wrapContentSize()
-    ){
-        Box(modifier = Modifier
-            .padding(2.dp)
-            .size(hexagonSize)
-            .graphicsLayer {
-                shape = HexagonShape()
-                clip = true
             }
+            .wrapContentSize(),
+    ) {
+        Box(
+            modifier = Modifier
+                .padding(2.dp)
+                .size(hexagonSize)
+                .graphicsLayer {
+                    shape = HexagonShape()
+                    clip = true
+                },
         ) {
-
-            AsyncImage(modifier = Modifier
-                .rotate(-30f),
+            AsyncImage(
+                modifier = Modifier
+                    .rotate(-30f),
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(imageFile)
                     .crossfade(true).build(),
                 contentDescription = "Logo",
-                contentScale = ContentScale.Crop)
+                contentScale = ContentScale.Crop,
+            )
         }
     }
 }

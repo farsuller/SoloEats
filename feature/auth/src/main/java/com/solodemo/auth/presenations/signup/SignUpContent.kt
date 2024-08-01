@@ -2,16 +2,13 @@ package com.solodemo.auth.presenations.signup
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -32,32 +29,26 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.solo.components.Constants
 import com.solo.components.R
-import com.solo.ui.WaterBrush
 import com.solo.components.component.ClickableBottomText
 import com.solo.util.isValidEmail
 import com.solodemo.auth.presenations.AuthViewModel
-import com.solodemo.auth.presenations.login.components.LoginBackground
-import com.solodemo.auth.presenations.login.components.LoginHeader
 import com.solodemo.auth.presenations.signup.components.SignUpBackground
 import com.solodemo.auth.presenations.signup.components.SignUpHeader
 
 @Composable
 internal fun SignUpContent(
     onHighlightTextClicked: () -> Unit,
-    authViewModel: AuthViewModel
+    authViewModel: AuthViewModel,
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -78,15 +69,14 @@ internal fun SignUpContent(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.onPrimary)
+            .background(color = MaterialTheme.colorScheme.onPrimary),
     ) {
-
         SignUpBackground()
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .offset(x = 90.dp, y = (0).dp)
+                .offset(x = 90.dp, y = (0).dp),
         ) {
             SignUpHeader(imageFile = Constants.StaticImages.food)
         }
@@ -97,9 +87,8 @@ internal fun SignUpContent(
                 .fillMaxHeight()
                 .padding(start = 40.dp, end = 40.dp),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-
             Box(modifier = Modifier.weight(0.4F))
 
             Column(
@@ -107,14 +96,13 @@ internal fun SignUpContent(
                     .weight(2.5F)
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Image(
                         modifier = Modifier.size(30.dp),
                         painter = painterResource(id = R.drawable.soloeats_logo),
-                        contentDescription = "App Logo"
+                        contentDescription = "App Logo",
                     )
 
                     Text(
@@ -139,18 +127,18 @@ internal fun SignUpContent(
                     colors = OutlinedTextFieldDefaults.colors(
                         unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
                         errorBorderColor = MaterialTheme.colorScheme.secondary,
-                        errorLabelColor = MaterialTheme.colorScheme.onSurface
+                        errorLabelColor = MaterialTheme.colorScheme.onSurface,
                     ),
                     isError = !isEmailValid,
                     singleLine = true,
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Email,
-                        imeAction = ImeAction.Next
+                        imeAction = ImeAction.Next,
                     ),
                     keyboardActions = KeyboardActions(
                         onNext = {
                             focusManager.moveFocus(FocusDirection.Down)
-                        }
+                        },
                     ),
                 )
 
@@ -165,20 +153,20 @@ internal fun SignUpContent(
                     colors = OutlinedTextFieldDefaults.colors(
                         unfocusedBorderColor = MaterialTheme.colorScheme.primary,
                         errorBorderColor = MaterialTheme.colorScheme.secondary,
-                        errorLabelColor = MaterialTheme.colorScheme.onSurface
+                        errorLabelColor = MaterialTheme.colorScheme.onSurface,
                     ),
                     isError = !isPasswordValid,
                     singleLine = true,
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Password,
-                        imeAction = ImeAction.Done
+                        imeAction = ImeAction.Done,
                     ),
                     keyboardActions = KeyboardActions(onDone = {
                         focusManager.moveFocus(
-                            FocusDirection.Down
+                            FocusDirection.Down,
                         )
-                    })
+                    }),
                 )
 
                 OutlinedTextField(
@@ -192,23 +180,22 @@ internal fun SignUpContent(
                     colors = OutlinedTextFieldDefaults.colors(
                         unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
                         errorBorderColor = MaterialTheme.colorScheme.secondary,
-                        errorLabelColor = MaterialTheme.colorScheme.onSurface
+                        errorLabelColor = MaterialTheme.colorScheme.onSurface,
                     ),
                     isError = !isConfirmPasswordValid,
                     singleLine = true,
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Password,
-                        imeAction = ImeAction.Done
+                        imeAction = ImeAction.Done,
                     ),
-                    keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
+                    keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
                 )
-
 
                 Button(
                     onClick = {
                         authViewModel.setLoading(true)
-                        authViewModel.signUpEmail(email = email, password = password,)
+                        authViewModel.signUpEmail(email = email, password = password)
                     },
                     enabled = isEmailValid && isPasswordValid && isConfirmPasswordValid && !isNotMatching.value,
                     modifier = Modifier
@@ -216,21 +203,20 @@ internal fun SignUpContent(
                         .padding(top = 10.dp)
                         .padding(bottom = 10.dp),
                     shape = RoundedCornerShape(5.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
 
                 ) {
-                    if(authViewModel.loadingState.value) {
+                    if (authViewModel.loadingState.value) {
                         CircularProgressIndicator(
                             modifier = Modifier.size(20.dp),
-                            color = MaterialTheme.colorScheme.surface
+                            color = MaterialTheme.colorScheme.surface,
                         )
-                    }
-                    else{
+                    } else {
                         Text(
                             text = "Submit",
                             fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                             fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                            color = MaterialTheme.colorScheme.surface
+                            color = MaterialTheme.colorScheme.surface,
                         )
                     }
                 }
@@ -238,24 +224,20 @@ internal fun SignUpContent(
                 ClickableBottomText(
                     onClick = { onHighlightTextClicked() },
                     appendText = "Already have Account? ",
-                    appendHighlightText = "Login"
+                    appendHighlightText = "Login",
                 )
             }
-
         }
         Box(
             modifier = Modifier
                 .size(210.dp)
-                .offset(x = (-30).dp, y = 700.dp)
+                .offset(x = (-30).dp, y = 700.dp),
         ) {
             SignUpHeader(
                 borderColor = MaterialTheme.colorScheme.secondary,
                 imageFile = Constants.StaticImages.fries,
-                alignment = Alignment.Start
+                alignment = Alignment.Start,
             )
         }
     }
-
-
-
 }

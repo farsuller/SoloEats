@@ -31,31 +31,28 @@ fun MainHeaderCard(
     title: String,
     description: String = "",
     color: Color,
-    imagePath: String
+    imagePath: String,
 ) {
     ElevatedCard(
         modifier = modifier,
         shape = RoundedCornerShape(0.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level0),
-        colors = CardDefaults.cardColors(containerColor = color)
+        colors = CardDefaults.cardColors(containerColor = color),
     ) {
-
-        Row(modifier = Modifier
+        Row(
+            modifier = Modifier
                 .fillMaxSize()
-                .padding(start = 10.dp , end = 10.dp, top = 20.dp, bottom = 10.dp),
+                .padding(start = 10.dp, end = 10.dp, top = 20.dp, bottom = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
+            horizontalArrangement = Arrangement.Start,
         ) {
-
-
             Column(
                 modifier = Modifier
                     .weight(0.5F)
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.End
+                horizontalAlignment = Alignment.End,
             ) {
-
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = title,
@@ -72,7 +69,6 @@ fun MainHeaderCard(
                     lineHeight = 19.sp,
                     textAlign = TextAlign.Start,
                 )
-
             }
 
             AsyncImage(
@@ -84,9 +80,8 @@ fun MainHeaderCard(
                     .crossfade(true).build(),
                 contentDescription = "Banner Image",
                 contentScale = ContentScale.Crop,
-                alignment = Alignment.Center
+                alignment = Alignment.Center,
             )
-
         }
     }
 }
@@ -98,6 +93,6 @@ internal fun HomeHeaderCardPreview() {
         title = "Title",
         description = "Indulge in the perfect harmony of flavors with our artisanal pizzas.",
         color = MaterialTheme.colorScheme.primary,
-        imagePath = ""
+        imagePath = "",
     )
 }

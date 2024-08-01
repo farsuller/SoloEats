@@ -26,9 +26,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CartViewModel @Inject constructor(
     private val repository: SupabaseRepository,
-    application: Application
+    application: Application,
 ) : ViewModel() {
-
 
     private var _cartList = mutableStateOf(emptyList<Cart>())
     var accountState by mutableStateOf(AccountState())
@@ -51,7 +50,6 @@ class CartViewModel @Inject constructor(
 
     private val sharedPref = SharedPreferenceHelper(application.applicationContext)
 
-
     init {
         getCartList()
         getUserInfo()
@@ -65,7 +63,7 @@ class CartViewModel @Inject constructor(
 
     fun deleteAllCartItem(
         onSuccess: (String) -> Unit,
-        onError: (String) -> Unit
+        onError: (String) -> Unit,
     ) {
         viewModelScope.launch {
             repository.deleteAllCartItem().collectLatest { data ->
@@ -79,14 +77,13 @@ class CartViewModel @Inject constructor(
                     }
                 }
             }
-
         }
     }
     fun updateCartById(
         id: Int,
         cart: Cart,
         onSuccess: (String) -> Unit,
-        onError: (String) -> Unit
+        onError: (String) -> Unit,
     ) {
         viewModelScope.launch {
             repository.updateCartItem(id = id, cart = cart).collectLatest { data ->
@@ -101,14 +98,13 @@ class CartViewModel @Inject constructor(
                     }
                 }
             }
-
         }
     }
 
     fun deleteCartById(
         id: Int,
         onSuccess: (String) -> Unit,
-        onError: (String) -> Unit
+        onError: (String) -> Unit,
     ) {
         viewModelScope.launch {
             repository.deleteCartItem(id = id).collectLatest { data ->
@@ -123,7 +119,6 @@ class CartViewModel @Inject constructor(
                     }
                 }
             }
-
         }
     }
 

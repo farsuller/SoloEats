@@ -12,18 +12,18 @@ import androidx.compose.ui.Modifier
 fun PlaceOrderScreen(
     onNavigateToMain: () -> Unit,
 ) {
+    Scaffold(
+        modifier = Modifier
+            .background(MaterialTheme.colorScheme.surface)
+            .statusBarsPadding()
+            .navigationBarsPadding(),
+        topBar = {},
+        content = { paddingValues ->
 
-    Scaffold(modifier = Modifier
-        .background(MaterialTheme.colorScheme.surface)
-        .statusBarsPadding()
-        .navigationBarsPadding(), topBar = {}, content = { paddingValues ->
-
-        PlaceOrderContent(
-            paddingValues = paddingValues,
-            onNavigateToMain = onNavigateToMain,
-        )
-
-    })
-
+            PlaceOrderContent(
+                paddingValues = paddingValues,
+                onNavigateToMain = onNavigateToMain,
+            )
+        },
+    )
 }
-

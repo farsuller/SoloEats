@@ -20,28 +20,30 @@ fun HexagonBorder(
     modifier: Modifier = Modifier,
     hexagonStroke: Dp = 5.dp,
     hexagonSize: Dp = 130.dp,
-    color: Color
+    color: Color,
 ) {
-    Box(modifier = modifier
-        .drawWithContent {
-            drawContent()
-            drawPath(
-                path = drawCustomHexagonPath(size),
-                color = color,
-                style = Stroke(
-                    width = hexagonStroke.toPx(),
-                    pathEffect = PathEffect.cornerPathEffect(40f)
+    Box(
+        modifier = modifier
+            .drawWithContent {
+                drawContent()
+                drawPath(
+                    path = drawCustomHexagonPath(size),
+                    color = color,
+                    style = Stroke(
+                        width = hexagonStroke.toPx(),
+                        pathEffect = PathEffect.cornerPathEffect(40f),
+                    ),
                 )
-            )
-        }
-        .wrapContentSize()
-    ) {
-        Box(modifier = Modifier
-            .size(hexagonSize)
-            .graphicsLayer {
-                shape = HexagonShape()
-                clip = true
             }
+            .wrapContentSize(),
+    ) {
+        Box(
+            modifier = Modifier
+                .size(hexagonSize)
+                .graphicsLayer {
+                    shape = HexagonShape()
+                    clip = true
+                },
         )
     }
 }

@@ -16,40 +16,41 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GenericBackTopBar(onBackButton:()-> Unit, showBackButtonLeft:Boolean = true) {
-
+fun GenericBackTopBar(onBackButton: () -> Unit, showBackButtonLeft: Boolean = true) {
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
         navigationIcon = {
-            if(showBackButtonLeft) {
+            if (showBackButtonLeft) {
                 IconButton(
                     modifier = Modifier
                         .clip(CircleShape)
                         .background(MaterialTheme.colorScheme.secondary),
-                    onClick = { onBackButton() }) {
+                    onClick = { onBackButton() },
+                ) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.surface
+                        tint = MaterialTheme.colorScheme.surface,
                     )
                 }
             }
         },
         title = {},
         actions = {
-            if(!showBackButtonLeft){
+            if (!showBackButtonLeft) {
                 IconButton(
                     modifier = Modifier,
-                    onClick = { onBackButton() }) {
+                    onClick = { onBackButton() },
+                ) {
                     Icon(
                         imageVector = Icons.Filled.Close,
                         contentDescription = null,
-                        tint = Color.Black)
+                        tint = Color.Black,
+                    )
                 }
             }
-        }
+        },
     )
 }

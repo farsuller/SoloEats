@@ -20,14 +20,13 @@ import com.solo.components.component.BoxWithSmallCircles
 
 @Composable
 fun LoginBackground() {
-
     Box(
         modifier = Modifier
             .size(200.dp)
             .rotate(30F)
             .offset(x = (-85).dp, y = 50.dp)
             .clip(RoundedCornerShape(15))
-            .background(MaterialTheme.colorScheme.onTertiary)
+            .background(MaterialTheme.colorScheme.onTertiary),
     )
 
     Box(
@@ -35,7 +34,7 @@ fun LoginBackground() {
             .size(100.dp)
             .offset(x = (-15).dp, y = 70.dp)
             .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.primary)
+            .background(MaterialTheme.colorScheme.primary),
     )
 
     Box(
@@ -44,7 +43,7 @@ fun LoginBackground() {
             .rotate(15F)
             .offset(x = (-75).dp, y = 35.dp)
             .clip(RoundedCornerShape(15))
-            .background(MaterialTheme.colorScheme.secondary)
+            .background(MaterialTheme.colorScheme.secondary),
     )
 
     Box(
@@ -52,35 +51,35 @@ fun LoginBackground() {
             .size(50.dp)
             .rotate(20F)
             .offset(x = (-15).dp, y = 55.dp)
-            .paint(painter = painterResource(id = R.drawable.square_maze))
+            .paint(painter = painterResource(id = R.drawable.square_maze)),
     )
 
-
-    //Top Right Corner
+    // Top Right Corner
     Box(
         modifier = Modifier
             .size(120.dp)
             .rotate(30F)
             .offset(x = 295.dp, y = (-145).dp)
             .clip(RoundedCornerShape(15))
-            .background(MaterialTheme.colorScheme.onTertiary)
+            .background(MaterialTheme.colorScheme.onTertiary),
     )
-    Box(modifier = Modifier
+    Box(
+        modifier = Modifier
             .offset(x = 335.dp, y = 15.dp)
             .size(70.dp)
-            .paint(painter = painterResource(id = R.drawable.circle2))
+            .paint(painter = painterResource(id = R.drawable.circle2)),
     )
 
-    //Top Hexagon Header
+    // Top Hexagon Header
     BoxWithSmallCircles(
         modifier = Modifier
             .size(60.dp)
             .offset(x = 140.dp, y = 100.dp),
         circleSize = 5.dp,
-        circleColor = MaterialTheme.colorScheme.primary
+        circleColor = MaterialTheme.colorScheme.primary,
     )
 
-    //Left Hexagon Header
+    // Left Hexagon Header
     BoxWithSmallCircles(
         modifier = Modifier
             .size(60.dp)
@@ -88,10 +87,10 @@ fun LoginBackground() {
         circleSize = 7.dp,
         circleColor = MaterialTheme.colorScheme.secondary,
         circleCount = 2,
-        circleCount2 = 3
+        circleCount2 = 3,
     )
 
-    //Right Hexagon Header
+    // Right Hexagon Header
     Icon(
         modifier = Modifier
             .size(70.dp)
@@ -99,17 +98,17 @@ fun LoginBackground() {
             .offset(x = 430.dp, y = 150.dp),
         painter = painterResource(id = R.drawable.square_maze),
         tint = MaterialTheme.colorScheme.secondary,
-        contentDescription = null
+        contentDescription = null,
     )
 
-    //Between OR
+    // Between OR
     Icon(
         modifier = Modifier
             .size(70.dp)
             .offset(x = 125.dp, y = 660.dp),
         painter = painterResource(id = R.drawable.zigzag_line),
         tint = MaterialTheme.colorScheme.secondary,
-        contentDescription = null
+        contentDescription = null,
     )
     Icon(
         modifier = Modifier
@@ -117,16 +116,16 @@ fun LoginBackground() {
             .offset(x = 240.dp, y = 660.dp),
         painter = painterResource(id = R.drawable.zigzag_line),
         tint = MaterialTheme.colorScheme.secondary,
-        contentDescription = null
+        contentDescription = null,
     )
 
-    //Bottom Left Corner
+    // Bottom Left Corner
     Box(
         modifier = Modifier
             .size(170.dp)
             .offset(x = (-85).dp, y = 750.dp)
             .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.onTertiary)
+            .background(MaterialTheme.colorScheme.onTertiary),
     )
     Box(
         modifier = Modifier
@@ -134,7 +133,7 @@ fun LoginBackground() {
             .rotate(15F)
             .offset(x = 145.dp, y = 785.dp)
             .clip(RoundedCornerShape(15))
-            .background(MaterialTheme.colorScheme.secondary)
+            .background(MaterialTheme.colorScheme.secondary),
     ) {
         Box(
             modifier = Modifier
@@ -142,17 +141,17 @@ fun LoginBackground() {
                 .offset(x = 15.dp, y = 15.dp)
                 .paint(painter = painterResource(id = R.drawable.zigzag_line)),
 
-            )
+        )
     }
 
-    //Bottom Right Corner
+    // Bottom Right Corner
     Box(
         modifier = Modifier
             .size(200.dp)
             .rotate(30F)
             .offset(x = 600.dp, y = 600.dp)
             .clip(RoundedCornerShape(15))
-            .background(MaterialTheme.colorScheme.onTertiary)
+            .background(MaterialTheme.colorScheme.onTertiary),
     )
 
     BoxWithSmallCircles(
@@ -162,7 +161,7 @@ fun LoginBackground() {
         circleSize = 6.dp,
         circleColor = MaterialTheme.colorScheme.secondary,
         circleCount = 2,
-        circleCount2 = 1
+        circleCount2 = 1,
     )
 
     Icon(
@@ -171,6 +170,6 @@ fun LoginBackground() {
             .offset(x = 275.dp, y = 805.dp),
         painter = painterResource(id = R.drawable.zigzag_line),
         tint = MaterialTheme.colorScheme.primary,
-        contentDescription = null
+        contentDescription = null,
     )
 }

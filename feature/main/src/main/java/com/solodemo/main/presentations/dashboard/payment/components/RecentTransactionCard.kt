@@ -30,20 +30,19 @@ import com.solodemo.main.model.Featured
 
 @Composable
 fun RecentTransactionCard(modifier: Modifier = Modifier) {
-
     val context = LocalContext.current.applicationContext
     val scroll = rememberScrollState()
     ElevatedCard(
         modifier = modifier.padding(5.dp),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level2),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
     ) {
-
-
-        Column(modifier = Modifier
-            .padding(15.dp)
-            .verticalScroll(state = scroll)) {
+        Column(
+            modifier = Modifier
+                .padding(15.dp)
+                .verticalScroll(state = scroll),
+        ) {
             val popularItems = Featured.entries.toTypedArray().take(4)
 
             popularItems.forEachIndexed { index, recent ->
@@ -57,10 +56,10 @@ fun RecentTransactionCard(modifier: Modifier = Modifier) {
                                 Toast
                                     .makeText(context, "Coming Soon", Toast.LENGTH_SHORT)
                                     .show()
-                            }
+                            },
                         ),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
                         modifier = Modifier.weight(0.5F),
@@ -77,19 +76,16 @@ fun RecentTransactionCard(modifier: Modifier = Modifier) {
                         fontSize = 16.sp,
                         textAlign = TextAlign.End,
                     )
-
-
                 }
-                if (index != popularItems.size - 1) Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(1.dp)
-                        .background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.2f))
-                )
+                if (index != popularItems.size - 1) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(1.dp)
+                            .background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.2f)),
+                    )
+                }
             }
-
-
         }
-
     }
 }

@@ -19,29 +19,25 @@ import coil.request.ImageRequest
 @Composable
 fun CircleImageItem(
     imageFile: String,
-    borderColor: Color
+    borderColor: Color,
 ) {
-
     Box(
         modifier = Modifier
             .size(300.dp)
             .border(width = 7.dp, color = borderColor, shape = CircleShape)
             .padding(1.dp)
             .clip(CircleShape),
-        contentAlignment = Alignment.Center
-    ){
-
-            AsyncImage(
-                modifier = Modifier
-                    .size(300.dp)
-                    .clip(shape = CircleShape),
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(imageFile)
-                    .crossfade(true).build(),
-                contentDescription = "Logo",
-                contentScale = ContentScale.Crop)
-
-
-        }
-
+        contentAlignment = Alignment.Center,
+    ) {
+        AsyncImage(
+            modifier = Modifier
+                .size(300.dp)
+                .clip(shape = CircleShape),
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(imageFile)
+                .crossfade(true).build(),
+            contentDescription = "Logo",
+            contentScale = ContentScale.Crop,
+        )
+    }
 }

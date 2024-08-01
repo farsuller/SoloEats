@@ -8,7 +8,6 @@ import com.solodemo.supabase.model.UserDetails
 import io.github.jan.supabase.SupabaseClient
 import kotlinx.coroutines.flow.Flow
 
-
 typealias Menus = RequestState<List<Menu>>
 typealias Reviews = RequestState<List<Review>>
 typealias Users = RequestState<UserDetails>

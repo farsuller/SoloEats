@@ -15,22 +15,19 @@ import com.solo.components.component.HexagonImageItem
 @Composable
 fun BottomHeader(
     alignment: Alignment.Horizontal = Alignment.End,
-    imageFile:String = Constants.StaticImages.burger,
-    borderColor: Color = MaterialTheme.colorScheme.primary){
-
+    imageFile: String = Constants.StaticImages.burger,
+    borderColor: Color = MaterialTheme.colorScheme.primary,
+) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = alignment,
 
     ) {
-
         HexagonImageItem(
             imageFile = imageFile,
             borderColor = borderColor,
             hexagonSize = 360.dp,
-            modifier = Modifier.offset(x = 75.dp)
+            modifier = Modifier.offset(x = 75.dp),
         )
-
-
     }
 }

@@ -12,13 +12,12 @@ object Constants {
 
     const val DEFAULT_TEXT = "Default Text"
 
-
     const val DEVELOPER_EMAIL = "florence.suller@gmail.com"
     const val EMAIL_SUBJECT = "SoloEats Feedback"
     const val EMAIL_MESSAGE = "Hi Florence"
 
     object StaticImages {
-        //Intro
+        // Intro
         const val burger = "file:///android_asset/images/intro/burger.jpg"
         const val spaghetti = "file:///android_asset/images/intro/spaghetti.jpg"
         const val pizza = "file:///android_asset/images/intro/pizza.jpg"
@@ -27,7 +26,7 @@ object Constants {
         const val fries = "file:///android_asset/images/intro/fries.jpg"
         const val background = "file:///android_asset/images/intro/dark_background.jpg"
 
-        //Banner
+        // Banner
         const val bannerSplashCoffee =
             "file:///android_asset/images/banner/banner_coffee_splash.png"
         const val bannerCoffee = "file:///android_asset/images/banner/banner_coffee.png"
@@ -35,21 +34,21 @@ object Constants {
         const val bannerPizza = "file:///android_asset/images/banner/banner_pizza.png"
         const val bannerBurgerFries = "file:///android_asset/images/banner/banner_burgerfries.png"
 
-        //Burger
+        // Burger
         const val CheesyHavenDeluxe = "file:///android_asset/images/burger/CheesyHavenDeluxe.png"
 
-        //Pizza
+        // Pizza
         const val TropicalHawaiianPizza =
             "file:///android_asset/images/pizza/TropicalHawaiianPizza.png"
 
-        //Pasta
+        // Pasta
         const val FilipinoSpaghetti = "file:///android_asset/images/pasta/FilipinoSpaghetti.png"
         const val HeartyHerbBolognese = "file:///android_asset/images/pasta/HeartyHerbBolognese.png"
 
-        //Coffee
+        // Coffee
         const val CaramelMachiatto = "file:///android_asset/images/coffee/caramelmachiatto.png"
 
-        //Drinks
+        // Drinks
         const val ChocoCookieCream = "file:///android_asset/images/drinks/ChocoCookieCream.png"
     }
 }

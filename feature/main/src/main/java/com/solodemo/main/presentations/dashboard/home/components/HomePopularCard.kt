@@ -34,8 +34,8 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.solo.ui.Elevation
 import com.solo.util.formatToCurrency
-import com.solodemo.main.model.Featured
 import com.solodemo.main.components.RatingBar
+import com.solodemo.main.model.Featured
 import com.solodemo.supabase.model.Cart
 
 @Composable
@@ -45,29 +45,27 @@ fun HomePopularCard(
     foodName: String = "",
     foodPrice: String = "",
     foodImage: String = "",
-    onAddButtonClicked: (Cart) -> Unit
+    onAddButtonClicked: (Cart) -> Unit,
 ) {
     ElevatedCard(
         modifier = modifier.size(width = 270.dp, height = 200.dp),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level5),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
     ) {
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(10.dp),
-            verticalArrangement = Arrangement.Top
+            verticalArrangement = Arrangement.Top,
         ) {
             Row(
                 modifier = Modifier
                     .weight(2F)
                     .fillMaxSize(),
                 verticalAlignment = Alignment.Top,
-                horizontalArrangement = Arrangement.Start
+                horizontalArrangement = Arrangement.Start,
             ) {
-
                 AsyncImage(
                     modifier = Modifier.weight(1F),
                     model = ImageRequest.Builder(LocalContext.current)
@@ -75,14 +73,14 @@ fun HomePopularCard(
                         .crossfade(true).build(),
                     contentDescription = "Banner Image",
                     contentScale = ContentScale.Fit,
-                    alignment = Alignment.Center
+                    alignment = Alignment.Center,
                 )
 
                 Column(
                     modifier = Modifier
                         .weight(1.5F)
                         .fillMaxSize(),
-                    verticalArrangement = Arrangement.Center
+                    verticalArrangement = Arrangement.Center,
                 ) {
                     Text(
                         modifier = Modifier,
@@ -104,8 +102,6 @@ fun HomePopularCard(
                         textAlign = TextAlign.Start,
                     )
                 }
-
-
             }
 
             Row(
@@ -113,7 +109,7 @@ fun HomePopularCard(
                     .weight(1F)
                     .fillMaxSize(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 RatingBar()
 
@@ -121,7 +117,7 @@ fun HomePopularCard(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(RoundedCornerShape(12.dp))
-                        .background(color = Color(0xFFF44336))
+                        .background(color = Color(0xFFF44336)),
                 ) {
                     IconButton(
                         onClick = {
@@ -132,27 +128,24 @@ fun HomePopularCard(
                                     productImage = foodImage,
                                     productPrice = foodPrice,
                                     productQuantity = 1,
-                                    productPriceOriginal = foodPrice
-                                )
+                                    productPriceOriginal = foodPrice,
+                                ),
                             )
                         },
-                        modifier = Modifier
+                        modifier = Modifier,
 
                     ) {
                         Icon(
                             imageVector = Icons.Default.Add,
                             contentDescription = "Add Button",
-                            tint = Color.White
+                            tint = Color.White,
                         )
                     }
                 }
             }
-
         }
-
     }
 }
-
 
 @Preview(showBackground = false)
 @Composable
@@ -162,7 +155,7 @@ internal fun CardProductPreview() {
         foodImage = Featured.CheesyHavenDeluxe.imagePath,
         foodName = Featured.CheesyHavenDeluxe.title,
         foodPrice = Featured.CheesyHavenDeluxe.price,
-        onAddButtonClicked = {}
+        onAddButtonClicked = {},
 
     )
 }

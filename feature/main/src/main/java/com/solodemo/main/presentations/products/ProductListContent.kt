@@ -1,6 +1,5 @@
 package com.solodemo.main.presentations.products
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,11 +17,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,33 +36,32 @@ fun ProductListContent(
     onBackPressClicked: () -> Unit,
     mainViewModel: MainViewModel,
     onSuccess: () -> Unit,
-    onError: (String) -> Unit
+    onError: (String) -> Unit,
 ) {
-
-    val filteredProducts = remember(foodList){
+    val filteredProducts = remember(foodList) {
         foodList.filter { it.categoryName == categoryNameSelected }
     }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(bottom = paddingValues.calculateBottomPadding())
+            .padding(bottom = paddingValues.calculateBottomPadding()),
     ) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.Top
+            verticalArrangement = Arrangement.Top,
         ) {
+            items(filteredProducts) { productList ->
 
-            items(filteredProducts)
-            { productList ->
-
-                Column(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 15.dp, bottom = 15.dp, start = 15.dp)) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 15.dp, bottom = 15.dp, start = 15.dp),
+                ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         Text(
                             modifier = Modifier,
@@ -78,11 +72,12 @@ fun ProductListContent(
 
                         IconButton(
                             modifier = Modifier.padding(end = 10.dp),
-                            onClick = { onBackPressClicked() }) {
+                            onClick = { onBackPressClicked() },
+                        ) {
                             Icon(
                                 imageVector = Icons.Filled.Close,
                                 contentDescription = null,
-                                tint = Color.Black
+                                tint = Color.Black,
                             )
                         }
                     }
@@ -96,13 +91,14 @@ fun ProductListContent(
                 }
 
                 Orbital(modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)) {
-
                     Column {
                         productList.foods.forEach { foodItems ->
-                            ProductsCardItems(foodList = foodItems,
+                            ProductsCardItems(
+                                foodList = foodItems,
                                 mainViewModel = mainViewModel,
                                 onSuccess = onSuccess,
-                                onError = onError)
+                                onError = onError,
+                            )
                         }
                     }
                 }

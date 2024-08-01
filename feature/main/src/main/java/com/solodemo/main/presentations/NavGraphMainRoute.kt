@@ -12,10 +12,9 @@ fun NavGraphBuilder.mainRoute(
     onDataLoaded: () -> Unit,
     navigateToAuth: () -> Unit,
     navigateToProductList: (String) -> Unit,
-    navigateToPlaceOrderSuccess: () -> Unit
+    navigateToPlaceOrderSuccess: () -> Unit,
 ) {
     composable(route = ScreensRoutes.Main.route) {
-
         val viewModel = hiltViewModel<MainViewModel>()
         val menusList by viewModel.menus
         val reviews by viewModel.reviews
@@ -38,7 +37,7 @@ fun NavGraphBuilder.mainRoute(
             viewModel = viewModel,
             navigateToAuth = navigateToAuth,
             navigateToProductList = navigateToProductList,
-            navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess
+            navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess,
         )
     }
 }

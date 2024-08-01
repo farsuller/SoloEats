@@ -9,13 +9,12 @@ import com.solodemo.supabase.domain.repository.Menus
 fun MenusScreen(
     paddingValues: PaddingValues,
     menus: Menus,
-    navigateToProductList: (String) -> Unit
+    navigateToProductList: (String) -> Unit,
 ) {
     MainBackground()
     MenuContent(
         menus = menus,
         paddingValues = paddingValues,
-        navigateToProductList = navigateToProductList
+        navigateToProductList = navigateToProductList,
     )
 }
-

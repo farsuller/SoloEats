@@ -27,35 +27,32 @@ fun PaymentWalletCard(
     modifier: Modifier = Modifier,
     title: String = "",
     amount: String = "",
-    onWalletClicked: () -> Unit
+    onWalletClicked: () -> Unit,
 ) {
     ElevatedCard(
         modifier = modifier.clickable { onWalletClicked() },
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level5),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
     ) {
-
         Row(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(10.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
+            horizontalArrangement = Arrangement.Start,
         ) {
-
             Column(
                 modifier = Modifier
                     .padding(start = 5.dp)
                     .fillMaxHeight(),
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.End
+                horizontalAlignment = Alignment.End,
             ) {
-
                 Column(
                     modifier = Modifier
                         .weight(0.1F)
-                        .fillMaxWidth()
+                        .fillMaxWidth(),
                 ) {
                     Text(
                         modifier = Modifier
@@ -76,12 +73,10 @@ fun PaymentWalletCard(
                         textAlign = TextAlign.Start,
                     )
                 }
-
             }
         }
     }
 }
-
 
 @Preview(showBackground = false)
 @Composable
@@ -89,7 +84,7 @@ internal fun PaymentWalletCardPreview() {
     PaymentWalletCard(
         title = "SoloEats Wallet",
         amount = "  0.00",
-        onWalletClicked = {}
+        onWalletClicked = {},
 
     )
 }

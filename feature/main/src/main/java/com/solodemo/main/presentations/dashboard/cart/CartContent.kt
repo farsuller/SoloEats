@@ -63,7 +63,6 @@ import kotlinx.coroutines.launch
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
 
-
 @SuppressLint("UnrememberedMutableInteractionSource")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -73,7 +72,7 @@ internal fun CartContent(
     cartViewModel: CartViewModel,
     onSuccess: (String) -> Unit,
     onError: (String) -> Unit,
-    navigateToPlaceOrderSuccess: () -> Unit
+    navigateToPlaceOrderSuccess: () -> Unit,
 ) {
     val isCartNotEmpty = remember { mutableStateOf(false) }
 
@@ -90,7 +89,7 @@ internal fun CartContent(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(top = paddingValues.calculateTopPadding() / 2)
-                .padding(bottom = paddingValues.calculateBottomPadding())
+                .padding(bottom = paddingValues.calculateBottomPadding()),
         ) {
             Column(
                 modifier = Modifier
@@ -99,15 +98,13 @@ internal fun CartContent(
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Top,
 
-                ) {
-
+            ) {
                 Column(
                     modifier = Modifier
                         .weight(8F)
                         .fillMaxWidth()
-                        .verticalScroll(state = rememberScrollState())
+                        .verticalScroll(state = rememberScrollState()),
                 ) {
-
                     DeliveryAddressContent(cartViewModel)
 
                     Spacer(modifier = Modifier.size(15.dp))
@@ -116,20 +113,19 @@ internal fun CartContent(
                         modifier = Modifier,
                         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level2),
                         shape = RoundedCornerShape(13.dp),
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
                     ) {
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(15.dp)
+                                .padding(15.dp),
                         ) {
-
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(bottom = 15.dp),
                                 verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.SpaceBetween
+                                horizontalArrangement = Arrangement.SpaceBetween,
                             ) {
                                 Text(
                                     modifier = Modifier,
@@ -145,16 +141,15 @@ internal fun CartContent(
                                             Text("Swipe to Delete")
                                         }
                                     },
-                                    state = tooltipState
+                                    state = tooltipState,
                                 ) {
-
                                     Icon(
                                         modifier = Modifier.clickableWithoutRipple(
                                             interactionSource = MutableInteractionSource(),
-                                            onClick = { scope.launch { tooltipState.show() } }
+                                            onClick = { scope.launch { tooltipState.show() } },
                                         ),
                                         imageVector = Icons.Filled.Info,
-                                        contentDescription = null
+                                        contentDescription = null,
                                     )
                                 }
                             }
@@ -163,12 +158,11 @@ internal fun CartContent(
                                 carts = carts,
                                 onSuccess = onSuccess,
                                 onError = onError,
-                                cartViewModel = cartViewModel
+                                cartViewModel = cartViewModel,
                             )
 
                             SubtotalDeliveryContent(cartViewModel)
                         }
-
                     }
 
                     Spacer(modifier = Modifier.size(15.dp))
@@ -185,24 +179,18 @@ internal fun CartContent(
                 Box(
                     modifier = Modifier
                         .weight(1.5F)
-                        .padding(top = 10.dp, bottom = 10.dp)
-                )
-                {
-
+                        .padding(top = 10.dp, bottom = 10.dp),
+                ) {
                     TotalAndPlaceOrderButtonHolder(
                         cartViewModel = cartViewModel,
-                        navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess
+                        navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess,
                     )
-
                 }
-
-
             }
         }
     } else {
         EmptyContent(title = "Your Cart is Empty", subtitle = "Select Order Now")
     }
-
 }
 
 @Composable
@@ -211,17 +199,16 @@ private fun DeliveryAddressContent(cartViewModel: CartViewModel) {
         modifier = Modifier,
         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level2),
         shape = RoundedCornerShape(13.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(15.dp)
+                .padding(15.dp),
         ) {
-
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(
                     modifier = Modifier,
@@ -229,8 +216,6 @@ private fun DeliveryAddressContent(cartViewModel: CartViewModel) {
                     fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
                     fontSize = 22.sp,
                 )
-
-
             }
 
             Text(
@@ -263,7 +248,7 @@ private fun SubtotalDeliveryContent(cartViewModel: CartViewModel) {
         modifier = Modifier
             .fillMaxWidth()
             .height(1.dp)
-            .background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.4f))
+            .background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.4f)),
     )
 
     Row(
@@ -271,7 +256,7 @@ private fun SubtotalDeliveryContent(cartViewModel: CartViewModel) {
             .fillMaxWidth()
             .padding(top = 5.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             modifier = Modifier.padding(5.dp),
@@ -286,15 +271,13 @@ private fun SubtotalDeliveryContent(cartViewModel: CartViewModel) {
             fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
             fontSize = MaterialTheme.typography.titleSmall.fontSize,
         )
-
     }
 
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-
         Text(
             modifier = Modifier.padding(5.dp),
             text = "Delivery fee",
@@ -308,7 +291,6 @@ private fun SubtotalDeliveryContent(cartViewModel: CartViewModel) {
             fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
             fontSize = MaterialTheme.typography.titleSmall.fontSize,
         )
-
     }
 }
 
@@ -318,14 +300,13 @@ private fun PaymentMethodContent() {
         modifier = Modifier,
         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level2),
         shape = RoundedCornerShape(13.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(15.dp)
+                .padding(15.dp),
         ) {
-
             Text(
                 modifier = Modifier,
                 text = "Payment Details",
@@ -339,22 +320,19 @@ private fun PaymentMethodContent() {
                 fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                 fontSize = 15.sp,
             )
-
         }
     }
 }
 
 @Composable
 private fun CouponsContent() {
-
     var selectedCouponItem by remember { mutableStateOf<Coupons?>(null) }
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
 
     ) {
-
         Text(
             modifier = Modifier,
             text = "Coupons and Promo",
@@ -366,32 +344,29 @@ private fun CouponsContent() {
             items(Coupons.entries.toTypedArray()) { couponItem ->
                 CouponItemCard(
                     coupons = couponItem,
-                    isSelected = selectedCouponItem == couponItem
+                    isSelected = selectedCouponItem == couponItem,
                 ) {
                     selectedCouponItem = couponItem
                 }
             }
         }
-
     }
-
 }
-
 
 @Composable
 private fun TotalAndPlaceOrderButtonHolder(
     cartViewModel: CartViewModel,
-    navigateToPlaceOrderSuccess: () -> Unit
+    navigateToPlaceOrderSuccess: () -> Unit,
 ) {
     val context = LocalContext.current.applicationContext
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Bottom
+        verticalArrangement = Arrangement.Bottom,
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(
                 modifier = Modifier.padding(5.dp),
@@ -414,23 +389,22 @@ private fun TotalAndPlaceOrderButtonHolder(
                         Toast.makeText(
                             context,
                             "Something went wrong on deletion",
-                            Toast.LENGTH_SHORT
+                            Toast.LENGTH_SHORT,
                         ).show()
-                    })
+                    },
+                )
             },
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(5.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
 
         ) {
-
             Text(
                 text = "Place Order",
                 fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                color = MaterialTheme.colorScheme.surface
+                color = MaterialTheme.colorScheme.surface,
             )
-
         }
     }
 }
@@ -440,9 +414,8 @@ fun OrderSummaryContent(
     carts: Carts,
     onSuccess: (String) -> Unit,
     onError: (String) -> Unit,
-    cartViewModel: CartViewModel
+    cartViewModel: CartViewModel,
 ) {
-
     val cartLoadCount = remember { mutableIntStateOf(0) }
     when (carts) {
         RequestState.Loading -> {
@@ -450,7 +423,7 @@ fun OrderSummaryContent(
                 ShimmerListItem(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(10.dp)
+                        .padding(10.dp),
                 )
             }
         }
@@ -463,7 +436,7 @@ fun OrderSummaryContent(
                         cartViewModel.deleteCartById(
                             id = cartItems.id,
                             onSuccess = onSuccess,
-                            onError = onError
+                            onError = onError,
                         )
                     },
                     icon = {
@@ -471,27 +444,25 @@ fun OrderSummaryContent(
                             modifier = Modifier.padding(16.dp),
                             imageVector = Icons.Outlined.Delete,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.surface
+                            tint = MaterialTheme.colorScheme.surface,
                         )
                     },
-                    background = md_theme_light_delete_swipe
+                    background = md_theme_light_delete_swipe,
                 )
                 SwipeableActionsBox(
                     swipeThreshold = 200.dp,
-                    endActions = listOf(swipeDelete)
+                    endActions = listOf(swipeDelete),
                 ) {
                     CartCardItems(cartItems = cartItems, onClickUpdate = { updateCart: Cart ->
                         cartViewModel.updateCartById(
                             id = cartItems.id,
                             cart = updateCart,
                             onSuccess = onSuccess,
-                            onError = onError
+                            onError = onError,
                         )
                     })
-
                 }
             }
-
         }
 
         is RequestState.Error -> {}

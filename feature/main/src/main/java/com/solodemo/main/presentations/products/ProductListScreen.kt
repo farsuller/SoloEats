@@ -17,24 +17,25 @@ fun ProductListScreen(
     categoryNameSelected: String,
     mainViewModel: MainViewModel,
     onSuccess: () -> Unit,
-    onError: (String) -> Unit
+    onError: (String) -> Unit,
 ) {
+    Scaffold(
+        modifier = Modifier
+            .background(MaterialTheme.colorScheme.surface)
+            .statusBarsPadding()
+            .navigationBarsPadding(),
+        topBar = {},
+        content = { paddingValues ->
 
-    Scaffold(modifier = Modifier
-        .background(MaterialTheme.colorScheme.surface)
-        .statusBarsPadding()
-        .navigationBarsPadding(), topBar = {}, content = { paddingValues ->
-
-        ProductListContent(
-            foodList = foodList,
-            paddingValues = paddingValues,
-            categoryNameSelected = categoryNameSelected,
-            onBackPressClicked = onBackPressClicked,
-            mainViewModel = mainViewModel,
-            onSuccess = onSuccess,
-            onError = onError)
-
-    })
-
+            ProductListContent(
+                foodList = foodList,
+                paddingValues = paddingValues,
+                categoryNameSelected = categoryNameSelected,
+                onBackPressClicked = onBackPressClicked,
+                mainViewModel = mainViewModel,
+                onSuccess = onSuccess,
+                onError = onError,
+            )
+        },
+    )
 }
-

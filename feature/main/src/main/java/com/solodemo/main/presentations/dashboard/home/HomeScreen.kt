@@ -17,9 +17,8 @@ internal fun HomeScreen(
     foodList: List<FoodCategory>,
     homeLazyListState: LazyListState,
     navigateToProductList: (String) -> Unit,
-    popularAddToCartClicked:(Cart)->Unit
+    popularAddToCartClicked: (Cart) -> Unit,
 ) {
-
     MainBackground()
 
     HomeContent(
@@ -29,7 +28,6 @@ internal fun HomeScreen(
         homeLazyListState = homeLazyListState,
         navigateToProductList = navigateToProductList,
         reviews = reviews,
-        popularAddToCartClicked = popularAddToCartClicked
+        popularAddToCartClicked = popularAddToCartClicked,
     )
-
 }

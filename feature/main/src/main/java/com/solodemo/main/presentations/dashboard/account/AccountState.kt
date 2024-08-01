@@ -6,7 +6,7 @@ data class AccountState(
     val name: String = DEFAULT_TEXT,
     val email: String = DEFAULT_TEXT,
     val profile: String = "",
-    val isEmailVerified : Boolean = false,
+    val isEmailVerified: Boolean = false,
     val mobileNumber: String = DEFAULT_TEXT,
     val address: String = DEFAULT_TEXT,
 

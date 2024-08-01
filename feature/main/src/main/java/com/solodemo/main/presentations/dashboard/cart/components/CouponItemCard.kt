@@ -1,6 +1,5 @@
 package com.solodemo.main.presentations.dashboard.cart.components
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -27,7 +26,6 @@ import com.solo.ui.Elevation
 import com.solo.util.clickableWithoutRipple
 import com.solodemo.main.model.Coupons
 
-
 @Composable
 fun CouponItemCard(coupons: Coupons, isSelected: Boolean, onItemClick: () -> Unit) {
     Card(
@@ -36,17 +34,17 @@ fun CouponItemCard(coupons: Coupons, isSelected: Boolean, onItemClick: () -> Uni
             .padding(8.dp)
             .clickableWithoutRipple(
                 interactionSource = MutableInteractionSource(),
-                onClick = { onItemClick.invoke() }
+                onClick = { onItemClick.invoke() },
             ),
         shape = TicketShape(),
-        elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level2)
+        elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level2),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
                 .background(if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface),
             horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             if (coupons.imagePath.isNotEmpty()) {
                 AsyncImage(
@@ -67,7 +65,7 @@ fun CouponItemCard(coupons: Coupons, isSelected: Boolean, onItemClick: () -> Uni
                     fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
                     fontSize = MaterialTheme.typography.titleSmall.fontSize,
                     lineHeight = 14.sp,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
                 Text(
                     modifier = Modifier.fillMaxWidth(),
@@ -75,10 +73,9 @@ fun CouponItemCard(coupons: Coupons, isSelected: Boolean, onItemClick: () -> Uni
                     fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     lineHeight = 14.sp,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
-
         }
     }
 }

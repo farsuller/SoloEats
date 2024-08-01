@@ -12,10 +12,10 @@ class DiamondShape : Shape {
     override fun createOutline(
         size: Size,
         layoutDirection: LayoutDirection,
-        density: Density
+        density: Density,
     ): Outline {
         return Outline.Generic(
-            path = drawDiamondPath(size)
+            path = drawDiamondPath(size),
         )
     }
 }

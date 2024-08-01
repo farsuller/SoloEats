@@ -11,13 +11,12 @@ import androidx.compose.ui.Modifier
 import com.solo.components.component.GenericBackTopBar
 import com.solodemo.auth.presenations.AuthViewModel
 
-
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 internal fun SignUpScreen(
-    onBackPressClicked : () -> Unit,
-    authViewModel : AuthViewModel
-){
+    onBackPressClicked: () -> Unit,
+    authViewModel: AuthViewModel,
+) {
     Scaffold(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.surface)
@@ -26,12 +25,11 @@ internal fun SignUpScreen(
         topBar = {
             GenericBackTopBar(onBackButton = { onBackPressClicked() })
         },
-       content = {
-           SignUpContent(
-               authViewModel = authViewModel,
-               onHighlightTextClicked = onBackPressClicked
-           )
-       }
+        content = {
+            SignUpContent(
+                authViewModel = authViewModel,
+                onHighlightTextClicked = onBackPressClicked,
+            )
+        },
     )
-
 }

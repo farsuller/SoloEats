@@ -14,12 +14,12 @@ import dagger.hilt.android.components.ViewModelComponent
 object ViewModelModule {
 
     @Provides
-    fun provideMainViewModule(supaBaseRepository: SupabaseRepositoryImpl, application: Application) : MainViewModel {
+    fun provideMainViewModule(supaBaseRepository: SupabaseRepositoryImpl, application: Application): MainViewModel {
         return MainViewModel(supaBaseRepository, application)
     }
 
     @Provides
-    fun provideCartViewModule(supaBaseRepository: SupabaseRepositoryImpl, application: Application) : CartViewModel {
+    fun provideCartViewModule(supaBaseRepository: SupabaseRepositoryImpl, application: Application): CartViewModel {
         return CartViewModel(supaBaseRepository, application)
     }
 }

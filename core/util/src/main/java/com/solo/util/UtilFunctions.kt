@@ -24,7 +24,7 @@ val NavHostController.canBackStack: Boolean
 
 fun getJsonDataFromAsset(
     context: Context,
-    fileName: String
+    fileName: String,
 ): String? {
     val jsonString: String
     try {
@@ -38,20 +38,21 @@ fun getJsonDataFromAsset(
 
     return jsonString
 }
+
 @SuppressLint("UnnecessaryComposedModifier")
 fun Modifier.clickableWithoutRipple(
     interactionSource: MutableInteractionSource,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) = composed(
     factory = {
         this.then(
             Modifier.clickable(
                 interactionSource = interactionSource,
                 indication = null,
-                onClick = { onClick() }
-            )
+                onClick = { onClick() },
+            ),
         )
-    }
+    },
 )
 
 fun getAppVersion(context: Context): String {
@@ -70,7 +71,7 @@ fun getAppVersion(context: Context): String {
 val provider = GoogleFont.Provider(
     providerAuthority = "com.google.android.gms.fonts",
     providerPackage = "com.google.android.gms",
-    certificates = R.array.com_google_android_gms_fonts_certs
+    certificates = R.array.com_google_android_gms_fonts_certs,
 )
 
 fun isValidEmail(email: String): Boolean {
@@ -83,12 +84,11 @@ fun formatToCurrency(value: Double): String {
     return currencyFormat.format(value)
 }
 
-
 fun sendEmail(
     toEmail: String,
     subject: String,
     message: String,
-    context: Context
+    context: Context,
 ) {
     val intent = Intent(Intent.ACTION_SENDTO).apply {
         data = Uri.parse("mailto:$toEmail")

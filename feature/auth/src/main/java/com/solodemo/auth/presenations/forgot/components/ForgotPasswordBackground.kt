@@ -19,41 +19,7 @@ import com.solo.components.component.BoxWithSmallCircles
 
 @Composable
 fun ForgotPasswordBackground() {
-
-
-//Top Left Corner
-//    Box(modifier = Modifier.offset(x = (-80).dp, y = 100.dp)) {
-//
-//        Box(
-//            modifier = Modifier
-//                .size(170.dp)
-//                .offset(x = 0.dp, y = 0.dp)
-//                .clip(CircleShape)
-//                .background(MaterialTheme.colorScheme.onTertiary)
-//        )
-//        Box(
-//            modifier = Modifier
-//                .size(120.dp)
-//                .rotate(15F)
-//                .offset(x = 0.dp, y = 0.dp)
-//                .clip(RoundedCornerShape(15))
-//                .background(MaterialTheme.colorScheme.secondary)
-//        ) {
-//            Box(
-//                modifier = Modifier
-//                    .offset(x = 25.dp, y = 25.dp)
-//                    .paint(painter = painterResource(id = R.drawable.zigzag_line)),
-//
-//                )
-//        }
-//    }
-
-
-
-
-
-
-    //Left Hexagon Header
+    // Left Hexagon Header
     BoxWithSmallCircles(
         modifier = Modifier
             .size(60.dp)
@@ -61,9 +27,8 @@ fun ForgotPasswordBackground() {
         circleSize = 7.dp,
         circleColor = MaterialTheme.colorScheme.primary,
         circleCount = 2,
-        circleCount2 = 3
+        circleCount2 = 3,
     )
-
 
     Icon(
         modifier = Modifier
@@ -71,7 +36,7 @@ fun ForgotPasswordBackground() {
             .offset(x = 140.dp, y = 360.dp),
         painter = painterResource(id = R.drawable.zigzag_line),
         tint = MaterialTheme.colorScheme.secondary,
-        contentDescription = null
+        contentDescription = null,
     )
 
     Icon(
@@ -80,19 +45,17 @@ fun ForgotPasswordBackground() {
             .offset(x = 25.dp, y = 260.dp),
         painter = painterResource(id = R.drawable.zigzag_line),
         tint = MaterialTheme.colorScheme.primary,
-        contentDescription = null
+        contentDescription = null,
     )
 
-
-
-    //Bottom Right Corner
+    // Bottom Right Corner
     Box(
         modifier = Modifier
             .size(200.dp)
             .rotate(30F)
             .offset(x = 600.dp, y = 600.dp)
             .clip(RoundedCornerShape(15))
-            .background(MaterialTheme.colorScheme.onTertiary)
+            .background(MaterialTheme.colorScheme.onTertiary),
     )
 
     BoxWithSmallCircles(
@@ -102,7 +65,7 @@ fun ForgotPasswordBackground() {
         circleSize = 6.dp,
         circleColor = MaterialTheme.colorScheme.secondary,
         circleCount = 2,
-        circleCount2 = 1
+        circleCount2 = 1,
     )
 
     Icon(
@@ -111,10 +74,10 @@ fun ForgotPasswordBackground() {
             .offset(x = 245.dp, y = 805.dp),
         painter = painterResource(id = R.drawable.zigzag_line),
         tint = MaterialTheme.colorScheme.primary,
-        contentDescription = null
+        contentDescription = null,
     )
 
-    //Bottom Right Corner
+    // Bottom Right Corner
     Box(modifier = Modifier.offset(x = 400.dp, y = 50.dp)) {
         Box(
             modifier = Modifier
@@ -122,7 +85,7 @@ fun ForgotPasswordBackground() {
                 .rotate(30F)
                 .offset(x = (-125).dp, y = 50.dp)
                 .clip(RoundedCornerShape(15))
-                .background(MaterialTheme.colorScheme.onTertiary)
+                .background(MaterialTheme.colorScheme.onTertiary),
         )
 
         Box(
@@ -131,7 +94,7 @@ fun ForgotPasswordBackground() {
                 .rotate(15F)
                 .offset(x = (-75).dp, y = (-5).dp)
                 .clip(RoundedCornerShape(15))
-                .background(MaterialTheme.colorScheme.secondary)
+                .background(MaterialTheme.colorScheme.secondary),
         )
 
         Box(
@@ -139,11 +102,11 @@ fun ForgotPasswordBackground() {
                 .size(100.dp)
                 .offset(x = (-30).dp, y = 0.dp)
                 .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.primary)
+                .background(MaterialTheme.colorScheme.primary),
         )
     }
 
-    //Top Right Corner
+    // Top Right Corner
     BoxWithSmallCircles(
         modifier = Modifier
             .size(60.dp)
@@ -151,7 +114,6 @@ fun ForgotPasswordBackground() {
         circleSize = 7.dp,
         circleColor = MaterialTheme.colorScheme.secondary,
         circleCount = 2,
-        circleCount2 = 1
+        circleCount2 = 1,
     )
-
 }

@@ -12,10 +12,10 @@ class HeartShape : Shape {
     override fun createOutline(
         size: Size,
         layoutDirection: LayoutDirection,
-        density: Density
+        density: Density,
     ): Outline {
         return Outline.Generic(
-            path = drawHeartPath(size)
+            path = drawHeartPath(size),
         )
     }
 }
@@ -30,30 +30,42 @@ private fun drawHeartPath(size: Size): Path {
 
         // Upper left path
         cubicTo(
-            x1 = 5 * width / 14, y1 = 0f,
-            x2 = 0f, y2 = height / 15,
-            x3 = width / 28, y3 = 2 * height / 5
+            x1 = 5 * width / 14,
+            y1 = 0f,
+            x2 = 0f,
+            y2 = height / 15,
+            x3 = width / 28,
+            y3 = 2 * height / 5,
         )
 
         // Lower left path
         cubicTo(
-            x1 = width / 14, y1 = 2 * height / 3,
-            x2 = 3 * width / 7, y2 = 5 * height / 6,
-            x3 = width / 2, y3 = height
+            x1 = width / 14,
+            y1 = 2 * height / 3,
+            x2 = 3 * width / 7,
+            y2 = 5 * height / 6,
+            x3 = width / 2,
+            y3 = height,
         )
 
         // Lower right path
         cubicTo(
-            x1 = 4 * width / 7, y1 = 5 * height / 6,
-            x2 = 13 * width / 14, y2 = 2 * height / 3,
-            x3 = 27 * width / 28, y3 = 2 * height / 5
+            x1 = 4 * width / 7,
+            y1 = 5 * height / 6,
+            x2 = 13 * width / 14,
+            y2 = 2 * height / 3,
+            x3 = 27 * width / 28,
+            y3 = 2 * height / 5,
         )
 
         // Upper right path
         cubicTo(
-            x1 = width, y1 = height / 15,
-            x2 = 9 * width / 14, y2 = 0f,
-            x3 = width / 2, y3 = height / 5
+            x1 = width,
+            y1 = height / 15,
+            x2 = 9 * width / 14,
+            y2 = 0f,
+            x3 = width / 2,
+            y3 = height / 5,
         )
 
         close()

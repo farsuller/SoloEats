@@ -13,7 +13,10 @@ import dagger.hilt.android.components.ViewModelComponent
 object ViewModelModule {
 
     @Provides
-    fun provideAuthViewModule(supaBaseRepository: SupabaseRepositoryImpl, application: Application) : AuthViewModel {
+    fun provideAuthViewModule(
+        supaBaseRepository: SupabaseRepositoryImpl,
+        application: Application,
+    ): AuthViewModel {
         return AuthViewModel(supaBaseRepository, application)
     }
 }

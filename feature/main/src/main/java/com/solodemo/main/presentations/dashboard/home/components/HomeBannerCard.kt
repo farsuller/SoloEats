@@ -33,7 +33,7 @@ fun HomeBannerCard(
     description: String = "",
     color: Color,
     imagePath: String,
-    isInverted: Boolean = false
+    isInverted: Boolean = false,
 ) {
     ElevatedCard(
         modifier = modifier.size(width = 300.dp, height = 160.dp),
@@ -41,26 +41,24 @@ fun HomeBannerCard(
             topStart = 42.dp,
             topEnd = 6.dp,
             bottomStart = 6.dp,
-            bottomEnd = 42.dp
+            bottomEnd = 42.dp,
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level5),
-        colors = CardDefaults.cardColors(containerColor = color)
+        colors = CardDefaults.cardColors(containerColor = color),
     ) {
-
         Row(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(10.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
+            horizontalArrangement = Arrangement.Start,
         ) {
-
             if (isInverted) {
                 BannerImage(
                     modifier = Modifier
                         .weight(0.5F)
                         .fillMaxSize(),
-                    imagePath = imagePath
+                    imagePath = imagePath,
                 )
                 BannerText(
                     modifier = Modifier
@@ -68,10 +66,9 @@ fun HomeBannerCard(
                         .fillMaxSize()
                         .padding(10.dp),
                     title = title,
-                    description = description
+                    description = description,
                 )
             } else {
-
                 BannerText(
                     modifier = Modifier
                         .weight(0.5F)
@@ -80,18 +77,16 @@ fun HomeBannerCard(
                     title = title,
                     description = description,
                     alignment = Alignment.Start,
-                    textAlign = TextAlign.Start
+                    textAlign = TextAlign.Start,
                 )
 
                 BannerImage(
                     modifier = Modifier
                         .weight(0.5F)
                         .fillMaxSize(),
-                    imagePath = imagePath
+                    imagePath = imagePath,
                 )
             }
-
-
         }
     }
 }
@@ -105,22 +100,23 @@ fun BannerImage(modifier: Modifier, imagePath: String) {
             .crossfade(true).build(),
         contentDescription = "Banner Image",
         contentScale = ContentScale.Crop,
-        alignment = Alignment.Center
+        alignment = Alignment.Center,
     )
 }
 
 @Composable
-fun BannerText(modifier: Modifier,
-               title: String,
-               description: String,
-               alignment: Alignment.Horizontal = Alignment.End,
-               textAlign: TextAlign = TextAlign.End) {
+fun BannerText(
+    modifier: Modifier,
+    title: String,
+    description: String,
+    alignment: Alignment.Horizontal = Alignment.End,
+    textAlign: TextAlign = TextAlign.End,
+) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = alignment
+        horizontalAlignment = alignment,
     ) {
-
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = title,
@@ -147,6 +143,6 @@ internal fun HomeBannerCardPreview() {
         title = "Title",
         description = "Indulge in the perfect harmony of flavors with our artisanal pizzas.",
         color = MaterialTheme.colorScheme.primary,
-        imagePath = ""
+        imagePath = "",
     )
 }

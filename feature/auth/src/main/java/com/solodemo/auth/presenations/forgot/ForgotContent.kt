@@ -43,7 +43,7 @@ import com.solodemo.auth.presenations.forgot.components.ForgotPasswordBackground
 @Composable
 internal fun ForgotContent(
     onSubmitClicked: () -> Unit,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
 ) {
     val focusManager = LocalFocusManager.current
     var email by remember { mutableStateOf("") }
@@ -52,96 +52,101 @@ internal fun ForgotContent(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.onPrimary)
+            .background(color = MaterialTheme.colorScheme.onPrimary),
     ) {
-
         ForgotPasswordBackground()
 
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = paddingValues.calculateTopPadding() + 20.dp, start = 20.dp, end = 20.dp),
-            horizontalAlignment = Alignment.Start) {
-
-            Row (modifier = Modifier.fillMaxWidth()) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    top = paddingValues.calculateTopPadding() + 20.dp,
+                    start = 20.dp,
+                    end = 20.dp,
+                ),
+            horizontalAlignment = Alignment.Start,
+        ) {
+            Row(modifier = Modifier.fillMaxWidth()) {
                 Image(
                     modifier = Modifier.size(30.dp),
                     painter = painterResource(id = R.drawable.soloeats_logo),
-                    contentDescription = "App Logo")
+                    contentDescription = "App Logo",
+                )
 
-                Text(modifier = Modifier.padding(horizontal = 10.dp),
+                Text(
+                    modifier = Modifier.padding(horizontal = 10.dp),
                     text = "Forgot Password?",
                     fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
                     fontSize = MaterialTheme.typography.titleLarge.fontSize,
                     color = MaterialTheme.colorScheme.secondary,
                 )
             }
-            Text(modifier = Modifier.padding(top = 10.dp),
+            Text(
+                modifier = Modifier.padding(top = 10.dp),
                 text = "No worries! Reset your password in seconds.\nEnter your email, and we'll guide you back into your account.",
                 fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 color = MaterialTheme.colorScheme.secondary,
             )
 
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                OutlinedTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp),
+                    value = email,
+                    onValueChange = {
+                        email = it
+                        isEmailValid = isValidEmail(it)
+                    },
+                    label = { Text("Email") },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+                    ),
+                    isError = !isEmailValid,
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Email,
+                        imeAction = ImeAction.Next,
+                    ),
+                    keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+                )
+
+                Button(
+                    onClick = { onSubmitClicked() },
+                    enabled = isEmailValid,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp)
+                        .padding(bottom = 10.dp),
+                    shape = RoundedCornerShape(5.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
+
                 ) {
-
-
-                    OutlinedTextField(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 8.dp),
-                        value = email,
-                        onValueChange = {
-                            email = it
-                            isEmailValid = isValidEmail(it)
-
-                        },
-                        label = { Text("Email") },
-                        colors = OutlinedTextFieldDefaults.colors(
-                            unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
-                        ),
-                        isError = !isEmailValid,
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions.Default.copy(
-                            keyboardType = KeyboardType.Email,
-                            imeAction = ImeAction.Next
-                        ),
-                        keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
+                    Text(
+                        text = "Submit",
+                        fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                        color = MaterialTheme.colorScheme.surface,
                     )
-
-
-                    Button(
-                        onClick = { onSubmitClicked() },
-                        enabled = isEmailValid,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 10.dp)
-                            .padding(bottom = 10.dp),
-                        shape = RoundedCornerShape(5.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
-
-                    ) {
-                        Text(
-                            text = "Submit",
-                            fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
-                            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                            color = MaterialTheme.colorScheme.surface
-                        )
-                    }
-
                 }
+            }
         }
 
-        Box(modifier = Modifier
-            .rotate(10F)
-            .offset(x = 140.dp, y = 550.dp)) {
+        Box(
+            modifier = Modifier
+                .rotate(10F)
+                .offset(x = 140.dp, y = 550.dp),
+        ) {
             BottomHeader(
                 borderColor = MaterialTheme.colorScheme.primary,
                 imageFile = Constants.StaticImages.food2,
-                alignment = Alignment.Start)
+                alignment = Alignment.Start,
+            )
         }
     }
 }

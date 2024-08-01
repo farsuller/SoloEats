@@ -16,7 +16,6 @@ import com.solodemo.supabase.domain.repository.Carts
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reviews
 
-
 @Composable
 fun MainContent(
     paddingValues: PaddingValues,
@@ -29,7 +28,7 @@ fun MainContent(
     navigateToAuth: () -> Unit,
     homeLazyListState: LazyListState,
     navigateToProductList: (String) -> Unit,
-    navigateToPlaceOrderSuccess: () -> Unit
+    navigateToPlaceOrderSuccess: () -> Unit,
 ) {
     NavHost(
         navController = navController,
@@ -42,26 +41,24 @@ fun MainContent(
             foodList = foodList,
             homeLazyListState = homeLazyListState,
             viewModel = viewModel,
-            navigateToProductList = navigateToProductList
+            navigateToProductList = navigateToProductList,
         )
         menuRoute(
             paddingValues = paddingValues,
             menus = menus,
-            navigateToProductList = navigateToProductList
+            navigateToProductList = navigateToProductList,
         )
         paymentRoute(paddingValues = paddingValues)
         cartRoute(
             paddingValues = paddingValues,
             carts = carts,
             viewModel = viewModel,
-            navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess)
+            navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess,
+        )
         accountRoute(
             paddingValues = paddingValues,
             viewModel = viewModel,
-            navigateToAuth = navigateToAuth
+            navigateToAuth = navigateToAuth,
         )
     }
-
-
 }
-

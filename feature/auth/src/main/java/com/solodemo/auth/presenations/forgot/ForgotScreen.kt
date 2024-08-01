@@ -13,7 +13,8 @@ import com.solo.components.component.GenericBackTopBar
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 internal fun ForgotScreen(
-    onButtonClicked : () -> Unit){
+    onButtonClicked: () -> Unit,
+) {
     Scaffold(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.surface)
@@ -22,12 +23,11 @@ internal fun ForgotScreen(
         topBar = {
             GenericBackTopBar(onBackButton = { onButtonClicked() })
         },
-       content = {
-           ForgotContent(
-               onSubmitClicked = onButtonClicked,
-               paddingValues = it
-           )
-       }
+        content = {
+            ForgotContent(
+                onSubmitClicked = onButtonClicked,
+                paddingValues = it,
+            )
+        },
     )
-
 }

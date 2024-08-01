@@ -16,14 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
-import com.solo.solodemo.navigation.SetupNavGraph
-import com.solo.ui.theme.SoloDemoTheme
 import com.solo.components.routes.ScreensRoutes
 import com.solo.components.state.RequestState
+import com.solo.solodemo.navigation.SetupNavGraph
+import com.solo.ui.theme.SoloDemoTheme
 import com.solodemo.auth.presenations.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -37,15 +36,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             SoloDemoTheme(
                 darkTheme = false,
-                dynamicColor = false) {
+                dynamicColor = false,
+            ) {
                 val navController = rememberNavController()
                 var getStartDestination by remember { mutableStateOf<String?>(null) }
 
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.background,
                 ) {
-                    LaunchedEffect(key1 = authViewModel){
+                    LaunchedEffect(key1 = authViewModel) {
                         authViewModel.isUserLoggedIn()
 
                         authViewModel.uiState.collectLatest { data ->
@@ -56,7 +56,6 @@ class MainActivity : ComponentActivity() {
                                 else -> {}
                             }
                         }
-
                     }
                     getStartDestination?.let { startDestination ->
                         SetupNavGraph(
@@ -67,12 +66,8 @@ class MainActivity : ComponentActivity() {
                             },
                         )
                     }
-
                 }
             }
         }
     }
 }
-
-
-

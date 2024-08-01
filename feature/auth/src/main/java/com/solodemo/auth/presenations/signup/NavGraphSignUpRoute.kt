@@ -5,13 +5,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.solo.components.dialogs.DisplayAlertDialog
-import com.solo.components.state.RequestState
 import com.solo.components.routes.ScreensRoutes
+import com.solo.components.state.RequestState
 import com.solodemo.auth.presenations.AuthViewModel
 import kotlinx.coroutines.flow.collectLatest
 
@@ -28,26 +27,28 @@ fun NavGraphBuilder.signUpRoute(onBackPressClicked: () -> Unit) {
         }
 
         LaunchedEffect(key1 = authViewModel.uiState) {
-
-            authViewModel.uiState.collectLatest { data->
-                when(data){
+            authViewModel.uiState.collectLatest { data ->
+                when (data) {
                     RequestState.Loading -> {}
                     is RequestState.Success -> {
                         openDialog = true
                         authViewModel.setLoading(false)
                     }
+
                     is RequestState.Error -> {
                         openErrorDialog = true
                         authViewModel.setLoading(false)
                     }
-                    else ->{}
+
+                    else -> {}
                 }
             }
         }
 
         SignUpScreen(
             onBackPressClicked = onBackPressClicked,
-            authViewModel = authViewModel)
+            authViewModel = authViewModel,
+        )
 
         DisplayAlertDialog(
             title = "Sign Up Success",
@@ -56,7 +57,7 @@ fun NavGraphBuilder.signUpRoute(onBackPressClicked: () -> Unit) {
             onCloseDialog = { openDialog = false },
             onYesClicked = onBackPressClicked,
             positiveText = "Okay",
-            showNegativeButton = false
+            showNegativeButton = false,
         )
 
         DisplayAlertDialog(
@@ -66,7 +67,7 @@ fun NavGraphBuilder.signUpRoute(onBackPressClicked: () -> Unit) {
             onCloseDialog = { openErrorDialog = false },
             onYesClicked = {},
             positiveText = "Okay",
-            showNegativeButton = false
+            showNegativeButton = false,
         )
     }
 }
