@@ -1,8 +1,8 @@
 package com.solodemo.supabase.di
 
 import com.solo.components.Constants
-import com.solodemo.supabase.di.data.SupabaseDataSource
-import com.solodemo.supabase.di.repository.SupabaseRepositoryImpl
+import com.solodemo.supabase.data.remote.SupabaseDataSource
+import com.solodemo.supabase.data.repository.SupabaseRepositoryImpl
 import com.solodemo.supabase.domain.repository.SupabaseRepository
 import dagger.Module
 import dagger.Provides

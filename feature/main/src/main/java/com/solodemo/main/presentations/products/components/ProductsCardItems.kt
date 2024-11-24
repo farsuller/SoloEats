@@ -5,7 +5,6 @@ import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,21 +32,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import coil3.compose.SubcomposeAsyncImage
 import com.skydoves.orbital.Orbital
 import com.skydoves.orbital.animateBounds
 import com.skydoves.orbital.rememberMovableContentOf
 import com.solo.ui.Elevation
-import com.solo.util.clickableWithoutRipple
-import com.solo.util.formatToCurrency
+import com.solo.components.clickableWithoutRipple
+import com.solo.components.formatToCurrency
 import com.solodemo.main.components.RatingBar
 import com.solodemo.main.model.Food
 import com.solodemo.main.presentations.MainViewModel
-import com.solodemo.supabase.model.Cart
+import com.solodemo.supabase.domain.model.Cart
 
 @Composable
 fun ProductsCardItems(
@@ -86,7 +83,6 @@ fun ProductsCardItems(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickableWithoutRipple(
-                            interactionSource = MutableInteractionSource(),
                             onClick = { expanded = !expanded },
                         ),
                 ) {
@@ -143,7 +139,7 @@ fun ProductsCardItems(
 
                     val showProductImage = rememberMovableContentOf {
                         Column(horizontalAlignment = Alignment.End) {
-                            AsyncImage(
+                            SubcomposeAsyncImage(
                                 modifier = Modifier
                                     .animateBounds(
                                         modifier = if (expanded) {
@@ -154,9 +150,7 @@ fun ProductsCardItems(
                                             100.dp,
                                         ),
                                     ),
-                                model = ImageRequest.Builder(LocalContext.current)
-                                    .data(foodList.foodImage)
-                                    .crossfade(true).build(),
+                                model = foodList.foodImage,
                                 contentDescription = "Food Image",
                             )
                             IconButton(

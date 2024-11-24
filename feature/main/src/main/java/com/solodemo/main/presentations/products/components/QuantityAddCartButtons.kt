@@ -28,7 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.solodemo.main.model.Food
-import com.solodemo.supabase.model.Cart
+import com.solodemo.supabase.domain.model.Cart
 
 @Composable
 fun QuantityAddCartButtons(foodList: Food, addToCartClicked: (Cart) -> Unit) {

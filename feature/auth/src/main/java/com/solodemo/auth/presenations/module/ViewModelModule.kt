@@ -2,7 +2,7 @@ package com.solodemo.auth.presenations.module
 
 import android.app.Application
 import com.solodemo.auth.presenations.AuthViewModel
-import com.solodemo.supabase.di.repository.SupabaseRepositoryImpl
+import com.solodemo.supabase.data.repository.SupabaseRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

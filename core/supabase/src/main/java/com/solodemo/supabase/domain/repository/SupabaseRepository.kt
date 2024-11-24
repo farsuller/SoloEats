@@ -1,9 +1,9 @@
 package com.solodemo.supabase.domain.repository
 
 import com.solo.components.state.RequestState
-import com.solodemo.supabase.model.Cart
-import com.solodemo.supabase.model.Menu
-import com.solodemo.supabase.model.Review
+import com.solodemo.supabase.domain.model.Cart
+import com.solodemo.supabase.domain.model.Menu
+import com.solodemo.supabase.domain.model.Review
 import com.solodemo.supabase.model.UserDetails
 import io.github.jan.supabase.SupabaseClient
 import kotlinx.coroutines.flow.Flow

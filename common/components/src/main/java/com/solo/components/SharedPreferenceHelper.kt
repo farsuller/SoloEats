@@ -1,4 +1,4 @@
-package com.solo.util
+package com.solo.components
 
 import android.content.Context
 

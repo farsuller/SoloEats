@@ -4,8 +4,13 @@ kotlin = "2.0.20"
 
 compose-bom = "2024.11.00"
 
-coil-compose = "2.5.0"
+coil = "3.0.2"
+coilNetworkOkhttp = "3.0.2"
+
 hilt = "2.50"
+hiltComposeNavigation = "1.2.0"
+
+
 googleServices = "4.4.2"
 devtoolKsp = "2.0.20-1.0.25"
 gson = "2.11.0"
@@ -45,7 +50,9 @@ compose-auth = "2.0.3"
 gotrue-kt = "2.0.3"
 postgrest-kt = "2.0.3"
 
-
+roomCompiler = "2.6.1"
+roomKtx = "2.6.1"
+roomRuntime = "2.6.1"
 
 espresso-core = "3.6.1"
 
@@ -53,8 +60,9 @@ junit = "4.13.2"
 
 spotless = "6.19.0"
 
-[libraries]
+crashlytics = "3.0.2"
 
+[libraries]
 androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
 androidx-compose-ui = { module = "androidx.compose.ui:ui"}
 androidx-compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics"}
@@ -80,7 +88,9 @@ androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", vers
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle-runtime-compose" }
-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil-compose" }
+
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilNetworkOkhttp" }
 
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
@@ -101,9 +111,15 @@ supabase-gotrue-kt = { module = "io.github.jan-tennert.supabase:gotrue-kt", vers
 junit = { module = "junit:junit", version.ref = "junit" }
 spotless = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotless" }
 
+androidx-hilt-compose-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltComposeNavigation" }
+
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
+
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -113,7 +129,24 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 devtool-ksp = { id = "com.google.devtools.ksp", version.ref = "devtoolKsp" }
 gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics"}
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 
 [bundles]
-bundle-hilt = ["hilt","hilt-compiler", "hilt-android-testing"]
+
+bundle-androidx-compose = [
+    "androidx-compose-ui",
+    "androidx-compose-ui-graphics",
+    "androidx-compose-ui-tooling",
+    "androidx-compose-ui-tooling-preview",
+]
+
+bundle-room = [
+    "androidx-room-ktx",
+    "androidx-room-runtime"
+]
+
+bundle-coil = [
+    "coil-compose",
+    "coil-network-okhttp"
+]

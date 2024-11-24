@@ -2,7 +2,6 @@ package com.solodemo.auth.presenations.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -43,8 +42,8 @@ import com.solo.components.R
 import com.solo.components.buttons.GoogleButton
 import com.solo.components.component.ClickableBottomText
 import com.solo.ui.WaterBrush
-import com.solo.util.clickableWithoutRipple
-import com.solo.util.isValidEmail
+import com.solo.components.clickableWithoutRipple
+import com.solo.components.isValidEmail
 import com.solodemo.auth.presenations.AuthViewModel
 import com.solodemo.auth.presenations.login.components.LoginBackground
 import com.solodemo.auth.presenations.login.components.LoginHeader
@@ -191,7 +190,6 @@ private fun LoginTextFields(
             Text(
                 modifier = Modifier
                     .clickableWithoutRipple(
-                        interactionSource = MutableInteractionSource(),
                         onClick = { onForgotButtonClicked() },
                     ),
                 text = "Forgot Password?",

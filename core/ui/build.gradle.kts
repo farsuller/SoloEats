@@ -44,5 +44,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation(projects.common.components)
-    implementation(projects.core.util)
+
 }

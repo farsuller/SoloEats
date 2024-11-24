@@ -7,7 +7,7 @@ import com.solodemo.main.components.MainBackground
 import com.solodemo.main.model.FoodCategory
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reviews
-import com.solodemo.supabase.model.Cart
+import com.solodemo.supabase.domain.model.Cart
 
 @Composable
 internal fun HomeScreen(

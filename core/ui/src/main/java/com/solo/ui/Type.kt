@@ -9,7 +9,7 @@ import androidx.compose.ui.text.googlefonts.Font
 import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.compose.ui.unit.sp
 import com.solo.components.R
-import com.solo.util.provider
+import com.solo.components.provider
 
 val waterBrush = GoogleFont("Caveat Brush")
 val roboto = GoogleFont("Roboto")

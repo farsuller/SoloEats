@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.gms.google.services)
     alias(libs.plugins.devtool.ksp)
-
+    alias (libs.plugins.firebase.crashlytics)
 }
 val keystoreProperties: Properties by lazy {
     val properties = Properties()
@@ -98,18 +98,26 @@ android {
 dependencies {
 
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.bundle.androidx.compose)
+
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
 
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     implementation (libs.navigation.compose)
-    implementation(libs.androidx.lifecycle.runtime.compose)
 
     implementation (libs.splash.api)
+
+    //Room
+    implementation (libs.bundles.bundle.room)
+    ksp (libs.androidx.room.compiler)
+
+    //Hilt
+    implementation(libs.androidx.hilt.compose.navigation)
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -120,12 +128,10 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-    implementation(libs.bundles.bundle.hilt)
 
     implementation(projects.feature.auth)
     implementation(projects.feature.main)
     implementation(projects.common.components)
     implementation(projects.core.ui)
-    implementation(projects.core.util)
     implementation(projects.core.supabase)
 }

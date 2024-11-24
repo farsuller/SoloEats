@@ -24,19 +24,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import coil3.compose.SubcomposeAsyncImage
 import com.solo.ui.Elevation
-import com.solo.util.formatToCurrency
+import com.solo.components.formatToCurrency
 import com.solodemo.main.components.RatingBar
 import com.solodemo.main.model.Featured
-import com.solodemo.supabase.model.Cart
+import com.solodemo.supabase.domain.model.Cart
 
 @Composable
 fun HomePopularCard(
@@ -66,11 +64,9 @@ fun HomePopularCard(
                 verticalAlignment = Alignment.Top,
                 horizontalArrangement = Arrangement.Start,
             ) {
-                AsyncImage(
+                SubcomposeAsyncImage(
                     modifier = Modifier.weight(1F),
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(foodImage)
-                        .crossfade(true).build(),
+                    model = foodImage,
                     contentDescription = "Banner Image",
                     contentScale = ContentScale.Fit,
                     alignment = Alignment.Center,

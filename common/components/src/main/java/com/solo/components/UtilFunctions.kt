@@ -1,6 +1,5 @@
-package com.solo.util
+package com.solo.components
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
@@ -8,8 +7,9 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.lifecycle.Lifecycle
@@ -39,21 +39,19 @@ fun getJsonDataFromAsset(
     return jsonString
 }
 
-@SuppressLint("UnnecessaryComposedModifier")
+@Composable
 fun Modifier.clickableWithoutRipple(
-    interactionSource: MutableInteractionSource,
     onClick: () -> Unit,
-) = composed(
-    factory = {
-        this.then(
-            Modifier.clickable(
-                interactionSource = interactionSource,
-                indication = null,
-                onClick = { onClick() },
-            ),
-        )
-    },
-)
+): Modifier {
+    val interactionSource = remember { MutableInteractionSource() }
+    return this.then(
+        Modifier.clickable(
+            interactionSource = interactionSource,
+            indication = null,
+            onClick = onClick,
+        ),
+    )
+}
 
 fun getAppVersion(context: Context): String {
     return try {

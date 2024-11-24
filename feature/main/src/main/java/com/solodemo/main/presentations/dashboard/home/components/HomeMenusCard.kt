@@ -2,7 +2,6 @@ package com.solodemo.main.presentations.dashboard.home.components
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,14 +19,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import coil3.compose.SubcomposeAsyncImage
 import com.solo.ui.Elevation
-import com.solo.util.clickableWithoutRipple
-import com.solodemo.supabase.model.Menu
+import com.solo.components.clickableWithoutRipple
+import com.solodemo.supabase.domain.model.Menu
 
 @SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
@@ -41,7 +38,6 @@ fun HomeMenusCard(
             .padding(horizontal = 5.dp)
             .size(100.dp)
             .clickableWithoutRipple(
-                interactionSource = MutableInteractionSource(),
                 onClick = { onClick() },
             ),
         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level4),
@@ -49,11 +45,9 @@ fun HomeMenusCard(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
     ) {
         Box(modifier = Modifier) {
-            AsyncImage(
+            SubcomposeAsyncImage(
                 modifier = Modifier.fillMaxWidth(),
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(menus[index].menuImage)
-                    .crossfade(true).build(),
+                model = menus[index].menuImage,
                 contentScale = ContentScale.Crop,
                 contentDescription = menus[index].menuName,
                 alignment = Alignment.TopCenter,

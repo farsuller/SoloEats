@@ -8,7 +8,6 @@ import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -39,18 +38,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import coil3.compose.SubcomposeAsyncImage
 import com.skydoves.orbital.Orbital
 import com.skydoves.orbital.animateBounds
 import com.skydoves.orbital.rememberMovableContentOf
-import com.solo.util.clickableWithoutRipple
-import com.solo.util.formatToCurrency
-import com.solodemo.supabase.model.Cart
+import com.solo.components.clickableWithoutRipple
+import com.solo.components.formatToCurrency
+import com.solodemo.supabase.domain.model.Cart
 
 @Composable
 fun CartCardItems(cartItems: Cart, onClickUpdate: (Cart) -> Unit) {
@@ -99,7 +96,6 @@ fun CartCardItems(cartItems: Cart, onClickUpdate: (Cart) -> Unit) {
                                     modifier = Modifier
                                         .weight(0.5F)
                                         .clickableWithoutRipple(
-                                            interactionSource = MutableInteractionSource(),
                                             onClick = { expanded = !expanded },
                                         ),
                                     text = "Edit",
@@ -139,16 +135,14 @@ fun CartCardItems(cartItems: Cart, onClickUpdate: (Cart) -> Unit) {
                 }
 
                 val showProductImage = rememberMovableContentOf {
-                    AsyncImage(
+                    SubcomposeAsyncImage(
                         modifier = Modifier
                             .animateBounds(
                                 modifier = if (expanded) {
                                     Modifier.size(100.dp)
                                 } else Modifier.size(50.dp),
                             ),
-                        model = ImageRequest.Builder(LocalContext.current)
-                            .data(cartItems.productImage)
-                            .crossfade(true).build(),
+                        model = cartItems.productImage,
                         contentDescription = "Food Image",
                     )
                 }

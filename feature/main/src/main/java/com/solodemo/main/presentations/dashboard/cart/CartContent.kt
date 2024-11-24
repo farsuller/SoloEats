@@ -3,7 +3,6 @@ package com.solodemo.main.presentations.dashboard.cart
 import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -52,13 +51,13 @@ import com.solo.components.contents.EmptyContent
 import com.solo.components.state.RequestState
 import com.solo.ui.Elevation
 import com.solo.ui.md_theme_light_delete_swipe
-import com.solo.util.clickableWithoutRipple
-import com.solo.util.formatToCurrency
+import com.solo.components.clickableWithoutRipple
+import com.solo.components.formatToCurrency
 import com.solodemo.main.model.Coupons
 import com.solodemo.main.presentations.dashboard.cart.components.CartCardItems
 import com.solodemo.main.presentations.dashboard.cart.components.CouponItemCard
 import com.solodemo.supabase.domain.repository.Carts
-import com.solodemo.supabase.model.Cart
+import com.solodemo.supabase.domain.model.Cart
 import kotlinx.coroutines.launch
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
@@ -145,7 +144,6 @@ internal fun CartContent(
                                 ) {
                                     Icon(
                                         modifier = Modifier.clickableWithoutRipple(
-                                            interactionSource = MutableInteractionSource(),
                                             onClick = { scope.launch { tooltipState.show() } },
                                         ),
                                         imageVector = Icons.Filled.Info,

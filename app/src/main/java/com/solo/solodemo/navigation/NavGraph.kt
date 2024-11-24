@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.solo.components.routes.ScreensRoutes
-import com.solo.util.canBackStack
+import com.solo.components.canBackStack
 import com.solodemo.auth.presenations.forgot.forgotRoute
 import com.solodemo.auth.presenations.login.loginRoute
 import com.solodemo.auth.presenations.signup.signUpRoute

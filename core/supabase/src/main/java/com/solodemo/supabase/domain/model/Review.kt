@@ -1,4 +1,4 @@
-package com.solodemo.supabase.model
+package com.solodemo.supabase.domain.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

@@ -44,8 +44,8 @@ import com.solodemo.main.presentations.dashboard.home.components.HomePopularCard
 import com.solodemo.main.presentations.dashboard.home.components.ReviewCards
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reviews
-import com.solodemo.supabase.model.Cart
-import com.solodemo.supabase.model.Menu
+import com.solodemo.supabase.domain.model.Cart
+import com.solodemo.supabase.domain.model.Menu
 
 @Composable
 internal fun HomeContent(

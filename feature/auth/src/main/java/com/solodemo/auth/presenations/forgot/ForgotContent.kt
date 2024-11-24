@@ -36,7 +36,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.solo.components.Constants
 import com.solo.components.R
-import com.solo.util.isValidEmail
+import com.solo.components.isValidEmail
 import com.solodemo.auth.presenations.forgot.components.BottomHeader
 import com.solodemo.auth.presenations.forgot.components.ForgotPasswordBackground
 

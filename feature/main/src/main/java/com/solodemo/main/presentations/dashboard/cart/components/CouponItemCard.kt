@@ -1,7 +1,6 @@
 package com.solodemo.main.presentations.dashboard.cart.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,10 +19,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
+import coil3.compose.SubcomposeAsyncImage
 import com.solo.components.shapes.TicketShape
 import com.solo.ui.Elevation
-import com.solo.util.clickableWithoutRipple
+import com.solo.components.clickableWithoutRipple
 import com.solodemo.main.model.Coupons
 
 @Composable
@@ -33,7 +32,6 @@ fun CouponItemCard(coupons: Coupons, isSelected: Boolean, onItemClick: () -> Uni
             .size(width = 230.dp, height = 110.dp)
             .padding(8.dp)
             .clickableWithoutRipple(
-                interactionSource = MutableInteractionSource(),
                 onClick = { onItemClick.invoke() },
             ),
         shape = TicketShape(),
@@ -47,7 +45,7 @@ fun CouponItemCard(coupons: Coupons, isSelected: Boolean, onItemClick: () -> Uni
             verticalAlignment = Alignment.CenterVertically,
         ) {
             if (coupons.imagePath.isNotEmpty()) {
-                AsyncImage(
+                SubcomposeAsyncImage(
                     model = coupons.imagePath,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,

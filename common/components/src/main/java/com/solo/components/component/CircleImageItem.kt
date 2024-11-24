@@ -11,10 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import coil3.compose.SubcomposeAsyncImage
 
 @Composable
 fun CircleImageItem(
@@ -29,13 +27,11 @@ fun CircleImageItem(
             .clip(CircleShape),
         contentAlignment = Alignment.Center,
     ) {
-        AsyncImage(
+        SubcomposeAsyncImage(
             modifier = Modifier
                 .size(300.dp)
                 .clip(shape = CircleShape),
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(imageFile)
-                .crossfade(true).build(),
+            model = imageFile,
             contentDescription = "Logo",
             contentScale = ContentScale.Crop,
         )

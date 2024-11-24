@@ -16,9 +16,9 @@ dependencyResolutionManagement {
 rootProject.name = "SoloEats"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
-include(":core:util")
 include(":feature:auth")
-include(":common:components")
 include(":feature:main")
+include(":common:components")
 include(":core:ui")
 include(":core:supabase")
+include(":core:database")

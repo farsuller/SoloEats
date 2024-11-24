@@ -1,6 +1,5 @@
 package com.solodemo.main.presentations.dashboard.menu
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,11 +23,11 @@ import androidx.compose.ui.unit.dp
 import com.solo.components.Constants
 import com.solo.components.loading.CircularLoadingIndicator
 import com.solo.components.state.RequestState
-import com.solo.util.clickableWithoutRipple
+import com.solo.components.clickableWithoutRipple
 import com.solodemo.main.components.MainHeaderCard
 import com.solodemo.main.presentations.dashboard.menu.components.MenuHexagonItem
 import com.solodemo.supabase.domain.repository.Menus
-import com.solodemo.supabase.model.Menu
+import com.solodemo.supabase.domain.model.Menu
 
 @Composable
 fun MenuContent(
@@ -98,7 +97,6 @@ fun ShowMenuCards(
                     .padding(top = topPadding)
                     .offset(x = startOffsetX)
                     .clickableWithoutRipple(
-                        interactionSource = MutableInteractionSource(),
                         onClick = {
                             navigateToProductList(filteredMenu[index].menuName!!)
                         },

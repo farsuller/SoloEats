@@ -1,7 +1,6 @@
 package com.solo.components.component
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -11,7 +10,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.solo.util.clickableWithoutRipple
+import com.solo.components.clickableWithoutRipple
 
 @SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
@@ -33,7 +32,6 @@ fun ClickableBottomText(modifier: Modifier = Modifier, onClick: () -> Unit, appe
         modifier = modifier
             .padding(top = 10.dp)
             .clickableWithoutRipple(
-                interactionSource = MutableInteractionSource(),
                 onClick = { onClick() },
             ),
         fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,

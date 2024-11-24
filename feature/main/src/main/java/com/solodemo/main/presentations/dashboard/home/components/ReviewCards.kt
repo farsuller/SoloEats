@@ -18,14 +18,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import coil3.compose.SubcomposeAsyncImage
 import com.solo.ui.Elevation
 import com.solodemo.main.components.RatingBar
-import com.solodemo.supabase.model.Review
+import com.solodemo.supabase.domain.model.Review
 
 @Composable
 fun ReviewCards(reviewsItem: Review) {
@@ -43,11 +41,9 @@ fun ReviewCards(reviewsItem: Review) {
                     .clip(CircleShape)
                     .size(50.dp),
             ) {
-                AsyncImage(
+                SubcomposeAsyncImage(
                     modifier = Modifier.fillMaxSize(),
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(reviewsItem.profileImage)
-                        .crossfade(true).build(),
+                    model = reviewsItem.profileImage,
                     contentDescription = reviewsItem.name,
                     contentScale = ContentScale.Crop,
                 )

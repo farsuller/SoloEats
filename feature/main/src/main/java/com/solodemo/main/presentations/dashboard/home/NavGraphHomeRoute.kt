@@ -11,7 +11,7 @@ import com.solodemo.main.model.FoodCategory
 import com.solodemo.main.presentations.MainViewModel
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reviews
-import com.solodemo.supabase.model.Cart
+import com.solodemo.supabase.domain.model.Cart
 
 fun NavGraphBuilder.homeRoute(
     paddingValues: PaddingValues,

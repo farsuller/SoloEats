@@ -2,9 +2,9 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.devtool.ksp)
     kotlin("plugin.serialization") version "1.9.21"
-    id("dagger.hilt.android.plugin")
-    kotlin("kapt")
 }
 
 android {
@@ -62,7 +62,10 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     debugImplementation(libs.androidx.ui.tooling)
 
-    implementation(libs.bundles.bundle.hilt)
+    //Hilt
+    implementation(libs.androidx.hilt.compose.navigation)
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
 
     implementation(libs.supabase.compose.auth)
     implementation(libs.supabase.postgrest.kt)
@@ -71,6 +74,5 @@ dependencies {
 
     implementation(projects.common.components)
     implementation(projects.core.ui)
-    implementation(projects.core.util)
     implementation(projects.core.supabase)
 }

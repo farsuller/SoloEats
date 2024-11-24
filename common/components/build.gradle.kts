@@ -50,6 +50,9 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
+    implementation (libs.navigation.compose)
+    implementation(libs.androidx.ui.text.google.fonts)
+
     implementation(libs.coil.compose)
 
     implementation(libs.appcompat)
@@ -57,5 +60,4 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation(projects.core.util)
 }

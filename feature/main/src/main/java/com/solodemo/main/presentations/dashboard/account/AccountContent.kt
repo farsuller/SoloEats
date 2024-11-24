@@ -4,7 +4,6 @@ import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,13 +32,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import coil3.compose.SubcomposeAsyncImage
 import com.solo.components.Constants
 import com.solo.components.R
-import com.solo.util.clickableWithoutRipple
-import com.solo.util.getAppVersion
-import com.solo.util.sendEmail
+import com.solo.components.clickableWithoutRipple
+import com.solo.components.getAppVersion
+import com.solo.components.sendEmail
 import com.solodemo.main.presentations.MainViewModel
 
 @Composable
@@ -73,11 +71,9 @@ internal fun AccountContent(
                         .clip(CircleShape),
                 ) {
                     if (accountState.profile.isNotEmpty()) {
-                        AsyncImage(
+                        SubcomposeAsyncImage(
                             modifier = Modifier.fillMaxSize(),
-                            model = ImageRequest.Builder(LocalContext.current)
-                                .data(accountState.profile)
-                                .crossfade(true).build(),
+                            model = accountState.profile,
                             contentDescription = accountState.name,
                             contentScale = ContentScale.Crop,
                         )
@@ -147,7 +143,6 @@ internal fun AccountContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickableWithoutRipple(
-                            interactionSource = MutableInteractionSource(),
                             onClick = {
                                 Toast
                                     .makeText(context, "Coming Soon", Toast.LENGTH_SHORT)
@@ -177,7 +172,6 @@ internal fun AccountContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickableWithoutRipple(
-                            interactionSource = MutableInteractionSource(),
                             onClick = {
                                 Toast
                                     .makeText(context, "Coming Soon", Toast.LENGTH_SHORT)
@@ -207,7 +201,6 @@ internal fun AccountContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickableWithoutRipple(
-                            interactionSource = MutableInteractionSource(),
                             onClick = {
                                 Toast
                                     .makeText(context, "Coming Soon", Toast.LENGTH_SHORT)
@@ -246,7 +239,6 @@ internal fun AccountContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clickableWithoutRipple(
-                            interactionSource = MutableInteractionSource(),
                             onClick = { onPrivacyPolicyClicked() },
                         ),
                 ) {
@@ -274,7 +266,6 @@ internal fun AccountContent(
                             modifier = Modifier
                                 .padding(top = 10.dp, bottom = 15.dp)
                                 .clickableWithoutRipple(
-                                    interactionSource = MutableInteractionSource(),
                                     onClick = {
                                         sendEmail(
                                             Constants.DEVELOPER_EMAIL,
@@ -340,17 +331,14 @@ internal fun AccountContent(
                 color = MaterialTheme.colorScheme.onSurface,
             )
 
-            AsyncImage(
+            SubcomposeAsyncImage(
                 modifier = Modifier
                     .padding(start = 40.dp, end = 40.dp)
                     .size(width = 140.dp, height = 40.dp)
                     .clickableWithoutRipple(
-                        interactionSource = MutableInteractionSource(),
                         onClick = { onSupabaseLogoClicked() },
                     ),
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(R.drawable.supabase_logo_light)
-                    .crossfade(true).build(),
+                model = R.drawable.supabase_logo_light,
                 contentDescription = accountState.name,
                 contentScale = ContentScale.Fit,
             )

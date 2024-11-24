@@ -5,9 +5,9 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.devtool.ksp)
     kotlin("plugin.serialization") version "1.9.21"
-    id("dagger.hilt.android.plugin")
-    kotlin("kapt")
 }
 
 val keystoreProperties: Properties by lazy {
@@ -34,24 +34,12 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
         jvmTarget = "17"
-    }
-    buildFeatures {
-        compose = true
     }
 }
 
@@ -67,7 +55,14 @@ dependencies {
     implementation(libs.ktor.client.cio)
     implementation(libs.kotlinx.serialization.json)
 
-    implementation(libs.bundles.bundle.hilt)
+    //Room
+    implementation (libs.bundles.bundle.room)
+    ksp (libs.androidx.room.compiler)
+
+    //Hilt
+    implementation(libs.androidx.hilt.compose.navigation)
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

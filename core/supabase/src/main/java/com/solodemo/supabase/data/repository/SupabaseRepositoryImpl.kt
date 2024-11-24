@@ -1,11 +1,11 @@
-package com.solodemo.supabase.di.repository
+package com.solodemo.supabase.data.repository
 
 import com.solo.components.state.RequestState
-import com.solodemo.supabase.di.data.SupabaseDataSource
+import com.solodemo.supabase.data.remote.SupabaseDataSource
 import com.solodemo.supabase.domain.repository.SupabaseRepository
-import com.solodemo.supabase.model.Cart
-import com.solodemo.supabase.model.Menu
-import com.solodemo.supabase.model.Review
+import com.solodemo.supabase.domain.model.Cart
+import com.solodemo.supabase.domain.model.Menu
+import com.solodemo.supabase.domain.model.Review
 import com.solodemo.supabase.model.UserDetails
 import io.github.jan.supabase.SupabaseClient
 import kotlinx.coroutines.flow.Flow

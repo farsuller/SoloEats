@@ -3,7 +3,7 @@ package com.solodemo.main.module
 import android.app.Application
 import com.solodemo.main.presentations.MainViewModel
 import com.solodemo.main.presentations.dashboard.cart.CartViewModel
-import com.solodemo.supabase.di.repository.SupabaseRepositoryImpl
+import com.solodemo.supabase.data.repository.SupabaseRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
