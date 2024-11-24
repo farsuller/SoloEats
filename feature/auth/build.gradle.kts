@@ -9,10 +9,10 @@ plugins {
 
 android {
     namespace = "com.solodemo.auth"
-    compileSdk = 34
+    compileSdk = ProjectConfig.COMPILE_SDK
 
     defaultConfig {
-        minSdk = 24
+        minSdk = ProjectConfig.MIN_SDK
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -28,21 +28,16 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
     }
 
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
 }
 
 dependencies {
@@ -67,15 +62,15 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     debugImplementation(libs.androidx.ui.tooling)
 
-    hilt()
+    implementation(libs.bundles.bundle.hilt)
 
     implementation(libs.supabase.compose.auth)
     implementation(libs.supabase.postgrest.kt)
     implementation(libs.ktor.client.cio)
     implementation(libs.kotlinx.serialization.json)
 
-    implementation(project(":common:components"))
-    implementation(project(":core:util"))
-    implementation(project(":core:ui"))
-    implementation(project(":core:supabase"))
+    implementation(projects.common.components)
+    implementation(projects.core.ui)
+    implementation(projects.core.util)
+    implementation(projects.core.supabase)
 }

@@ -6,9 +6,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.hilt)
-    id ("com.google.gms.google-services")
-    id("dagger.hilt.android.plugin")
-    kotlin("kapt")
+    alias(libs.plugins.gms.google.services)
+    alias(libs.plugins.devtool.ksp)
 
 }
 val keystoreProperties: Properties by lazy {
@@ -28,16 +27,27 @@ android {
     namespace = ProjectConfig.NAMESPACE
     compileSdk = ProjectConfig.COMPILE_SDK
 
+    val isGenerateBuild = ProjectConfig.GENERATE_LOCAL_ARCHIVE
+    val configVersionCode = ProjectConfig.VERSION_CODE
+    val configMajorVersion = ProjectConfig.MAJOR_VERSION
+    val configMinorVersion = ProjectConfig.MINOR_VERSION
+    val configPatchVersion = ProjectConfig.PATCH_VERSION
+    val appName = ProjectConfig.APP_FILENAME
+
     defaultConfig {
         applicationId = ProjectConfig.APPLICATION_ID
         minSdk = ProjectConfig.MIN_SDK
         targetSdk = ProjectConfig.TARGET_SDK
-        versionCode = ProjectConfig.VERSION_CODE
-        versionName = "${ProjectConfig.MAJOR_VERSION}.${ProjectConfig.MINOR_VERSION}.${ProjectConfig.PATCH_VERSION}"
+        versionCode = 10
+        versionName = "1.2.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
+        if (isGenerateBuild) {
+            versionCode = configVersionCode
+            versionName = "${configMajorVersion}.${configMinorVersion}.${configPatchVersion}"
+
+            applicationVariants.all {
+                base.archivesName.set("$appName-${buildType.name}-$versionCode-$versionName")
+            }
         }
     }
 
@@ -45,12 +55,14 @@ android {
         base.archivesName.set("${ProjectConfig.APP_FILENAME}-${buildType.name}-$versionCode-$versionName")
     }
 
-    signingConfigs {
-        register("release") {
-            storeFile = file("keystore/soloeats.jks")
-            storePassword = keystoreProperties["releaseStorePassword"].toString()
-            keyAlias = keystoreProperties["releaseKeyAlias"].toString()
-            keyPassword = keystoreProperties["releaseKeyPassword"].toString()
+    if(isGenerateBuild){
+        signingConfigs {
+            register("release") {
+                storeFile = file("keystore/soloeats.jks")
+                storePassword = keystoreProperties["releaseStorePassword"].toString()
+                keyAlias = keystoreProperties["releaseKeyAlias"].toString()
+                keyPassword = keystoreProperties["releaseKeyPassword"].toString()
+            }
         }
     }
 
@@ -63,8 +75,9 @@ android {
         }
 
         release {
-            signingConfig = signingConfigs.getByName("release")
+            if (isGenerateBuild) signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
+            isShrinkResources = true
             isDebuggable = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
@@ -80,11 +93,6 @@ android {
         compose = true
     }
 
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
 }
 
 dependencies {
@@ -112,12 +120,12 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-    hilt()
+    implementation(libs.bundles.bundle.hilt)
 
-    implementation(project(":feature:auth"))
-    implementation(project(":feature:main"))
-    implementation(project(":common:components"))
-    implementation(project(":core:ui"))
-    implementation(project(":core:util"))
-    implementation(project(":core:supabase"))
+    implementation(projects.feature.auth)
+    implementation(projects.feature.main)
+    implementation(projects.common.components)
+    implementation(projects.core.ui)
+    implementation(projects.core.util)
+    implementation(projects.core.supabase)
 }
