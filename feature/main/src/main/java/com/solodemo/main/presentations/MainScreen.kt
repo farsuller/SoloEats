@@ -36,8 +36,7 @@ internal fun MainScreen(
     navigateToProductList: (String) -> Unit,
     navigateToPlaceOrderSuccess: () -> Unit,
 ) {
-    val view = LocalView.current
-    val window = (view.context as Activity).window
+    val window = (LocalView.current.context as Activity).window
 
     val homeLazyListState by remember { mutableStateOf(LazyListState()) }
 
@@ -54,12 +53,13 @@ internal fun MainScreen(
         label = "Animate Status Bar",
     )
 
-    when (selectedTab) {
-        "Payment", "Cart" -> window.statusBarColor = MaterialTheme.colorScheme.surface.toArgb()
-        "Menus" -> window.statusBarColor = MaterialTheme.colorScheme.primary.toArgb()
-        "Account" -> window.statusBarColor = MaterialTheme.colorScheme.secondary.toArgb()
-        else -> window.statusBarColor = statusBarColor.toArgb()
+    val color = when (selectedTab) {
+        "Payment", "Cart" -> MaterialTheme.colorScheme.surface.toArgb()
+        "Menus" -> MaterialTheme.colorScheme.primary.toArgb()
+        "Account" -> MaterialTheme.colorScheme.secondary.toArgb()
+        else -> statusBarColor.toArgb()
     }
+    window.decorView.rootView.setBackgroundColor(color)
 
     Scaffold(
         topBar = {

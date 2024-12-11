@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.hilt)
     alias(libs.plugins.devtool.ksp)
-    kotlin("plugin.serialization") version "1.9.21"
+    alias(libs.plugins.kotlin.serialization)
 }
 
 val keystoreProperties: Properties by lazy {
@@ -48,7 +48,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.appcompat)
 
-    implementation (libs.gson)
+    implementation(libs.gson)
     implementation(libs.supabase.compose.auth)
     implementation(libs.supabase.gotrue.kt)
     implementation(libs.supabase.postgrest.kt)
@@ -56,8 +56,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     //Room
-    implementation (libs.bundles.bundle.room)
-    ksp (libs.androidx.room.compiler)
+    implementation(libs.bundles.bundle.room)
+    ksp(libs.androidx.room.compiler)
 
     //Hilt
     implementation(libs.androidx.hilt.compose.navigation)
@@ -68,5 +68,5 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation(projects.common.components)
+    implementation(projects.core.components)
 }

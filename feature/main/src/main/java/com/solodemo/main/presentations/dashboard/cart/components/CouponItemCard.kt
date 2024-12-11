@@ -20,9 +20,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.SubcomposeAsyncImage
-import com.solo.components.shapes.TicketShape
-import com.solo.ui.Elevation
+import com.solo.components.Elevation
 import com.solo.components.clickableWithoutRipple
+import com.solo.components.shapes.TicketShape
 import com.solodemo.main.model.Coupons
 
 @Composable

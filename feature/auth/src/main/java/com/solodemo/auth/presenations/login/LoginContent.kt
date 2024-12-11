@@ -39,10 +39,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.solo.components.R
+import com.solo.components.WaterBrush
 import com.solo.components.buttons.GoogleButton
-import com.solo.components.component.ClickableBottomText
-import com.solo.ui.WaterBrush
 import com.solo.components.clickableWithoutRipple
+import com.solo.components.component.ClickableBottomText
 import com.solo.components.isValidEmail
 import com.solodemo.auth.presenations.AuthViewModel
 import com.solodemo.auth.presenations.login.components.LoginBackground

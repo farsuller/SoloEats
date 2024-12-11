@@ -10,12 +10,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.solo.components.Constants
-import com.solo.components.state.RequestState
-import com.solo.components.SharedPreferenceHelper
 import com.solo.components.generateRandomDigits
+import com.solo.components.state.RequestState
+import com.solodemo.database.SharedPreferenceHelper
 import com.solodemo.main.presentations.dashboard.account.AccountState
-import com.solodemo.supabase.domain.repository.SupabaseRepository
 import com.solodemo.supabase.domain.model.Cart
+import com.solodemo.supabase.domain.repository.SupabaseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest

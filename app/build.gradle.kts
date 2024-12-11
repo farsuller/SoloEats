@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.gms.google.services)
     alias(libs.plugins.devtool.ksp)
-    alias (libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.firebase.crashlytics)
 }
 val keystoreProperties: Properties by lazy {
     val properties = Properties()
@@ -55,7 +55,7 @@ android {
         base.archivesName.set("${ProjectConfig.APP_FILENAME}-${buildType.name}-$versionCode-$versionName")
     }
 
-    if(isGenerateBuild){
+    if (isGenerateBuild) {
         signingConfigs {
             register("release") {
                 storeFile = file("keystore/soloeats.jks")
@@ -79,7 +79,10 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             isDebuggable = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -106,13 +109,13 @@ dependencies {
     implementation(libs.androidx.activity.compose)
 
     implementation(libs.androidx.compose.material3)
-    implementation (libs.navigation.compose)
+    implementation(libs.navigation.compose)
 
-    implementation (libs.splash.api)
+    implementation(libs.splash.api)
 
     //Room
-    implementation (libs.bundles.bundle.room)
-    ksp (libs.androidx.room.compiler)
+    implementation(libs.bundles.bundle.room)
+    ksp(libs.androidx.room.compiler)
 
     //Hilt
     implementation(libs.androidx.hilt.compose.navigation)
@@ -128,10 +131,9 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-
     implementation(projects.feature.auth)
     implementation(projects.feature.main)
-    implementation(projects.common.components)
-    implementation(projects.core.ui)
+    implementation(projects.core.components)
     implementation(projects.core.supabase)
+    implementation(projects.core.database)
 }

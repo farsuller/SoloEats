@@ -2,13 +2,11 @@ package com.solodemo.database.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.solodemo.database.domain.model.Menu
+import androidx.room.TypeConverters
+import com.solodemo.database.domain.model.Cart
 
-@Database(
-    entities = [Menu::class],
-    version = 1
-)
+@Database(entities = [Cart::class], version = 1, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class SoloEatsDatabase : RoomDatabase() {
-    abstract fun menuDao(): MenuDao
-
+    abstract fun cartDao(): CartDao
 }

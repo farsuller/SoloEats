@@ -2,9 +2,9 @@ package com.solodemo.main.model
 
 import androidx.compose.ui.graphics.Color
 import com.solo.components.Constants
-import com.solo.ui.md_theme_light_onTertiary
-import com.solo.ui.md_theme_light_primary
-import com.solo.ui.md_theme_light_secondary
+import com.solo.components.md_theme_light_onTertiary
+import com.solo.components.md_theme_light_primary
+import com.solo.components.md_theme_light_secondary
 
 enum class HomeBanners(
     val imagePath: String,

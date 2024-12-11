@@ -2,7 +2,7 @@ package com.solodemo.database.di
 
 import android.content.Context
 import androidx.room.Room
-import com.solodemo.database.data.local.MenuDao
+import com.solodemo.database.data.local.CartDao
 import com.solodemo.database.data.local.SoloEatsDatabase
 import dagger.Module
 import dagger.Provides
@@ -30,7 +30,5 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideMenuDao(eatsDatabase: SoloEatsDatabase): MenuDao = eatsDatabase.menuDao()
-
-
+    fun provideMenuDao(eatsDatabase: SoloEatsDatabase): CartDao = eatsDatabase.cartDao()
 }

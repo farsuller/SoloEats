@@ -30,7 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.SubcomposeAsyncImage
-import com.solo.ui.Elevation
+import com.solo.components.Elevation
 import com.solo.components.formatToCurrency
 import com.solodemo.main.components.RatingBar
 import com.solodemo.main.model.Featured

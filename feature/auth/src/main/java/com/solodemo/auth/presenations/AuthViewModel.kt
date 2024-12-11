@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.solo.components.Constants.ACCESS_TOKEN
 import com.solo.components.state.RequestState
-import com.solo.components.SharedPreferenceHelper
+import com.solodemo.database.SharedPreferenceHelper
 import com.solodemo.supabase.domain.repository.SupabaseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.jan.supabase.compose.auth.composable.NativeSignInResult

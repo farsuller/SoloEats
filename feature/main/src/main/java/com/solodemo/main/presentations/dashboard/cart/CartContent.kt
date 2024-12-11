@@ -1,6 +1,5 @@
 package com.solodemo.main.presentations.dashboard.cart
 
-import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -46,23 +45,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.solo.components.Elevation
+import com.solo.components.clickableWithoutRipple
 import com.solo.components.component.ShimmerListItem
 import com.solo.components.contents.EmptyContent
-import com.solo.components.state.RequestState
-import com.solo.ui.Elevation
-import com.solo.ui.md_theme_light_delete_swipe
-import com.solo.components.clickableWithoutRipple
 import com.solo.components.formatToCurrency
+import com.solo.components.md_theme_light_delete_swipe
+import com.solo.components.state.RequestState
 import com.solodemo.main.model.Coupons
 import com.solodemo.main.presentations.dashboard.cart.components.CartCardItems
 import com.solodemo.main.presentations.dashboard.cart.components.CouponItemCard
-import com.solodemo.supabase.domain.repository.Carts
 import com.solodemo.supabase.domain.model.Cart
+import com.solodemo.supabase.domain.repository.Carts
 import kotlinx.coroutines.launch
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
 
-@SuppressLint("UnrememberedMutableInteractionSource")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun CartContent(
@@ -159,6 +157,8 @@ internal fun CartContent(
                                 cartViewModel = cartViewModel,
                             )
 
+                            Spacer(modifier = Modifier.size(20.dp))
+
                             SubtotalDeliveryContent(cartViewModel)
                         }
                     }
@@ -252,7 +252,7 @@ private fun SubtotalDeliveryContent(cartViewModel: CartViewModel) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 5.dp),
+            .padding(top = 10.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -327,8 +327,7 @@ private fun CouponsContent() {
     var selectedCouponItem by remember { mutableStateOf<Coupons?>(null) }
 
     Column(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
 
     ) {
         Text(

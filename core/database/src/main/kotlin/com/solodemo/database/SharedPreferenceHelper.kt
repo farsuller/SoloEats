@@ -1,4 +1,4 @@
-package com.solo.components
+package com.solodemo.database
 
 import android.content.Context
 

@@ -21,7 +21,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
-import com.solo.ui.Elevation
+import com.solo.components.Elevation
 import com.solodemo.main.components.RatingBar
 import com.solodemo.supabase.domain.model.Review
 

@@ -14,12 +14,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import com.solo.components.routes.ScreensRoutes
 import com.solo.components.state.RequestState
+import com.solo.components.theme.SoloDemoTheme
 import com.solo.solodemo.navigation.SetupNavGraph
-import com.solo.ui.theme.SoloDemoTheme
 import com.solodemo.auth.presenations.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -31,8 +30,9 @@ class MainActivity : ComponentActivity() {
     private val authViewModel by viewModels<AuthViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         installSplashScreen().setKeepOnScreenCondition { keepSplashOpened }
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         setContent {
             SoloDemoTheme(
                 darkTheme = false,

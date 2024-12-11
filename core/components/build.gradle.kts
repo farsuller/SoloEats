@@ -10,20 +10,9 @@ android {
 
     defaultConfig {
         minSdk = ProjectConfig.MIN_SDK
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -39,21 +28,20 @@ android {
 dependencies {
 
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.bundle.androidx.compose)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.appcompat)
-
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
+    
     implementation(libs.androidx.compose.material3)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
-    implementation (libs.navigation.compose)
+    implementation(libs.navigation.compose)
     implementation(libs.androidx.ui.text.google.fonts)
 
-    implementation(libs.coil.compose)
+    implementation(libs.bundles.bundle.coil)
 
     implementation(libs.appcompat)
     testImplementation(libs.junit)

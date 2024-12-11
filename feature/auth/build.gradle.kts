@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.hilt)
     alias(libs.plugins.devtool.ksp)
-    kotlin("plugin.serialization") version "1.9.21"
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -43,19 +43,19 @@ android {
 dependencies {
 
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.bundle.androidx.compose)
+
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
 
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation (libs.navigation.compose)
-    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.navigation.compose)
 
-    implementation (libs.material.icons.extended)
-    implementation(libs.coil.compose)
+    implementation(libs.material.icons.extended)
+
+    implementation(libs.bundles.bundle.coil)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -72,7 +72,7 @@ dependencies {
     implementation(libs.ktor.client.cio)
     implementation(libs.kotlinx.serialization.json)
 
-    implementation(projects.common.components)
-    implementation(projects.core.ui)
+    implementation(projects.core.components)
+    implementation(projects.core.database)
     implementation(projects.core.supabase)
 }

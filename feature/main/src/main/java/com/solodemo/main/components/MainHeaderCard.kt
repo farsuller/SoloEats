@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.SubcomposeAsyncImage
-import com.solo.ui.Elevation
+import com.solo.components.Elevation
 
 @Composable
 fun MainHeaderCard(
