@@ -2,7 +2,6 @@ package com.solodemo.supabase.data.repository
 
 import com.solo.components.state.RequestState
 import com.solodemo.supabase.data.remote.SupabaseDataSource
-import com.solodemo.supabase.domain.model.Cart
 import com.solodemo.supabase.domain.model.Menu
 import com.solodemo.supabase.domain.model.Review
 import com.solodemo.supabase.domain.repository.SupabaseRepository
@@ -14,25 +13,25 @@ import javax.inject.Inject
 class SupabaseRepositoryImpl @Inject constructor(
     private val supabaseDataSource: SupabaseDataSource,
 ) : SupabaseRepository {
-    override fun deleteAllCartItem(): Flow<RequestState<Unit>> {
-        return supabaseDataSource.deleteAllCartItem()
-    }
-
-    override fun updateCartItem(id: Int, cart: Cart): Flow<RequestState<Unit>> {
-        return supabaseDataSource.updateById(id = id, cart = cart)
-    }
-
-    override fun deleteCartItem(id: Int): Flow<RequestState<Unit>> {
-        return supabaseDataSource.deleteCartItemById(id = id)
-    }
-
-    override fun insertCart(cart: Cart): Flow<RequestState<Unit>> {
-        return supabaseDataSource.insertCart(cart = cart)
-    }
-
-    override fun getCartList(): Flow<RequestState<List<Cart>>> {
-        return supabaseDataSource.getCartList()
-    }
+//    override fun deleteAllCartItem(): Flow<RequestState<Unit>> {
+//        return supabaseDataSource.deleteAllCartItem()
+//    }
+//
+//    override fun updateCartItem(id: Int, cart: Cart): Flow<RequestState<Unit>> {
+//        return supabaseDataSource.updateById(id = id, cart = cart)
+//    }
+//
+//    override fun deleteCartItem(id: Int): Flow<RequestState<Unit>> {
+//        return supabaseDataSource.deleteCartItemById(id = id)
+//    }
+//
+//    override fun insertCart(cart: Cart): Flow<RequestState<Unit>> {
+//        return supabaseDataSource.insertCart(cart = cart)
+//    }
+//
+//    override fun getCartList(): Flow<RequestState<List<Cart>>> {
+//        return supabaseDataSource.getCartList()
+//    }
 
     override fun getReviews(): Flow<RequestState<List<Review>>> {
         return supabaseDataSource.getReviews()

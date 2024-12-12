@@ -1,7 +1,6 @@
 package com.solodemo.database.data.local
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -24,8 +23,11 @@ interface CartDao {
     @Query("UPDATE cart SET productDetails = :productDetails WHERE id = :id")
     suspend fun updateProductDetailsById(id: Int, productDetails: ProductDetails)
 
-    @Delete
-    suspend fun deleteCart(cart: Cart)
+    @Query("DELETE FROM cart")
+    suspend fun deleteAllCartItem(): Int
+
+    @Query("DELETE FROM cart WHERE id = :id")
+    suspend fun deleteById(id: Int)
 
     suspend fun upsert(cart: Cart) {
         val existingAnime = selectCartById(cart.id)

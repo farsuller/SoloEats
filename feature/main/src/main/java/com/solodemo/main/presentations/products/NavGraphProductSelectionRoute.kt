@@ -1,6 +1,5 @@
 package com.solodemo.main.presentations.products
 
-import android.widget.Toast
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -14,19 +13,18 @@ import com.solo.components.Constants
 import com.solo.components.Constants.DEFAULT_CATEGORY_NAME
 import com.solo.components.routes.ScreensRoutes
 import com.solodemo.main.presentations.MainViewModel
+import com.solodemo.main.presentations.dashboard.home.HomeEvent
 
 fun NavGraphBuilder.productSelectionRoute(onBackPressClicked: () -> Unit) {
     composable(
         route = ScreensRoutes.Product.route,
         enterTransition = {
-            // Custom enter transition (push up)
             slideInVertically(
                 initialOffsetY = { it },
                 animationSpec = tween(400),
             ) + fadeIn(animationSpec = tween(400))
         },
         exitTransition = {
-            // Custom exit transition (slide down)
             slideOutVertically(
                 targetOffsetY = { it },
                 animationSpec = tween(400),
@@ -39,26 +37,12 @@ fun NavGraphBuilder.productSelectionRoute(onBackPressClicked: () -> Unit) {
         val viewModel = hiltViewModel<MainViewModel>()
         val foodList = viewModel.getProductList(LocalContext.current)
 
-        val context = LocalContext.current
-
         ProductListScreen(
             onBackPressClicked = onBackPressClicked,
             foodList = foodList,
             categoryNameSelected = selectedCategory,
-            mainViewModel = viewModel,
-            onSuccess = {
-                Toast.makeText(
-                    context,
-                    "Success! Your item has been added to the cart",
-                    Toast.LENGTH_SHORT,
-                ).show()
-            },
-            onError = {
-                Toast.makeText(
-                    context,
-                    "Failed! Your item has been existing to the cart",
-                    Toast.LENGTH_SHORT,
-                ).show()
+            addToCartItem = {
+                viewModel.onEvent(HomeEvent.UpsertCartItem(it))
             },
         )
     }

@@ -7,11 +7,9 @@ interface EatsCartRepository {
 
     fun getCartList(): Flow<List<Cart>>
 
-    fun upsertCart(cart: Cart)
-
-    suspend fun selectCartById(id: Int): Cart?
+    suspend fun upsertCart(cart: Cart)
 
     suspend fun deleteCartItemById(id: Int)
 
-    fun deleteAllCartItem(): Flow<List<Cart>>
+    suspend fun deleteAllCart(): Int
 }

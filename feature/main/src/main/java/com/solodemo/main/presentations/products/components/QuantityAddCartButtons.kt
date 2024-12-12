@@ -27,8 +27,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.solodemo.database.domain.model.Cart
+import com.solodemo.database.domain.model.ProductDetails
 import com.solodemo.main.model.Food
-import com.solodemo.supabase.domain.model.Cart
 
 @Composable
 fun QuantityAddCartButtons(foodList: Food, addToCartClicked: (Cart) -> Unit) {
@@ -95,11 +96,13 @@ fun QuantityAddCartButtons(foodList: Food, addToCartClicked: (Cart) -> Unit) {
                 addToCartClicked(
                     Cart(
                         id = foodList.foodId,
-                        productName = foodList.foodName,
-                        productImage = foodList.foodImage,
-                        productPrice = (foodList.price.toDouble() * quantity.toDouble()).toString(),
-                        productQuantity = quantity,
-                        productPriceOriginal = foodList.price,
+                        productDetails = ProductDetails(
+                            name = foodList.foodName,
+                            image = foodList.foodImage,
+                            price = (foodList.price.toDouble() * quantity.toDouble()).toString(),
+                            quantity = quantity,
+                            originalPrice = foodList.price,
+                        ),
                     ),
                 )
             },

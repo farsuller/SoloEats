@@ -3,9 +3,9 @@ package com.solodemo.main.presentations.dashboard.home
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
+import com.solodemo.database.domain.model.Cart
 import com.solodemo.main.components.MainBackground
 import com.solodemo.main.model.FoodCategory
-import com.solodemo.supabase.domain.model.Cart
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reviews
 

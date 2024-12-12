@@ -1,37 +1,36 @@
 package com.solodemo.main.presentations.dashboard.cart
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.solo.components.routes.ScreensRoutes
-import com.solodemo.main.presentations.MainViewModel
-import com.solodemo.supabase.domain.repository.Carts
+import com.solodemo.main.presentations.dashboard.account.AccountState
 
 fun NavGraphBuilder.cartRoute(
     paddingValues: PaddingValues,
-    carts: Carts,
-    viewModel: MainViewModel,
+    accountState: AccountState,
     navigateToPlaceOrderSuccess: () -> Unit,
 ) {
     composable(route = ScreensRoutes.Cart.route) {
-        val cartViewModel = hiltViewModel<CartViewModel>()
-        val context = LocalContext.current.applicationContext
-
+        val viewModel = hiltViewModel<CartViewModel>()
+        val cartState by viewModel.cartState.collectAsStateWithLifecycle()
         CartScreen(
             paddingValues = paddingValues,
-            carts = carts,
-            cartViewModel = cartViewModel,
-            onSuccess = { message ->
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                viewModel.getCartList()
-            },
-            onError = { message ->
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-            },
+            cartState = cartState,
+            accountState = accountState,
             navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess,
+            onDeleteItem = {
+                viewModel.onEvent(CartEvent.DeleteCartItem(it))
+            },
+            placeOrderButtonClicked = {
+                viewModel.onEvent(CartEvent.DeleteAllCartItem)
+            },
+            onQuantityChange = { cartItem, newQuantity ->
+                viewModel.onEvent(CartEvent.UpdateCartQuantity(cartItem, newQuantity))
+            },
         )
     }
 }

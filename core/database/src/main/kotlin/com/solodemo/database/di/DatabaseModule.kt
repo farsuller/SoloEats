@@ -4,6 +4,12 @@ import android.content.Context
 import androidx.room.Room
 import com.solodemo.database.data.local.CartDao
 import com.solodemo.database.data.local.SoloEatsDatabase
+import com.solodemo.database.domain.repository.EatsCartRepository
+import com.solodemo.database.domain.usecase.CartUseCases
+import com.solodemo.database.domain.usecase.cart.DeleteAllCartItem
+import com.solodemo.database.domain.usecase.cart.DeleteCartItemById
+import com.solodemo.database.domain.usecase.cart.GetCartList
+import com.solodemo.database.domain.usecase.cart.UpsertCart
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,4 +37,13 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideMenuDao(eatsDatabase: SoloEatsDatabase): CartDao = eatsDatabase.cartDao()
+
+    @Provides
+    @Singleton
+    fun provideCartUseCases(cartRepository: EatsCartRepository) = CartUseCases(
+        getCartList = GetCartList(cartRepository),
+        upsertCart = UpsertCart(cartRepository),
+        deleteCartItemById = DeleteCartItemById(cartRepository),
+        deleteAllCartItem = DeleteAllCartItem(cartRepository),
+    )
 }

@@ -11,22 +11,18 @@ class EatsCartRepositoryImpl @Inject constructor(
 ) :
     EatsCartRepository {
     override fun getCartList(): Flow<List<Cart>> {
-        TODO("Not yet implemented")
+        return cartDao.getCartList()
     }
 
-    override fun upsertCart(cart: Cart) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun selectCartById(id: Int): Cart? {
-        TODO("Not yet implemented")
+    override suspend fun upsertCart(cart: Cart) {
+        return cartDao.upsert(cart = cart)
     }
 
     override suspend fun deleteCartItemById(id: Int) {
-        TODO("Not yet implemented")
+        return cartDao.deleteById(id = id)
     }
 
-    override fun deleteAllCartItem(): Flow<List<Cart>> {
-        TODO("Not yet implemented")
+    override suspend fun deleteAllCart(): Int {
+        return cartDao.deleteAllCartItem()
     }
 }

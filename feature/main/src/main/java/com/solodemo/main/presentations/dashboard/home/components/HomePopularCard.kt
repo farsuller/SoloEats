@@ -32,9 +32,10 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.SubcomposeAsyncImage
 import com.solo.components.Elevation
 import com.solo.components.formatToCurrency
+import com.solodemo.database.domain.model.Cart
+import com.solodemo.database.domain.model.ProductDetails
 import com.solodemo.main.components.RatingBar
 import com.solodemo.main.model.Featured
-import com.solodemo.supabase.domain.model.Cart
 
 @Composable
 fun HomePopularCard(
@@ -120,11 +121,13 @@ fun HomePopularCard(
                             onAddButtonClicked(
                                 Cart(
                                     id = foodId,
-                                    productName = foodName,
-                                    productImage = foodImage,
-                                    productPrice = foodPrice,
-                                    productQuantity = 1,
-                                    productPriceOriginal = foodPrice,
+                                    productDetails = ProductDetails(
+                                        name = foodName,
+                                        image = foodImage,
+                                        price = foodPrice,
+                                        quantity = 1,
+                                        originalPrice = foodPrice,
+                                    ),
                                 ),
                             )
                         },

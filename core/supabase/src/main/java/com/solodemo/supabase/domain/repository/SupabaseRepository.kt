@@ -1,7 +1,6 @@
 package com.solodemo.supabase.domain.repository
 
 import com.solo.components.state.RequestState
-import com.solodemo.supabase.domain.model.Cart
 import com.solodemo.supabase.domain.model.Menu
 import com.solodemo.supabase.domain.model.Review
 import com.solodemo.supabase.model.UserDetails
@@ -11,15 +10,15 @@ import kotlinx.coroutines.flow.Flow
 typealias Menus = RequestState<List<Menu>>
 typealias Reviews = RequestState<List<Review>>
 typealias Users = RequestState<UserDetails>
-typealias Carts = RequestState<List<Cart>>
+// typealias Carts = RequestState<List<Cart>>
 
 interface SupabaseRepository {
 
-    fun deleteAllCartItem(): Flow<RequestState<Unit>>
-    fun updateCartItem(id: Int, cart: Cart): Flow<RequestState<Unit>>
-    fun deleteCartItem(id: Int): Flow<RequestState<Unit>>
-    fun insertCart(cart: Cart): Flow<RequestState<Unit>>
-    fun getCartList(): Flow<Carts>
+//    fun deleteAllCartItem(): Flow<RequestState<Unit>>
+//    fun updateCartItem(id: Int, cart: Cart): Flow<RequestState<Unit>>
+//    fun deleteCartItem(id: Int): Flow<RequestState<Unit>>
+//    fun insertCart(cart: Cart): Flow<RequestState<Unit>>
+//    fun getCartList(): Flow<Carts>
     fun getReviews(): Flow<Reviews>
     fun getMenus(): Flow<Menus>
     fun signInEmail(authEmail: String, authPassword: String): Flow<RequestState<Unit>>

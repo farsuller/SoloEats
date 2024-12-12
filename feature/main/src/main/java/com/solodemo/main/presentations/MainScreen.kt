@@ -16,10 +16,12 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.solodemo.database.domain.model.Cart
 import com.solodemo.main.components.MainBottomNavBar
 import com.solodemo.main.components.MainTopBar
 import com.solodemo.main.model.FoodCategory
-import com.solodemo.supabase.domain.repository.Carts
+import com.solodemo.main.presentations.dashboard.account.AccountState
+import com.solodemo.main.presentations.dashboard.cart.CartState
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reviews
 
@@ -28,13 +30,14 @@ import com.solodemo.supabase.domain.repository.Reviews
 internal fun MainScreen(
     menus: Menus,
     reviews: Reviews,
-    carts: Carts,
+    cartState: CartState,
+    accountState: AccountState,
     foodList: List<FoodCategory>,
     navController: NavHostController = rememberNavController(),
-    viewModel: MainViewModel,
     navigateToAuth: () -> Unit,
     navigateToProductList: (String) -> Unit,
     navigateToPlaceOrderSuccess: () -> Unit,
+    insertCart: (Cart) -> Unit,
 ) {
     val window = (LocalView.current.context as Activity).window
 
@@ -69,7 +72,7 @@ internal fun MainScreen(
             MainBottomNavBar(
                 navController = navController,
                 onTabSelected = { tab -> selectedTab = tab },
-                cartCount = viewModel.cartListCount.value,
+                cartCount = cartState.cartList?.size,
             )
         },
     ) {
@@ -79,12 +82,13 @@ internal fun MainScreen(
             menus = menus,
             reviews = reviews,
             foodList = foodList,
-            carts = carts,
-            viewModel = viewModel,
+            cartState = cartState,
+            accountState = accountState,
             navigateToAuth = navigateToAuth,
             navigateToProductList = navigateToProductList,
             homeLazyListState = homeLazyListState,
             navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess,
+            insertCart = insertCart,
         )
     }
 }

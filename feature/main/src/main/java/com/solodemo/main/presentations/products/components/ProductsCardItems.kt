@@ -41,17 +41,14 @@ import com.skydoves.orbital.rememberMovableContentOf
 import com.solo.components.Elevation
 import com.solo.components.clickableWithoutRipple
 import com.solo.components.formatToCurrency
+import com.solodemo.database.domain.model.Cart
 import com.solodemo.main.components.RatingBar
 import com.solodemo.main.model.Food
-import com.solodemo.main.presentations.MainViewModel
-import com.solodemo.supabase.domain.model.Cart
 
 @Composable
 fun ProductsCardItems(
     foodList: Food,
-    mainViewModel: MainViewModel,
-    onSuccess: () -> Unit,
-    onError: (String) -> Unit,
+    insertCart: (Cart) -> Unit,
 ) {
     var isFavourite by remember { mutableStateOf(false) }
     val updatedIsFavourite = rememberUpdatedState(isFavourite)
@@ -184,12 +181,8 @@ fun ProductsCardItems(
                             showProductDetails()
                             QuantityAddCartButtons(
                                 foodList = foodList,
-                                addToCartClicked = { cart: Cart ->
-                                    mainViewModel.insertCart(
-                                        cart = cart,
-                                        onSuccess = onSuccess,
-                                        onError = onError,
-                                    )
+                                addToCartClicked = { cart ->
+                                    insertCart(cart)
                                 },
                             )
                         }
@@ -201,12 +194,8 @@ fun ProductsCardItems(
                             }
                             QuantityAddCartButtons(
                                 foodList = foodList,
-                                addToCartClicked = { cart: Cart ->
-                                    mainViewModel.insertCart(
-                                        cart = cart,
-                                        onSuccess = onSuccess,
-                                        onError = onError,
-                                    )
+                                addToCartClicked = { cart ->
+                                    insertCart(cart)
                                 },
                             )
                         }

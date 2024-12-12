@@ -38,18 +38,16 @@ import com.solo.components.R
 import com.solo.components.clickableWithoutRipple
 import com.solo.components.getAppVersion
 import com.solo.components.sendEmail
-import com.solodemo.main.presentations.MainViewModel
 
 @Composable
 internal fun AccountContent(
     onSignOutButtonClicked: () -> Unit,
     paddingValues: PaddingValues,
-    viewModel: MainViewModel,
+    accountState: AccountState,
     onPrivacyPolicyClicked: () -> Unit,
     onSupabaseLogoClicked: () -> Unit,
 ) {
     val context = LocalContext.current
-    val accountState = viewModel.accountState
     val appVersion = getAppVersion(context)
     LazyColumn(
         modifier = Modifier

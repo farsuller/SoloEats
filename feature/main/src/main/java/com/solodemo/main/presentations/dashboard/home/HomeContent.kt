@@ -35,6 +35,7 @@ import com.solo.components.Constants
 import com.solo.components.component.shimmerEffect
 import com.solo.components.loading.CircularLoadingIndicator
 import com.solo.components.state.RequestState
+import com.solodemo.database.domain.model.Cart
 import com.solodemo.main.components.MainHeaderCard
 import com.solodemo.main.model.FoodCategory
 import com.solodemo.main.model.HomeBanners
@@ -42,7 +43,6 @@ import com.solodemo.main.presentations.dashboard.home.components.HomeBannerCard
 import com.solodemo.main.presentations.dashboard.home.components.HomeMenusCard
 import com.solodemo.main.presentations.dashboard.home.components.HomePopularCard
 import com.solodemo.main.presentations.dashboard.home.components.ReviewCards
-import com.solodemo.supabase.domain.model.Cart
 import com.solodemo.supabase.domain.model.Menu
 import com.solodemo.supabase.domain.repository.Menus
 import com.solodemo.supabase.domain.repository.Reviews
