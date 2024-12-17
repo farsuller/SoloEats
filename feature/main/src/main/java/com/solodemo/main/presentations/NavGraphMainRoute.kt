@@ -2,7 +2,6 @@ package com.solodemo.main.presentations
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
@@ -18,24 +17,23 @@ fun NavGraphBuilder.mainRoute(
 ) {
     composable(route = ScreensRoutes.Main.route) {
         val viewModel = hiltViewModel<MainViewModel>()
-        val menusList by viewModel.menus
-        val reviews by viewModel.reviews
+        val menusState by viewModel.menusState.collectAsStateWithLifecycle()
+        val reviewsState by viewModel.reviewsState.collectAsStateWithLifecycle()
         val cartState by viewModel.cartState.collectAsStateWithLifecycle()
+        val loadData by viewModel.isLoadingData.collectAsStateWithLifecycle()
         val accountState by viewModel.accountState.collectAsStateWithLifecycle()
-        val foodList = viewModel.getProductList(LocalContext.current)
+        val productState by viewModel.productsState.collectAsStateWithLifecycle()
 
         LaunchedEffect(key1 = viewModel) {
             onDataLoaded()
-//            viewModel.getReviews()
-//            viewModel.getMenus()
-//            viewModel.getUserInfo()
             viewModel.getCartList()
         }
 
         MainScreen(
-            menus = menusList,
-            reviews = reviews,
-            foodList = foodList,
+            isLoadingData = loadData,
+            menusState = menusState,
+            reviewsState = reviewsState,
+            productState = productState,
             cartState = cartState,
             accountState = accountState,
             navigateToAuth = navigateToAuth,

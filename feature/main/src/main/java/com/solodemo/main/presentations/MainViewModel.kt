@@ -1,31 +1,28 @@
 package com.solodemo.main.presentations
 
-import android.app.Application
-import android.content.Context
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.solo.components.Constants
-import com.solo.components.getJsonDataFromAsset
-import com.solo.components.state.RequestState
-import com.solodemo.database.SharedPreferenceHelper
 import com.solodemo.database.domain.model.Cart
 import com.solodemo.database.domain.usecase.CartUseCases
-import com.solodemo.main.model.FoodCategory
 import com.solodemo.main.presentations.dashboard.account.AccountState
 import com.solodemo.main.presentations.dashboard.cart.CartState
 import com.solodemo.main.presentations.dashboard.home.HomeEvent
-import com.solodemo.supabase.domain.repository.Menus
-import com.solodemo.supabase.domain.repository.Reviews
+import com.solodemo.main.presentations.dashboard.home.ReviewsState
+import com.solodemo.main.presentations.dashboard.menu.MenusState
+import com.solodemo.main.presentations.products.ProductsState
+import com.solodemo.network.data.ApiResult
+import com.solodemo.network.domain.usecase.EatsUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -33,11 +30,17 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val cartUseCases: CartUseCases,
-    application: Application,
+    private val eatsUseCases: EatsUseCases,
 ) : ViewModel() {
 
-    val menus: MutableState<Menus> = mutableStateOf(RequestState.Idle)
-    val reviews: MutableState<Reviews> = mutableStateOf(RequestState.Idle)
+    private val _menusState = MutableStateFlow(MenusState())
+    val menusState: StateFlow<MenusState> = _menusState.asStateFlow()
+
+    private val _reviewsState = MutableStateFlow(ReviewsState())
+    val reviewsState: StateFlow<ReviewsState> = _reviewsState.asStateFlow()
+
+    private val _productsState = MutableStateFlow(ProductsState())
+    val productsState: StateFlow<ProductsState> = _productsState.asStateFlow()
 
     private val _cartState = MutableStateFlow(CartState())
     val cartState: StateFlow<CartState> = _cartState.asStateFlow()
@@ -45,7 +48,12 @@ class MainViewModel @Inject constructor(
     private val _accountState = MutableStateFlow(AccountState())
     val accountState: StateFlow<AccountState> = _accountState.asStateFlow()
 
-    private val sharedPref = SharedPreferenceHelper(application.applicationContext)
+    private val _isLoadingData = MutableStateFlow(false)
+    val isLoadingData = _isLoadingData
+        .onStart {
+            requestApis()
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), false)
 
     fun onEvent(event: HomeEvent) {
         when (event) {
@@ -59,14 +67,12 @@ class MainViewModel @Inject constructor(
         cartUseCases.upsertCart(cart = cart)
     }
 
-    fun getProductList(context: Context): List<FoodCategory> {
-        val jsonFileString = getJsonDataFromAsset(context, "foodProducts.json")
-        val type = object : TypeToken<List<FoodCategory>>() {}.type
-        return Gson().fromJson(jsonFileString, type)
-    }
-
-    private fun getToken(): String? {
-        return sharedPref.getStringData(Constants.ACCESS_TOKEN)
+    private fun requestApis() {
+        _isLoadingData.value = true
+        getMenus()
+        getReviews()
+        getProducts()
+        _isLoadingData.value = false
     }
 
 //    fun getUserInfo() {
@@ -87,27 +93,61 @@ class MainViewModel @Inject constructor(
 
     fun getCartList() {
         cartUseCases.getCartList().onEach { item ->
-            _cartState.update {
-                it.copy(cartList = item.asReversed())
-            }
+            _cartState.update { it.copy(cartList = item.asReversed()) }
         }.launchIn(viewModelScope)
     }
+    private fun getProducts() = viewModelScope.launch {
+        eatsUseCases.getProducts()
+            .onStart { _productsState.update { it.copy(isLoading = true) } }
+            .catch { e ->
+                _productsState.update { it.copy(errorMessage = e.message, isLoading = false) }
+            }
+            .collectLatest { response ->
+                when (response) {
+                    is ApiResult.Success -> {
+                        _productsState.update {
+                            it.copy(productsList = response.result.data, isLoading = false)
+                        }
+                    }
+                    is ApiResult.Error -> _productsState.update { it.copy(errorMessage = response.message, isLoading = false) }
+                }
+            }
+    }
 
-//    fun getReviews() {
-//        viewModelScope.launch {
-//            repository.getReviews().collectLatest { data ->
-//                reviews.value = data
-//            }
-//        }
-//    }
-//
-//    fun getMenus() {
-//        viewModelScope.launch {
-//            repository.getMenus().collectLatest { data ->
-//                menus.value = data
-//            }
-//        }
-//    }
+    private fun getReviews() = viewModelScope.launch {
+        eatsUseCases.getReviews()
+            .onStart { _reviewsState.update { it.copy(isLoading = true) } }
+            .catch { e ->
+                _reviewsState.update { it.copy(errorMessage = e.message, isLoading = false) }
+            }
+            .collectLatest { response ->
+                when (response) {
+                    is ApiResult.Success -> {
+                        _reviewsState.update {
+                            it.copy(reviewsList = response.result.data, isLoading = false)
+                        }
+                    }
+                    is ApiResult.Error -> _reviewsState.update { it.copy(errorMessage = response.message, isLoading = false) }
+                }
+            }
+    }
+
+    private fun getMenus() = viewModelScope.launch {
+        eatsUseCases.getMenus()
+            .onStart { _menusState.update { it.copy(isLoading = true) } }
+            .catch { e -> _menusState.update { it.copy(errorMessage = e.message, isLoading = false) } }
+            .collectLatest { response ->
+                when (response) {
+                    is ApiResult.Success -> {
+                        _menusState.update {
+                            it.copy(menusList = response.result.data, isLoading = false)
+                        }
+                    }
+                    is ApiResult.Error -> _menusState.update { it.copy(errorMessage = response.message, isLoading = false) }
+                }
+            }
+    }
+
 //
 //    fun signOut() {
 //        viewModelScope.launch {

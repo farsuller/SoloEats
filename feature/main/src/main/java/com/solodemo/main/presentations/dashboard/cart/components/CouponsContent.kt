@@ -13,28 +13,36 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
-import com.solodemo.main.model.Coupons
+import com.solo.components.component.DefaultErrorBox
+import com.solodemo.main.presentations.dashboard.cart.CartState
+import com.solodemo.network.domain.model.Coupon
 
 @Composable
-fun CouponsContent() {
-    var selectedCouponItem by remember { mutableStateOf<Coupons?>(null) }
+fun CouponsContent(cartState: CartState) {
+    var selectedCouponItem by remember { mutableStateOf<Coupon?>(null) }
 
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Text(
-            modifier = Modifier,
-            text = "Coupons and Promo",
-            fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
-            fontSize = 22.sp,
-        )
-        LazyRow {
-            items(Coupons.entries.toTypedArray()) { couponItem ->
-                CouponItemCard(
-                    coupons = couponItem,
-                    isSelected = selectedCouponItem == couponItem,
-                ) {
-                    selectedCouponItem = couponItem
+    when {
+        cartState.couponsList.isNotEmpty() -> {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    modifier = Modifier,
+                    text = "Coupons and Promo",
+                    fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
+                    fontSize = 22.sp,
+                )
+                LazyRow {
+                    items(cartState.couponsList) { couponItem ->
+                        CouponItemCard(
+                            coupon = couponItem,
+                            isSelected = selectedCouponItem == couponItem,
+                        ) {
+                            selectedCouponItem = couponItem
+                        }
+                    }
                 }
             }
         }
+
+        cartState.errorMessage != null -> DefaultErrorBox(errorMessage = cartState.errorMessage)
     }
 }

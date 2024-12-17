@@ -2,7 +2,6 @@ package com.solodemo.main.components
 
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -18,7 +17,6 @@ import androidx.navigation.NavHostController
 import com.solodemo.main.model.MainBottomNavItem
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 internal fun MainBottomNavBar(
     onTabSelected: (String) -> Unit,
     navController: NavHostController,

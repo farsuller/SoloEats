@@ -58,7 +58,7 @@ fun TotalAndPlaceOrderButtonHolder(
 
         ) {
             Text(
-                text = "Place Order",
+                text = "Checkout",
                 fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 color = MaterialTheme.colorScheme.surface,

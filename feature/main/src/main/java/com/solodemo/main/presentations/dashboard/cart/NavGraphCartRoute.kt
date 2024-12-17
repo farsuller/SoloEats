@@ -17,10 +17,12 @@ fun NavGraphBuilder.cartRoute(
     composable(route = ScreensRoutes.Cart.route) {
         val viewModel = hiltViewModel<CartViewModel>()
         val cartState by viewModel.cartState.collectAsStateWithLifecycle()
+        val isLoadingCartData by viewModel.isLoadingData.collectAsStateWithLifecycle()
         CartScreen(
             paddingValues = paddingValues,
             cartState = cartState,
             accountState = accountState,
+            isLoadingCartData = isLoadingCartData,
             navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess,
             onDeleteItem = {
                 viewModel.onEvent(CartEvent.DeleteCartItem(it))

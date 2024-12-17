@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
 import com.solo.components.Elevation
 import com.solodemo.main.components.RatingBar
-import com.solodemo.supabase.domain.model.Review
+import com.solodemo.network.domain.model.Review
 
 @Composable
 fun ReviewCards(reviewsItem: Review) {
@@ -57,7 +57,7 @@ fun ReviewCards(reviewsItem: Review) {
                     .padding(start = 5.dp),
             ) {
                 Text(
-                    text = "${reviewsItem.name}",
+                    text = reviewsItem.name,
                     fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
                     fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     color = MaterialTheme.colorScheme.onSurface,
@@ -66,7 +66,7 @@ fun ReviewCards(reviewsItem: Review) {
                 RatingBar(starsCount = reviewsItem.reviewStar)
 
                 Text(
-                    text = "${reviewsItem.reviewText}",
+                    text = reviewsItem.reviewText,
                     fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                     fontSize = MaterialTheme.typography.bodySmall.fontSize,
                     color = MaterialTheme.colorScheme.onSurface,

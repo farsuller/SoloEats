@@ -50,5 +50,7 @@ object Constants {
 
         // Drinks
         const val ChocoCookieCream = "file:///android_asset/images/drinks/ChocoCookieCream.png"
+
+        const val DefaultImage = "file:///android_asset/images/steak/PorterSteakHouse.png"
     }
 }

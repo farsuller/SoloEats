@@ -12,7 +12,6 @@ android {
 
     defaultConfig {
         minSdk = ProjectConfig.MIN_SDK
-
     }
 
     compileOptions {
@@ -31,7 +30,7 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
-    implementation (libs.gson)
+    implementation(libs.gson)
     implementation(libs.kotlinx.serialization.json)
 
     //Hilt

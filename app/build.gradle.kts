@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.gms.google.services)
     alias(libs.plugins.devtool.ksp)
     alias(libs.plugins.firebase.crashlytics)
+    id("kotlin-parcelize")
 }
 val keystoreProperties: Properties by lazy {
     val properties = Properties()
@@ -94,6 +95,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
 }
@@ -122,6 +124,8 @@ dependencies {
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
 
+    implementation(libs.bundles.bundle.ktor)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -131,9 +135,11 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-    implementation(projects.feature.auth)
+    //implementation(projects.feature.auth)
     implementation(projects.feature.main)
     implementation(projects.core.components)
     implementation(projects.core.supabase)
     implementation(projects.core.database)
+    implementation(projects.core.network)
 }
+

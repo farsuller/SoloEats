@@ -43,7 +43,6 @@ dependencies {
 
     implementation(libs.bundles.bundle.coil)
 
-    implementation(libs.orbital)
     implementation(libs.swipe)
     implementation(libs.gson)
     implementation(libs.kotlin.reflect)
@@ -66,5 +65,6 @@ dependencies {
 
     implementation(projects.core.components)
     implementation(projects.core.database)
-    implementation(projects.core.supabase)
+    implementation(projects.core.network)
+
 }

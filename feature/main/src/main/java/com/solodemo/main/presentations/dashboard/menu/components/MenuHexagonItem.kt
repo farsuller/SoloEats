@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
 import com.solo.components.shapes.HexagonShape
 import com.solo.components.shapes.drawCustomHexagonPath
-import com.solodemo.supabase.domain.model.Menu
+import com.solodemo.network.domain.model.Menu
 
 @Composable
 fun MenuHexagonItem(

@@ -11,16 +11,18 @@ import androidx.compose.ui.unit.dp
 import com.solo.components.R
 
 @Composable
-fun RatingBar(modifier: Modifier = Modifier, starsCount: Int = 5) {
+fun RatingBar(modifier: Modifier = Modifier, starsCount: Int? = 5) {
     Row(modifier = modifier) {
-        repeat(starsCount) {
-            Icon(
-                modifier = Modifier
-                    .padding(2.dp)
-                    .size(14.dp),
-                painter = painterResource(id = R.drawable.star_icon),
-                contentDescription = "Star Icon",
-            )
+        if (starsCount != null) {
+            repeat(starsCount) {
+                Icon(
+                    modifier = Modifier
+                        .padding(2.dp)
+                        .size(14.dp),
+                    painter = painterResource(id = R.drawable.star_icon),
+                    contentDescription = "Star Icon",
+                )
+            }
         }
     }
 }

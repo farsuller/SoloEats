@@ -5,9 +5,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.solo.components.canBackStack
 import com.solo.components.routes.ScreensRoutes
-import com.solodemo.auth.presenations.forgot.forgotRoute
-import com.solodemo.auth.presenations.login.loginRoute
-import com.solodemo.auth.presenations.signup.signUpRoute
 import com.solodemo.main.presentations.mainRoute
 import com.solodemo.main.presentations.placeorder.placeOrderRoute
 import com.solodemo.main.presentations.products.productSelectionRoute
@@ -22,19 +19,19 @@ fun SetupNavGraph(
         navController = navHostController,
         startDestination = startDestination,
     ) {
-        loginRoute(
-            navigateToMain = {
-                navHostController.popBackStack()
-                navHostController.navigate(ScreensRoutes.Main.route)
-            },
-            navigateToSignUp = {
-                navHostController.navigate(ScreensRoutes.SignUp.route)
-            },
-            navigateToForgot = {
-                navHostController.navigate(ScreensRoutes.Forgot.route)
-            },
-            onDataLoaded = onDataLoaded,
-        )
+//        loginRoute(
+//            navigateToMain = {
+//                navHostController.popBackStack()
+//                navHostController.navigate(ScreensRoutes.Main.route)
+//            },
+//            navigateToSignUp = {
+//                navHostController.navigate(ScreensRoutes.SignUp.route)
+//            },
+//            navigateToForgot = {
+//                navHostController.navigate(ScreensRoutes.Forgot.route)
+//            },
+//            onDataLoaded = onDataLoaded,
+//        )
         mainRoute(
             onDataLoaded = onDataLoaded,
             navigateToAuth = {
@@ -68,16 +65,16 @@ fun SetupNavGraph(
             }
         })
 
-        signUpRoute(onBackPressClicked = {
-            if (navHostController.canBackStack) {
-                navHostController.popBackStack()
-            }
-        })
-
-        forgotRoute(onButtonClicked = {
-            if (navHostController.canBackStack) {
-                navHostController.popBackStack()
-            }
-        })
+//        signUpRoute(onBackPressClicked = {
+//            if (navHostController.canBackStack) {
+//                navHostController.popBackStack()
+//            }
+//        })
+//
+//        forgotRoute(onButtonClicked = {
+//            if (navHostController.canBackStack) {
+//                navHostController.popBackStack()
+//            }
+//        })
     }
 }

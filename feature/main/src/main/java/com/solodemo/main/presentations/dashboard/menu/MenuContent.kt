@@ -22,22 +22,20 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.solo.components.Constants
 import com.solo.components.clickableWithoutRipple
+import com.solo.components.component.DefaultErrorBox
 import com.solo.components.loading.CircularLoadingIndicator
-import com.solo.components.state.RequestState
 import com.solodemo.main.components.MainHeaderCard
 import com.solodemo.main.presentations.dashboard.menu.components.MenuHexagonItem
-import com.solodemo.supabase.domain.model.Menu
-import com.solodemo.supabase.domain.repository.Menus
+import com.solodemo.network.domain.model.Menu
 
 @Composable
 fun MenuContent(
-    menus: Menus,
+    menusState: MenusState,
     paddingValues: PaddingValues,
     navigateToProductList: (String) -> Unit,
 ) {
     val density = LocalDensity.current
     var cardHeight by remember { mutableStateOf(0.dp) }
-    var menuList by remember { mutableStateOf(emptyList<Menu>()) }
 
     MainHeaderCard(
         modifier = Modifier
@@ -52,10 +50,10 @@ fun MenuContent(
         imagePath = Constants.StaticImages.bannerBurgerFries,
     )
 
-    when (menus) {
-        is RequestState.Loading -> CircularLoadingIndicator()
-        is RequestState.Success -> {
-            menuList = menus.data.filter { it.isAvailable }
+    when {
+        menusState.isLoading -> CircularLoadingIndicator()
+        menusState.menusList != null -> {
+            val menuList = menusState.menusList.filter { it.isAvailable }
             ShowMenuCards(
                 cardHeight = cardHeight,
                 filteredMenu = menuList,
@@ -64,8 +62,7 @@ fun MenuContent(
             )
         }
 
-        is RequestState.Error -> {}
-        else -> {}
+        menusState.errorMessage != null -> DefaultErrorBox(errorMessage = menusState.errorMessage)
     }
 }
 
@@ -98,7 +95,7 @@ fun ShowMenuCards(
                     .offset(x = startOffsetX)
                     .clickableWithoutRipple(
                         onClick = {
-                            navigateToProductList(filteredMenu[index].menuName!!)
+                            navigateToProductList(filteredMenu[index].menuName)
                         },
                     ),
             )

@@ -29,10 +29,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.solodemo.database.domain.model.Cart
 import com.solodemo.database.domain.model.ProductDetails
-import com.solodemo.main.model.Food
+import com.solodemo.network.domain.model.Food
 
 @Composable
-fun QuantityAddCartButtons(foodList: Food, addToCartClicked: (Cart) -> Unit) {
+fun QuantityAddCartButtons(food: Food, addToCartClicked: (Cart) -> Unit) {
     var quantity by remember { mutableIntStateOf(1) }
 
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -95,13 +95,13 @@ fun QuantityAddCartButtons(foodList: Food, addToCartClicked: (Cart) -> Unit) {
             onClick = {
                 addToCartClicked(
                     Cart(
-                        id = foodList.foodId,
+                        id = food.id,
                         productDetails = ProductDetails(
-                            name = foodList.foodName,
-                            image = foodList.foodImage,
-                            price = (foodList.price.toDouble() * quantity.toDouble()).toString(),
+                            name = food.name,
+                            image = food.image,
+                            price = (food.price?.toDouble()?.times(quantity.toDouble())).toString(),
                             quantity = quantity,
-                            originalPrice = foodList.price,
+                            originalPrice = food.price,
                         ),
                     ),
                 )
@@ -126,5 +126,5 @@ fun QuantityAddCartButtons(foodList: Food, addToCartClicked: (Cart) -> Unit) {
 @Preview(showBackground = true)
 @Composable
 internal fun ProductCardItemsPreview() {
-    QuantityAddCartButtons(foodList = Food(), addToCartClicked = {})
+    QuantityAddCartButtons(food = Food(), addToCartClicked = {})
 }

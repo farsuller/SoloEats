@@ -5,8 +5,14 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.solo.components.Constants
@@ -34,16 +40,28 @@ fun NavGraphBuilder.productSelectionRoute(onBackPressClicked: () -> Unit) {
 
         val selectedCategory = backstackEntry.arguments?.getString(Constants.CATEGORY_NAME_ARG_KEY)
             ?: DEFAULT_CATEGORY_NAME
-        val viewModel = hiltViewModel<MainViewModel>()
-        val foodList = viewModel.getProductList(LocalContext.current)
 
-        ProductListScreen(
-            onBackPressClicked = onBackPressClicked,
-            foodList = foodList,
-            categoryNameSelected = selectedCategory,
-            addToCartItem = {
-                viewModel.onEvent(HomeEvent.UpsertCartItem(it))
-            },
-        )
+        val viewModel = hiltViewModel<MainViewModel>()
+
+        val productState by viewModel.productsState.collectAsStateWithLifecycle()
+        val loadData by viewModel.isLoadingData.collectAsStateWithLifecycle()
+
+        if (loadData) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                CircularProgressIndicator()
+            }
+        } else {
+            ProductListScreen(
+                onBackPressClicked = onBackPressClicked,
+                productsState = productState,
+                categoryNameSelected = selectedCategory,
+                addToCartItem = {
+                    viewModel.onEvent(HomeEvent.UpsertCartItem(it))
+                },
+            )
+        }
     }
 }

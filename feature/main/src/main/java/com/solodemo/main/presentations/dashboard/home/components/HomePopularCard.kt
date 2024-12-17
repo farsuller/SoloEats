@@ -35,15 +35,12 @@ import com.solo.components.formatToCurrency
 import com.solodemo.database.domain.model.Cart
 import com.solodemo.database.domain.model.ProductDetails
 import com.solodemo.main.components.RatingBar
-import com.solodemo.main.model.Featured
+import com.solodemo.network.domain.model.Food
 
 @Composable
 fun HomePopularCard(
     modifier: Modifier = Modifier,
-    foodId: Int,
-    foodName: String = "",
-    foodPrice: String = "",
-    foodImage: String = "",
+    food: Food,
     onAddButtonClicked: (Cart) -> Unit,
 ) {
     ElevatedCard(
@@ -67,7 +64,7 @@ fun HomePopularCard(
             ) {
                 SubcomposeAsyncImage(
                     modifier = Modifier.weight(1F),
-                    model = foodImage,
+                    model = food.image,
                     contentDescription = "Banner Image",
                     contentScale = ContentScale.Fit,
                     alignment = Alignment.Center,
@@ -81,7 +78,7 @@ fun HomePopularCard(
                 ) {
                     Text(
                         modifier = Modifier,
-                        text = foodName,
+                        text = "${food.name}",
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
                         fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
@@ -92,7 +89,7 @@ fun HomePopularCard(
 
                     Text(
                         modifier = Modifier.fillMaxWidth(),
-                        text = formatToCurrency(foodPrice.toDouble()),
+                        text = formatToCurrency(food.price?.toDouble() ?: 0.0),
                         fontFamily = MaterialTheme.typography.titleSmall.fontFamily,
                         fontSize = 13.sp,
                         lineHeight = 14.sp,
@@ -120,13 +117,13 @@ fun HomePopularCard(
                         onClick = {
                             onAddButtonClicked(
                                 Cart(
-                                    id = foodId,
+                                    id = food.id,
                                     productDetails = ProductDetails(
-                                        name = foodName,
-                                        image = foodImage,
-                                        price = foodPrice,
+                                        name = food.name,
+                                        image = food.image,
+                                        price = food.price,
                                         quantity = 1,
-                                        originalPrice = foodPrice,
+                                        originalPrice = food.price,
                                     ),
                                 ),
                             )
@@ -150,11 +147,7 @@ fun HomePopularCard(
 @Composable
 internal fun CardProductPreview() {
     HomePopularCard(
-        foodId = 0,
-        foodImage = Featured.CheesyHavenDeluxe.imagePath,
-        foodName = Featured.CheesyHavenDeluxe.title,
-        foodPrice = Featured.CheesyHavenDeluxe.price,
+        food = Food(),
         onAddButtonClicked = {},
-
     )
 }

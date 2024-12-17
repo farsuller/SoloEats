@@ -3,7 +3,10 @@ package com.solodemo.main.presentations
 import android.annotation.SuppressLint
 import android.app.Activity
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -12,6 +15,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.navigation.NavHostController
@@ -19,20 +24,21 @@ import androidx.navigation.compose.rememberNavController
 import com.solodemo.database.domain.model.Cart
 import com.solodemo.main.components.MainBottomNavBar
 import com.solodemo.main.components.MainTopBar
-import com.solodemo.main.model.FoodCategory
 import com.solodemo.main.presentations.dashboard.account.AccountState
 import com.solodemo.main.presentations.dashboard.cart.CartState
-import com.solodemo.supabase.domain.repository.Menus
-import com.solodemo.supabase.domain.repository.Reviews
+import com.solodemo.main.presentations.dashboard.home.ReviewsState
+import com.solodemo.main.presentations.dashboard.menu.MenusState
+import com.solodemo.main.presentations.products.ProductsState
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 internal fun MainScreen(
-    menus: Menus,
-    reviews: Reviews,
+    menusState: MenusState,
+    reviewsState: ReviewsState,
     cartState: CartState,
     accountState: AccountState,
-    foodList: List<FoodCategory>,
+    productState: ProductsState,
+    isLoadingData: Boolean,
     navController: NavHostController = rememberNavController(),
     navigateToAuth: () -> Unit,
     navigateToProductList: (String) -> Unit,
@@ -76,19 +82,27 @@ internal fun MainScreen(
             )
         },
     ) {
-        MainContent(
-            paddingValues = it,
-            navController = navController,
-            menus = menus,
-            reviews = reviews,
-            foodList = foodList,
-            cartState = cartState,
-            accountState = accountState,
-            navigateToAuth = navigateToAuth,
-            navigateToProductList = navigateToProductList,
-            homeLazyListState = homeLazyListState,
-            navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess,
-            insertCart = insertCart,
-        )
+        if (isLoadingData) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                CircularProgressIndicator()
+            }
+        } else {
+            MainContent(
+                paddingValues = it,
+                navController = navController,
+                menusState = menusState,
+                reviewsState = reviewsState,
+                productState = productState,
+                accountState = accountState,
+                navigateToAuth = navigateToAuth,
+                navigateToProductList = navigateToProductList,
+                homeLazyListState = homeLazyListState,
+                navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess,
+                insertCart = insertCart,
+            )
+        }
     }
 }

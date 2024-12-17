@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -26,14 +27,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.skydoves.orbital.Orbital
+import com.solo.components.component.DefaultErrorBox
 import com.solodemo.database.domain.model.Cart
-import com.solodemo.main.model.FoodCategory
 import com.solodemo.main.presentations.products.components.ProductsCardItems
 
 @Composable
 fun ProductListScreen(
-    foodList: List<FoodCategory>,
+    productsState: ProductsState,
     onBackPressClicked: () -> Unit,
     categoryNameSelected: String,
     addToCartItem: (Cart) -> Unit,
@@ -46,70 +46,80 @@ fun ProductListScreen(
         topBar = {},
         content = { paddingValues ->
 
-            val filteredProducts = remember(foodList) {
-                foodList.filter { it.categoryName == categoryNameSelected }
-            }
+            when {
+                productsState.isLoading -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
+                productsState.productsList != null -> {
+                    val filteredProducts = remember(productsState.productsList) {
+                        productsState.productsList.filter { it.name == categoryNameSelected }
+                    }
 
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(bottom = paddingValues.calculateBottomPadding()),
-            ) {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.Start,
-                    verticalArrangement = Arrangement.Top,
-                ) {
-                    items(filteredProducts) { productList ->
-
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 15.dp, bottom = 15.dp, start = 15.dp),
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(bottom = paddingValues.calculateBottomPadding()),
+                    ) {
+                        LazyColumn(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.Start,
+                            verticalArrangement = Arrangement.Top,
                         ) {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                            ) {
-                                Text(
-                                    modifier = Modifier,
-                                    text = productList.categoryName,
-                                    fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
-                                    fontSize = 28.sp,
-                                )
+                            items(filteredProducts) { categorySelected ->
 
-                                IconButton(
-                                    modifier = Modifier.padding(end = 10.dp),
-                                    onClick = { onBackPressClicked() },
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(top = 15.dp, bottom = 15.dp, start = 15.dp),
                                 ) {
-                                    Icon(
-                                        imageVector = Icons.Filled.Close,
-                                        contentDescription = null,
-                                        tint = Color.Black,
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                    ) {
+                                        Text(
+                                            modifier = Modifier,
+                                            text = "${categorySelected.name}",
+                                            fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
+                                            fontSize = 28.sp,
+                                        )
+
+                                        IconButton(
+                                            modifier = Modifier.padding(end = 10.dp),
+                                            onClick = { onBackPressClicked() },
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Filled.Close,
+                                                contentDescription = null,
+                                                tint = Color.Black,
+                                            )
+                                        }
+                                    }
+
+                                    Text(
+                                        modifier = Modifier,
+                                        text = "${categorySelected.description}",
+                                        fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
+                                        fontSize = 15.sp,
                                     )
                                 }
-                            }
-
-                            Text(
-                                modifier = Modifier,
-                                text = productList.categoryDescription,
-                                fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
-                                fontSize = 15.sp,
-                            )
-                        }
-
-                        Orbital(modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)) {
-                            Column {
-                                productList.foods.forEach { foodItems ->
-                                    ProductsCardItems(
-                                        foodList = foodItems,
-                                        insertCart = addToCartItem,
-                                    )
+                                Column {
+                                    categorySelected.foods?.forEach { items ->
+                                        ProductsCardItems(
+                                            food = items,
+                                            insertCart = addToCartItem,
+                                        )
+                                    }
                                 }
                             }
                         }
                     }
                 }
+                productsState.errorMessage != null -> DefaultErrorBox(errorMessage = productsState.errorMessage)
             }
         },
     )

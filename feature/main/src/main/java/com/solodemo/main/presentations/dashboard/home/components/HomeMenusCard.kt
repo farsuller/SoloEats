@@ -24,21 +24,20 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
 import com.solo.components.Elevation
 import com.solo.components.clickableWithoutRipple
-import com.solodemo.supabase.domain.model.Menu
+import com.solodemo.network.domain.model.Menu
 
 @SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
 fun HomeMenusCard(
-    index: Int,
-    menus: List<Menu>,
-    onClick: () -> Unit,
+    menus: Menu,
+    onClick: (String) -> Unit,
 ) {
     ElevatedCard(
         modifier = Modifier
             .padding(horizontal = 5.dp)
             .size(100.dp)
             .clickableWithoutRipple(
-                onClick = { onClick() },
+                onClick = { onClick(menus.menuName) },
             ),
         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level4),
         shape = CircleShape,
@@ -47,9 +46,9 @@ fun HomeMenusCard(
         Box(modifier = Modifier) {
             SubcomposeAsyncImage(
                 modifier = Modifier.fillMaxWidth(),
-                model = menus[index].menuImage,
+                model = menus.menuImage,
                 contentScale = ContentScale.Crop,
-                contentDescription = menus[index].menuName,
+                contentDescription = menus.menuName,
                 alignment = Alignment.TopCenter,
             )
 
@@ -61,7 +60,7 @@ fun HomeMenusCard(
                     .background(Color.Black.copy(alpha = 0.3f)),
             ) {
                 Text(
-                    text = "${menus[index].menuName}",
+                    text = menus.menuName,
                     fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
                     fontSize = MaterialTheme.typography.titleMedium.fontSize,
                     color = MaterialTheme.colorScheme.surface,

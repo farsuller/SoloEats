@@ -1,15 +1,8 @@
 package com.solodemo.main.presentations.products.components
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.MutableTransitionState
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,27 +20,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
-import com.skydoves.orbital.Orbital
-import com.skydoves.orbital.animateBounds
-import com.skydoves.orbital.rememberMovableContentOf
 import com.solo.components.Elevation
-import com.solo.components.clickableWithoutRipple
 import com.solo.components.formatToCurrency
 import com.solodemo.database.domain.model.Cart
 import com.solodemo.main.components.RatingBar
-import com.solodemo.main.model.Food
+import com.solodemo.network.domain.model.Food
 
 @Composable
 fun ProductsCardItems(
-    foodList: Food,
+    food: Food,
     insertCart: (Cart) -> Unit,
 ) {
     var isFavourite by remember { mutableStateOf(false) }
@@ -68,140 +54,72 @@ fun ProductsCardItems(
                 .fillMaxSize()
                 .padding(all = 10.dp),
         ) {
-            var expanded by rememberSaveable { mutableStateOf(false) }
-            AnimatedVisibility(
-                remember { MutableTransitionState(false) }.apply {
-                    targetState = true
-                },
-                enter = fadeIn(tween(durationMillis = 300)),
-                exit = fadeOut(tween(durationMillis = 300)),
-            ) {
-                Orbital(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickableWithoutRipple(
-                            onClick = { expanded = !expanded },
-                        ),
-                ) {
-                    val showProductDetails = rememberMovableContentOf {
-                        Column(
-                            modifier = Modifier
-                                .padding(vertical = 10.dp)
-                                .padding(horizontal = if (expanded) 20.dp else 10.dp)
-                                .animateBounds(
-                                    sizeAnimationSpec = tween(durationMillis = 300),
-                                    positionAnimationSpec = tween(durationMillis = 300),
-                                ),
-                        ) {
-                            Text(
-                                text = foodList.foodName,
-                                fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
-                                fontSize = MaterialTheme.typography.titleMedium.fontSize,
-                                color = MaterialTheme.colorScheme.onSurface,
+            Row {
+                Column(horizontalAlignment = Alignment.End) {
+                    SubcomposeAsyncImage(
+                        modifier = Modifier.size(100.dp),
+                        model = food.image,
+                        contentDescription = "Food Image",
+                    )
+                    IconButton(
+                        modifier = Modifier,
+                        onClick = {
+                            isFavourite = !isFavourite
+                        },
+                    ) {
+                        if (updatedIsFavourite.value) {
+                            Icon(
+                                imageVector = Icons.Filled.Favorite,
+                                contentDescription = "Favorite Icon",
                             )
-
-                            Text(
-                                text = formatToCurrency(foodList.price.toDouble()),
-                                fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
-                                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                                color = MaterialTheme.colorScheme.onSurface,
-                            )
-
-                            if (expanded) {
-                                Text(
-                                    modifier = Modifier.padding(top = 15.dp),
-                                    text = foodList.foodDescription,
-                                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
-                                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                                    color = MaterialTheme.colorScheme.onSurface,
-                                )
-                            } else {
-                                Text(
-                                    modifier = Modifier.padding(top = 10.dp),
-                                    text = foodList.foodDescription,
-                                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
-                                    fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                                    maxLines = 2,
-                                    overflow = TextOverflow.Ellipsis,
-                                    color = MaterialTheme.colorScheme.onSurface,
-                                )
-                            }
-
-                            RatingBar(
-                                modifier = Modifier.padding(top = 5.dp),
-                                starsCount = foodList.starReview,
-                            )
-                        }
-                    }
-
-                    val showProductImage = rememberMovableContentOf {
-                        Column(horizontalAlignment = Alignment.End) {
-                            SubcomposeAsyncImage(
-                                modifier = Modifier
-                                    .animateBounds(
-                                        modifier = if (expanded) {
-                                            Modifier
-                                                .fillMaxWidth()
-                                                .height(300.dp)
-                                        } else Modifier.size(
-                                            100.dp,
-                                        ),
-                                    ),
-                                model = foodList.foodImage,
-                                contentDescription = "Food Image",
-                            )
-                            IconButton(
-                                modifier = Modifier,
-                                onClick = {
-                                    isFavourite = !isFavourite
-                                },
-                            ) {
-                                if (updatedIsFavourite.value) {
-                                    Icon(
-                                        imageVector = Icons.Filled.Favorite,
-                                        contentDescription = "Favorite Icon",
-                                    )
-                                } else {
-                                    Icon(
-                                        imageVector = Icons.Outlined.FavoriteBorder,
-                                        contentDescription = "Favorite Icon",
-                                    )
-                                }
-                            }
-                        }
-                    }
-
-                    if (expanded) {
-                        Column(
-                            modifier = Modifier
-                                .padding(10.dp)
-                                .clip(RoundedCornerShape(10.dp)),
-                        ) {
-                            showProductImage()
-                            showProductDetails()
-                            QuantityAddCartButtons(
-                                foodList = foodList,
-                                addToCartClicked = { cart ->
-                                    insertCart(cart)
-                                },
-                            )
-                        }
-                    } else {
-                        Column {
-                            Row {
-                                showProductImage()
-                                showProductDetails()
-                            }
-                            QuantityAddCartButtons(
-                                foodList = foodList,
-                                addToCartClicked = { cart ->
-                                    insertCart(cart)
-                                },
+                        } else {
+                            Icon(
+                                imageVector = Icons.Outlined.FavoriteBorder,
+                                contentDescription = "Favorite Icon",
                             )
                         }
                     }
                 }
+
+                Column(
+                    modifier = Modifier
+                        .padding(vertical = 10.dp)
+                        .padding(horizontal = 10.dp),
+                ) {
+                    Text(
+                        text = "${food.name}",
+                        fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
+                        fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+
+                    Text(
+                        text = formatToCurrency(food.price?.toDouble() ?: 0.0),
+                        fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+
+                    Text(
+                        modifier = Modifier.padding(top = 15.dp),
+                        text = "${food.description}",
+                        fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+
+                    RatingBar(
+                        modifier = Modifier.padding(top = 5.dp),
+                        starsCount = food.starReview,
+                    )
+                }
             }
+            QuantityAddCartButtons(
+                food = food,
+                addToCartClicked = { cart ->
+                    insertCart(cart)
+                },
+            )
         }
     }
 }
