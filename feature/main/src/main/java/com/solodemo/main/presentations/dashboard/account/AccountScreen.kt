@@ -11,13 +11,11 @@ internal fun AccountScreen(
     paddingValues: PaddingValues,
     accountState: AccountState,
     onPrivacyPolicyClicked: () -> Unit,
-    onSupabaseLogoClicked: () -> Unit,
 ) {
     AccountContent(
         paddingValues = paddingValues,
         accountState = accountState,
         onSignOutButtonClicked = onSignOutButtonClicked,
         onPrivacyPolicyClicked = onPrivacyPolicyClicked,
-        onSupabaseLogoClicked = onSupabaseLogoClicked,
     )
 }

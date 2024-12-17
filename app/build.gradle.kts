@@ -135,7 +135,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-    //implementation(projects.feature.auth)
+    implementation(projects.feature.auth)
     implementation(projects.feature.main)
     implementation(projects.core.components)
     implementation(projects.core.supabase)

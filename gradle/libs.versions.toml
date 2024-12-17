@@ -61,6 +61,8 @@ junit = "4.13.2"
 spotless = "6.19.0"
 
 crashlytics = "3.0.2"
+firebaseAuthKtx = "23.1.0"
+firebaseBom = "33.7.0"
 
 kotlinSerialization = "2.1.0"
 
@@ -136,6 +138,9 @@ hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testi
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+
+firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -34,7 +34,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
 import com.solo.components.Constants
-import com.solo.components.R
 import com.solo.components.clickableWithoutRipple
 import com.solo.components.getAppVersion
 import com.solo.components.sendEmail
@@ -45,7 +44,6 @@ internal fun AccountContent(
     paddingValues: PaddingValues,
     accountState: AccountState,
     onPrivacyPolicyClicked: () -> Unit,
-    onSupabaseLogoClicked: () -> Unit,
 ) {
     val context = LocalContext.current
     val appVersion = getAppVersion(context)
@@ -320,26 +318,6 @@ internal fun AccountContent(
                     )
                 }
             }
-
-            Spacer(modifier = Modifier.size(40.dp))
-            Text(
-                text = "Powered by",
-                fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
-                fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
-
-            SubcomposeAsyncImage(
-                modifier = Modifier
-                    .padding(start = 40.dp, end = 40.dp)
-                    .size(width = 140.dp, height = 40.dp)
-                    .clickableWithoutRipple(
-                        onClick = { onSupabaseLogoClicked() },
-                    ),
-                model = R.drawable.supabase_logo_light,
-                contentDescription = accountState.name,
-                contentScale = ContentScale.Fit,
-            )
         }
     }
 }

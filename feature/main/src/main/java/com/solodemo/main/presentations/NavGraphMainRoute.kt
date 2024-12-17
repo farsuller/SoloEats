@@ -7,10 +7,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.solo.components.routes.ScreensRoutes
+import com.solo.components.state.AuthState
 import com.solodemo.main.presentations.dashboard.home.HomeEvent
 
 fun NavGraphBuilder.mainRoute(
-    onDataLoaded: () -> Unit,
+    onDataLoaded: (Boolean) -> Unit,
     navigateToAuth: () -> Unit,
     navigateToProductList: (String) -> Unit,
     navigateToPlaceOrderSuccess: () -> Unit,
@@ -23,10 +24,14 @@ fun NavGraphBuilder.mainRoute(
         val loadData by viewModel.isLoadingData.collectAsStateWithLifecycle()
         val accountState by viewModel.accountState.collectAsStateWithLifecycle()
         val productState by viewModel.productsState.collectAsStateWithLifecycle()
+        val authState = viewModel.authState.collectAsStateWithLifecycle()
 
-        LaunchedEffect(key1 = viewModel) {
-            onDataLoaded()
-            viewModel.getCartList()
+        LaunchedEffect(key1 = authState.value) {
+            onDataLoaded(false)
+            when (authState.value) {
+                is AuthState.Unauthenticated -> navigateToAuth()
+                else -> Unit
+            }
         }
 
         MainScreen(
@@ -36,7 +41,10 @@ fun NavGraphBuilder.mainRoute(
             productState = productState,
             cartState = cartState,
             accountState = accountState,
-            navigateToAuth = navigateToAuth,
+            navigateToAuth = {
+                navigateToAuth()
+                viewModel.logOut()
+            },
             navigateToProductList = navigateToProductList,
             navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess,
             insertCart = {

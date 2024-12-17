@@ -67,12 +67,10 @@ dependencies {
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
 
-    implementation(libs.supabase.compose.auth)
-    implementation(libs.supabase.postgrest.kt)
-    implementation(libs.ktor.client.cio)
-    implementation(libs.kotlinx.serialization.json)
+    //Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth.ktx)
 
     implementation(projects.core.components)
     implementation(projects.core.database)
-    implementation(projects.core.supabase)
 }

@@ -52,6 +52,10 @@ dependencies {
 
     debugImplementation(libs.androidx.ui.tooling)
 
+    //Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth.ktx)
+
     //Hilt
     implementation(libs.androidx.hilt.compose.navigation)
     implementation(libs.hilt)

@@ -2,6 +2,8 @@ package com.solodemo.main.presentations
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
+import com.solo.components.state.AuthState
 import com.solodemo.database.domain.model.Cart
 import com.solodemo.database.domain.usecase.CartUseCases
 import com.solodemo.main.presentations.dashboard.account.AccountState
@@ -32,6 +34,11 @@ class MainViewModel @Inject constructor(
     private val cartUseCases: CartUseCases,
     private val eatsUseCases: EatsUseCases,
 ) : ViewModel() {
+
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
+    private val _authState = MutableStateFlow<AuthState>(AuthState.Unauthenticated)
+    val authState: StateFlow<AuthState> = _authState.asStateFlow()
 
     private val _menusState = MutableStateFlow(MenusState())
     val menusState: StateFlow<MenusState> = _menusState.asStateFlow()
@@ -72,30 +79,16 @@ class MainViewModel @Inject constructor(
         getMenus()
         getReviews()
         getProducts()
+        getCartList()
         _isLoadingData.value = false
     }
 
-//    fun getUserInfo() {
-//        viewModelScope.launch {
-//            val token = getToken()
-//            if (token != null) {
-//                repository.getUserInfo(token = token).collectLatest { data ->
-//                    if (data is RequestState.Success) {
-//                        accountState = accountState.copy(name = data.data.name)
-//                        accountState = accountState.copy(email = data.data.email)
-//                        accountState = accountState.copy(profile = data.data.picture)
-//                        accountState = accountState.copy(isEmailVerified = data.data.emailVerified)
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-    fun getCartList() {
+    private fun getCartList() {
         cartUseCases.getCartList().onEach { item ->
             _cartState.update { it.copy(cartList = item.asReversed()) }
         }.launchIn(viewModelScope)
     }
+
     private fun getProducts() = viewModelScope.launch {
         eatsUseCases.getProducts()
             .onStart { _productsState.update { it.copy(isLoading = true) } }
@@ -105,10 +98,9 @@ class MainViewModel @Inject constructor(
             .collectLatest { response ->
                 when (response) {
                     is ApiResult.Success -> {
-                        _productsState.update {
-                            it.copy(productsList = response.result.data, isLoading = false)
-                        }
+                        _productsState.update { it.copy(productsList = response.result.data, isLoading = false) }
                     }
+
                     is ApiResult.Error -> _productsState.update { it.copy(errorMessage = response.message, isLoading = false) }
                 }
             }
@@ -127,6 +119,7 @@ class MainViewModel @Inject constructor(
                             it.copy(reviewsList = response.result.data, isLoading = false)
                         }
                     }
+
                     is ApiResult.Error -> _reviewsState.update { it.copy(errorMessage = response.message, isLoading = false) }
                 }
             }
@@ -135,26 +128,21 @@ class MainViewModel @Inject constructor(
     private fun getMenus() = viewModelScope.launch {
         eatsUseCases.getMenus()
             .onStart { _menusState.update { it.copy(isLoading = true) } }
-            .catch { e -> _menusState.update { it.copy(errorMessage = e.message, isLoading = false) } }
+            .catch { e ->
+                _menusState.update { it.copy(errorMessage = e.message, isLoading = false) }
+            }
             .collectLatest { response ->
                 when (response) {
                     is ApiResult.Success -> {
-                        _menusState.update {
-                            it.copy(menusList = response.result.data, isLoading = false)
-                        }
+                        _menusState.update { it.copy(menusList = response.result.data, isLoading = false) }
                     }
                     is ApiResult.Error -> _menusState.update { it.copy(errorMessage = response.message, isLoading = false) }
                 }
             }
     }
 
-//
-//    fun signOut() {
-//        viewModelScope.launch {
-//            repository.signOut().collectLatest { data ->
-//                _uiState.update { data }
-//                sharedPref.clearPreferences()
-//            }
-//        }
-//    }
+    fun logOut() {
+        auth.signOut()
+        _authState.value = AuthState.Unauthenticated
+    }
 }

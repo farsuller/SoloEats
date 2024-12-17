@@ -18,13 +18,9 @@ fun NavGraphBuilder.accountRoute(
         AccountScreen(
             accountState = accountState,
             paddingValues = paddingValues,
-            onSignOutButtonClicked = {
-            },
+            onSignOutButtonClicked = navigateToAuth,
             onPrivacyPolicyClicked = {
                 uriHandler.openUri(Constants.PRIVACY_POLICY_LINK)
-            },
-            onSupabaseLogoClicked = {
-                uriHandler.openUri(Constants.SUPABASE_LINK)
             },
         )
     }
