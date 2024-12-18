@@ -39,7 +39,7 @@ fun OrderSummaryHeader() {
             modifier = Modifier,
             text = "Order Summary",
             fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
-            fontSize = 22.sp,
+            fontSize = MaterialTheme.typography.titleMedium.fontSize,
         )
 
         TooltipBox(

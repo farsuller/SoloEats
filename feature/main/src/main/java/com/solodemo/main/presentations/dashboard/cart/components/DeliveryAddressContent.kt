@@ -1,6 +1,8 @@
 package com.solodemo.main.presentations.dashboard.cart.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,11 +21,10 @@ import com.solodemo.main.presentations.dashboard.account.AccountState
 
 @Composable
 fun DeliveryAddressContent(accountState: AccountState) {
-    ElevatedCard(
-        modifier = Modifier,
-        elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level2),
-        shape = RoundedCornerShape(13.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.onPrimary)
     ) {
         Column(
             modifier = Modifier
@@ -38,26 +39,23 @@ fun DeliveryAddressContent(accountState: AccountState) {
                     modifier = Modifier,
                     text = "Delivery Address",
                     fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
-                    fontSize = 22.sp,
+                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
                 )
             }
 
             Text(
-                modifier = Modifier.padding(5.dp),
                 text = "Name: ${accountState.name}",
                 fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                 fontSize = 15.sp,
             )
 
             Text(
-                modifier = Modifier.padding(5.dp),
                 text = "Address: ${accountState.address}",
                 fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                 fontSize = 15.sp,
             )
 
             Text(
-                modifier = Modifier.padding(5.dp),
                 text = "Mobile Number: ${accountState.mobileNumber}",
                 fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                 fontSize = 15.sp,

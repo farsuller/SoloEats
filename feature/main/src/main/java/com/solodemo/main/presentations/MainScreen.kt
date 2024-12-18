@@ -64,7 +64,7 @@ internal fun MainScreen(
     )
 
     val color = when (selectedTab) {
-        "Payment", "Cart" -> MaterialTheme.colorScheme.surface.toArgb()
+        "Payment", "Cart" -> statusBarColor.toArgb()
         "Menus" -> MaterialTheme.colorScheme.primary.toArgb()
         "Account" -> MaterialTheme.colorScheme.secondary.toArgb()
         else -> statusBarColor.toArgb()

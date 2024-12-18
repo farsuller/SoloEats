@@ -1,8 +1,13 @@
 package com.solodemo.main.presentations.dashboard.cart.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Icon
@@ -24,40 +29,60 @@ fun OrderSummaryContent(
     onDeleteItem: (Cart) -> Unit = {},
     onQuantityChange: (Cart, Int) -> Unit,
 ) {
-    when {
-        cartState.cartList != null -> {
-            cartState.cartList.forEach { cartItems ->
-                val swipeDelete = SwipeAction(
-                    onSwipe = { onDeleteItem(cartItems) },
-                    icon = {
-                        Icon(
-                            modifier = Modifier.padding(16.dp),
-                            imageVector = Icons.Outlined.Delete,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.surface,
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.onPrimary)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(15.dp),
+        ) {
+            OrderSummaryHeader()
+
+            when {
+                cartState.cartList != null -> {
+                    cartState.cartList.forEach { cartItems ->
+                        val swipeDelete = SwipeAction(
+                            onSwipe = { onDeleteItem(cartItems) },
+                            icon = {
+                                Icon(
+                                    modifier = Modifier.padding(16.dp),
+                                    imageVector = Icons.Outlined.Delete,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.surface,
+                                )
+                            },
+                            background = md_theme_light_delete_swipe,
                         )
-                    },
-                    background = md_theme_light_delete_swipe,
-                )
-                SwipeableActionsBox(
-                    swipeThreshold = 200.dp,
-                    endActions = listOf(swipeDelete),
-                ) {
-                    CartCardItems(
-                        cartItem = cartItems,
-                        onQuantityChange = onQuantityChange,
-                    )
+                        SwipeableActionsBox(
+                            swipeThreshold = 200.dp,
+                            endActions = listOf(swipeDelete),
+                        ) {
+                            CartCardItems(
+                                cartItem = cartItems,
+                                onQuantityChange = onQuantityChange,
+                            )
+                        }
+                    }
+                }
+
+                cartState.errorMessage != null -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text(text = "Error: ${cartState.errorMessage}")
+                    }
                 }
             }
-        }
 
-        cartState.errorMessage != null -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center,
-            ) {
-                Text(text = "Error: ${cartState.errorMessage}")
-            }
+            Spacer(modifier = Modifier.size(20.dp))
+
+            SubtotalDeliveryContent(cartState)
         }
     }
+
+
 }

@@ -18,6 +18,48 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.solo.components.component.shimmerEffect
+import com.solo.components.shapes.TicketShape
+
+
+@Composable
+fun CouponShimmerLoading() {
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 10.dp),
+    ) {
+        Box(
+            modifier = Modifier
+                .padding(start = 10.dp)
+                .size(width = 100.dp, height = 20.dp)
+                .shimmerEffect(),
+        )
+
+        Box(
+            modifier = Modifier
+                .padding(start = 10.dp, top = 10.dp)
+                .size(width = 150.dp, height = 20.dp)
+                .shimmerEffect(),
+        )
+
+        LazyRow(
+            modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 10.dp)
+        ) {
+            items(5) {
+                Box(
+                    modifier = Modifier
+                        .padding(horizontal = 5.dp)
+                        .size(200.dp,100.dp)
+                        .clip(TicketShape())
+                        .shimmerEffect(),
+                )
+            }
+        }
+    }
+}
 
 @Composable
 fun MenuCircleShimmerLoading() {
@@ -115,6 +157,12 @@ fun VerticalGridProductShimmerLoading() {
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun CouponShimmerLoadingPreview() {
+    CouponShimmerLoading()
 }
 
 @Preview

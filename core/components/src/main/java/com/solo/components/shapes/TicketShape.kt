@@ -23,7 +23,7 @@ class TicketShape : Shape {
 
 private fun drawTicketPath(size: Size): Path {
     return Path().apply {
-        val cornerRadius = 70f
+        val cornerRadius = 40f
         // Top left arc
         arcTo(
             rect = Rect(

@@ -88,7 +88,7 @@ class CartViewModel @Inject constructor(
                 when (response) {
                     is ApiResult.Success -> {
                         _cartState.update {
-                            it.copy(couponsList = response.result.data)
+                            it.copy(couponsList = response.result.data, isLoading = false)
                         }
                     }
 
