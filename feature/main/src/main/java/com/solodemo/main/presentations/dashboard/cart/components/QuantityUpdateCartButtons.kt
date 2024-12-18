@@ -1,16 +1,10 @@
 package com.solodemo.main.presentations.dashboard.cart.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Remove
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,14 +14,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.solodemo.database.domain.model.Cart
+import com.solodemo.main.components.QuantityButton
 
 @Composable
 fun QuantityUpdateCartButtons(
@@ -66,33 +56,6 @@ fun QuantityUpdateCartButtons(
                 onQuantityChange(cartItem, quantity)
             },
         )
-    }
-}
-
-@Composable
-fun QuantityButton(
-    icon: ImageVector,
-    contentDescription: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    backgroundColor: Color = Color(0xFFF44336),
-    iconTint: Color = Color.White,
-    size: Dp = 30.dp,
-    shape: Shape = RoundedCornerShape(5.dp),
-) {
-    Box(
-        modifier = modifier
-            .size(size)
-            .clip(shape)
-            .background(backgroundColor),
-    ) {
-        IconButton(onClick = onClick) {
-            Icon(
-                imageVector = icon,
-                contentDescription = contentDescription,
-                tint = iconTint,
-            )
-        }
     }
 }
 

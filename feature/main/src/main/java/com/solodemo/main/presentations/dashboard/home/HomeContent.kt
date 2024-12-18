@@ -16,29 +16,28 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.solo.components.Constants
-import com.solo.components.component.DefaultErrorBox
-import com.solo.components.component.shimmerEffect
 import com.solo.components.loading.CircularLoadingIndicator
 import com.solodemo.database.domain.model.Cart
+import com.solodemo.main.components.HorizontalGridProductShimmerLoading
 import com.solodemo.main.components.MainHeaderCard
+import com.solodemo.main.components.MenuCircleShimmerLoading
 import com.solodemo.main.model.HomeBanners
 import com.solodemo.main.presentations.dashboard.home.components.HomeBannerCard
 import com.solodemo.main.presentations.dashboard.home.components.HomeMenusCard
-import com.solodemo.main.presentations.dashboard.home.components.HomePopularCard
 import com.solodemo.main.presentations.dashboard.home.components.ReviewCards
 import com.solodemo.main.presentations.dashboard.menu.MenusState
 import com.solodemo.main.presentations.products.ProductsState
+import com.solodemo.main.presentations.products.components.ProductsCardItems
+import com.stevdzasan.messagebar.MessageBarState
 
 @Composable
 internal fun HomeContent(
@@ -47,6 +46,7 @@ internal fun HomeContent(
     reviewsState: ReviewsState,
     productState: ProductsState,
     homeLazyListState: LazyListState,
+    messageBarState: MessageBarState,
     navigateToProductList: (String) -> Unit,
     popularAddToCartClicked: (Cart) -> Unit,
 ) {
@@ -70,13 +70,21 @@ internal fun HomeContent(
 
             HomeBannersContent()
             Spacer(modifier = Modifier.size(10.dp))
-            HomeMenusContent(menusState = menusState, navigateToProductList = navigateToProductList)
+            HomeMenusContent(
+                menusState = menusState,
+                navigateToProductList = navigateToProductList,
+                messageBarState = messageBarState,
+            )
             Spacer(modifier = Modifier.size(10.dp))
             HomePopularContent(
                 productState = productState,
+                messageBarState = messageBarState,
                 popularAddToCartClicked = popularAddToCartClicked,
             )
-            ReviewsContent(reviewsState = reviewsState)
+            ReviewsContent(
+                reviewsState = reviewsState,
+                messageBarState = messageBarState,
+            )
         }
     }
 }
@@ -98,10 +106,11 @@ private fun HomeBannersContent() {
 @Composable
 private fun HomePopularContent(
     productState: ProductsState,
+    messageBarState: MessageBarState,
     popularAddToCartClicked: (Cart) -> Unit,
 ) {
     when {
-        productState.isLoading -> {}
+        productState.isLoading -> HorizontalGridProductShimmerLoading()
         productState.productsList != null -> {
             val popularFood = productState.productsList.map { it.foods?.first() }
             Column(
@@ -116,27 +125,23 @@ private fun HomePopularContent(
                     fontSize = 20.sp,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
-                Box(
+
+                LazyHorizontalGrid(
+                    rows = GridCells.Fixed(3),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(450.dp),
+                        .height(850.dp)
+                        .padding(top = 10.dp),
                 ) {
-                    LazyHorizontalGrid(
-                        rows = GridCells.Fixed(3),
-                        modifier = Modifier.padding(top = 10.dp),
-                    ) {
-                        items(popularFood) { popular ->
-
-                            key(popular?.id) {
-                                if (popular != null) {
-                                    HomePopularCard(
-                                        Modifier.padding(5.dp),
-                                        food = popular,
-                                        onAddButtonClicked = { cart: Cart ->
-                                            popularAddToCartClicked(cart)
-                                        },
-                                    )
-                                }
+                    items(popularFood) { popular ->
+                        key(popular?.id) {
+                            if (popular != null) {
+                                ProductsCardItems(
+                                    food = popular,
+                                    insertCart = popularAddToCartClicked,
+                                    showAddQuantityMinusButton = false,
+                                    showRating = true,
+                                )
                             }
                         }
                     }
@@ -144,7 +149,10 @@ private fun HomePopularContent(
             }
         }
 
-        productState.errorMessage != null -> DefaultErrorBox(errorMessage = productState.errorMessage)
+        productState.errorMessage != null -> {
+            HorizontalGridProductShimmerLoading()
+            messageBarState.addError(Exception(productState.errorMessage))
+        }
     }
 }
 
@@ -152,21 +160,10 @@ private fun HomePopularContent(
 private fun HomeMenusContent(
     menusState: MenusState,
     navigateToProductList: (String) -> Unit,
+    messageBarState: MessageBarState,
 ) {
     when {
-        menusState.isLoading -> {
-            LazyRow(modifier = Modifier.fillMaxWidth()) {
-                items(5) {
-                    Box(
-                        modifier = Modifier
-                            .padding(horizontal = 5.dp)
-                            .size(100.dp)
-                            .clip(CircleShape)
-                            .shimmerEffect(),
-                    )
-                }
-            }
-        }
+        menusState.isLoading -> MenuCircleShimmerLoading()
 
         menusState.menusList != null -> {
             val menuList = menusState.menusList.filter { it.isAvailable }
@@ -199,12 +196,18 @@ private fun HomeMenusContent(
             }
         }
 
-        menusState.errorMessage != null -> DefaultErrorBox(errorMessage = menusState.errorMessage)
+        menusState.errorMessage != null -> {
+            MenuCircleShimmerLoading()
+            messageBarState.addError(Exception(menusState.errorMessage))
+        }
     }
 }
 
 @Composable
-private fun ReviewsContent(reviewsState: ReviewsState) {
+private fun ReviewsContent(
+    reviewsState: ReviewsState,
+    messageBarState: MessageBarState,
+) {
     when {
         reviewsState.isLoading -> CircularLoadingIndicator()
         reviewsState.reviewsList != null -> {
@@ -237,6 +240,8 @@ private fun ReviewsContent(reviewsState: ReviewsState) {
             }
         }
 
-        reviewsState.errorMessage != null -> DefaultErrorBox(errorMessage = reviewsState.errorMessage)
+        reviewsState.errorMessage != null -> {
+            messageBarState.addError(Exception(reviewsState.errorMessage))
+        }
     }
 }

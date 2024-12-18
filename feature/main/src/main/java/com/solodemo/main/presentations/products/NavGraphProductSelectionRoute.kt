@@ -20,6 +20,9 @@ import com.solo.components.Constants.DEFAULT_CATEGORY_NAME
 import com.solo.components.routes.ScreensRoutes
 import com.solodemo.main.presentations.MainViewModel
 import com.solodemo.main.presentations.dashboard.home.HomeEvent
+import com.stevdzasan.messagebar.ContentWithMessageBar
+import com.stevdzasan.messagebar.MessageBarPosition
+import com.stevdzasan.messagebar.rememberMessageBarState
 
 fun NavGraphBuilder.productSelectionRoute(onBackPressClicked: () -> Unit) {
     composable(
@@ -45,6 +48,7 @@ fun NavGraphBuilder.productSelectionRoute(onBackPressClicked: () -> Unit) {
 
         val productState by viewModel.productsState.collectAsStateWithLifecycle()
         val loadData by viewModel.isLoadingData.collectAsStateWithLifecycle()
+        val messageBarState = rememberMessageBarState()
 
         if (loadData) {
             Box(
@@ -54,14 +58,25 @@ fun NavGraphBuilder.productSelectionRoute(onBackPressClicked: () -> Unit) {
                 CircularProgressIndicator()
             }
         } else {
-            ProductListScreen(
-                onBackPressClicked = onBackPressClicked,
-                productsState = productState,
-                categoryNameSelected = selectedCategory,
-                addToCartItem = {
-                    viewModel.onEvent(HomeEvent.UpsertCartItem(it))
-                },
-            )
+            ContentWithMessageBar(
+                messageBarState = messageBarState,
+                showCopyButton = false,
+                position = MessageBarPosition.BOTTOM,
+            ) {
+                ProductListScreen(
+                    onBackPressClicked = onBackPressClicked,
+                    productsState = productState,
+                    categoryNameSelected = selectedCategory,
+                    addToCartItem = {
+                        viewModel.onEvent(
+                            event = HomeEvent.UpsertCartItem(it),
+                            onSuccess = {
+                                messageBarState.addSuccess("${it.productDetails?.name} Added to Cart")
+                            },
+                        )
+                    },
+                )
+            }
         }
     }
 }

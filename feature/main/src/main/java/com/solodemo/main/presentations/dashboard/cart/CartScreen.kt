@@ -57,7 +57,6 @@ internal fun CartScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(top = paddingValues.calculateTopPadding() / 2)
                         .padding(bottom = paddingValues.calculateBottomPadding()),
                 ) {
                     Column(

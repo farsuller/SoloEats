@@ -10,6 +10,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven(url = "https://jitpack.io")
     }
 }
 
@@ -18,7 +19,6 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
 include(":feature:auth")
 include(":feature:main")
-include(":core:supabase")
 include(":core:database")
 include(":core:network")
 include(":core:components")

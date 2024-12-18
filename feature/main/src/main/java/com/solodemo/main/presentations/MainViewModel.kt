@@ -62,10 +62,11 @@ class MainViewModel @Inject constructor(
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), false)
 
-    fun onEvent(event: HomeEvent) {
+    fun onEvent(event: HomeEvent, onSuccess: () -> Unit = {}) {
         when (event) {
             is HomeEvent.UpsertCartItem -> {
                 insertCart(event.cartItem)
+                onSuccess()
             }
         }
     }
@@ -74,7 +75,7 @@ class MainViewModel @Inject constructor(
         cartUseCases.upsertCart(cart = cart)
     }
 
-    private fun requestApis() {
+    fun requestApis() {
         _isLoadingData.value = true
         getMenus()
         getReviews()
@@ -100,7 +101,6 @@ class MainViewModel @Inject constructor(
                     is ApiResult.Success -> {
                         _productsState.update { it.copy(productsList = response.result.data, isLoading = false) }
                     }
-
                     is ApiResult.Error -> _productsState.update { it.copy(errorMessage = response.message, isLoading = false) }
                 }
             }
@@ -136,13 +136,15 @@ class MainViewModel @Inject constructor(
                     is ApiResult.Success -> {
                         _menusState.update { it.copy(menusList = response.result.data, isLoading = false) }
                     }
+
                     is ApiResult.Error -> _menusState.update { it.copy(errorMessage = response.message, isLoading = false) }
                 }
             }
     }
 
-    fun logOut() {
+    fun logOut(onSuccess: () -> Unit) {
         auth.signOut()
+        onSuccess()
         _authState.value = AuthState.Unauthenticated
     }
 }

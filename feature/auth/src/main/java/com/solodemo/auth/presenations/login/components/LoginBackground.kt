@@ -105,7 +105,7 @@ fun LoginBackground() {
     Icon(
         modifier = Modifier
             .size(70.dp)
-            .offset(x = 125.dp, y = 660.dp),
+            .offset(x = 125.dp, y = 730.dp),
         painter = painterResource(id = R.drawable.zigzag_line),
         tint = MaterialTheme.colorScheme.secondary,
         contentDescription = null,
@@ -113,7 +113,7 @@ fun LoginBackground() {
     Icon(
         modifier = Modifier
             .size(70.dp)
-            .offset(x = 240.dp, y = 660.dp),
+            .offset(x = 240.dp, y = 700.dp),
         painter = painterResource(id = R.drawable.zigzag_line),
         tint = MaterialTheme.colorScheme.secondary,
         contentDescription = null,

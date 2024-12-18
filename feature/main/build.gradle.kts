@@ -37,6 +37,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
 
     implementation(libs.androidx.compose.material3)
+    implementation(libs.material)
     implementation(libs.navigation.compose)
 
     implementation(libs.material.icons.extended)
@@ -49,6 +50,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.lottie.compose)
+
+    implementation(libs.message.bar.compose)
 
     debugImplementation(libs.androidx.ui.tooling)
 

@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.SubcomposeAsyncImage
+import com.solo.components.R
 import com.solo.components.formatToCurrency
 import com.solodemo.database.domain.model.Cart
 import com.solodemo.database.domain.model.ProductDetails
@@ -101,7 +102,7 @@ fun CartCardItems(
 @Composable
 private fun LocalProductPreview() {
     Image(
-        painter = painterResource(id = com.solo.components.R.drawable.soloeats_logo),
+        painter = painterResource(id = R.drawable.soloeats_logo),
         contentDescription = "",
         contentScale = ContentScale.Crop,
     )

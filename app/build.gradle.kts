@@ -138,7 +138,6 @@ dependencies {
     implementation(projects.feature.auth)
     implementation(projects.feature.main)
     implementation(projects.core.components)
-    implementation(projects.core.supabase)
     implementation(projects.core.database)
     implementation(projects.core.network)
 }

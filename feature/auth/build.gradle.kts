@@ -57,6 +57,8 @@ dependencies {
 
     implementation(libs.bundles.bundle.coil)
 
+    implementation(libs.message.bar.compose)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

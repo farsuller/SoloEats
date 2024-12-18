@@ -39,8 +39,8 @@ fun LoginTextFields(
     val focusManager = LocalFocusManager.current
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var isEmailValid by remember { mutableStateOf(true) }
-    var isPasswordValid by remember { mutableStateOf(true) }
+    var isEmailValid by remember { mutableStateOf(false) }
+    var isPasswordValid by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -61,6 +61,8 @@ fun LoginTextFields(
             label = { Text("Email") },
             colors = OutlinedTextFieldDefaults.colors(
                 unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+                errorBorderColor = MaterialTheme.colorScheme.secondary,
+                errorLabelColor = MaterialTheme.colorScheme.onSurface,
             ),
             isError = !isEmailValid,
             singleLine = true,
@@ -85,6 +87,8 @@ fun LoginTextFields(
             label = { Text("Password") },
             colors = OutlinedTextFieldDefaults.colors(
                 unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+                errorBorderColor = MaterialTheme.colorScheme.secondary,
+                errorLabelColor = MaterialTheme.colorScheme.onSurface,
             ),
             isError = !isPasswordValid,
             singleLine = true,

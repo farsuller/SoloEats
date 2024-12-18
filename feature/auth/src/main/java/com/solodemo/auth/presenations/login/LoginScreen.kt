@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -16,8 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.solodemo.auth.presenations.AuthViewModel
 import com.solodemo.auth.presenations.login.components.LoginBackground
 import com.solodemo.auth.presenations.login.components.LoginBottomItems
 import com.solodemo.auth.presenations.login.components.LoginHeader
@@ -28,15 +25,12 @@ import com.solodemo.auth.presenations.login.components.LoginTextFields
 internal fun LoginScreen(
     onForgotButtonClicked: () -> Unit,
     onSignUpButtonClicked: () -> Unit,
-    navigateToMain: () -> Unit,
+    onLoggedInButtonClicked: (String, String) -> Unit,
 ) {
-    val authViewModel = hiltViewModel<AuthViewModel>()
-
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surface)
-            .navigationBarsPadding(),
+            .background(MaterialTheme.colorScheme.surface),
         content = {
             Box(
                 modifier = Modifier
@@ -57,12 +51,8 @@ internal fun LoginScreen(
 
                     LoginTextFields(
                         onForgotButtonClicked = onForgotButtonClicked,
-                        onLoggedInButtonClicked = { email, password ->
-                            authViewModel.login(email, password)
-                            navigateToMain()
-                        },
+                        onLoggedInButtonClicked = onLoggedInButtonClicked,
                     )
-
                     LoginBottomItems(onSignUpButtonClicked = onSignUpButtonClicked)
                 }
             }

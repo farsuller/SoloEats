@@ -30,6 +30,7 @@ fun MainContent(
     navigateToProductList: (String) -> Unit,
     navigateToPlaceOrderSuccess: () -> Unit,
     insertCart: (Cart) -> Unit,
+    onPullRefresh: () -> Unit,
 ) {
     NavHost(
         navController = navController,
@@ -43,6 +44,7 @@ fun MainContent(
             homeLazyListState = homeLazyListState,
             navigateToProductList = navigateToProductList,
             insertCart = insertCart,
+            onPullRefresh = onPullRefresh,
         )
         menuRoute(
             paddingValues = paddingValues,

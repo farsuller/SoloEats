@@ -34,12 +34,12 @@ fun HomeBannerCard(
     isInverted: Boolean = false,
 ) {
     ElevatedCard(
-        modifier = modifier.size(width = 300.dp, height = 160.dp),
+        modifier = modifier.size(width = 220.dp, height = 110.dp),
         shape = RoundedCornerShape(
-            topStart = 42.dp,
+            topStart = 22.dp,
             topEnd = 6.dp,
             bottomStart = 6.dp,
-            bottomEnd = 42.dp,
+            bottomEnd = 22.dp,
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level5),
         colors = CardDefaults.cardColors(containerColor = color),
@@ -51,37 +51,35 @@ fun HomeBannerCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start,
         ) {
+            val imageModifier = Modifier
+                .weight(0.5F)
+                .fillMaxSize()
+
+            val textModifier = Modifier
+                .weight(0.5F)
+                .fillMaxSize()
+                .padding(start = 10.dp)
+
             if (isInverted) {
                 BannerImage(
-                    modifier = Modifier
-                        .weight(0.5F)
-                        .fillMaxSize(),
+                    modifier = imageModifier,
                     imagePath = imagePath,
                 )
                 BannerText(
-                    modifier = Modifier
-                        .weight(0.5F)
-                        .fillMaxSize()
-                        .padding(10.dp),
+                    modifier = textModifier,
                     title = title,
                     description = description,
                 )
             } else {
                 BannerText(
-                    modifier = Modifier
-                        .weight(0.5F)
-                        .fillMaxSize()
-                        .padding(10.dp),
+                    modifier = textModifier,
                     title = title,
                     description = description,
                     alignment = Alignment.Start,
                     textAlign = TextAlign.Start,
                 )
-
                 BannerImage(
-                    modifier = Modifier
-                        .weight(0.5F)
-                        .fillMaxSize(),
+                    modifier = imageModifier,
                     imagePath = imagePath,
                 )
             }
@@ -117,8 +115,9 @@ fun BannerText(
             modifier = Modifier.fillMaxWidth(),
             text = title,
             fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
-            fontSize = MaterialTheme.typography.titleLarge.fontSize,
+            fontSize = MaterialTheme.typography.titleMedium.fontSize,
             textAlign = textAlign,
+            lineHeight = 16.sp,
         )
 
         Text(

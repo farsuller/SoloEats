@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.solodemo.database.domain.model.Cart
 
-@Database(entities = [Cart::class], version = 1, exportSchema = false)
+@Database(entities = [Cart::class], version = 4, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class SoloEatsDatabase : RoomDatabase() {
     abstract fun cartDao(): CartDao

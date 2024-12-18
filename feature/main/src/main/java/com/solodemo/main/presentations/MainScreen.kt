@@ -44,6 +44,7 @@ internal fun MainScreen(
     navigateToProductList: (String) -> Unit,
     navigateToPlaceOrderSuccess: () -> Unit,
     insertCart: (Cart) -> Unit,
+    onPullRefresh: () -> Unit,
 ) {
     val window = (LocalView.current.context as Activity).window
 
@@ -102,6 +103,7 @@ internal fun MainScreen(
                 homeLazyListState = homeLazyListState,
                 navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess,
                 insertCart = insertCart,
+                onPullRefresh = onPullRefresh,
             )
         }
     }

@@ -9,6 +9,9 @@ import androidx.navigation.compose.composable
 import com.solo.components.routes.ScreensRoutes
 import com.solo.components.state.AuthState
 import com.solodemo.main.presentations.dashboard.home.HomeEvent
+import com.stevdzasan.messagebar.ContentWithMessageBar
+import com.stevdzasan.messagebar.MessageBarPosition
+import com.stevdzasan.messagebar.rememberMessageBarState
 
 fun NavGraphBuilder.mainRoute(
     onDataLoaded: (Boolean) -> Unit,
@@ -26,6 +29,8 @@ fun NavGraphBuilder.mainRoute(
         val productState by viewModel.productsState.collectAsStateWithLifecycle()
         val authState = viewModel.authState.collectAsStateWithLifecycle()
 
+        val messageBarState = rememberMessageBarState()
+
         LaunchedEffect(key1 = authState.value) {
             onDataLoaded(false)
             when (authState.value) {
@@ -33,23 +38,39 @@ fun NavGraphBuilder.mainRoute(
                 else -> Unit
             }
         }
-
-        MainScreen(
-            isLoadingData = loadData,
-            menusState = menusState,
-            reviewsState = reviewsState,
-            productState = productState,
-            cartState = cartState,
-            accountState = accountState,
-            navigateToAuth = {
-                navigateToAuth()
-                viewModel.logOut()
-            },
-            navigateToProductList = navigateToProductList,
-            navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess,
-            insertCart = {
-                viewModel.onEvent(HomeEvent.UpsertCartItem(it))
-            },
-        )
+        ContentWithMessageBar(
+            messageBarState = messageBarState,
+            showCopyButton = false,
+            position = MessageBarPosition.BOTTOM,
+        ) {
+            MainScreen(
+                isLoadingData = loadData,
+                menusState = menusState,
+                reviewsState = reviewsState,
+                productState = productState,
+                cartState = cartState,
+                accountState = accountState,
+                navigateToAuth = {
+                    viewModel.logOut(
+                        onSuccess = {
+                            navigateToAuth()
+                        },
+                    )
+                },
+                navigateToProductList = navigateToProductList,
+                navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess,
+                insertCart = {
+                    viewModel.onEvent(
+                        event = HomeEvent.UpsertCartItem(it),
+                        onSuccess = {
+                            messageBarState.addSuccess("${it.productDetails?.name} Added to Cart")
+                        },
+                    )
+                },
+                onPullRefresh = {
+                    viewModel.requestApis()
+                },
+            )
+        }
     }
 }
