@@ -167,7 +167,7 @@ private fun MenuCircularRow() {
 private fun SwipeDownContent() {
     Row(
         modifier = Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Column {
             Text(
@@ -187,7 +187,7 @@ private fun SwipeDownContent() {
 
         Icon(
             imageVector = Icons.Default.KeyboardArrowDown,
-            contentDescription = null
+            contentDescription = null,
         )
     }
 }
