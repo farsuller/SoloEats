@@ -15,6 +15,6 @@ object ProjectConfig {
     const val MINOR_VERSION = 2
     const val PATCH_VERSION = 0
 
-    const val GENERATE_LOCAL_ARCHIVE = true
+    const val GENERATE_LOCAL_ARCHIVE = false
 
 }
