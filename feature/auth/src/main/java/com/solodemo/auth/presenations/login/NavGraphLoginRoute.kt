@@ -1,96 +1,57 @@
 package com.solodemo.auth.presenations.login
 
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.solo.components.dialogs.DisplayAlertDialog
 import com.solo.components.routes.ScreensRoutes
-import com.solo.components.state.RequestState
 import com.solodemo.auth.presenations.AuthViewModel
-import kotlinx.coroutines.flow.collectLatest
+import com.stevdzasan.messagebar.ContentWithMessageBar
+import com.stevdzasan.messagebar.MessageBarPosition
+import com.stevdzasan.messagebar.rememberMessageBarState
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 fun NavGraphBuilder.loginRoute(
     navigateToMain: () -> Unit,
     navigateToSignUp: () -> Unit,
     navigateToForgot: () -> Unit,
-    onDataLoaded: () -> Unit,
+    onDataLoaded: (Boolean) -> Unit,
 ) {
     composable(route = ScreensRoutes.Auth.route) {
         val authViewModel = hiltViewModel<AuthViewModel>()
+        val messageBarState = rememberMessageBarState()
+        val scope = rememberCoroutineScope()
 
-        var openErrorDialog by remember {
-            mutableStateOf(false)
+        LaunchedEffect(key1 = Unit) {
+            onDataLoaded(false)
         }
-
-        var openAuthErrorDialog by remember {
-            mutableStateOf(false)
+        ContentWithMessageBar(
+            messageBarState = messageBarState,
+            showCopyButton = false,
+            position = MessageBarPosition.TOP,
+        ) {
+            LoginScreen(
+                onForgotButtonClicked = { navigateToForgot() },
+                onSignUpButtonClicked = { navigateToSignUp() },
+                onLoggedInButtonClicked = { email, password ->
+                    authViewModel.login(
+                        email = email,
+                        password = password,
+                        onSuccess = {
+                            messageBarState.addSuccess("Successfully Authenticated")
+                            scope.launch {
+                                delay(600)
+                                navigateToMain()
+                            }
+                        },
+                        onError = { error ->
+                            messageBarState.addError(error)
+                        },
+                    )
+                },
+            )
         }
-
-        LaunchedEffect(key1 = authViewModel.uiState) {
-            onDataLoaded()
-
-            authViewModel.uiState.collectLatest { data ->
-                when (data) {
-                    RequestState.Loading -> {}
-                    is RequestState.Success -> {
-                        navigateToMain()
-                        authViewModel.setLoading(false)
-                        authViewModel.setComposeAuthLoading(false)
-                    }
-
-                    is RequestState.Error -> {
-                        authViewModel.setLoading(false)
-                        authViewModel.setComposeAuthLoading(false)
-                        if (authViewModel.loginButtonClicked.value) openErrorDialog = true
-                        if (authViewModel.googleButtonClicked.value) openAuthErrorDialog = true
-                    }
-
-                    else -> {
-                    }
-                }
-            }
-        }
-        LoginScreen(
-            onForgotButtonClicked = { navigateToForgot() },
-            onSignUpButtonClicked = { navigateToSignUp() },
-            authViewModel = authViewModel,
-        )
-
-        DisplayAlertDialog(
-            title = "Invalid Login",
-            message = "Oops! Invalid login credentials. Make sure your email and password are correct.",
-            dialogOpened = openErrorDialog,
-            onCloseDialog = {
-                authViewModel.setLoginClicked(false)
-                openErrorDialog = false
-            },
-            onYesClicked = {
-                authViewModel.setLoginClicked(false)
-                openErrorDialog = false
-            },
-            positiveText = "Okay",
-            showNegativeButton = false,
-        )
-
-        DisplayAlertDialog(
-            title = "Uh-oh!",
-            message = "Something went wrong. Retry later or verify if you're already logged into your account in the settings.",
-            dialogOpened = openAuthErrorDialog,
-            onCloseDialog = {
-                authViewModel.setGoogleClicked(false)
-                openAuthErrorDialog = false
-            },
-            onYesClicked = {
-                authViewModel.setGoogleClicked(false)
-                openAuthErrorDialog = false
-            },
-            positiveText = "Okay",
-            showNegativeButton = false,
-        )
     }
 }

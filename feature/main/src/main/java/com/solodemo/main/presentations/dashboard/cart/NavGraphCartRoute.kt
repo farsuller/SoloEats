@@ -1,37 +1,50 @@
 package com.solodemo.main.presentations.dashboard.cart
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.solo.components.routes.ScreensRoutes
-import com.solodemo.main.presentations.MainViewModel
-import com.solodemo.supabase.domain.repository.Carts
+import com.solodemo.main.presentations.dashboard.account.AccountState
+import com.stevdzasan.messagebar.ContentWithMessageBar
+import com.stevdzasan.messagebar.MessageBarPosition
+import com.stevdzasan.messagebar.rememberMessageBarState
 
 fun NavGraphBuilder.cartRoute(
     paddingValues: PaddingValues,
-    carts: Carts,
-    viewModel: MainViewModel,
+    accountState: AccountState,
     navigateToPlaceOrderSuccess: () -> Unit,
 ) {
     composable(route = ScreensRoutes.Cart.route) {
-        val cartViewModel = hiltViewModel<CartViewModel>()
-        val context = LocalContext.current.applicationContext
+        val viewModel = hiltViewModel<CartViewModel>()
+        val cartState by viewModel.cartState.collectAsStateWithLifecycle()
+        val isLoadingCartData by viewModel.isLoadingData.collectAsStateWithLifecycle()
 
-        CartScreen(
-            paddingValues = paddingValues,
-            carts = carts,
-            cartViewModel = cartViewModel,
-            onSuccess = { message ->
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                viewModel.getCartList()
-            },
-            onError = { message ->
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-            },
-            navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess,
-        )
+        val messageBarState = rememberMessageBarState()
+        ContentWithMessageBar(
+            messageBarState = messageBarState,
+            showCopyButton = false,
+            position = MessageBarPosition.BOTTOM,
+        ) {
+            CartScreen(
+                paddingValues = paddingValues,
+                cartState = cartState,
+                accountState = accountState,
+                isLoadingCartData = isLoadingCartData,
+                navigateToPlaceOrderSuccess = navigateToPlaceOrderSuccess,
+                onDeleteItem = {
+                    viewModel.onEvent(CartEvent.DeleteCartItem(it))
+                    messageBarState.addSuccess("Successfully Deleted ${it.productDetails?.name}")
+                },
+                placeOrderButtonClicked = {
+                    viewModel.onEvent(CartEvent.DeleteAllCartItem)
+                },
+                onQuantityChange = { cartItem, newQuantity ->
+                    viewModel.onEvent(CartEvent.UpdateCartQuantity(cartItem, newQuantity))
+                },
+            )
+        }
     }
 }

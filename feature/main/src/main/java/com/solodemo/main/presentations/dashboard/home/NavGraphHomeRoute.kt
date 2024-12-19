@@ -1,56 +1,88 @@
 package com.solodemo.main.presentations.dashboard.home
 
-import android.widget.Toast
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.zIndex
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.solo.components.routes.ScreensRoutes
-import com.solodemo.main.model.FoodCategory
-import com.solodemo.main.presentations.MainViewModel
-import com.solodemo.supabase.domain.repository.Menus
-import com.solodemo.supabase.domain.repository.Reviews
-import com.solodemo.supabase.model.Cart
+import com.solodemo.database.domain.model.Cart
+import com.solodemo.main.presentations.dashboard.menu.MenusState
+import com.solodemo.main.presentations.products.ProductsState
+import com.stevdzasan.messagebar.ContentWithMessageBar
+import com.stevdzasan.messagebar.MessageBarPosition
+import com.stevdzasan.messagebar.rememberMessageBarState
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 fun NavGraphBuilder.homeRoute(
     paddingValues: PaddingValues,
-    menus: Menus,
-    reviews: Reviews,
-    foodList: List<FoodCategory>,
+    menusState: MenusState,
+    reviewsState: ReviewsState,
+    productState: ProductsState,
     homeLazyListState: LazyListState,
     navigateToProductList: (String) -> Unit,
-    viewModel: MainViewModel,
+    insertCart: (Cart) -> Unit,
+    onPullRefresh: () -> Unit,
 ) {
     composable(route = ScreensRoutes.Home.route) {
-        val context = LocalContext.current
+        var isRefreshing by remember { mutableStateOf(false) }
+        val scope = rememberCoroutineScope()
+        val messageBarState = rememberMessageBarState()
 
-        HomeScreen(
-            paddingValues = paddingValues,
-            menus = menus,
-            reviews = reviews,
-            foodList = foodList,
-            homeLazyListState = homeLazyListState,
-            navigateToProductList = navigateToProductList,
-            popularAddToCartClicked = { cart: Cart ->
-                viewModel.insertCart(
-                    cart = cart,
-                    onSuccess = {
-                        Toast.makeText(
-                            context,
-                            "Success! Your item has been added to the cart",
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                    },
-                    onError = {
-                        Toast.makeText(
-                            context,
-                            "Failed! Your item has been existing to the cart",
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                    },
-                )
+        val pullRefreshState = rememberPullRefreshState(
+            refreshing = isRefreshing,
+            onRefresh = {
+                scope.launch {
+                    isRefreshing = true
+                    delay(500)
+                    onPullRefresh()
+                    isRefreshing = false
+                }
             },
         )
+        ContentWithMessageBar(
+            messageBarState = messageBarState,
+            showCopyButton = false,
+            position = MessageBarPosition.TOP,
+        ) {
+            Box(
+                modifier = Modifier
+                    .pullRefresh(pullRefreshState),
+            ) {
+                HomeScreen(
+                    paddingValues = paddingValues,
+                    menusState = menusState,
+                    reviewsState = reviewsState,
+                    productState = productState,
+                    homeLazyListState = homeLazyListState,
+                    navigateToProductList = navigateToProductList,
+                    popularAddToCartClicked = { cart ->
+                        insertCart(cart)
+                    },
+                    errorCallback = { errorMessage ->
+                        messageBarState.addError(Exception(errorMessage))
+                    },
+                )
+                PullRefreshIndicator(
+                    refreshing = isRefreshing,
+                    state = pullRefreshState,
+                    modifier = Modifier
+                        .zIndex(1f)
+                        .align(Alignment.TopCenter),
+                )
+            }
+        }
     }
 }

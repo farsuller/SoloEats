@@ -3,8 +3,8 @@ package com.solo.solodemo.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.solo.components.canBackStack
 import com.solo.components.routes.ScreensRoutes
-import com.solo.util.canBackStack
 import com.solodemo.auth.presenations.forgot.forgotRoute
 import com.solodemo.auth.presenations.login.loginRoute
 import com.solodemo.auth.presenations.signup.signUpRoute
@@ -16,7 +16,7 @@ import com.solodemo.main.presentations.products.productSelectionRoute
 fun SetupNavGraph(
     startDestination: String,
     navHostController: NavHostController,
-    onDataLoaded: () -> Unit,
+    onDataLoaded: (Boolean) -> Unit,
 ) {
     NavHost(
         navController = navHostController,

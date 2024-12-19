@@ -17,14 +17,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
-import com.solo.ui.Elevation
+import coil3.compose.SubcomposeAsyncImage
+import com.solo.components.Elevation
 
 @Composable
 fun HomeBannerCard(
@@ -36,12 +34,12 @@ fun HomeBannerCard(
     isInverted: Boolean = false,
 ) {
     ElevatedCard(
-        modifier = modifier.size(width = 300.dp, height = 160.dp),
+        modifier = modifier.size(width = 220.dp, height = 110.dp),
         shape = RoundedCornerShape(
-            topStart = 42.dp,
+            topStart = 22.dp,
             topEnd = 6.dp,
             bottomStart = 6.dp,
-            bottomEnd = 42.dp,
+            bottomEnd = 22.dp,
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = Elevation.level5),
         colors = CardDefaults.cardColors(containerColor = color),
@@ -53,37 +51,35 @@ fun HomeBannerCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start,
         ) {
+            val imageModifier = Modifier
+                .weight(0.5F)
+                .fillMaxSize()
+
+            val textModifier = Modifier
+                .weight(0.5F)
+                .fillMaxSize()
+                .padding(start = 10.dp)
+
             if (isInverted) {
                 BannerImage(
-                    modifier = Modifier
-                        .weight(0.5F)
-                        .fillMaxSize(),
+                    modifier = imageModifier,
                     imagePath = imagePath,
                 )
                 BannerText(
-                    modifier = Modifier
-                        .weight(0.5F)
-                        .fillMaxSize()
-                        .padding(10.dp),
+                    modifier = textModifier,
                     title = title,
                     description = description,
                 )
             } else {
                 BannerText(
-                    modifier = Modifier
-                        .weight(0.5F)
-                        .fillMaxSize()
-                        .padding(10.dp),
+                    modifier = textModifier,
                     title = title,
                     description = description,
                     alignment = Alignment.Start,
                     textAlign = TextAlign.Start,
                 )
-
                 BannerImage(
-                    modifier = Modifier
-                        .weight(0.5F)
-                        .fillMaxSize(),
+                    modifier = imageModifier,
                     imagePath = imagePath,
                 )
             }
@@ -93,11 +89,9 @@ fun HomeBannerCard(
 
 @Composable
 fun BannerImage(modifier: Modifier, imagePath: String) {
-    AsyncImage(
+    SubcomposeAsyncImage(
         modifier = modifier,
-        model = ImageRequest.Builder(LocalContext.current)
-            .data(imagePath)
-            .crossfade(true).build(),
+        model = imagePath,
         contentDescription = "Banner Image",
         contentScale = ContentScale.Crop,
         alignment = Alignment.Center,
@@ -121,8 +115,9 @@ fun BannerText(
             modifier = Modifier.fillMaxWidth(),
             text = title,
             fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
-            fontSize = MaterialTheme.typography.titleLarge.fontSize,
+            fontSize = MaterialTheme.typography.titleMedium.fontSize,
             textAlign = textAlign,
+            lineHeight = 16.sp,
         )
 
         Text(

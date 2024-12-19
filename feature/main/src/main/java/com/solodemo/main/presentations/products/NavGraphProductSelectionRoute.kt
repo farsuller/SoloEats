@@ -1,32 +1,39 @@
 package com.solodemo.main.presentations.products
 
-import android.widget.Toast
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.solo.components.Constants
 import com.solo.components.Constants.DEFAULT_CATEGORY_NAME
 import com.solo.components.routes.ScreensRoutes
 import com.solodemo.main.presentations.MainViewModel
+import com.solodemo.main.presentations.dashboard.home.HomeEvent
+import com.stevdzasan.messagebar.ContentWithMessageBar
+import com.stevdzasan.messagebar.MessageBarPosition
+import com.stevdzasan.messagebar.rememberMessageBarState
 
 fun NavGraphBuilder.productSelectionRoute(onBackPressClicked: () -> Unit) {
     composable(
         route = ScreensRoutes.Product.route,
         enterTransition = {
-            // Custom enter transition (push up)
             slideInVertically(
                 initialOffsetY = { it },
                 animationSpec = tween(400),
             ) + fadeIn(animationSpec = tween(400))
         },
         exitTransition = {
-            // Custom exit transition (slide down)
             slideOutVertically(
                 targetOffsetY = { it },
                 animationSpec = tween(400),
@@ -36,30 +43,40 @@ fun NavGraphBuilder.productSelectionRoute(onBackPressClicked: () -> Unit) {
 
         val selectedCategory = backstackEntry.arguments?.getString(Constants.CATEGORY_NAME_ARG_KEY)
             ?: DEFAULT_CATEGORY_NAME
+
         val viewModel = hiltViewModel<MainViewModel>()
-        val foodList = viewModel.getProductList(LocalContext.current)
 
-        val context = LocalContext.current
+        val productState by viewModel.productsState.collectAsStateWithLifecycle()
+        val loadData by viewModel.isLoadingData.collectAsStateWithLifecycle()
+        val messageBarState = rememberMessageBarState()
 
-        ProductListScreen(
-            onBackPressClicked = onBackPressClicked,
-            foodList = foodList,
-            categoryNameSelected = selectedCategory,
-            mainViewModel = viewModel,
-            onSuccess = {
-                Toast.makeText(
-                    context,
-                    "Success! Your item has been added to the cart",
-                    Toast.LENGTH_SHORT,
-                ).show()
-            },
-            onError = {
-                Toast.makeText(
-                    context,
-                    "Failed! Your item has been existing to the cart",
-                    Toast.LENGTH_SHORT,
-                ).show()
-            },
-        )
+        if (loadData) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                CircularProgressIndicator()
+            }
+        } else {
+            ContentWithMessageBar(
+                messageBarState = messageBarState,
+                showCopyButton = false,
+                position = MessageBarPosition.BOTTOM,
+            ) {
+                ProductListScreen(
+                    onBackPressClicked = onBackPressClicked,
+                    productsState = productState,
+                    categoryNameSelected = selectedCategory,
+                    addToCartItem = {
+                        viewModel.onEvent(
+                            event = HomeEvent.UpsertCartItem(it),
+                            onSuccess = {
+                                messageBarState.addSuccess("${it.productDetails?.name} Added to Cart")
+                            },
+                        )
+                    },
+                )
+            }
+        }
     }
 }

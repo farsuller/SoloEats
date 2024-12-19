@@ -16,14 +16,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
-import com.solo.ui.Elevation
+import coil3.compose.SubcomposeAsyncImage
+import com.solo.components.Elevation
 
 @Composable
 fun MainHeaderCard(
@@ -42,7 +40,7 @@ fun MainHeaderCard(
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(start = 10.dp, end = 10.dp, top = 20.dp, bottom = 10.dp),
+                .padding(start = 10.dp, end = 10.dp, bottom = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start,
         ) {
@@ -71,13 +69,11 @@ fun MainHeaderCard(
                 )
             }
 
-            AsyncImage(
+            SubcomposeAsyncImage(
                 modifier = Modifier
                     .weight(0.4F)
                     .fillMaxSize(),
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(imagePath)
-                    .crossfade(true).build(),
+                model = imagePath,
                 contentDescription = "Banner Image",
                 contentScale = ContentScale.Crop,
                 alignment = Alignment.Center,

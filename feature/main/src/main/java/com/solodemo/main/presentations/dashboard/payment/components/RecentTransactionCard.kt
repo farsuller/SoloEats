@@ -2,7 +2,6 @@ package com.solodemo.main.presentations.dashboard.payment.components
 
 import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,8 +23,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.solo.ui.Elevation
-import com.solo.util.clickableWithoutRipple
+import com.solo.components.Elevation
+import com.solo.components.clickableWithoutRipple
+import com.solo.components.formatToCurrency
 import com.solodemo.main.model.Featured
 
 @Composable
@@ -51,7 +51,6 @@ fun RecentTransactionCard(modifier: Modifier = Modifier) {
                         .fillMaxWidth()
                         .padding(top = 20.dp, bottom = 20.dp)
                         .clickableWithoutRipple(
-                            interactionSource = MutableInteractionSource(),
                             onClick = {
                                 Toast
                                     .makeText(context, "Coming Soon", Toast.LENGTH_SHORT)
@@ -71,7 +70,7 @@ fun RecentTransactionCard(modifier: Modifier = Modifier) {
 
                     Text(
                         modifier = Modifier.weight(0.2F),
-                        text = recent.price,
+                        text = formatToCurrency(recent.price.toDouble()),
                         fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                         fontSize = 16.sp,
                         textAlign = TextAlign.End,

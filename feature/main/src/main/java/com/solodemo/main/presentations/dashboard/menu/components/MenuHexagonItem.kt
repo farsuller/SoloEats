@@ -17,15 +17,13 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import coil3.compose.SubcomposeAsyncImage
 import com.solo.components.shapes.HexagonShape
 import com.solo.components.shapes.drawCustomHexagonPath
-import com.solodemo.supabase.model.Menu
+import com.solodemo.network.domain.model.Menu
 
 @Composable
 fun MenuHexagonItem(
@@ -59,12 +57,10 @@ fun MenuHexagonItem(
                     clip = true
                 },
         ) {
-            AsyncImage(
+            SubcomposeAsyncImage(
                 modifier = Modifier
                     .rotate(-30f),
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(menus[index].menuImage)
-                    .crossfade(true).build(),
+                model = menus[index].menuImage,
                 contentDescription = "Logo",
                 contentScale = ContentScale.Crop,
             )

@@ -19,8 +19,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.SoloDemo.MySplash">
+            android:theme="@style/Theme.SoloDemo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
