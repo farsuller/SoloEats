@@ -1,8 +1,8 @@
 package com.solodemo.home
 
-
-import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -26,7 +26,7 @@ class MainBottomNavBarTest {
         composeTestRule.setContent {
             navController = rememberNavController()
             MainBottomNavBar(
-                onTabSelected = {  },
+                onTabSelected = { },
                 navController = navController,
                 cartCount = cartCount,
             )
@@ -51,7 +51,6 @@ class MainBottomNavBarTest {
                 cartCount = null,
             )
         }
-
 
         MainBottomNavItem.entries.forEach { item ->
             composeTestRule.onNodeWithText(item.title).performClick()
