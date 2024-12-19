@@ -1,0 +1,47 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="180dp"
+    android:height="40dp"
+    android:viewportWidth="180.0"
+    android:viewportHeight="40.0">
+
+  <!-- Zigzag line 1 -->
+  <path
+      android:strokeWidth="3"
+      android:strokeColor="#FFFFFF"
+      android:pathData="M0,20
+                        L20,20
+                        L30,12
+                        L50,24
+                        L70,16
+                        L90,28
+                        L110,20
+                        L120,20" />
+
+  <!-- Zigzag line 2 -->
+  <path
+
+      android:strokeWidth="3"
+      android:strokeColor="#FFFFFF"
+      android:pathData="M0,12
+                        L20,12
+                        L30,4
+                        L50,16
+                        L70,8
+                        L90,20
+                        L110,12
+                        L120,12" />
+
+  <!-- Zigzag line 3 -->
+  <path
+
+      android:strokeWidth="3"
+      android:strokeColor="#FFFFFF"
+      android:pathData="M0,28
+                        L20,28
+                        L30,20
+                        L50,32
+                        L70,24
+                        L90,36
+                        L110,28
+                        L120,28" />
+</vector>
