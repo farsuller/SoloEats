@@ -8,9 +8,9 @@ import com.solo.components.routes.ScreensRoutes
 import com.solodemo.auth.presenations.forgot.forgotRoute
 import com.solodemo.auth.presenations.login.loginRoute
 import com.solodemo.auth.presenations.signup.signUpRoute
-import com.solodemo.main.presentations.mainRoute
-import com.solodemo.main.presentations.placeorder.placeOrderRoute
-import com.solodemo.main.presentations.products.productSelectionRoute
+import com.solodemo.home.presentations.mainRoute
+import com.solodemo.home.presentations.placeorder.placeOrderRoute
+import com.solodemo.home.presentations.products.productSelectionRoute
 
 @Composable
 fun SetupNavGraph(

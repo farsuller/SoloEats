@@ -47,10 +47,15 @@ android {
                 base.archivesName.set("$appName-${buildType.name}-$versionCode-$versionName")
             }
         }
-    }
 
-    applicationVariants.all {
-        base.archivesName.set("${ProjectConfig.APP_FILENAME}-${buildType.name}-$versionCode-$versionName")
+        if (isGenerateBuild) {
+            versionCode = configVersionCode
+            versionName = "${configMajorVersion}.${configMinorVersion}.${configPatchVersion}"
+
+            applicationVariants.all {
+                base.archivesName.set("$appName-${buildType.name}-$versionCode-$versionName")
+            }
+        }
     }
 
     if (isGenerateBuild) {
@@ -126,7 +131,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     implementation(projects.feature.auth)
-    implementation(projects.feature.main)
+    implementation(projects.feature.home)
     implementation(projects.core.components)
     implementation(projects.core.database)
     implementation(projects.core.network)
