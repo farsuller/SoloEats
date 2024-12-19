@@ -1,3 +1,8 @@
+import com.android.build.gradle.AppExtension
+import com.android.build.gradle.AppPlugin
+import com.android.build.gradle.BaseExtension
+import com.android.build.gradle.LibraryExtension
+import com.android.build.gradle.LibraryPlugin
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -21,8 +26,44 @@ buildscript {
     }
 }
 
+fun BaseExtension.defaultConfig() {
+    compileSdkVersion(ProjectConfig.COMPILE_SDK)
+
+    defaultConfig {
+        minSdk = ProjectConfig.MIN_SDK
+        targetSdk = ProjectConfig.TARGET_SDK
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+}
+
+fun PluginContainer.applyDefaultConfig(project: Project) {
+
+    whenPluginAdded {
+        when (this) {
+            is AppPlugin -> {
+                project.extensions
+                    .getByType<AppExtension>()
+                    .apply {
+                        defaultConfig()
+                    }
+            }
+            is LibraryPlugin -> {
+                project.extensions
+                    .getByType<LibraryExtension>()
+                    .apply {
+                        defaultConfig()
+                    }
+            }
+        }
+    }
+}
 
 subprojects {
+    project.plugins.applyDefaultConfig(project)
     tasks.withType<KotlinCompile> {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_17)

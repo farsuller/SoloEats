@@ -1,11 +1,29 @@
-We're thrilled to introduce SoloEats, your ultimate food ordering companion designed to elevate your dining experiences. 
-In this inaugural release, SoloEats focuses on delivering a seamless journey with convenient login options and a feature-rich home dashboard.
+# SoloEats
 
+**SoloEats** is a personal food ordering app designed to showcase modern Android development practices. Built entirely with **Jetpack Compose**, this project embraces cutting-edge tools and libraries to deliver a robust, clean, and scalable architecture.
+
+## Features and Technologies
+
+### 🛠️ Libraries and Tools Used
+
+- **Jetpack Compose**  
+  A modern UI toolkit for building declarative and dynamic user interfaces with ease and efficiency.
+
+- **Clean MVVM Architecture**  
+  Implements the Model-View-ViewModel pattern combined with Clean Architecture principles to ensure maintainability and separation of concerns.
+
+- **Hilt**  
+  A dependency injection library to simplify app modularization and manage object lifetimes seamlessly.
+
+- **Room**  
+  Provides a lightweight, SQLite-based persistence solution, enabling efficient local storage for app data.
+
+- **Ktor**  
+  A flexible HTTP client and server framework for making network requests, enhancing communication with remote APIs.
+
+- **Kotlin**  
+  The programming language powering SoloEats, known for its concise syntax, safety features, and modernity.
+
+### 🎯 Visit SoloEats on play store
 https://play.google.com/store/apps/details?id=com.solo.solodemo
 
-<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
-    <img src="https://github.com/user-attachments/assets/7d01a0b5-45f2-436d-b019-0b1a92c16b70" alt="Screenshot 1" width="200"/>
-    <img src="https://github.com/user-attachments/assets/23e3f673-e3c5-493c-bfb7-105cd66e8c16" alt="Screenshot 2" width="200"/>
-    <img src="https://github.com/user-attachments/assets/956e61ef-1f80-4c7c-aec2-526ca1ac648c" alt="Screenshot 3" width="200"/>
-  <img src="https://github.com/user-attachments/assets/64811cec-e910-4ab7-b539-a6d365cc89b9" alt="Screenshot 3" width="200"/>
-</div>

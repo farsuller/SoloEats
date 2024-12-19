@@ -9,19 +9,7 @@ plugins {
 
 android {
     namespace = "com.solodemo.main"
-    compileSdk = ProjectConfig.COMPILE_SDK
 
-    defaultConfig {
-        minSdk = ProjectConfig.MIN_SDK
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
     buildFeatures {
         compose = true
     }
@@ -51,7 +39,7 @@ dependencies {
 
     implementation(libs.lottie.compose)
 
-    implementation(libs.message.bar.compose)
+    //implementation(libs.message.bar.compose)
 
     debugImplementation(libs.androidx.ui.tooling)
 
@@ -71,6 +59,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(projects.core.components)
+    implementation(projects.core.messagebar)
     implementation(projects.core.database)
     implementation(projects.core.network)
 

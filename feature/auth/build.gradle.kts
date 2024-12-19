@@ -9,31 +9,7 @@ plugins {
 
 android {
     namespace = "com.solodemo.auth"
-    compileSdk = ProjectConfig.COMPILE_SDK
 
-    defaultConfig {
-        minSdk = ProjectConfig.MIN_SDK
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
     buildFeatures {
         compose = true
     }
@@ -57,7 +33,7 @@ dependencies {
 
     implementation(libs.bundles.bundle.coil)
 
-    implementation(libs.message.bar.compose)
+    //implementation(libs.message.bar.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -74,5 +50,6 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
 
     implementation(projects.core.components)
+    implementation(projects.core.messagebar)
     implementation(projects.core.database)
 }

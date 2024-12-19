@@ -8,20 +8,9 @@ plugins {
 
 android {
     namespace = "com.solodemo.network"
-    compileSdk = ProjectConfig.COMPILE_SDK
 
     defaultConfig {
-        minSdk = ProjectConfig.MIN_SDK
         buildConfigField("String", "BASE_URL", "\"https://demoapi-pkos.onrender.com/\"")
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = "17"
     }
 
     buildFeatures {

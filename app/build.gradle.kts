@@ -26,7 +26,6 @@ val keystoreProperties: Properties by lazy {
 
 android {
     namespace = ProjectConfig.NAMESPACE
-    compileSdk = ProjectConfig.COMPILE_SDK
 
     val isGenerateBuild = ProjectConfig.GENERATE_LOCAL_ARCHIVE
     val configVersionCode = ProjectConfig.VERSION_CODE
@@ -37,8 +36,6 @@ android {
 
     defaultConfig {
         applicationId = ProjectConfig.APPLICATION_ID
-        minSdk = ProjectConfig.MIN_SDK
-        targetSdk = ProjectConfig.TARGET_SDK
         versionCode = 10
         versionName = "2.0.0"
 
@@ -86,18 +83,11 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
+
     buildFeatures {
         compose = true
         buildConfig = true
     }
-
 }
 
 dependencies {

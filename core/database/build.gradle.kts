@@ -8,19 +8,6 @@ plugins {
 
 android {
     namespace = "com.solodemo.database"
-    compileSdk = ProjectConfig.COMPILE_SDK
-
-    defaultConfig {
-        minSdk = ProjectConfig.MIN_SDK
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
 }
 
 dependencies {
