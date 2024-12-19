@@ -54,7 +54,7 @@ fun DeliveryAddressContent(accountState: AccountState) {
 
             Text(
                 modifier = Modifier.fillMaxWidth().padding(start = 15.dp),
-                text = "Hi, ${accountState.email.extractNameFromEmail()}",
+                text = "Hi, ${accountState.email?.extractNameFromEmail()}",
                 fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                 fontSize = 15.sp,
                 textAlign = TextAlign.Start,

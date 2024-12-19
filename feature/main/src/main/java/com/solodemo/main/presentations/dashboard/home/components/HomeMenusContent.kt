@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.solo.components.R
 import com.solodemo.main.components.MenuCircleShimmerLoading
+import com.solodemo.main.components.MenuCircleShimmerLoadingWithText
 import com.solodemo.main.presentations.dashboard.menu.MenusState
 
 @Composable
@@ -67,7 +68,7 @@ fun HomeMenusContent(
         }
 
         menusState.errorMessage != null -> {
-            MenuCircleShimmerLoading()
+            MenuCircleShimmerLoadingWithText()
             errorCallback(menusState.errorMessage)
         }
     }

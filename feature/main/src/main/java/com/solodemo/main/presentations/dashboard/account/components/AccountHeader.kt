@@ -28,7 +28,7 @@ fun AccountHeader(accountState: AccountState) {
     ) {
         Text(
             modifier = Modifier.padding(bottom = 10.dp),
-            text = "Hi, ${accountState.email.extractNameFromEmail()}",
+            text = "Hi, ${accountState.email?.extractNameFromEmail()}",
             fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
             color = MaterialTheme.colorScheme.onSurface,

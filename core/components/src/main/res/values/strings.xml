@@ -35,4 +35,6 @@
     <string name="burger_fries_description">Discover a world of taste with our extraordinary burgers and fries.</string>
     <string name="brewing_moments">Brewing Moments\nof Joy</string>
     <string name="brewing_moments_description">Join us for a delightful experience that goes beyond the ordinary.</string>
+    <string name="swipe_down">Swipe Down to Refresh.</string>
+    <string name="swipe_down_description">If encountered request timeout exception.</string>
 </resources>

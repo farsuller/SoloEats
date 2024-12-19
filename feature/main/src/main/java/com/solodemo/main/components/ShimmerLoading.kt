@@ -1,7 +1,9 @@
 package com.solodemo.main.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -12,11 +14,19 @@ import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.solo.components.R
 import com.solo.components.component.shimmerEffect
 import com.solo.components.shapes.TicketShape
 
@@ -27,12 +37,7 @@ fun CouponShimmerLoading() {
             .fillMaxWidth()
             .padding(top = 10.dp),
     ) {
-        Box(
-            modifier = Modifier
-                .padding(start = 10.dp)
-                .size(width = 100.dp, height = 20.dp)
-                .shimmerEffect(),
-        )
+        TextShimmerLoading()
 
         Box(
             modifier = Modifier
@@ -66,27 +71,40 @@ fun ReviewsShimmerLoading() {
             .fillMaxWidth()
             .padding(top = 10.dp),
     ) {
-        Box(
-            modifier = Modifier
-                .padding(start = 10.dp)
-                .size(width = 100.dp, height = 20.dp)
-                .shimmerEffect(),
-        )
+        TextShimmerLoading()
 
-        LazyRow(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 10.dp),
-        ) {
-            items(5) {
-                Box(
-                    modifier = Modifier
-                        .padding(horizontal = 5.dp)
-                        .size(200.dp, 100.dp)
-                        .clip(shape = RoundedCornerShape(5.dp))
-                        .shimmerEffect(),
-                )
-            }
+        ReviewsRowCardShimmer()
+    }
+}
+
+@Composable
+fun ReviewsShimmerLoadingWithText() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 10.dp),
+    ) {
+        SwipeDownContent()
+
+        ReviewsRowCardShimmer()
+    }
+}
+
+@Composable
+private fun ReviewsRowCardShimmer() {
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 10.dp),
+    ) {
+        items(5) {
+            Box(
+                modifier = Modifier
+                    .padding(horizontal = 5.dp)
+                    .size(200.dp, 100.dp)
+                    .clip(shape = RoundedCornerShape(5.dp))
+                    .shimmerEffect(),
+            )
         }
     }
 }
@@ -98,28 +116,79 @@ fun MenuCircleShimmerLoading() {
             .fillMaxWidth()
             .padding(top = 10.dp),
     ) {
-        Box(
-            modifier = Modifier
-                .padding(start = 10.dp)
-                .size(width = 100.dp, height = 20.dp)
-                .shimmerEffect(),
-        )
+        TextShimmerLoading()
+        MenuCircularRow()
+    }
+}
 
-        LazyRow(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 10.dp),
-        ) {
-            items(5) {
-                Box(
-                    modifier = Modifier
-                        .padding(horizontal = 5.dp)
-                        .size(80.dp)
-                        .clip(CircleShape)
-                        .shimmerEffect(),
-                )
-            }
+@Composable
+private fun TextShimmerLoading() {
+    Box(
+        modifier = Modifier
+            .padding(start = 10.dp)
+            .size(width = 100.dp, height = 20.dp)
+            .shimmerEffect(),
+    )
+}
+
+@Composable
+fun MenuCircleShimmerLoadingWithText() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 10.dp),
+    ) {
+        SwipeDownContent()
+
+        MenuCircularRow()
+    }
+}
+
+@Composable
+private fun MenuCircularRow() {
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 10.dp),
+    ) {
+        items(5) {
+            Box(
+                modifier = Modifier
+                    .padding(horizontal = 5.dp)
+                    .size(80.dp)
+                    .clip(CircleShape)
+                    .shimmerEffect(),
+            )
         }
+    }
+}
+
+@Composable
+private fun SwipeDownContent() {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Column {
+            Text(
+                text = stringResource(R.string.swipe_down),
+                fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
+                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                textAlign = TextAlign.Start,
+            )
+
+            Text(
+                text = stringResource(R.string.swipe_down_description),
+                fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
+                fontSize = MaterialTheme.typography.labelMedium.fontSize,
+                textAlign = TextAlign.Start,
+            )
+        }
+
+        Icon(
+            imageVector = Icons.Default.KeyboardArrowDown,
+            contentDescription = null
+        )
     }
 }
 
@@ -144,13 +213,29 @@ fun HorizontalGridProductShimmerLoading() {
                 .height(850.dp),
         ) {
             items(15) {
-                Box(
-                    modifier = Modifier
-                        .padding(10.dp)
-                        .size(width = 200.dp, height = 280.dp)
-                        .clip(shape = RoundedCornerShape(5.dp))
-                        .shimmerEffect(),
-                )
+                ProductCardShimmer()
+            }
+        }
+    }
+}
+
+@Composable
+fun HorizontalGridProductShimmerLoadingWithText() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 10.dp),
+    ) {
+        SwipeDownContent()
+
+        LazyHorizontalGrid(
+            rows = GridCells.Fixed(3),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(850.dp),
+        ) {
+            items(15) {
+                ProductCardShimmer()
             }
         }
     }
@@ -194,16 +279,21 @@ fun VerticalGridProductShimmerLoading() {
                 .height(850.dp),
         ) {
             items(15) {
-                Box(
-                    modifier = Modifier
-                        .padding(10.dp)
-                        .size(width = 200.dp, height = 280.dp)
-                        .clip(shape = RoundedCornerShape(5.dp))
-                        .shimmerEffect(),
-                )
+                ProductCardShimmer()
             }
         }
     }
+}
+
+@Composable
+private fun ProductCardShimmer() {
+    Box(
+        modifier = Modifier
+            .padding(10.dp)
+            .size(width = 200.dp, height = 280.dp)
+            .clip(shape = RoundedCornerShape(5.dp))
+            .shimmerEffect(),
+    )
 }
 
 @Preview
@@ -220,6 +310,18 @@ fun ReviewsShimmerLoadingPreview() {
 
 @Preview
 @Composable
+fun ReviewsShimmerLoadingWithTextPreview() {
+    ReviewsShimmerLoadingWithText()
+}
+
+@Preview
+@Composable
+fun MenuCircleShimmerLoadingWithTextPreview() {
+    MenuCircleShimmerLoadingWithText()
+}
+
+@Preview
+@Composable
 fun MenuCircleShimmerLoadingPreview() {
     MenuCircleShimmerLoading()
 }
@@ -228,6 +330,12 @@ fun MenuCircleShimmerLoadingPreview() {
 @Composable
 fun HorizontalGridProductShimmerLoadingPreview() {
     HorizontalGridProductShimmerLoading()
+}
+
+@Preview
+@Composable
+fun HorizontalGridProductShimmerLoadingWithTextPreview() {
+    HorizontalGridProductShimmerLoadingWithText()
 }
 
 @Preview

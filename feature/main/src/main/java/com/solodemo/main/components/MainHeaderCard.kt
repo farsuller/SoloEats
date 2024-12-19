@@ -39,15 +39,12 @@ fun MainHeaderCard(
     ) {
         Row(
             modifier = Modifier
-                .fillMaxSize()
                 .padding(start = 10.dp, end = 10.dp, bottom = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start,
         ) {
             Column(
-                modifier = Modifier
-                    .weight(0.5F)
-                    .fillMaxSize(),
+                modifier = Modifier.weight(0.5F),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.End,
             ) {
@@ -70,9 +67,7 @@ fun MainHeaderCard(
             }
 
             SubcomposeAsyncImage(
-                modifier = Modifier
-                    .weight(0.4F)
-                    .fillMaxSize(),
+                modifier = Modifier.weight(0.4F),
                 model = imagePath,
                 contentDescription = "Banner Image",
                 contentScale = ContentScale.Crop,

@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import com.solo.components.R
 import com.solodemo.database.domain.model.Cart
 import com.solodemo.main.components.HorizontalGridProductShimmerLoading
+import com.solodemo.main.components.HorizontalGridProductShimmerLoadingWithText
 import com.solodemo.main.components.ProductsCardItems
 import com.solodemo.main.presentations.products.ProductsState
 
@@ -76,7 +77,7 @@ fun HomePopularContent(
         }
 
         productState.errorMessage != null -> {
-            HorizontalGridProductShimmerLoading()
+            HorizontalGridProductShimmerLoadingWithText()
             errorCallback(productState.errorMessage)
         }
     }

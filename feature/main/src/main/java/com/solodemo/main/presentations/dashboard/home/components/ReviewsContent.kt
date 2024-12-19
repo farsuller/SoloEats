@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.solo.components.R
 import com.solodemo.main.components.ReviewsShimmerLoading
+import com.solodemo.main.components.ReviewsShimmerLoadingWithText
 import com.solodemo.main.presentations.dashboard.home.ReviewsState
 
 @Composable
@@ -64,7 +65,7 @@ fun ReviewsContent(
         }
 
         reviewsState.errorMessage != null -> {
-            ReviewsShimmerLoading()
+            ReviewsShimmerLoadingWithText()
             errorCallback(reviewsState.errorMessage)
         }
     }
