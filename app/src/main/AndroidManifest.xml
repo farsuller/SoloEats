@@ -12,7 +12,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:name=".SoloApplication"
-        android:roundIcon="@mipmap/soloeats_ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.SoloDemo"
         tools:targetApi="31">
@@ -22,7 +22,6 @@
             android:theme="@style/Theme.SoloDemo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -1,6 +1,11 @@
 package com.solodemo.auth.presenations.login
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.os.Build
+import android.view.View
+import android.view.Window
+import android.view.WindowInsetsController
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,8 +17,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
 import com.solodemo.auth.presenations.login.components.LoginBackground
 import com.solodemo.auth.presenations.login.components.LoginBottomItems
@@ -27,6 +36,12 @@ internal fun LoginScreen(
     onSignUpButtonClicked: () -> Unit,
     onLoggedInButtonClicked: (String, String) -> Unit,
 ) {
+    val window = (LocalView.current.context as Activity).window
+
+    DynamicStatusBar(
+        window = window,
+        statusBarColor = MaterialTheme.colorScheme.surface)
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -58,4 +73,21 @@ internal fun LoginScreen(
             }
         },
     )
+}
+@Composable
+private fun DynamicStatusBar(
+    window: Window,
+    statusBarColor: Color) {
+    LaunchedEffect(statusBarColor) {
+        window.decorView.rootView.setBackgroundColor(statusBarColor.toArgb())
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.setSystemBarsAppearance(
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+            )
+        } else {
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+        }
+    }
 }
