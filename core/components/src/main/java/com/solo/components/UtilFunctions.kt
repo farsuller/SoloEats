@@ -53,6 +53,10 @@ fun Modifier.clickableWithoutRipple(
     )
 }
 
+fun String.extractNameFromEmail(): String {
+    return this.substringBefore("@")
+}
+
 fun getAppVersion(context: Context): String {
     return try {
         val packageManager: PackageManager = context.packageManager

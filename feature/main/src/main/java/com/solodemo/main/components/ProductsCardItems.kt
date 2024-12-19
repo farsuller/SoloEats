@@ -1,4 +1,4 @@
-package com.solodemo.main.presentations.products.components
+package com.solodemo.main.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,9 +33,6 @@ import com.solo.components.Elevation
 import com.solo.components.formatToCurrency
 import com.solodemo.database.domain.model.Cart
 import com.solodemo.database.domain.model.ProductDetails
-import com.solodemo.main.components.AddToCartButton
-import com.solodemo.main.components.QuantityButton
-import com.solodemo.main.components.RatingBar
 import com.solodemo.network.domain.model.Food
 
 @Composable
@@ -52,7 +49,7 @@ fun ProductsCardItems(
         modifier = Modifier
             .padding(10.dp)
             .size(width = 200.dp, height = 280.dp),
-        shape = RoundedCornerShape(13.dp),
+        shape = RoundedCornerShape(5.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
     ) {
         Column(

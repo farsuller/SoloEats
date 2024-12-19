@@ -31,7 +31,6 @@ import com.solodemo.network.domain.model.Coupon
 
 @Composable
 fun CouponItemCard(coupon: Coupon, isSelected: Boolean, onItemClick: () -> Unit) {
-
     Card(
         modifier = Modifier
             .size(width = 230.dp, height = 110.dp)
@@ -49,7 +48,6 @@ fun CouponItemCard(coupon: Coupon, isSelected: Boolean, onItemClick: () -> Unit)
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-
             if (coupon.imagePath != null) {
                 SubcomposeAsyncImage(
                     model = coupon.imagePath,
@@ -77,7 +75,7 @@ fun CouponItemCard(coupon: Coupon, isSelected: Boolean, onItemClick: () -> Unit)
                     .fillMaxWidth()
                     .fillMaxHeight()
                     .weight(1F),
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Center,
             ) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),

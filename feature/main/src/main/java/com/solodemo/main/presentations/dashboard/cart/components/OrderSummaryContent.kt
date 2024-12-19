@@ -32,7 +32,7 @@ fun OrderSummaryContent(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.onPrimary)
+            .background(MaterialTheme.colorScheme.onPrimary),
     ) {
         Column(
             modifier = Modifier
@@ -83,6 +83,4 @@ fun OrderSummaryContent(
             SubtotalDeliveryContent(cartState)
         }
     }
-
-
 }

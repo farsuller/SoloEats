@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
@@ -28,8 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.solo.components.component.DefaultErrorBox
 import com.solodemo.database.domain.model.Cart
+import com.solodemo.main.components.ProductsCardItems
 import com.solodemo.main.components.VerticalGridProductShimmerLoading
-import com.solodemo.main.presentations.products.components.ProductsCardItems
 
 @Composable
 fun ProductListScreen(

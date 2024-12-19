@@ -3,7 +3,6 @@ package com.solodemo.main.presentations.dashboard.cart.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.solo.components.R
@@ -36,7 +36,7 @@ fun PaymentMethodContent() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.onPrimary)
+            .background(MaterialTheme.colorScheme.onPrimary),
     ) {
         Column(
             modifier = Modifier
@@ -45,23 +45,23 @@ fun PaymentMethodContent() {
         ) {
             Text(
                 modifier = Modifier,
-                text = "Payment details",
+                text = stringResource(R.string.payment_details),
                 fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
             )
 
             Text(
-                text = "Few drivers are accepting cash right now. Go cashless to get one faster.",
+                text = stringResource(R.string.payment_details_description),
                 fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                 fontSize = MaterialTheme.typography.labelMedium.fontSize,
-                lineHeight = 16.sp
+                lineHeight = 16.sp,
             )
 
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 10.dp),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Box(
                     modifier = Modifier
@@ -69,9 +69,9 @@ fun PaymentMethodContent() {
                         .border(
                             width = 1.dp,
                             color = Color.Black,
-                            shape = RoundedCornerShape(4.dp)
+                            shape = RoundedCornerShape(4.dp),
                         ),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     Icon(
                         modifier = Modifier.size(12.dp),
@@ -84,16 +84,16 @@ fun PaymentMethodContent() {
                 Text(
                     modifier = Modifier
                         .padding(start = 15.dp)
-                        .weight(1f), // Pushes the RadioButton to the end
-                    text = "Cash",
+                        .weight(1f),
+                    text = stringResource(R.string.cash),
                     fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                     fontSize = MaterialTheme.typography.bodySmall.fontSize,
                 )
 
                 RadioButton(
                     colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colorScheme.secondary),
-                    selected = selectedOption == "Cash",
-                    onClick = { selectedOption = "Cash" }
+                    selected = selectedOption == stringResource(R.string.cash),
+                    onClick = { selectedOption = "Cash" },
                 )
             }
 
@@ -101,7 +101,7 @@ fun PaymentMethodContent() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 10.dp),
-                verticalAlignment = Alignment.CenterVertically // Align items vertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Image(
                     modifier = Modifier.size(30.dp),
@@ -112,16 +112,16 @@ fun PaymentMethodContent() {
                 Text(
                     modifier = Modifier
                         .padding(start = 15.dp)
-                        .weight(1f), // Pushes the RadioButton to the end
-                    text = "Card",
+                        .weight(1f),
+                    text = stringResource(R.string.card),
                     fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                     fontSize = MaterialTheme.typography.bodySmall.fontSize,
                 )
 
                 RadioButton(
                     colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colorScheme.secondary),
-                    selected = selectedOption == "Card",
-                    onClick = { selectedOption = "Card" }
+                    selected = selectedOption == stringResource(R.string.card),
+                    onClick = { selectedOption = "Card" },
                 )
             }
         }

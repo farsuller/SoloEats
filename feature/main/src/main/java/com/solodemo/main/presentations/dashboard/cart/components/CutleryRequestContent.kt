@@ -18,8 +18,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.solo.components.R
 
 @Composable
 fun CutleryRequestContent() {
@@ -28,13 +30,13 @@ fun CutleryRequestContent() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.onPrimary)
+            .background(MaterialTheme.colorScheme.onPrimary),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Column(
                 modifier = Modifier
@@ -43,16 +45,16 @@ fun CutleryRequestContent() {
             ) {
                 Text(
                     modifier = Modifier,
-                    text = "No cutlery requested",
+                    text = stringResource(R.string.no_cutlery_requested),
                     fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
                     fontSize = MaterialTheme.typography.titleMedium.fontSize,
                 )
 
                 Text(
-                    text = "We'll let the store know your request. Thanks for reducing single-use plastic!",
+                    text = stringResource(R.string.no_cutlery_description),
                     fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                     fontSize = MaterialTheme.typography.labelMedium.fontSize,
-                    lineHeight = 16.sp
+                    lineHeight = 16.sp,
                 )
             }
 
@@ -62,8 +64,8 @@ fun CutleryRequestContent() {
                 onCheckedChange = { isSwitchChecked = it },
                 colors = SwitchDefaults.colors(
                     checkedThumbColor = MaterialTheme.colorScheme.secondary,
-                    uncheckedThumbColor = MaterialTheme.colorScheme.primary
-                )
+                    uncheckedThumbColor = MaterialTheme.colorScheme.primary,
+                ),
             )
         }
     }

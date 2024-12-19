@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -19,14 +18,18 @@ import androidx.compose.material.icons.outlined.Shield
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.solo.components.R
+import com.solo.components.theme.SoloDemoTheme
 import com.solodemo.main.presentations.dashboard.payment.components.PaymentWalletCard
 import com.solodemo.main.presentations.dashboard.payment.components.RecentTransactionCard
 
@@ -52,9 +55,9 @@ internal fun PaymentScreen(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = "Payment",
+                    text = stringResource(R.string.payment),
                     fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
-                    fontSize = 28.sp,
+                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
                 )
             }
 
@@ -65,10 +68,10 @@ internal fun PaymentScreen(
                 verticalAlignment = Alignment.Bottom,
             ) {
                 Text(
-                    text = "Our multi-layered\nsecurity keeps you safe",
+                    text = stringResource(R.string.payment_description),
                     maxLines = 2,
-                    fontFamily = MaterialTheme.typography.titleSmall.fontFamily,
-                    fontSize = 14.sp,
+                    fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
+                    fontSize = MaterialTheme.typography.labelMedium.fontSize,
                     lineHeight = 18.sp,
                 )
                 Icon(
@@ -81,12 +84,6 @@ internal fun PaymentScreen(
             Spacer(modifier = Modifier.size(15.dp))
 
             PaymentWalletCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(250.dp)
-                    .padding(10.dp),
-                title = "SoloEats Wallet",
-                amount = " 0.00",
                 onWalletClicked = {
                     Toast.makeText(context, "Coming Soon", Toast.LENGTH_SHORT).show()
                 },
@@ -100,7 +97,7 @@ internal fun PaymentScreen(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = "Recent Transactions",
+                    text = stringResource(R.string.recent_transactions),
                     fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
                     fontSize = 18.sp,
                 )
@@ -127,5 +124,11 @@ internal fun PaymentScreen(
 @Preview(showBackground = true)
 @Composable
 internal fun PaymentScreenPreview() {
-    PaymentScreen(paddingValues = PaddingValues())
+    SoloDemoTheme(
+        darkTheme = false,
+    ) {
+        Surface {
+            PaymentScreen(paddingValues = PaddingValues())
+        }
+    }
 }

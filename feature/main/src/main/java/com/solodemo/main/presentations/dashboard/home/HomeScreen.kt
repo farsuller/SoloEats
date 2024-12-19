@@ -7,7 +7,6 @@ import com.solodemo.database.domain.model.Cart
 import com.solodemo.main.components.MainBackground
 import com.solodemo.main.presentations.dashboard.menu.MenusState
 import com.solodemo.main.presentations.products.ProductsState
-import com.stevdzasan.messagebar.MessageBarState
 
 @Composable
 internal fun HomeScreen(
@@ -16,9 +15,9 @@ internal fun HomeScreen(
     reviewsState: ReviewsState,
     productState: ProductsState,
     homeLazyListState: LazyListState,
-    messageBarState: MessageBarState,
     navigateToProductList: (String) -> Unit,
     popularAddToCartClicked: (Cart) -> Unit,
+    errorCallback: (String) -> Unit = {},
 ) {
     MainBackground()
 
@@ -30,6 +29,6 @@ internal fun HomeScreen(
         homeLazyListState = homeLazyListState,
         navigateToProductList = navigateToProductList,
         popularAddToCartClicked = popularAddToCartClicked,
-        messageBarState = messageBarState,
+        errorCallback = errorCallback,
     )
 }

@@ -15,7 +15,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.solo.components.R
 import com.solo.components.component.DefaultErrorBox
 import com.solodemo.main.components.CouponShimmerLoading
 import com.solodemo.main.presentations.dashboard.cart.CartState
@@ -31,25 +33,23 @@ fun CouponsContent(cartState: CartState) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.onPrimary)
-            )
-            {
+                    .background(MaterialTheme.colorScheme.onPrimary),
+            ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 10.dp)
-                )
-                {
+                        .padding(top = 10.dp),
+                ) {
                     Text(
                         modifier = Modifier.padding(start = 15.dp, end = 15.dp),
-                        text = "Offers",
+                        text = stringResource(R.string.offers),
                         fontFamily = MaterialTheme.typography.titleLarge.fontFamily,
                         fontSize = MaterialTheme.typography.titleMedium.fontSize,
                     )
 
                     Text(
                         modifier = Modifier.padding(start = 15.dp, end = 15.dp),
-                        text = "Use offers or promo code",
+                        text = stringResource(R.string.offers_description),
                         fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                         fontSize = MaterialTheme.typography.bodySmall.fontSize,
                     )
@@ -59,16 +59,12 @@ fun CouponsContent(cartState: CartState) {
                             CouponItemCard(
                                 coupon = couponItem,
                                 isSelected = selectedCouponItem == couponItem,
-                            ) {
-                                selectedCouponItem = couponItem
-                            }
+                            ) { selectedCouponItem = couponItem }
                         }
                     }
                 }
             }
-
         }
-
         cartState.errorMessage != null -> DefaultErrorBox(errorMessage = cartState.errorMessage)
     }
 }

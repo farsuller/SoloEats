@@ -81,6 +81,7 @@ class MainViewModel @Inject constructor(
         getReviews()
         getProducts()
         getCartList()
+        getCurrentUserEmail()
         _isLoadingData.value = false
     }
 
@@ -98,9 +99,7 @@ class MainViewModel @Inject constructor(
             }
             .collectLatest { response ->
                 when (response) {
-                    is ApiResult.Success -> {
-                        _productsState.update { it.copy(productsList = response.result.data, isLoading = false) }
-                    }
+                    is ApiResult.Success -> { _productsState.update { it.copy(productsList = response.result.data, isLoading = false) } }
                     is ApiResult.Error -> _productsState.update { it.copy(errorMessage = response.message, isLoading = false) }
                 }
             }
@@ -114,12 +113,7 @@ class MainViewModel @Inject constructor(
             }
             .collectLatest { response ->
                 when (response) {
-                    is ApiResult.Success -> {
-                        _reviewsState.update {
-                            it.copy(reviewsList = response.result.data, isLoading = false)
-                        }
-                    }
-
+                    is ApiResult.Success -> { _reviewsState.update { it.copy(reviewsList = response.result.data, isLoading = false) } }
                     is ApiResult.Error -> _reviewsState.update { it.copy(errorMessage = response.message, isLoading = false) }
                 }
             }
@@ -133,13 +127,15 @@ class MainViewModel @Inject constructor(
             }
             .collectLatest { response ->
                 when (response) {
-                    is ApiResult.Success -> {
-                        _menusState.update { it.copy(menusList = response.result.data, isLoading = false) }
-                    }
-
+                    is ApiResult.Success -> { _menusState.update { it.copy(menusList = response.result.data, isLoading = false) } }
                     is ApiResult.Error -> _menusState.update { it.copy(errorMessage = response.message, isLoading = false) }
                 }
             }
+    }
+
+    private fun getCurrentUserEmail() {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        _accountState.update { it.copy(email = currentUser?.email ?: "") }
     }
 
     fun logOut(onSuccess: () -> Unit) {

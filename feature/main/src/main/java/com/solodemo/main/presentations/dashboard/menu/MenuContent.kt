@@ -18,9 +18,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.solo.components.Constants
+import com.solo.components.R
 import com.solo.components.clickableWithoutRipple
 import com.solo.components.component.DefaultErrorBox
 import com.solo.components.loading.CircularLoadingIndicator
@@ -44,8 +46,8 @@ fun MenuContent(
             .onGloballyPositioned { coordinates ->
                 cardHeight = with(density) { coordinates.size.height.toDp() }
             },
-        title = "Burgers & Fries Extravaganza",
-        description = "Discover a world of taste with our extraordinary burgers and fries.",
+        title = stringResource(R.string.burger_fries),
+        description = stringResource(R.string.burger_fries_description),
         color = MaterialTheme.colorScheme.primary,
         imagePath = Constants.StaticImages.bannerBurgerFries,
     )

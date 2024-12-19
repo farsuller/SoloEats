@@ -19,12 +19,12 @@ import com.solodemo.main.presentations.dashboard.cart.CartState
 
 @Composable
 fun SubtotalDeliveryContent(cartState: CartState) {
-    Column(modifier = Modifier.fillMaxWidth())
-    {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(1.dp)
-            .background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.4f)),
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(1.dp)
+                .background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.4f)),
         )
 
         Row(

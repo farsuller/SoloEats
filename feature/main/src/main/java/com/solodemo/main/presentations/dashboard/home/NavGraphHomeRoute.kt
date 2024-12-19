@@ -52,11 +52,10 @@ fun NavGraphBuilder.homeRoute(
                 }
             },
         )
-
         ContentWithMessageBar(
             messageBarState = messageBarState,
             showCopyButton = false,
-            position = MessageBarPosition.BOTTOM,
+            position = MessageBarPosition.TOP,
         ) {
             Box(
                 modifier = Modifier
@@ -72,9 +71,10 @@ fun NavGraphBuilder.homeRoute(
                     popularAddToCartClicked = { cart ->
                         insertCart(cart)
                     },
-                    messageBarState = messageBarState,
+                    errorCallback = { errorMessage ->
+                        messageBarState.addError(Exception(errorMessage))
+                    },
                 )
-
                 PullRefreshIndicator(
                     refreshing = isRefreshing,
                     state = pullRefreshState,

@@ -2,6 +2,10 @@ package com.solodemo.main.presentations
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.os.Build
+import android.view.View
+import android.view.Window
+import android.view.WindowInsetsController
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,20 +14,20 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.solodemo.database.domain.model.Cart
 import com.solodemo.main.components.MainBottomNavBar
-import com.solodemo.main.components.MainTopBar
 import com.solodemo.main.presentations.dashboard.account.AccountState
 import com.solodemo.main.presentations.dashboard.cart.CartState
 import com.solodemo.main.presentations.dashboard.home.ReviewsState
@@ -50,31 +54,23 @@ internal fun MainScreen(
 
     val homeLazyListState by remember { mutableStateOf(LazyListState()) }
 
-    val changeStatusBar by remember {
-        derivedStateOf {
-            homeLazyListState.firstVisibleItemScrollOffset > 0
-        }
-    }
     var selectedTab by remember { mutableStateOf("Home") }
     val statusBarColor by animateColorAsState(
-        if (changeStatusBar) {
-            MaterialTheme.colorScheme.surface
-        } else MaterialTheme.colorScheme.secondary,
+        targetValue = when (selectedTab) {
+            "Menus" -> MaterialTheme.colorScheme.primary
+            "Home" -> MaterialTheme.colorScheme.secondary
+            else -> MaterialTheme.colorScheme.surface
+        },
         label = "Animate Status Bar",
     )
 
-    val color = when (selectedTab) {
-        "Payment", "Cart" -> statusBarColor.toArgb()
-        "Menus" -> MaterialTheme.colorScheme.primary.toArgb()
-        "Account" -> MaterialTheme.colorScheme.secondary.toArgb()
-        else -> statusBarColor.toArgb()
-    }
-    window.decorView.rootView.setBackgroundColor(color)
+    DynamicStatusBar(
+        window,
+        statusBarColor,
+        isLightStatusBar = selectedTab == "Home" || selectedTab == "Menus",
+    )
 
     Scaffold(
-        topBar = {
-            MainTopBar(selectedTab = selectedTab)
-        },
         bottomBar = {
             MainBottomNavBar(
                 navController = navController,
@@ -105,6 +101,30 @@ internal fun MainScreen(
                 insertCart = insertCart,
                 onPullRefresh = onPullRefresh,
             )
+        }
+    }
+}
+
+@Composable
+private fun DynamicStatusBar(
+    window: Window,
+    statusBarColor: Color,
+    isLightStatusBar: Boolean,
+) {
+    LaunchedEffect(statusBarColor) {
+        window.decorView.rootView.setBackgroundColor(statusBarColor.toArgb())
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.setSystemBarsAppearance(
+                if (isLightStatusBar) 0 else WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+            )
+        } else {
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = if (isLightStatusBar) {
+                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            } else {
+                View.SYSTEM_UI_FLAG_VISIBLE
+            }
         }
     }
 }

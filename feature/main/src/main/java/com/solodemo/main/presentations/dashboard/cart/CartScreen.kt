@@ -51,7 +51,7 @@ internal fun CartScreen(
                         .padding(bottom = paddingValues.calculateBottomPadding()),
                 ) {
                     Column(
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize(),
                     ) {
                         LazyColumn(
                             modifier = Modifier
@@ -88,7 +88,7 @@ internal fun CartScreen(
                         Box(
                             modifier = Modifier
                                 .padding(10.dp)
-                                .weight(0.15f)
+                                .weight(0.15f),
                         ) {
                             TotalAndPlaceOrderButtonHolder(
                                 placeOrderButtonClicked = placeOrderButtonClicked,
@@ -102,5 +102,3 @@ internal fun CartScreen(
         }
     }
 }
-
-

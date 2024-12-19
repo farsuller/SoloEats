@@ -35,7 +35,7 @@ fun HomeMenusCard(
     ElevatedCard(
         modifier = Modifier
             .padding(horizontal = 5.dp)
-            .size(100.dp)
+            .size(80.dp)
             .clickableWithoutRipple(
                 onClick = { onClick(menus.menuName) },
             ),

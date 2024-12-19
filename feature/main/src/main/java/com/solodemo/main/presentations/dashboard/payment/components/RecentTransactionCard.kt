@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.solo.components.Elevation
 import com.solo.components.clickableWithoutRipple
+import com.solo.components.formatToCurrency
 import com.solodemo.main.model.Featured
 
 @Composable
@@ -69,7 +70,7 @@ fun RecentTransactionCard(modifier: Modifier = Modifier) {
 
                     Text(
                         modifier = Modifier.weight(0.2F),
-                        text = recent.price,
+                        text = formatToCurrency(recent.price.toDouble()),
                         fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                         fontSize = 16.sp,
                         textAlign = TextAlign.End,

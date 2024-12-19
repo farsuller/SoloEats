@@ -14,8 +14,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.solo.components.R
 import com.solo.components.formatToCurrency
 import com.solodemo.main.presentations.dashboard.cart.CartState
 
@@ -36,7 +38,7 @@ fun TotalAndPlaceOrderButtonHolder(
         ) {
             Text(
                 modifier = Modifier.padding(5.dp),
-                text = "Total",
+                text = stringResource(R.string.total),
                 fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
                 fontSize = 16.sp,
             )
@@ -58,7 +60,7 @@ fun TotalAndPlaceOrderButtonHolder(
 
         ) {
             Text(
-                text = "Checkout",
+                text = stringResource(R.string.checkout),
                 fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 color = MaterialTheme.colorScheme.surface,

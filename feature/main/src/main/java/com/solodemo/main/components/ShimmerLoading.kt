@@ -20,10 +20,8 @@ import androidx.compose.ui.unit.dp
 import com.solo.components.component.shimmerEffect
 import com.solo.components.shapes.TicketShape
 
-
 @Composable
 fun CouponShimmerLoading() {
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -45,14 +43,14 @@ fun CouponShimmerLoading() {
 
         LazyRow(
             modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 10.dp)
+                .fillMaxWidth()
+                .padding(top = 10.dp),
         ) {
             items(5) {
                 Box(
                     modifier = Modifier
                         .padding(horizontal = 5.dp)
-                        .size(200.dp,100.dp)
+                        .size(200.dp, 100.dp)
                         .clip(TicketShape())
                         .shimmerEffect(),
                 )
@@ -62,16 +60,65 @@ fun CouponShimmerLoading() {
 }
 
 @Composable
+fun ReviewsShimmerLoading() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 10.dp),
+    ) {
+        Box(
+            modifier = Modifier
+                .padding(start = 10.dp)
+                .size(width = 100.dp, height = 20.dp)
+                .shimmerEffect(),
+        )
+
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 10.dp),
+        ) {
+            items(5) {
+                Box(
+                    modifier = Modifier
+                        .padding(horizontal = 5.dp)
+                        .size(200.dp, 100.dp)
+                        .clip(shape = RoundedCornerShape(5.dp))
+                        .shimmerEffect(),
+                )
+            }
+        }
+    }
+}
+
+@Composable
 fun MenuCircleShimmerLoading() {
-    LazyRow(modifier = Modifier.fillMaxWidth()) {
-        items(5) {
-            Box(
-                modifier = Modifier
-                    .padding(horizontal = 5.dp)
-                    .size(100.dp)
-                    .clip(CircleShape)
-                    .shimmerEffect(),
-            )
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 10.dp),
+    ) {
+        Box(
+            modifier = Modifier
+                .padding(start = 10.dp)
+                .size(width = 100.dp, height = 20.dp)
+                .shimmerEffect(),
+        )
+
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 10.dp),
+        ) {
+            items(5) {
+                Box(
+                    modifier = Modifier
+                        .padding(horizontal = 5.dp)
+                        .size(80.dp)
+                        .clip(CircleShape)
+                        .shimmerEffect(),
+                )
+            }
         }
     }
 }
@@ -86,7 +133,7 @@ fun HorizontalGridProductShimmerLoading() {
         Box(
             modifier = Modifier
                 .padding(start = 10.dp)
-                .size(width = 140.dp, height = 30.dp)
+                .size(width = 140.dp, height = 20.dp)
                 .shimmerEffect(),
         )
 
@@ -101,7 +148,7 @@ fun HorizontalGridProductShimmerLoading() {
                     modifier = Modifier
                         .padding(10.dp)
                         .size(width = 200.dp, height = 280.dp)
-                        .clip(shape = RoundedCornerShape(12.dp))
+                        .clip(shape = RoundedCornerShape(5.dp))
                         .shimmerEffect(),
                 )
             }
@@ -119,7 +166,7 @@ fun VerticalGridProductShimmerLoading() {
         Box(
             modifier = Modifier
                 .padding(start = 10.dp)
-                .size(width = 140.dp, height = 30.dp)
+                .size(width = 140.dp, height = 20.dp)
                 .shimmerEffect(),
         )
 
@@ -127,15 +174,15 @@ fun VerticalGridProductShimmerLoading() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 10.dp, end = 10.dp, top = 10.dp)
-                .height(height = 30.dp)
+                .height(height = 20.dp)
                 .shimmerEffect(),
         )
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 10.dp, end = 10.dp, top = 5.dp)
-                .height(height = 30.dp)
+                .padding(start = 10.dp, end = 10.dp, top = 10.dp)
+                .height(height = 20.dp)
                 .shimmerEffect(),
         )
 
@@ -151,7 +198,7 @@ fun VerticalGridProductShimmerLoading() {
                     modifier = Modifier
                         .padding(10.dp)
                         .size(width = 200.dp, height = 280.dp)
-                        .clip(shape = RoundedCornerShape(12.dp))
+                        .clip(shape = RoundedCornerShape(5.dp))
                         .shimmerEffect(),
                 )
             }
@@ -163,6 +210,12 @@ fun VerticalGridProductShimmerLoading() {
 @Composable
 fun CouponShimmerLoadingPreview() {
     CouponShimmerLoading()
+}
+
+@Preview
+@Composable
+fun ReviewsShimmerLoadingPreview() {
+    ReviewsShimmerLoading()
 }
 
 @Preview
