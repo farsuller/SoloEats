@@ -40,7 +40,7 @@ android {
         minSdk = ProjectConfig.MIN_SDK
         targetSdk = ProjectConfig.TARGET_SDK
         versionCode = 10
-        versionName = "1.2.0"
+        versionName = "2.0.0"
 
         if (isGenerateBuild) {
             versionCode = configVersionCode
