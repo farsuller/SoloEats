@@ -35,17 +35,14 @@ object AppModule {
             level = LogLevel.ALL
             logger = Logger.DEFAULT
         }
-
         install(ContentNegotiation) {
             json()
         }
-
         install(HttpTimeout) {
             requestTimeoutMillis = 20_000
             connectTimeoutMillis = 20_000
             socketTimeoutMillis = 20_000
         }
-
         defaultRequest {
             url(BuildConfig.BASE_URL)
         }
